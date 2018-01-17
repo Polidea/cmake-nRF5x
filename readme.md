@@ -53,18 +53,24 @@ Note: you can add `CXX` between `C ASM` to add c++ support
 	include("CMakeEnv.cmake")
 	```
 
-8. Perform the base setup
+8. Include this script so the "CMakeLists.txt" can use it
+
+	```cmake
+	include("CMake_nRF5x.cmake")
+	```
+
+9. Perform the base setup
 
 	```cmake
 	nRF5x_setup()
 	```
 	
-9. Optionally add additional libraries:
+10. Optionally add additional libraries:
 
 	```cmake
 	nRF5x_addAppFIFO()
 	```
-Note: only the most common drivers and libraries are wrapped with cmake macros. If you need more, you can use `include_directories` and `list(APPEND SDK_SOURCE_FILES ...)` to add them. For example, in order to add the Bluetooth Battery Service:
+	Note: only the most common drivers and libraries are wrapped with cmake macros. If you need more, you can use `include_directories` and `list(APPEND SDK_SOURCE_FILES ...)` to add them. For example, in order to add the Bluetooth Battery Service:
 
 	```cmake
 	include_directories(
@@ -76,14 +82,14 @@ Note: only the most common drivers and libraries are wrapped with cmake macros. 
 	        )
 	```
 	
-10. Append you source files using `list(APPEND SOURCE_FILES ...)` and headers using `include_directories`. For example:
+11. Append you source files using `list(APPEND SOURCE_FILES ...)` and headers using `include_directories`. For example:
 
 	```cmake
 	include_directories(".")
 	list(APPEND SOURCE_FILES "main.c")
 	```
 
-11. Finish setup by calling `nRF5x_addExecutable`
+12. Finish setup by calling `nRF5x_addExecutable`
 
 	```cmake
 	nRF5x_addExecutable(${PROJECT_NAME} "${SOURCE_FILES}")
