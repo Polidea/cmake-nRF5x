@@ -31,7 +31,7 @@ The script makes use of the following tools:
 	cmake_minimum_required(VERSION 3.6)
 	project(your_project_name C ASM)
 	```
-Note: you can add `CXX` between `C ASM` to add c++ support
+	_Note_: you can add `CXX` between `C ASM` to add c++ support
 	
 6. Set your target chip family: `nRF51` or `nRF52`
 
@@ -47,24 +47,30 @@ Note: you can add `CXX` between `C ASM` to add c++ support
 	set(NRFJPROG "/Users/example/toolchains/nRF5/nrfjprog/nrfjprog")
 	```
 	
-	Optional: You can put the above lines into a separate file (e.g. `CmakeEnv.cmake`) and include it in the `CMakeLists.txt` file:
+	_Optional_: You can put the above lines into a separate file (e.g. `CmakeEnv.cmake`) and include it in the `CMakeLists.txt` file:
 
 	```cmake 
 	include("CMakeEnv.cmake")
 	```
 
-8. Perform the base setup
+8. Include this script so the "CMakeLists.txt" can use it
+
+	```cmake
+	include("CMake_nRF5x.cmake")
+	```
+
+9. Perform the base setup
 
 	```cmake
 	nRF5x_setup()
 	```
 	
-9. Optionally add additional libraries:
+10. Optionally add additional libraries:
 
 	```cmake
 	nRF5x_addAppFIFO()
 	```
-Note: only the most common drivers and libraries are wrapped with cmake macros. If you need more, you can use `include_directories` and `list(APPEND SDK_SOURCE_FILES ...)` to add them. For example, in order to add the Bluetooth Battery Service:
+	_Note_: only the most common drivers and libraries are wrapped with cmake macros. If you need more, you can use `include_directories` and `list(APPEND SDK_SOURCE_FILES ...)` to add them. For example, in order to add the Bluetooth Battery Service:
 
 	```cmake
 	include_directories(
@@ -76,14 +82,14 @@ Note: only the most common drivers and libraries are wrapped with cmake macros. 
 	        )
 	```
 	
-10. Append you source files using `list(APPEND SOURCE_FILES ...)` and headers using `include_directories`. For example:
+11. Append you source files using `list(APPEND SOURCE_FILES ...)` and headers using `include_directories`. For example:
 
 	```cmake
 	include_directories(".")
 	list(APPEND SOURCE_FILES "main.c")
 	```
 
-11. Finish setup by calling `nRF5x_addExecutable`
+12. Finish setup by calling `nRF5x_addExecutable`
 
 	```cmake
 	nRF5x_addExecutable(${PROJECT_NAME} "${SOURCE_FILES}")
