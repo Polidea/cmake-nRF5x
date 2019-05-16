@@ -15,85 +15,71 @@ The script makes use of the following tools:
 
 1. Place the CMake_nRF5x.cmake into the root of your project
 
-2. Search the SDK `example` directory for a `sdk_config.h` and a linker script (normally named `<project_name>_gcc_<chip familly>.ld`) that fits your chip and project needs.
+1. Search the SDK `example` directory for a `sdk_config.h`, `main.c` and a linker script (normally named `<project_name>_gcc_<chip familly>.ld`) that fits your chip and project needs.
 
-3. Copy the `sdk_config.h` into the root of your project. Modify it as required for you project.
+1. Copy the `sdk_config.h` and the project `main.c` into a new directory `src`. Modify them as required for your project.
 
-4. Copy the linker script into the root of your project. Rename it to just `gcc_<chip familly>.ld` For example:
+1. Copy the linker script into the root of your project. Rename it to just `gcc_<chip familly>.ld` For example:
 	
 	```
 	gcc_nrf51.ld
 	gcc_nrf52.ld
 	```
-5. Create a new `CMakeLists.txt` file at the same level. Add the project standard cmake project header
+1. Create a new `CMakeLists.txt` file at the same level. Add the project standard cmake project header
 
-	```cmake
-	cmake_minimum_required(VERSION 3.6)
-	project(your_project_name C ASM)
-	```
+A typical file may look like this:
+
+```
+cmake_minimum_required(VERSION 3.6)
+project(YourProjectName C ASM)
+
+set(NRF_TARGET "nrf52")
+
+set(ARM_NONE_EABI_TOOLCHAIN_PATH "/usr/local")
+set(NRF5_SDK_PATH "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nRF5_SDK")
+set(NRFJPROG "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nrfjprog/nrfjprog")
+
+include("./cmake-nRF5x/CMake_nRF5x.cmake")
+
+nRF5x_setup()
+
+nRF5x_addAppScheduler()
+nRF5x_addAppFIFO()
+nRF5x_addAppTimer()
+nRF5x_addAppUART()
+nRF5x_addAppButton()
+nRF5x_addBSP(TRUE FALSE FALSE)
+nRF5x_addBLEGATT()
+
+
+nRF5x_addBLEService("ble_nus")
+
+add_definitions(-DCONFIG_GPIO_AS_PINRESET)
+		
+include_directories("./src")
+list(APPEND SOURCE_FILES "./src/main.c")
+
+nRF5x_addExecutable(${PROJECT_NAME} "${SOURCE_FILES}")
+```
+
+Adjust as needed for your project.
+
 	_Note_: you can add `CXX` between `C ASM` to add c++ support
 	
-6. Set your target chip family: `nRF51` or `nRF52`
+1. Optionally add additional libraries:
 
-	```cmake
-	set(NRF_TARGET "nrf51") 
-	```
-
-7. Set variables with paths to external dependencies:
-
-	```cmake
-	set(ARM_NONE_EABI_TOOLCHAIN_PATH "/Users/example/toolchains/gcc-arm-none-eabi-6_2")
-	set(NRF5_SDK_PATH "/Users/example/toolchains/nRF5/nRF5_SDK_12.2.0")
-	set(NRFJPROG "/Users/example/toolchains/nRF5/nrfjprog/nrfjprog")
-	```
-	
-	_Optional_: You can put the above lines into a separate file (e.g. `CmakeEnv.cmake`) and include it in the `CMakeLists.txt` file:
-
-	```cmake 
-	include("CMakeEnv.cmake")
-	```
-
-8. Include this script so the "CMakeLists.txt" can use it
-
-	```cmake
-	include("CMake_nRF5x.cmake")
-	```
-
-9. Perform the base setup
-
-	```cmake
-	nRF5x_setup()
-	```
-	
-10. Optionally add additional libraries:
-
-	```cmake
-	nRF5x_addAppFIFO()
-	```
 	_Note_: only the most common drivers and libraries are wrapped with cmake macros. If you need more, you can use `include_directories` and `list(APPEND SDK_SOURCE_FILES ...)` to add them. For example, in order to add the Bluetooth Battery Service:
 
 	```cmake
 	include_directories(
-	        "${NRF5_SDK_PATH}/components/ble/ble_services/ble_bas"
+	        "${NRF5_SDK_PATH}/<library header directory path>"
 	)
 		
 	list(APPEND SDK_SOURCE_FILES
-	        "${NRF5_SDK_PATH}/components/ble/ble_services/ble_bas/ble_bas.c"
+	        "${NRF5_SDK_PATH}/<library source file path>"
 	        )
 	```
 	
-11. Append you source files using `list(APPEND SOURCE_FILES ...)` and headers using `include_directories`. For example:
-
-	```cmake
-	include_directories(".")
-	list(APPEND SOURCE_FILES "main.c")
-	```
-
-12. Finish setup by calling `nRF5x_addExecutable`
-
-	```cmake
-	nRF5x_addExecutable(${PROJECT_NAME} "${SOURCE_FILES}")
-	```
 
 # Build
 
@@ -121,7 +107,7 @@ In addition to the build target (named like your project) the script adds some s
 cmake --build "cmake-build" --target FLASH_SOFTDEVICE
 ```
 
-`FLASH_<your project name>` To flash your application (typically done after you change and build your app)
+`FLASH_<your project name>` To flash your application (this will also rebuild your App first)
 
 ```commandline
 cmake --build "cmake-build" --target FLASH_<your project name>
@@ -131,6 +117,14 @@ cmake --build "cmake-build" --target FLASH_<your project name>
 
 ```commandline
 cmake --build "cmake-build" --target FLASH_ERASE
+```
+
+# JLink Applications
+
+To start the gdb server and RTT terminal, build the target START_JLINK:
+
+```commandline
+cmake --build "cmake-build" --target START_JLINK
 ```
 
 # License
