@@ -64,7 +64,7 @@ nRF5x_addExecutable(${PROJECT_NAME} "${SOURCE_FILES}")
 
 Adjust as needed for your project.
 
-	_Note_: you can add `CXX` between `C ASM` to add c++ support
+_Note_: you can add `CXX` between `C ASM` to add c++ support
 	
 1. Optionally add additional libraries:
 
@@ -121,7 +121,7 @@ cmake --build "cmake-build" --target FLASH_ERASE
 
 # JLink Applications
 
-To start the gdb server and RTT terminal, build the target START_JLINK:
+To start the gdb server and RTT terminal, build the target `START_JLINK`:
 
 ```commandline
 cmake --build "cmake-build" --target START_JLINK
