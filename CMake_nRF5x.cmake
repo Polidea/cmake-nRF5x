@@ -277,11 +277,10 @@ macro(nRF5x_setup)
     endif()
 
     add_custom_target(START_JLINK ALL
-            COMMAND ${TERMINAL} "${DIR_OF_nRF5x_CMAKE}/runJLinkExe"
+            COMMAND ${TERMINAL} "${DIR_OF_nRF5x_CMAKE}/runJLinkGDBServer-${NRF_TARGET}"
+            COMMAND ${TERMINAL} "${DIR_OF_nRF5x_CMAKE}/runJLinkExe-${NRF_TARGET}"
             COMMAND sleep 2s
             COMMAND ${TERMINAL} "${DIR_OF_nRF5x_CMAKE}/runJLinkRTTClient"
-            COMMAND sleep 2s
-            COMMAND ${TERMINAL} "${DIR_OF_nRF5x_CMAKE}/runJLinkGDBServer"
             COMMENT "started JLink commands"
             )
 
