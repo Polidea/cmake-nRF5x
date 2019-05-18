@@ -27,48 +27,54 @@ The script makes use of the following tools:
 	```
 1. Create a new `CMakeLists.txt` file at the same level. Add the project standard cmake project header
 
-A typical file may look like this:
+	A typical file may look like this:
 
-```
-cmake_minimum_required(VERSION 3.6)
-project(YourProjectName C ASM)
+	```
+	cmake_minimum_required(VERSION 3.6)
 
-set(NRF_TARGET "nrf52")
+	set(NRF_TARGET "nrf52")
 
-set(ARM_NONE_EABI_TOOLCHAIN_PATH "/usr/local")
-set(NRF5_SDK_PATH "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nRF5_SDK")
-set(NRFJPROG "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nrfjprog/nrfjprog")
+	set(ARM_NONE_EABI_TOOLCHAIN_PATH "/usr/local/bin")
+	set(NRF5_SDK_PATH "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nRF5_SDK")
+	set(NRFJPROG "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nrfjprog/nrfjprog")
 
-include("./cmake-nRF5x/CMake_nRF5x.cmake")
+	include("./cmake-nRF5x/CMake_nRF5x.cmake")
 
-nRF5x_setup()
+	nRF5x_setup()
 
-nRF5x_addAppScheduler()
-nRF5x_addAppFIFO()
-nRF5x_addAppTimer()
-nRF5x_addAppUART()
-nRF5x_addAppButton()
-nRF5x_addBSP(TRUE FALSE FALSE)
-nRF5x_addBLEGATT()
+	# project (and any add_subdirectory where a project is defined) must come after setup or compiler tests will fail as compiler tests are run on first project call
+	project(YourProjectName C ASM)
+
+	nRF5x_addAppScheduler()
+	nRF5x_addAppFIFO()
+	nRF5x_addAppTimer()
+	nRF5x_addAppUART()
+	nRF5x_addAppButton()
+	nRF5x_addBSP(TRUE FALSE FALSE)
+	nRF5x_addBLEGATT()
 
 
-nRF5x_addBLEService("ble_nus")
+	nRF5x_addBLEService(ble_bas)
 
-add_definitions(-DCONFIG_GPIO_AS_PINRESET)
-		
-include_directories("./src")
-list(APPEND SOURCE_FILES "./src/main.c")
+	add_definitions(-DCONFIG_GPIO_AS_PINRESET)
+			
+	include_directories("./src")
+	list(APPEND SOURCE_FILES "./src/main.c")
 
-nRF5x_addExecutable(${PROJECT_NAME} "${SOURCE_FILES}")
-```
+	nRF5x_addExecutable(${PROJECT_NAME} "${SOURCE_FILES}")
+	```
 
-Adjust as needed for your project.
+	Adjust as needed for your project.
 
-_Note_: you can add `CXX` between `C ASM` to add c++ support
+	_Note_: you can add `CXX` between `C ASM` to add c++ support
 	
 1. Optionally add additional libraries:
 
-	_Note_: only the most common drivers and libraries are wrapped with cmake macros. If you need more, you can use `include_directories` and `list(APPEND SDK_SOURCE_FILES ...)` to add them. For example, in order to add the Bluetooth Battery Service:
+	Only the most common drivers and libraries are wrapped with cmake macros.
+
+	To include BLE services, use `nRF5x_addBLEService(<service name>)`.
+
+	For other SDK libraries you can use `include_directories` and `list(APPEND SDK_SOURCE_FILES ...)` to add them. For example:
 
 	```cmake
 	include_directories(
