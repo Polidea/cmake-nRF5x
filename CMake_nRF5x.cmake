@@ -296,9 +296,9 @@ macro(nRF5x_addExecutable EXECUTABLE_NAME SOURCE_FILES)
     # additional POST BUILD setps to create the .bin and .hex files
     add_custom_command(TARGET ${EXECUTABLE_NAME}
             POST_BUILD
-            COMMAND ${ARM_NONE_EABI_TOOLCHAIN_PATH}/bin/arm-none-eabi-size ${EXECUTABLE_NAME}.out
-            COMMAND ${ARM_NONE_EABI_TOOLCHAIN_PATH}/bin/arm-none-eabi-objcopy -O binary ${EXECUTABLE_NAME}.out "${EXECUTABLE_NAME}.bin"
-            COMMAND ${ARM_NONE_EABI_TOOLCHAIN_PATH}/bin/arm-none-eabi-objcopy -O ihex ${EXECUTABLE_NAME}.out "${EXECUTABLE_NAME}.hex"
+            COMMAND ${ARM_NONE_EABI_TOOLCHAIN_PATH}/arm-none-eabi-size ${EXECUTABLE_NAME}.out
+            COMMAND ${ARM_NONE_EABI_TOOLCHAIN_PATH}/arm-none-eabi-objcopy -O binary ${EXECUTABLE_NAME}.out "${EXECUTABLE_NAME}.bin"
+            COMMAND ${ARM_NONE_EABI_TOOLCHAIN_PATH}/arm-none-eabi-objcopy -O ihex ${EXECUTABLE_NAME}.out "${EXECUTABLE_NAME}.hex"
             COMMENT "post build steps for ${EXECUTABLE_NAME}")
 
     # custom target for flashing the board
