@@ -24,9 +24,12 @@ else ()
     message(FATAL_ERROR "Only nRF51 and rRF52 boards are supported right now")
 endif ()
 
+# must be set in file (not macro) scope (in macro would point to parent CMake directory)
 set(DIR_OF_nRF5x_CMAKE ${CMAKE_CURRENT_LIST_DIR}) 
 
 macro(nRF5x_setup)
+    include(${DIR_OF_nRF5x_CMAKE}/arm-gcc-toolchain.cmake)
+
     # fix on macOS: prevent cmake from adding implicit parameters to Xcode
     set(CMAKE_OSX_SYSROOT "/")
     set(CMAKE_OSX_DEPLOYMENT_TARGET "")
@@ -34,11 +37,6 @@ macro(nRF5x_setup)
     # language standard/version settings
     set(CMAKE_C_STANDARD 99)
     set(CMAKE_CXX_STANDARD 98)
-
-    # configure cmake to use the arm-none-eabi-gcc
-    set(CMAKE_C_COMPILER "${ARM_NONE_EABI_TOOLCHAIN_PATH}/bin/arm-none-eabi-gcc")
-    set(CMAKE_CXX_COMPILER "${ARM_NONE_EABI_TOOLCHAIN_PATH}/bin/arm-none-eabi-c++")
-    set(CMAKE_ASM_COMPILER "${ARM_NONE_EABI_TOOLCHAIN_PATH}/bin/arm-none-eabi-gcc")
 
     # CPU specyfic settings
     if (NRF_TARGET MATCHES "nrf51")
