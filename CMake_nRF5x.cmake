@@ -271,9 +271,9 @@ macro(nRF5x_setup)
             COMMENT "erasing flashing"
             )
 
-    if(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
+    if(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Darwin")
         set(TERMINAL "open")
-    elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+    elseif(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
         set(TERMINAL "sh")
     else()
         set(TERMINAL "gnome-terminal")
