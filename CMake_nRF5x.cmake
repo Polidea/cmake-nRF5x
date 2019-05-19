@@ -25,11 +25,13 @@ else ()
 endif ()
 
 # must be set in file (not macro) scope (in macro would point to parent CMake directory)
-set(DIR_OF_nRF5x_CMAKE ${CMAKE_CURRENT_LIST_DIR}) 
+set(DIR_OF_nRF5x_CMAKE ${CMAKE_CURRENT_LIST_DIR})
+
+macro(nRF5x_toolchainSetup)
+    include(${DIR_OF_nRF5x_CMAKE}/arm-gcc-toolchain.cmake)
+endmacro()
 
 macro(nRF5x_setup)
-    include(${DIR_OF_nRF5x_CMAKE}/arm-gcc-toolchain.cmake)
-
     # fix on macOS: prevent cmake from adding implicit parameters to Xcode
     set(CMAKE_OSX_SYSROOT "/")
     set(CMAKE_OSX_DEPLOYMENT_TARGET "")
