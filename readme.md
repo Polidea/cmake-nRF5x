@@ -13,7 +13,7 @@ The script makes use of the following tools:
 
 # Setup
 
-1. Place the CMake_nRF5x.cmake into the root of your project
+1. Download this repo (or add as submodule) to the directory `cmake-nRF5x` in your project
 
 1. Search the SDK `example` directory for a `sdk_config.h`, `main.c` and a linker script (normally named `<project_name>_gcc_<chip familly>.ld`) that fits your chip and project needs.
 
@@ -25,6 +25,7 @@ The script makes use of the following tools:
 	gcc_nrf51.ld
 	gcc_nrf52.ld
 	```
+
 1. Create a new `CMakeLists.txt` file at the same level. Add the project standard cmake project header
 
 	A typical file may look like this:
@@ -33,17 +34,23 @@ The script makes use of the following tools:
 	cmake_minimum_required(VERSION 3.6)
 
 	set(NRF_TARGET "nrf52")
-
-	set(ARM_NONE_EABI_TOOLCHAIN_PATH "/usr/local/bin")
+	
+	# optional, won't be used if passing toolchain on command line (see below)
+	if (NOT DEFINED ARM_NONE_EABI_TOOLCHAIN_PATH)
+		set(ARM_NONE_EABI_TOOLCHAIN_PATH "/usr/local/bin")
+	endif ()
+	
 	set(NRF5_SDK_PATH "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nRF5_SDK")
 	set(NRFJPROG "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nrfjprog/nrfjprog")
 
-	include("./cmake-nRF5x/CMake_nRF5x.cmake")
+	include("cmake-nRF5x/CMake_nRF5x.cmake)
 
-	nRF5x_setup()
+	# must be called before first project call or add_subdirectory unless passing on command line
+	nRF5x_toolchainSetup()
 
-	# project (and any add_subdirectory where a project is defined) must come after setup or compiler tests will fail as compiler tests are run on first project call
 	project(YourProjectName C ASM)
+	
+	nRF5x_setup()
 
 	nRF5x_addAppScheduler()
 	nRF5x_addAppFIFO()
@@ -83,7 +90,7 @@ The script makes use of the following tools:
 		
 	list(APPEND SDK_SOURCE_FILES
 	        "${NRF5_SDK_PATH}/<library source file path>"
-	        )
+	)
 	```
 	
 
@@ -96,6 +103,11 @@ After setup you can use cmake as usual:
 	```commandline
 	cmake -H. -B"cmake-build" -G "Unix Makefiles"
 	```
+	You can optionally pass the toolchain to `cmake` when configuring:
+    ```
+    -DCMAKE_TOOLCHAIN_PATH=cmake-nRF5x/arm-gcc-toolchain.cmake
+    ```
+    but if you do so you must ensure the toolchain binaries are available in your environment PATH (i.e. work on the command line without specifying absolute path)
 
 2. Build your app:
 
