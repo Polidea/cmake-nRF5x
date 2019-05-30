@@ -459,8 +459,10 @@ macro(nRF5x_addAppFDS)
 
     list(APPEND SDK_SOURCE_FILES
             "${NRF5_SDK_PATH}/components/libraries/fds/fds.c"
-            "${NRF5_SDK_PATH}/components/libraries/fstorage/fstorage.c"
-            )
+            "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage.c"
+            "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage_sd.c"
+            "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage_nvmc.c"
+    )
 
 endmacro(nRF5x_addAppFDS)
 
