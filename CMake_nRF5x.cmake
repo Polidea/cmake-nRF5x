@@ -433,19 +433,20 @@ macro(nRF5x_addBLEPeerManager)
     )
 
     list(APPEND SDK_SOURCE_FILES
+            "${NRF5_SDK_PATH}/components/ble/peer_manager/auth_status_tracker.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/gatt_cache_manager.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/gatts_cache_manager.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/id_manager.c"
-            "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_data.c"
+            "${NRF5_SDK_PATH}/components/ble/peer_manager/nrf_ble_lesc.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_data_storage.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_database.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_id.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_manager.c"
+            "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_manager_handler.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/pm_buffer.c"
-            "${NRF5_SDK_PATH}/components/ble/peer_manager/pm_mutex.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/security_dispatcher.c"
             "${NRF5_SDK_PATH}/components/ble/peer_manager/security_manager.c"
-            )
+    )
 
 endmacro(nRF5x_addBLEPeerManager)
 
