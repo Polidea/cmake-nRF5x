@@ -28,6 +28,9 @@ macro(nRF5x_toolchainSetup)
 endmacro()
 
 macro(nRF5x_setup)
+    if(NOT DEFINED ARM_GCC_TOOLCHAIN)
+        message(FATAL_ERROR "The toolchain must be set up before calling this macro")
+    endif()
     # fix on macOS: prevent cmake from adding implicit parameters to Xcode
     set(CMAKE_OSX_SYSROOT "/")
     set(CMAKE_OSX_DEPLOYMENT_TARGET "")
