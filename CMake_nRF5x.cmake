@@ -9,6 +9,11 @@ if (NOT NRFJPROG)
     message(FATAL_ERROR "The path to the nrfjprog utility (NRFJPROG) must be set.")
 endif ()
 
+# convert toolchain path to bin path
+if(DEFINED ARM_NONE_EABI_TOOLCHAIN_PATH)
+    set(ARM_NONE_EABI_TOOLCHAIN_BIN_PATH ${ARM_NONE_EABI_TOOLCHAIN_PATH}/bin)
+endif()
+
 # check if the nRF target has been set
 if (NRF_TARGET MATCHES "nrf51")
 
