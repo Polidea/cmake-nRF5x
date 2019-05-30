@@ -43,7 +43,7 @@ The script makes use of the following tools:
 	set(NRF5_SDK_PATH "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nRF5_SDK")
 	set(NRFJPROG "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nrfjprog/nrfjprog")
 
-	include("cmake-nRF5x/CMake_nRF5x.cmake)
+	include("cmake-nRF5x/CMake_nRF5x.cmake")
 
 	# must be called before first project call or add_subdirectory unless passing on command line
 	nRF5x_toolchainSetup()
