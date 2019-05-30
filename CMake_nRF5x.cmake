@@ -245,7 +245,7 @@ macro(nRF5x_setup)
             "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager"
             "${NRF5_SDK_PATH}/components/ble/ble_racp"
             "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr"
-            "${NRF5_SDK_PATH}/components/ble/ble/peer_manager"
+            "${NRF5_SDK_PATH}/components/ble/peer_manager"
     )
 
     list(APPEND SDK_SOURCE_FILES
