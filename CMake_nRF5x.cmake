@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
-# check if all the necessary toolchain SDK and tools paths have been provided.
-if (NOT ARM_NONE_EABI_TOOLCHAIN_PATH)
-    message(FATAL_ERROR "The path to the arm-none-eabi-gcc toolchain (ARM_NONE_EABI_TOOLCHAIN_PATH) must be set.")
-endif ()
-
+# check if all the necessary tools paths have been provided.
 if (NOT NRF5_SDK_PATH)
     message(FATAL_ERROR "The path to the nRF5 SDK (NRF5_SDK_PATH) must be set.")
 endif ()
