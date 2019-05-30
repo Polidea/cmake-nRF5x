@@ -197,7 +197,6 @@ macro(nRF5x_setup)
             "${NRF5_SDK_PATH}/components/libraries/util/app_error_weak.c"
             "${NRF5_SDK_PATH}/components/libraries/util/app_error_handler_gcc.c"
             "${NRF5_SDK_PATH}/components/libraries/util/app_util_platform.c"
-            "${NRF5_SDK_PATH}/components/libraries/util/app_util_platform.c"
             "${NRF5_SDK_PATH}/components/libraries/util/sdk_mapped_flags.c"
             "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_flash.c"
             "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_rtt.c"
