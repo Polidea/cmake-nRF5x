@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(BlinkyExample C ASM)
+project(BlinkyExample C)
 
 # define some variables just for this example to determine file locations
 set(NRF_PROJECT_NAME ble_app_blinky)
-set(NRF_BOARD pca10040)
-set(NRF_SOFTDEVICE s132)
+set(NRF_BOARD pca10056)
+set(NRF_SOFTDEVICE S132)
+set(NRF_SOFTDEVICE_PATH "${NRF5_SDK_PATH}/components/softdevice/s132/hex/s132_nrf52_6.1.1_softdevice.hex")
+#set(CRYPTOCELL CC310)
 
 # define some convenience variables to point to example project directories
 set(NRF_PROJECT_PATH ${NRF5_SDK_PATH}/examples/ble_peripheral/${NRF_PROJECT_NAME})
@@ -16,6 +18,8 @@ set(NRF5_LINKER_SCRIPT ${NRF_PROJECT_DEVICE_PATH}/armgcc/${NRF_PROJECT_NAME}_gcc
 
 nRF5x_setup()
 
+nRF5x_addSdkExternal()
+nRF5x_addSdkExternalBLE()
 nRF5x_addAppScheduler()
 nRF5x_addAppFIFO()
 nRF5x_addAppTimer()
@@ -25,6 +29,9 @@ nRF5x_addBSP(TRUE FALSE FALSE)
 nRF5x_addBLEGATT()
 
 nRF5x_addBLEService(ble_lbs)
+
+# Legacy symbols for linker
+nRF5x_addSdkLegacy()
 
 add_definitions(-DCONFIG_GPIO_AS_PINRESET)
 

@@ -20,10 +20,14 @@ if (NRF_TARGET MATCHES "nrf51")
 elseif (NRF_TARGET MATCHES "nrf52")
 
 elseif (NOT NRF_TARGET)
-    message(FATAL_ERROR "nRF target must be defined")
+    message(FATAL_ERROR "NRF_TARGET must be defined")
 else ()
-    message(FATAL_ERROR "Only nRF51 and rRF52 boards are supported right now")
+    message(FATAL_ERROR "NRF_TARGET: only nRF51 and rRF52 boards are supported right now")
 endif ()
+
+if(NOT DEFINED NRF_SOFTDEVICE)
+    message(FATAL_ERROR "NRF_SOFTDEVICE must be defined")
+endif()
 
 # must be set in file (not macro) scope (in macro would point to parent CMake directory)
 set(DIR_OF_nRF5x_CMAKE ${CMAKE_CURRENT_LIST_DIR})
@@ -50,27 +54,53 @@ macro(nRF5x_setup)
         if(NOT DEFINED NRF5_LINKER_SCRIPT)
             set(NRF5_LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/gcc_nrf51.ld")
         endif()
-        set(CPU_FLAGS "-mcpu=cortex-m0 -mfloat-abi=soft")
+        set(CPU_FLAGS "-mcpu=cortex-m0 -g3 -mfloat-abi=soft -MP -MD -mthumb -mabi=aapcs -Wall -g3 -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin --short-enums")
         add_definitions(-DBOARD_PCA10028 -DNRF51 -DNRF51422)
-        add_definitions(-DSOFTDEVICE_PRESENT -DS130 -DNRF_SD_BLE_API_VERSION=2 -DSWI_DISABLE0 -DBLE_STACK_SUPPORT_REQD)
-        include_directories(
-                "${NRF5_SDK_PATH}/components/softdevice/s130/headers"
-                "${NRF5_SDK_PATH}/components/softdevice/s130/headers/nrf51"
-        )
+        if(DEFINED NRF_SOFTDEVICE_PATH AND DEFINED NRF_SOFTDEVICE)
+            add_definitions(-DSOFTDEVICE_PRESENT -D${NRF_SOFTDEVICE} -DNRF_SD_BLE_API_VERSION=2 -DSWI_DISABLE0 -DBLE_STACK_SUPPORT_REQD)
+            include_directories(
+                    "${NRF5_SDK_PATH}/components/softdevice/${NRF_SOFTDEVICE}/headers"
+                    "${NRF5_SDK_PATH}/components/softdevice/${NRF_SOFTDEVICE}/headers/nrf51"
+            )
+        endif()
         list(APPEND SDK_SOURCE_FILES
                 "${NRF5_SDK_PATH}/modules/nrfx/mdk/system_nrf51.c"
                 "${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_nrf51.S"
                 )
-        set(SOFTDEVICE_PATH "${NRF5_SDK_PATH}/components/softdevice/s130/hex/s130_nrf51_2.0.0_softdevice.hex")
+        if(NOT CPU_FLAGS)
+            message(FATAL_ERROR "Please define NRF_BOARD with one of [pca10028]")
+        endif()
     elseif (NRF_TARGET MATCHES "nrf52")
-        # nRF52 (nRF52-DK => PCA10040)
-
         if(NOT DEFINED NRF5_LINKER_SCRIPT)
             set(NRF5_LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/gcc_nrf52.ld")
         endif()
-        set(CPU_FLAGS "-mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16")
-        add_definitions(-DNRF52 -DNRF52832 -DNRF52832_XXAA -DNRF52_PAN_74 -DNRF52_PAN_64 -DNRF52_PAN_12 -DNRF52_PAN_58 -DNRF52_PAN_54 -DNRF52_PAN_31 -DNRF52_PAN_51 -DNRF52_PAN_36 -DNRF52_PAN_15 -DNRF52_PAN_20 -DNRF52_PAN_55 -DBOARD_PCA10040)
-        add_definitions(-DSOFTDEVICE_PRESENT -DS132 -DSWI_DISABLE0 -DBLE_STACK_SUPPORT_REQD -DNRF_SD_BLE_API_VERSION=6)
+        if(NRF_BOARD MATCHES "pca10040")
+            set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
+            add_definitions(-DBOARD_PCA10040 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DFLOAT_ABI_HARD -DNRF52 -DNRF52832_XXAA -DNRF52_PAN_74)
+            add_definitions(-D__HEAP_SIZE=8192 -D__STACK_SIZE=8192)
+        elseif(NRF_BOARD MATCHES "pca10040e")
+            set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=soft -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
+            add_definitions(-DBOARD_PCA10040 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DDEVELOP_IN_NRF52832 -DFLOAT_ABI_SOFT -DNRF52810_XXAA -DNRF52_PAN_74 -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3 )
+            add_definitions(-D__HEAP_SIZE=2048 -D__STACK_SIZE=2048)
+        elseif(NRF_BOARD MATCHES "pca10056")
+            set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
+            add_definitions(-DBOARD_PCA10056 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DFLOAT_ABI_HARD -DNRF52840_XXAA)
+            add_definitions(-D__HEAP_SIZE=8192 -D__STACK_SIZE=8192)
+            if(DEFINED CRYPTOCELL)
+                add_definitions(-DDEBUG -DDEBUG_NRF -DDX_CC_TEE -DECC_INTEGTEST -DNRF_SDK_PRESENT)
+            endif()
+        elseif(NRF_BOARD MATCHES "pca10056e")
+            set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=soft -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
+            add_definitions(-DBOARD_PCA10056 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DDEVELOP_IN_NRF52840 -DFLOAT_ABI_SOFT -DNRF52811_XXAA -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3)
+            add_definitions(-D__HEAP_SIZE=2048 -D__STACK_SIZE=2048)
+        elseif(NRF_BOARD MATCHES "pca10059")
+            set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
+            add_definitions(-DBOARD_PCA10059 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DFLOAT_ABI_HARD -DMBR_PRESENT -DNRF52840_XXAA)
+            add_definitions(-D__HEAP_SIZE=8192 -D__STACK_SIZE=8192)
+        endif()
+        if(NOT CPU_FLAGS)
+            message(FATAL_ERROR "Please define NRF_BOARD with one of [pca10040, pca10056, pca10040e, pca10056e, pca10059]")
+        endif()
         include_directories(
                 "${NRF5_SDK_PATH}/components/softdevice/s132/headers"
                 "${NRF5_SDK_PATH}/components/softdevice/s132/headers/nrf52"
@@ -79,16 +109,16 @@ macro(nRF5x_setup)
                 "${NRF5_SDK_PATH}/modules/nrfx/mdk/system_nrf52.c"
                 "${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_nrf52.S"
                 )
-        set(SOFTDEVICE_PATH "${NRF5_SDK_PATH}/components/softdevice/s132/hex/s132_nrf52_6.1.1_softdevice.hex")
+        if(DEFINED NRF_SOFTDEVICE_PATH)
+            add_definitions(-DSOFTDEVICE_PRESENT -DS${NRF_SOFTDEVICE} -DSWI_DISABLE0 -DBLE_STACK_SUPPORT_REQD -DNRF_SD_BLE_API_VERSION=6)
+        endif()
     endif ()
 
-    set(COMMON_FLAGS "-MP -MD -mthumb -mabi=aapcs -Wall -g3 -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin --short-enums ${CPU_FLAGS}")
-
-    # compiler/assambler/linker flags
-    set(CMAKE_C_FLAGS "${COMMON_FLAGS}")
+# compiler/assambler/linker flags
+    set(CMAKE_C_FLAGS "${CPU_FLAGS}")
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O1")
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
-    set(CMAKE_CXX_FLAGS "${COMMON_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${CPU_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
     set(CMAKE_ASM_FLAGS "-MP -MD -std=c99 -x assembler-with-cpp")
@@ -114,8 +144,6 @@ macro(nRF5x_setup)
             "${NRF5_SDK_PATH}/components/boards/boards.c"
             "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh.c"
             "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_soc.c"
-            "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_clock.c"
-            "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_uart.c"
             "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_clock.c"
             "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_gpiote.c"
             "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_uart.c"
@@ -216,58 +244,9 @@ macro(nRF5x_setup)
             "${NRF5_SDK_PATH}/components/libraries/uart/retarget.c"
             )
 
-    # Segger RTT
-    include_directories(
-            "${NRF5_SDK_PATH}/external/segger_rtt/"
-    )
-
-    list(APPEND SDK_SOURCE_FILES
-            "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c"
-            "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT.c"
-            "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT_printf.c"
-            )
-
-
-    # Other external
-    include_directories(
-            "${NRF5_SDK_PATH}/external/fprintf/"
-            "${NRF5_SDK_PATH}/external/utf_converter/"
-    )
-
-    list(APPEND SDK_SOURCE_FILES
-            "${NRF5_SDK_PATH}/external/utf_converter/utf.c"
-            "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf.c"
-            "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf_format.c"
-            )
-
-
-    # Common Bluetooth Low Energy files
-    include_directories(
-            "${NRF5_SDK_PATH}/components/ble"
-            "${NRF5_SDK_PATH}/components/ble/common"
-            "${NRF5_SDK_PATH}/components/ble/ble_advertising"
-            "${NRF5_SDK_PATH}/components/ble/ble_dtm"
-            "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager"
-            "${NRF5_SDK_PATH}/components/ble/ble_racp"
-            "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr"
-            "${NRF5_SDK_PATH}/components/ble/peer_manager"
-    )
-
-    list(APPEND SDK_SOURCE_FILES
-            "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_ble.c"
-            "${NRF5_SDK_PATH}/components/ble/common/ble_advdata.c"
-            "${NRF5_SDK_PATH}/components/ble/common/ble_conn_params.c"
-            "${NRF5_SDK_PATH}/components/ble/common/ble_conn_state.c"
-            "${NRF5_SDK_PATH}/components/ble/common/ble_srv_common.c"
-            "${NRF5_SDK_PATH}/components/ble/ble_advertising/ble_advertising.c"
-            "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c"
-            "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/ble_nus.c"
-            "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr/nrf_ble_qwr.c"
-            )
-
     # adds target for erasing and flashing the board with a softdevice
     add_custom_target(FLASH_SOFTDEVICE ALL
-            COMMAND ${NRFJPROG} --program ${SOFTDEVICE_PATH} -f ${NRF_TARGET} --sectorerase
+            COMMAND ${NRFJPROG} --program ${NRF_SOFTDEVICE_PATH} -f ${NRF_TARGET} --sectorerase
             COMMAND sleep 0.5s
             COMMAND ${NRFJPROG} --reset -f ${NRF_TARGET}
             COMMENT "flashing SoftDevice"
@@ -321,6 +300,68 @@ macro(nRF5x_addExecutable EXECUTABLE_NAME SOURCE_FILES)
             )
 
 endmacro()
+
+# Legacy symbols for linker
+macro(nRF5x_addSdkLegacy)
+    list(APPEND SDK_SOURCE_FILES
+            "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_clock.c"
+            "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_uart.c"
+            )
+endmacro(nRF5x_addSdkLegacy)
+
+macro(nRF5x_addSdkExternal)
+    # Other external
+    include_directories(
+            "${NRF5_SDK_PATH}/external/fprintf/"
+            "${NRF5_SDK_PATH}/external/utf_converter/"
+    )
+
+    list(APPEND SDK_SOURCE_FILES
+            "${NRF5_SDK_PATH}/external/utf_converter/utf.c"
+            "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf.c"
+            "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf_format.c"
+            )
+endmacro(nRF5x_addSdkExternal)
+
+macro(nRF5x_addSdkSeggerRTT)
+    # Segger RTT
+    include_directories(
+            "${NRF5_SDK_PATH}/external/segger_rtt/"
+    )
+
+    list(APPEND SDK_SOURCE_FILES
+            "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c"
+            "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT.c"
+            "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT_printf.c"
+            )
+endmacro(nRF5x_addSdkSeggerRTT)
+
+macro(nRF5x_addSdkExternalBLE)
+    # Common Bluetooth Low Energy files
+    include_directories(
+            "${NRF5_SDK_PATH}/components/ble"
+            "${NRF5_SDK_PATH}/components/ble/common"
+            "${NRF5_SDK_PATH}/components/ble/ble_advertising"
+            "${NRF5_SDK_PATH}/components/ble/ble_dtm"
+            "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager"
+            "${NRF5_SDK_PATH}/components/ble/ble_racp"
+            "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr"
+            "${NRF5_SDK_PATH}/components/ble/peer_manager"
+    )
+
+    list(APPEND SDK_SOURCE_FILES
+            "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_ble.c"
+            "${NRF5_SDK_PATH}/components/ble/common/ble_advdata.c"
+            "${NRF5_SDK_PATH}/components/ble/common/ble_conn_params.c"
+            "${NRF5_SDK_PATH}/components/ble/common/ble_conn_state.c"
+            "${NRF5_SDK_PATH}/components/ble/common/ble_srv_common.c"
+            "${NRF5_SDK_PATH}/components/ble/ble_advertising/ble_advertising.c"
+            "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c"
+            "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/ble_nus.c"
+            "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr/nrf_ble_qwr.c"
+            )
+endmacro(nRF5x_addSdkExternalBLE)
+# End Paul
 
 # adds app-level scheduler library
 macro(nRF5x_addAppScheduler)
