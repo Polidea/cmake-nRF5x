@@ -2,6 +2,8 @@
 
 Cmake script for projects targeting Nordic Semiconductor nRF5x series devices using the GCC toolchain from ARM.
 
+Tested on `pca10056` and `pca10040` with Nordic SDK `15.3.0`.
+
 # Dependencies
 
 The script makes use of the following tools:
