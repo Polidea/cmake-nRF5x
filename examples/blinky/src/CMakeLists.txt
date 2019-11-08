@@ -5,15 +5,12 @@ project(BlinkyExample C ASM)
 # NRF SDK setup, required
 nRF5x_setup()
 
+# SDK Modules to import
 nRF5x_addAppScheduler()
 nRF5x_addAppFIFO()
 nRF5x_addAppTimer()
 nRF5x_addAppUART()
 nRF5x_addAppButton()
-# Not used in this project
-#nRF5x_addBSP(TRUE FALSE TRUE)
-#nRF5x_addBLEGATT()
-#nRF5x_addBLEService(ble_lbs)
 
 add_definitions(-DCONFIG_GPIO_AS_PINRESET)
 

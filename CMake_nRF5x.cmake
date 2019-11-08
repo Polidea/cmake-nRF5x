@@ -29,6 +29,9 @@ if(NOT DEFINED NRF_SOFTDEVICE)
     message(FATAL_ERROR "NRF_SOFTDEVICE must be defined")
 endif()
 
+message(INFO \n--\ Board:\ ${NRF_TARGET}\ ${NRF_BOARD}\n--\ Softdevice:\ ${NRF_SOFTDEVICE}\n--\ Path:\ ${PROJECT_PATH}\n--
+         \ Config:\ ${NRF_CONFIG}\n--\ Linker:\ ${NRF5_LINKER_SCRIPT}\n)
+
 # must be set in file (not macro) scope (in macro would point to parent CMake directory)
 set(DIR_OF_nRF5x_CMAKE ${CMAKE_CURRENT_LIST_DIR})
 
@@ -74,37 +77,45 @@ macro(nRF5x_setup)
         if(NOT DEFINED NRF5_LINKER_SCRIPT)
             set(NRF5_LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/gcc_nrf52.ld")
         endif()
+        add_definitions(-DNRF52)
         if(NRF_BOARD MATCHES "pca10040")
             set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
-            add_definitions(-DBOARD_PCA10040 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DFLOAT_ABI_HARD -DNRF52 -DNRF52832_XXAA -DNRF52_PAN_74)
+            add_definitions(-DBOARD_PCA10040 -DCONFIG_GPIO_AS_PINRESET -DFLOAT_ABI_HARD -DNRF52832_XXAA)
             add_definitions(-D__HEAP_SIZE=8192 -D__STACK_SIZE=8192)
         elseif(NRF_BOARD MATCHES "pca10040e")
             set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=soft -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
-            add_definitions(-DBOARD_PCA10040 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DDEVELOP_IN_NRF52832 -DFLOAT_ABI_SOFT -DNRF52810_XXAA -DNRF52_PAN_74 -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3 )
+            add_definitions(-DBOARD_PCA10040 -DCONFIG_GPIO_AS_PINRESET -DDEVELOP_IN_NRF52832 -DFLOAT_ABI_SOFT -DNRF52810_XXAA -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3 )
             add_definitions(-D__HEAP_SIZE=2048 -D__STACK_SIZE=2048)
         elseif(NRF_BOARD MATCHES "pca10056")
             set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
-            add_definitions(-DBOARD_PCA10056 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DFLOAT_ABI_HARD -DNRF52840_XXAA)
+            add_definitions(-DBOARD_PCA10056 -DCONFIG_GPIO_AS_PINRESET -DFLOAT_ABI_HARD -DNRF52840_XXAA)
             add_definitions(-D__HEAP_SIZE=8192 -D__STACK_SIZE=8192)
             if(DEFINED CRYPTOCELL)
                 add_definitions(-DDEBUG -DDEBUG_NRF -DDX_CC_TEE -DECC_INTEGTEST -DNRF_SDK_PRESENT)
             endif()
         elseif(NRF_BOARD MATCHES "pca10056e")
             set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=soft -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
-            add_definitions(-DBOARD_PCA10056 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DDEVELOP_IN_NRF52840 -DFLOAT_ABI_SOFT -DNRF52811_XXAA -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3)
+            add_definitions(-DBOARD_PCA10056 -DCONFIG_GPIO_AS_PINRESET -DDEVELOP_IN_NRF52840 -DFLOAT_ABI_SOFT -DNRF52811_XXAA -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3)
             add_definitions(-D__HEAP_SIZE=2048 -D__STACK_SIZE=2048)
         elseif(NRF_BOARD MATCHES "pca10059")
             set(CPU_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -Wall -Werror -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums")
-            add_definitions(-DBOARD_PCA10059 -DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET -DFLOAT_ABI_HARD -DMBR_PRESENT -DNRF52840_XXAA)
+            add_definitions(-DBOARD_PCA10059 -DCONFIG_GPIO_AS_PINRESET -DFLOAT_ABI_HARD -DMBR_PRESENT -DNRF52840_XXAA)
             add_definitions(-D__HEAP_SIZE=8192 -D__STACK_SIZE=8192)
         endif()
         if(NOT CPU_FLAGS)
             message(FATAL_ERROR "Please define NRF_BOARD with one of [pca10040, pca10056, pca10040e, pca10056e, pca10059]")
         endif()
-        include_directories(
-                "${NRF5_SDK_PATH}/components/softdevice/s132/headers"
-                "${NRF5_SDK_PATH}/components/softdevice/s132/headers/nrf52"
-        )
+        if(NOT NRF_SOFTDEVICE MATCHES "mbr")
+            include_directories(
+                    "${NRF5_SDK_PATH}/components/softdevice/${NRF_SOFTDEVICE}/headers"
+                    "${NRF5_SDK_PATH}/components/softdevice/${NRF_SOFTDEVICE}/headers/nrf52"
+            )
+        else()
+            # TODO: Add flash mbr command
+            include_directories(
+                    "${NRF5_SDK_PATH}/components/softdevice/${NRF_SOFTDEVICE}/${NRF_MODEL}/headers"
+            )
+        endif()
         list(APPEND SDK_SOURCE_FILES
                 "${NRF5_SDK_PATH}/modules/nrfx/mdk/system_nrf52.c"
                 "${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_nrf52.S"
@@ -514,42 +525,42 @@ macro(nRF5x_addAppFDS)
 endmacro(nRF5x_addAppFDS)
 
 # adds NFC library
-# macro(nRF5x_addNFC)
-#     # NFC includes
-#     include_directories(
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/conn_hand_parser"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/conn_hand_parser/ac_rec_parser"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/conn_hand_parser/ble_oob_advdata_parser"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/conn_hand_parser/le_oob_rec_parser"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ac_rec"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ble_oob_advdata"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ble_pair_lib"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ble_pair_msg"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/common"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ep_oob_rec"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/hs_rec"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/le_oob_rec"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/generic/message"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/generic/record"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/launchapp"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/parser/message"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/parser/record"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/text"
-#             "${NRF5_SDK_PATH}/components/nfc/ndef/uri"
-#             "${NRF5_SDK_PATH}/components/nfc/t2t_lib"
-#             "${NRF5_SDK_PATH}/components/nfc/t2t_parser"
-#             "${NRF5_SDK_PATH}/components/nfc/t4t_lib"
-#             "${NRF5_SDK_PATH}/components/nfc/t4t_parser/apdu"
-#             "${NRF5_SDK_PATH}/components/nfc/t4t_parser/cc_file"
-#             "${NRF5_SDK_PATH}/components/nfc/t4t_parser/hl_detection_procedure"
-#             "${NRF5_SDK_PATH}/components/nfc/t4t_parser/tlv"
-#     )
-# 
-#     list(APPEND SDK_SOURCE_FILES
-#             "${NRF5_SDK_PATH}/components/nfc"
-#             )
-# 
-# endmacro(nRF5x_addNFC)
+ macro(nRF5x_addNFC)
+     # NFC includes
+     include_directories(
+             "${NRF5_SDK_PATH}/components/nfc/ndef/conn_hand_parser"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/conn_hand_parser/ac_rec_parser"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/conn_hand_parser/ble_oob_advdata_parser"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/conn_hand_parser/le_oob_rec_parser"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ac_rec"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ble_oob_advdata"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ble_pair_lib"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ble_pair_msg"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/common"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/ep_oob_rec"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/hs_rec"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/connection_handover/le_oob_rec"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/generic/message"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/generic/record"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/launchapp"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/parser/message"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/parser/record"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/text"
+             "${NRF5_SDK_PATH}/components/nfc/ndef/uri"
+             "${NRF5_SDK_PATH}/components/nfc/t2t_lib"
+             "${NRF5_SDK_PATH}/components/nfc/t2t_parser"
+             "${NRF5_SDK_PATH}/components/nfc/t4t_lib"
+             "${NRF5_SDK_PATH}/components/nfc/t4t_parser/apdu"
+             "${NRF5_SDK_PATH}/components/nfc/t4t_parser/cc_file"
+             "${NRF5_SDK_PATH}/components/nfc/t4t_parser/hl_detection_procedure"
+             "${NRF5_SDK_PATH}/components/nfc/t4t_parser/tlv"
+     )
+
+     list(APPEND SDK_SOURCE_FILES
+             "${NRF5_SDK_PATH}/components/nfc"
+             )
+
+ endmacro(nRF5x_addNFC)
 
 macro(nRF5x_addBLEService NAME)
     include_directories(
