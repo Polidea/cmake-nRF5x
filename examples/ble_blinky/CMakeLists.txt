@@ -23,6 +23,19 @@ set(NRF_SOFTDEVICE s140)
 # Only for mbr softdevice: nrf52810/ nrf52832/ nrf52840/
 set(NRF_MODEL nrf52840)
 
+# Set program (ram) memory allocation
+# Standard 4096/2 for e-series pca10040e (nrf52810), pca10056e (nrf52811)
+# Standard 16384/2 for pca10040 (nrf52832), pca10056 (nrf52840), pca10059 (nrf52840)
+# Check https://engineering.stackexchange.com/questions/4013/defining-the-heap-and-stack-size-for-an-arm-cortex-m4-microcontroller for more
+# All SDK examples level from the minimum, 32k, if your device has more ram it can be used
+# Magic numbers from SDK, can be redefined
+# NRF_CRYPTO_BACKEND_CC310_BL_HASH_AUTOMATIC_RAM_BUFFER_SIZE 4096
+# NRF_STACK_GUARD_CONFIG_SIZE 7
+# 256kB has 262144 bytes but static variables and softdevice uses ram.
+set(STACK_SIZE 131072)
+set(HEAP_SIZE 0)
+
+
 # SDK example to be added to the sources
 set(PROJECT_PATH ${NRF5_SDK_PATH}/examples/ble_peripheral/ble_app_blinky)
 set(NRF_CONFIG ${PROJECT_PATH}/${NRF_BOARD}/${NRF_SOFTDEVICE}/config)
