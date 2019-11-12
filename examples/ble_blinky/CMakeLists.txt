@@ -24,17 +24,17 @@ set(NRF_SOFTDEVICE s140)
 set(NRF_MODEL nrf52840)
 
 # Set program (ram) memory allocation
-# Standard 4096/2 for e-series pca10040e (nrf52810), pca10056e (nrf52811)
-# Standard 16384/2 for pca10040 (nrf52832), pca10056 (nrf52840), pca10059 (nrf52840)
+# Standard Stack is 2048 for e-series pca10040e (nrf52810), pca10056e (nrf52811)
+# and 8192 for pca10040 (nrf52832), pca10056 (nrf52840), pca10059 (nrf52840)
+# Heap size set to 0 will force the linker to assing it to the remaining free memory
 # Check https://engineering.stackexchange.com/questions/4013/defining-the-heap-and-stack-size-for-an-arm-cortex-m4-microcontroller for more
-# All SDK examples level from the minimum, 32k, if your device has more ram it can be used
-# Magic numbers from SDK, can be redefined
-# NRF_CRYPTO_BACKEND_CC310_BL_HASH_AUTOMATIC_RAM_BUFFER_SIZE 4096
-# NRF_STACK_GUARD_CONFIG_SIZE 7
-# 256kB has 262144 bytes but static variables and softdevice uses ram.
-set(STACK_SIZE 131072)
+# nrf52840 has 256kB or 262144 bytes but static variables and softdevice uses ram too
+set(STACK_SIZE 16384)
 set(HEAP_SIZE 0)
 
+# Magic numbers from SDK, can be redefined
+# set(NRF_CRYPTO_BACKEND_CC310_BL_HASH_AUTOMATIC_RAM_BUFFER_SIZE 4096)
+# set(NRF_STACK_GUARD_CONFIG_SIZE 7)
 
 # SDK example to be added to the sources
 set(PROJECT_PATH ${NRF5_SDK_PATH}/examples/ble_peripheral/ble_app_blinky)
@@ -48,7 +48,7 @@ set(NRF_SOFTDEVICE_PATH "${NRF5_SDK_PATH}/components/softdevice/${NRF_SOFTDEVICE
 set(NRF5_LINKER_SCRIPT ${PROJECT_PATH}/${NRF_BOARD}/${NRF_SOFTDEVICE}/armgcc/ble_app_blinky_gcc_nrf52.ld)
 
 # Import cmake automation
-include("../../CMake_nRF5x.cmake")
+include("./CMake_nRF5x.cmake")
 
 nRF5x_toolchainSetup()
 
