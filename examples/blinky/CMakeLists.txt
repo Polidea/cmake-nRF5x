@@ -44,7 +44,7 @@ set(NRF_CONFIG ${PROJECT_PATH}/${NRF_BOARD}/blank/config)
 set(NRF5_LINKER_SCRIPT ${PROJECT_PATH}/${NRF_BOARD}/blank/armgcc/blinky_gcc_nrf52.ld)
 
 # Import cmake automation
-include("./CMake_nRF5x.cmake")
+include("./cmake-nRF5x/CMake_nRF5x.cmake")
 
 nRF5x_toolchainSetup()
 

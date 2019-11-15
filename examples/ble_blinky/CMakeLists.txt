@@ -41,16 +41,15 @@ set(PROJECT_PATH ${NRF5_SDK_PATH}/examples/ble_peripheral/ble_app_blinky)
 set(NRF_CONFIG ${PROJECT_PATH}/${NRF_BOARD}/${NRF_SOFTDEVICE}/config)
 
 # Softdevice hex for flashing. Set only if the project needs to access it.
-set(NRF_SOFTDEVICE_PATH "${NRF5_SDK_PATH}/components/softdevice/${NRF_SOFTDEVICE}/hex/${NRF_SOFTDEVICE}_nrf52_6.1.1_softdevice.hex")
-#set(NRF_SOFTDEVICE_PATH "${NRF5_SDK_PATH}/components/softdevice/${NRF_SOFTDEVICE}/${NRF_BOARD}/hex/mbr_nrf52_2.4.1_mbr.hex")
+set(NRF_SOFTDEVICE_PATH "${NRF5_SDK_PATH}/components/softdevice/${NRF_SOFTDEVICE}/hex/${NRF_SOFTDEVICE}_nrf52_7.0.0_softdevice.hex")
 
 # you can specify the location of the linker script if desired instead of using a specific file name
 set(NRF5_LINKER_SCRIPT ${PROJECT_PATH}/${NRF_BOARD}/${NRF_SOFTDEVICE}/armgcc/ble_app_blinky_gcc_nrf52.ld)
 
 # Import cmake automation
-include("./CMake_nRF5x.cmake")
+include("../../CMake_nRF5x.cmake")
 
-nRF5x_toolchainSetup()
+nRF5_toolchainSetup()
 
 project(ExampleProject C ASM)
 
