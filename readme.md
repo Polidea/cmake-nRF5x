@@ -145,6 +145,12 @@ To start the gdb server and RTT terminal, build the target `START_JLINK`:
 cmake --build "cmake-build" --target START_JLINK
 ```
 
+# Maintained by
+
+This library is maintained by Polidea
+
+[Contact us](https://www.polidea.com/project/?utm_source=Github&utm_medium=Npaid&utm_campaign=Kontakt&utm_term=Code&utm_content=GH_NOP_KKT_COD_CRF001)
+
 # License
 
 MIT for the `CMake_nRF5x.cmake` file. 
