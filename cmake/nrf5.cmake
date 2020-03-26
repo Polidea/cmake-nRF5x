@@ -22,6 +22,11 @@
 
 include("nrf5_utils")
 
+set(NRF5_SDK_PATH "" CACHE PATH "Path to the nRF5 SDK")
+if(NOT NRF5_SDK_PATH)
+  message(FATAL_ERROR "NRF5_SDK_PATH not specified")
+endif()
+
 set(NRF5_TARGET "" CACHE STRING "nRF5 target name e.g. nrf52810, nrf52832, nrf52840")
 if(NRF5_TARGET)
   nrf5_validate_target(${NRF5_TARGET})
