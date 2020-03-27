@@ -45,3 +45,17 @@ endif()
 
 message(STATUS "Using linker script: ${NRF5_LINKER_SCRIPT}")
 
+nrf5_get_device_name(NRF5_DEVICE_NAME ${NRF5_TARGET})
+nrf5_get_mdk_postfix(NRF5_MDK_POSTFIX ${NRF5_TARGET})
+
+add_library(nrf5_mdk OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_${NRF5_MDK_POSTFIX}.S"
+  "${NRF5_SDK_PATH}/modules/nrfx/mdk/system_${NRF5_MDK_POSTFIX}.c"
+)
+target_include_directories(nrf5_mdk PUBLIC
+  "${NRF5_SDK_PATH}/components/toolchain/cmsis/include"
+  "${NRF5_SDK_PATH}/modules/nrfx/mdk"
+)
+target_compile_definitions(nrf5_mdk PUBLIC
+  ${NRF5_DEVICE_NAME}
+)
