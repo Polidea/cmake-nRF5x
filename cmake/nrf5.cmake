@@ -45,8 +45,16 @@ endif()
 
 message(STATUS "Using linker script: ${NRF5_LINKER_SCRIPT}")
 
+set(NRF5_SDKCONFIG_PATH "" CACHE PATH "Path to the sdk_config.h file. If not specified, a generic sdk_config.h for a selected target file will be used.")
+if(NOT NRF5_SDKCONFIG_PATH)
+  set(NRF5_SDKCONFIG_PATH "${NRF5_SDK_PATH}/config/${NRF5_TARGET}/config" CACHE PATH "" FORCE)
+endif()
+
+message(STATUS "Using sdk_config.h include path: ${NRF5_SDKCONFIG_PATH}")
+
 nrf5_get_device_name(NRF5_DEVICE_NAME ${NRF5_TARGET})
 nrf5_get_mdk_postfix(NRF5_MDK_POSTFIX ${NRF5_TARGET})
+nrf5_get_softdevice_variant(NRF5_SOFTDEVICE_VARIANT ${NRF5_TARGET})
 
 add_library(nrf5_mdk OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_${NRF5_MDK_POSTFIX}.S"
@@ -59,3 +67,33 @@ target_include_directories(nrf5_mdk PUBLIC
 target_compile_definitions(nrf5_mdk PUBLIC
   ${NRF5_DEVICE_NAME}
 )
+
+add_library(nrf5_common OBJECT EXCLUDE_FROM_ALL
+  # App Error
+  "${NRF5_SDK_PATH}/components/libraries/util/app_error_weak.c"
+  "${NRF5_SDK_PATH}/components/libraries/util/app_error.c"
+  # Logger
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_frontend.c"
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_str_formatter.c"
+  # Section variables
+  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars/nrf_section_iter.c"
+  # strerror
+  "${NRF5_SDK_PATH}/components/libraries/strerror/nrf_strerror.c"
+)
+target_include_directories(nrf5_common PUBLIC
+  # SDK Config (sdk_config.h)
+  "${NRF5_SDKCONFIG_PATH}"
+  # SoftDevice
+  "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT}/headers"
+  "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT}/headers/nrf52"
+  # Utilities
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  # Logger
+  "${NRF5_SDK_PATH}/components/libraries/log"
+  "${NRF5_SDK_PATH}/components/libraries/log/src"
+  # Section variables
+  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars"
+  # strerror (string to error conversion)
+  "${NRF5_SDK_PATH}/components/libraries/strerror"
+)
+target_link_libraries(nrf5_common PUBLIC nrf5_mdk)

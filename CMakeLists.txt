@@ -6,4 +6,4 @@ include("nrf5")
 
 add_executable(nrf5_example
   src/main.c)
-target_link_libraries(nrf5_example PRIVATE nrf5_mdk)
+target_link_libraries(nrf5_example PRIVATE nrf5_common)
