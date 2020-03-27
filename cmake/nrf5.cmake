@@ -33,3 +33,25 @@ if(NRF5_TARGET)
 else()
   message(FATAL_ERROR "NRF5_TARGET not specified")
 endif()
+
+set(NRF5_LINKER_SCRIPT "" CACHE FILEPATH "Linker script file. If not specified, a generic script for a selected target will be used.")
+if(NRF5_LINKER_SCRIPT)
+  if(NOT EXISTS ${NRF5_LINKER_SCRIPT})
+    message(FATAL_ERROR "Linker script file (NRF5_LINKER_SCRIPT) doesn't exist: ${NRF5_LINKER_SCRIPT}")
+  endif()
+else()
+  find_file(ld_file "generic_gcc_nrf52.ld"
+    PATHS "${NRF5_SDK_PATH}/config/${NRF5_TARGET}/armgcc"
+    NO_DEFAULT_PATH
+    CMAKE_FIND_ROOT_PATH_BOTH
+  )
+
+  if(NOT ld_file)
+    message(FATAL_ERROR "Unable to find default linker script for ${NRF5_TARGET} target using specified nRF5 SDK path.")
+  endif()
+
+  set(NRF5_LINKER_SCRIPT ${ld_file} CACHE FILEPATH "" FORCE)
+
+endif()
+
+message(STATUS "Using linker script: ${NRF5_LINKER_SCRIPT}")
