@@ -57,6 +57,7 @@ nrf5_get_mdk_postfix(NRF5_MDK_POSTFIX ${NRF5_TARGET})
 nrf5_get_softdevice_variant(NRF5_SOFTDEVICE_VARIANT ${NRF5_TARGET})
 string(TOUPPER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_DEFINITION)
 
+# Microcontroller Development Kit (MDK)
 add_library(nrf5_mdk OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_${NRF5_MDK_POSTFIX}.S"
   "${NRF5_SDK_PATH}/modules/nrfx/mdk/system_${NRF5_MDK_POSTFIX}.c"
@@ -69,41 +70,72 @@ target_compile_definitions(nrf5_mdk PUBLIC
   ${NRF5_DEVICE_NAME}
 )
 
-add_library(nrf5_common OBJECT EXCLUDE_FROM_ALL
-  # App Error
-  "${NRF5_SDK_PATH}/components/libraries/util/app_error_weak.c"
-  "${NRF5_SDK_PATH}/components/libraries/util/app_error.c"
-  # Logger
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_frontend.c"
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_str_formatter.c"
-  # Section variables
-  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars/nrf_section_iter.c"
-  # strerror
-  "${NRF5_SDK_PATH}/components/libraries/strerror/nrf_strerror.c"
-)
-target_include_directories(nrf5_common PUBLIC
-  # SDK Config (sdk_config.h)
-  "${NRF5_SDKCONFIG_PATH}"
-  # SoftDevice
+# SoftDevice headers
+add_library(nrf5_softdevice_headers INTERFACE)
+target_include_directories(nrf5_softdevice_headers INTERFACE
   "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT}/headers"
   "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT}/headers/nrf52"
-  # Utilities
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  # Logger
-  "${NRF5_SDK_PATH}/components/libraries/log"
-  "${NRF5_SDK_PATH}/components/libraries/log/src"
-  # Section variables
-  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars"
-  # strerror (string to error conversion)
-  "${NRF5_SDK_PATH}/components/libraries/strerror"
 )
-target_compile_definitions(nrf5_common PUBLIC
+target_compile_definitions(nrf5_softdevice_headers INTERFACE
   ${NRF5_SOFTDEVICE_DEFINITION}
 )
-target_link_libraries(nrf5_common PUBLIC nrf5_mdk)
+
+# strerror (error to string converion)
+add_library(nrf5_strerror OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/strerror/nrf_strerror.c"
+)
+target_include_directories(nrf5_strerror PUBLIC
+  "${NRF5_SDKCONFIG_PATH}"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/strerror"
+)
+target_link_libraries(nrf5_strerror PUBLIC nrf5_mdk nrf5_softdevice_headers)
+
+# Logger (frontend & formatter)
+add_library(nrf5_log OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_frontend.c"
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_str_formatter.c"
+)
+target_include_directories(nrf5_log PUBLIC
+  "${NRF5_SDKCONFIG_PATH}"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/log"
+  "${NRF5_SDK_PATH}/components/libraries/log/src"
+)
+target_link_libraries(nrf5_log PUBLIC nrf5_mdk nrf5_softdevice_headers)
+
+# Section variables (experimental)
+add_library(nrf5_section OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars/nrf_section_iter.c"
+)
+target_include_directories(nrf5_section PUBLIC
+  "${NRF5_SDKCONFIG_PATH}"
+  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_section nrf5_mdk nrf5_softdevice_headers)
+
+# Application error
+add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/util/app_error_weak.c"
+  "${NRF5_SDK_PATH}/components/libraries/util/app_error.c"
+)
+target_include_directories(nrf5_app_error PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_app_error PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_log nrf5_section nrf5_strerror)
+
+# A common set of libraries most other libraries depend on
+add_library(nrf5_common_libs INTERFACE)
+target_include_directories(nrf5_common_libs INTERFACE
+  "${NRF5_SDKCONFIG_PATH}"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_common_libs INTERFACE nrf5_app_error nrf5_log)
 
 function(nrf5_target exec_target)
-  target_link_libraries(${exec_target} PRIVATE nrf5_common nrf5_mdk)
+  # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
+  target_link_libraries(${exec_target} PRIVATE nrf5_common_libs nrf5_mdk)
   target_link_options(${exec_target} PRIVATE
     "-L${NRF5_SDK_PATH}/modules/nrfx/mdk"
     "-T${NRF5_LINKER_SCRIPT}"
