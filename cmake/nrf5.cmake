@@ -55,6 +55,7 @@ message(STATUS "Using sdk_config.h include path: ${NRF5_SDKCONFIG_PATH}")
 nrf5_get_device_name(NRF5_DEVICE_NAME ${NRF5_TARGET})
 nrf5_get_mdk_postfix(NRF5_MDK_POSTFIX ${NRF5_TARGET})
 nrf5_get_softdevice_variant(NRF5_SOFTDEVICE_VARIANT ${NRF5_TARGET})
+string(TOUPPER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_DEFINITION)
 
 add_library(nrf5_mdk OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_${NRF5_MDK_POSTFIX}.S"
@@ -96,4 +97,15 @@ target_include_directories(nrf5_common PUBLIC
   # strerror (string to error conversion)
   "${NRF5_SDK_PATH}/components/libraries/strerror"
 )
+target_compile_definitions(nrf5_common PUBLIC
+  ${NRF5_SOFTDEVICE_DEFINITION}
+)
 target_link_libraries(nrf5_common PUBLIC nrf5_mdk)
+
+function(nrf5_target exec_target)
+  target_link_libraries(${exec_target} PRIVATE nrf5_common nrf5_mdk)
+  target_link_options(${exec_target} PRIVATE
+    "-L${NRF5_SDK_PATH}/modules/nrfx/mdk"
+    "-T${NRF5_LINKER_SCRIPT}"
+  )
+endfunction()
