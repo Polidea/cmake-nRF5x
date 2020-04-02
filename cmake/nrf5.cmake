@@ -52,10 +52,25 @@ endif()
 
 message(STATUS "Using sdk_config.h include path: ${NRF5_SDKCONFIG_PATH}")
 
+set(NRF5_NRFJPROG "" CACHE FILEPATH "nrfjprog utility executable file. If not specified, it is assumed that nrfjprog is available from PATH.")
+if(NOT NRF5_NRFJPROG)
+  set(NRF5_NRFJPROG "nrfjprog" CACHE FILEPATH "" FORCE)
+  message(STATUS "Using nrfjprog utility available from PATH")
+else()
+  message(STATUS "Using nrfjprog utility: ${NRF5_NRFJPROG}")
+endif()
+
 nrf5_get_device_name(NRF5_DEVICE_NAME ${NRF5_TARGET})
 nrf5_get_mdk_postfix(NRF5_MDK_POSTFIX ${NRF5_TARGET})
 nrf5_get_softdevice_variant(NRF5_SOFTDEVICE_VARIANT ${NRF5_TARGET})
 string(TOUPPER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_DEFINITION)
+
+nrf5_find_softdevice_file(NRF5_SOFTDEVICE_HEX "${NRF5_SDK_PATH}/components/softdevice" ${NRF5_SOFTDEVICE_VARIANT})
+if(NOT NRF5_SOFTDEVICE_HEX)
+  message(FATAL_ERROR "Unable to find SoftDevice HEX file for ${NRF5_SOFTDEVICE_DEFINITION} variant")
+endif()
+
+message(STATUS "Using SoftDevice HEX file: ${NRF5_SOFTDEVICE_HEX}")
 
 # Microcontroller Development Kit (MDK)
 add_library(nrf5_mdk OBJECT EXCLUDE_FROM_ALL
@@ -133,6 +148,26 @@ target_include_directories(nrf5_common_libs INTERFACE
 )
 target_link_libraries(nrf5_common_libs INTERFACE nrf5_app_error nrf5_log)
 
+add_library(nrf5_nrfx_common INTERFACE)
+target_include_directories(nrf5_nrfx_common INTERFACE
+  "${NRF5_SDKCONFIG_PATH}"
+  "${NRF5_SDK_PATH}/modules/nrfx"
+  "${NRF5_SDK_PATH}/integration/nrfx"
+)
+target_compile_definitions(nrf5_nrfx_common INTERFACE
+  SOFTDEVICE_PRESENT
+)
+
+add_library(nrf5_nrfx_hal INTERFACE)
+target_include_directories(nrf5_nrfx_hal INTERFACE
+  "${NRF5_SDK_PATH}/modules/nrfx/hal"
+)
+target_link_libraries(nrf5_nrfx_hal INTERFACE nrf5_nrfx_common)
+
+add_library(nrf5_delay INTERFACE)
+target_include_directories(nrf5_delay INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/delay")
+
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
   target_link_libraries(${exec_target} PRIVATE nrf5_common_libs nrf5_mdk)
@@ -140,6 +175,17 @@ function(nrf5_target exec_target)
     "-L${NRF5_SDK_PATH}/modules/nrfx/mdk"
     "-T${NRF5_LINKER_SCRIPT}"
   )
+  # targets for creating Intel HEX and binary executable forms
   add_custom_target(hex DEPENDS ${exec_target} COMMAND ${CMAKE_OBJCOPY_BIN} -O ihex "${exec_target}" "${exec_target}.hex")
   add_custom_target(bin DEPENDS ${exec_target} COMMAND ${CMAKE_OBJCOPY_BIN} -O binary "${exec_target}" "${exec_target}.bin")
+  # target for flashing SoftDevice
+  add_custom_target(flash_softdevice
+    COMMAND ${NRF5_NRFJPROG} --program ${NRF5_SOFTDEVICE_HEX} -f nrf52 --sectorerase
+    COMMAND ${NRF5_NRFJPROG} --reset -f nrf52
+  )
+  # target for flashing the output executable
+  add_custom_target(flash DEPENDS hex 
+    COMMAND ${NRF5_NRFJPROG} --program "${exec_target}.hex" -f nrf52 --sectorerase
+    COMMAND ${NRF5_NRFJPROG} --reset -f nrf52
+  )
 endfunction()
