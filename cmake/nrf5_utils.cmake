@@ -30,6 +30,16 @@ function(nrf5_validate_target target)
   endif()
 endfunction()
 
+function(nrf5_validate_softdevice_variant softdevice_variant)
+  set(supported_sd_variants s112 s113 s132 s140 s212 s312 s332 s340)  
+  string(TOLOWER ${softdevice_variant} sd_variant_lower)
+  list(FIND supported_sd_variants ${sd_variant_lower} index)
+
+  if(index EQUAL -1)
+    message(FATAL_ERROR "Invalid SoftDevice variant: ${softdevice_variant}")
+  endif()
+endfunction()
+
 function(nrf5_get_mdk_postfix out_postfix target)
   if(target STREQUAL "nrf52810")
     set(${out_postfix} "nrf52810" PARENT_SCOPE)

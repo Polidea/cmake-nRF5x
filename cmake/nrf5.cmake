@@ -60,17 +60,29 @@ else()
   message(STATUS "Using nrfjprog utility: ${NRF5_NRFJPROG}")
 endif()
 
-nrf5_get_device_name(NRF5_DEVICE_NAME ${NRF5_TARGET})
-nrf5_get_mdk_postfix(NRF5_MDK_POSTFIX ${NRF5_TARGET})
-nrf5_get_softdevice_variant(NRF5_SOFTDEVICE_VARIANT ${NRF5_TARGET})
-string(TOUPPER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_DEFINITION)
-
-nrf5_find_softdevice_file(NRF5_SOFTDEVICE_HEX "${NRF5_SDK_PATH}/components/softdevice" ${NRF5_SOFTDEVICE_VARIANT})
+set(NRF5_SOFTDEVICE_HEX "" CACHE FILEPATH "SoftDevice HEX file. If not specified, a SoftDevice file typical for specified target found in the SDK will be used.")
 if(NOT NRF5_SOFTDEVICE_HEX)
-  message(FATAL_ERROR "Unable to find SoftDevice HEX file for ${NRF5_SOFTDEVICE_DEFINITION} variant")
+  nrf5_get_softdevice_variant(NRF5_SOFTDEVICE_VARIANT ${NRF5_TARGET})
+  nrf5_find_softdevice_file(softdevice_hex "${NRF5_SDK_PATH}/components/softdevice" ${NRF5_SOFTDEVICE_VARIANT})
+  if(NOT softdevice_hex)
+    message(FATAL_ERROR "Unable to find SoftDevice HEX file for the ${NRF5_SOFTDEVICE_VARIANT} variant")
+  endif()
+  set(NRF5_SOFTDEVICE_HEX ${softdevice_hex} CACHE FILEPATH "" FORCE)
+else()
+  if(NOT NRF5_SOFTDEVICE_VARIANT)
+    message(FATAL_ERROR "When using custom SoftDevice HEX file, you must specify the SoftDevice variant (NRF5_SOFTDEVICE_VARIANT) e.g. S112, S132, S140")
+  endif()
+  nrf5_validate_softdevice_variant(${NRF5_SOFTDEVICE_VARIANT})
 endif()
 
 message(STATUS "Using SoftDevice HEX file: ${NRF5_SOFTDEVICE_HEX}")
+message(STATUS "Using SoftDevice variant: ${NRF5_SOFTDEVICE_VARIANT}")
+
+string(TOLOWER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT_LOWER)
+string(TOUPPER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT_UPPER)
+
+nrf5_get_device_name(NRF5_DEVICE_NAME ${NRF5_TARGET})
+nrf5_get_mdk_postfix(NRF5_MDK_POSTFIX ${NRF5_TARGET})
 
 # Microcontroller Development Kit (MDK)
 add_library(nrf5_mdk OBJECT EXCLUDE_FROM_ALL
@@ -88,11 +100,11 @@ target_compile_definitions(nrf5_mdk PUBLIC
 # SoftDevice headers
 add_library(nrf5_softdevice_headers INTERFACE)
 target_include_directories(nrf5_softdevice_headers INTERFACE
-  "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT}/headers"
-  "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT}/headers/nrf52"
+  "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT_LOWER}/headers"
+  "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT_LOWER}/headers/nrf52"
 )
 target_compile_definitions(nrf5_softdevice_headers INTERFACE
-  ${NRF5_SOFTDEVICE_DEFINITION}
+  ${NRF5_SOFTDEVICE_VARIANT_UPPER}
 )
 
 # strerror (error to string converion)
