@@ -133,18 +133,6 @@ target_include_directories(nrf5_strerror PUBLIC
 )
 target_link_libraries(nrf5_strerror PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers)
 
-# Logger (frontend & formatter)
-add_library(nrf5_log OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_frontend.c"
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_str_formatter.c"
-)
-target_include_directories(nrf5_log PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/log"
-  "${NRF5_SDK_PATH}/components/libraries/log/src"
-)
-target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers)
-
 # Section variables (experimental)
 add_library(nrf5_section OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars/nrf_section_iter.c"
@@ -155,6 +143,75 @@ target_include_directories(nrf5_section PUBLIC
 )
 target_link_libraries(nrf5_section nrf5_config nrf5_mdk nrf5_softdevice_headers)
 
+# fprintf
+add_library(nrf5_fprintf OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf.c"
+  "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf_format.c"
+)
+target_include_directories(nrf5_fprintf PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/external/fprintf"
+)
+target_link_libraries(nrf5_fprintf PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_config)
+
+# Atomic
+add_library(nrf5_atomic OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/atomic/nrf_atomic.c"
+)
+target_include_directories(nrf5_atomic PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/atomic"
+)
+target_link_libraries(nrf5_atomic PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_config)
+
+# Logger forwarding interface (include directories only)
+add_library(nrf5_log_fwd INTERFACE)
+target_include_directories(nrf5_log_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/log"
+  "${NRF5_SDK_PATH}/components/libraries/log/src"
+)
+
+# Block allocator
+add_library(nrf5_balloc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/balloc/nrf_balloc.c"
+)
+target_include_directories(nrf5_balloc PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/balloc"
+)
+target_link_libraries(nrf5_balloc PUBLIC nrf5_section nrf5_log_fwd nrf5_softdevice_headers nrf5_strerror)
+
+# Memory object
+add_library(nrf5_memobj OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/memobj/nrf_memobj.c"
+)
+target_include_directories(nrf5_memobj PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/memobj"
+)
+target_link_libraries(nrf5_memobj PUBLIC nrf5_balloc nrf5_atomic)
+
+# Ring buffer
+add_library(nrf5_ringbuf OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/ringbuf/nrf_ringbuf.c"
+)
+target_include_directories(nrf5_ringbuf PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/ringbuf"
+)
+target_link_libraries(nrf5_ringbuf PUBLIC nrf5_atomic)
+
+# Logger (frontend & formatter)
+add_library(nrf5_log OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_frontend.c"
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_str_formatter.c"
+)
+target_include_directories(nrf5_log PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/log"
+  "${NRF5_SDK_PATH}/components/libraries/log/src"
+)
+target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf)
+
 # Application error
 add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/util/app_error_weak.c"
@@ -163,7 +220,7 @@ add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_app_error PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_error PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_log nrf5_section nrf5_strerror)
+target_link_libraries(nrf5_app_error PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_log nrf5_section nrf5_strerror nrf5_memobj)
 
 # A common set of libraries most other libraries depend on
 add_library(nrf5_common_libs INTERFACE)
