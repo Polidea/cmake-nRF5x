@@ -198,6 +198,16 @@ target_include_directories(nrf5_pwr_mgmt PUBLIC
 )
 target_link_libraries(nrf5_pwr_mgmt PUBLIC nrf5_mtx nrf5_section nrf5_nrfx_hal nrf5_log_fwd nrf5_memobj nrf5_sdh)
 
+# Queue
+add_library(nrf5_queue OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/queue/nrf_queue.c"
+)
+target_include_directories(nrf5_queue PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/queue"
+)
+target_link_libraries(nrf5_queue PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror)
+
 # Command Line Interface (CLI)
 add_library(nrf5_cli OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/cli/nrf_cli.c"
@@ -206,7 +216,7 @@ target_include_directories(nrf5_cli PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/cli"
 )
-target_link_libraries(nrf5_cli PUBLIC nrf5_atomic nrf5_section nrf5_log_fwd nrf5_memobj)
+target_link_libraries(nrf5_cli PUBLIC nrf5_atomic nrf5_section nrf5_log_fwd nrf5_memobj nrf5_queue nrf5_fprintf nrf5_delay nrf5_nrfx_common nrf5_pwr_mgmt)
 
 # Block allocator
 add_library(nrf5_balloc OBJECT EXCLUDE_FROM_ALL
@@ -247,7 +257,7 @@ target_include_directories(nrf5_log PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/log"
   "${NRF5_SDK_PATH}/components/libraries/log/src"
 )
-target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf)
+target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf nrf5_cli)
 
 # Application error
 add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
