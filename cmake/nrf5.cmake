@@ -50,7 +50,13 @@ if(NOT NRF5_SDKCONFIG_PATH)
   set(NRF5_SDKCONFIG_PATH "${NRF5_SDK_PATH}/config/${NRF5_TARGET}/config" CACHE PATH "" FORCE)
 endif()
 
+set(NRF5_APPCONFIG_PATH "" CACHE PATH "Path to the app_config.h file. If not specified, app_config.h will not be used.")
+
 message(STATUS "Using sdk_config.h include path: ${NRF5_SDKCONFIG_PATH}")
+
+if(NRF5_APPCONFIG_PATH)
+  message(STATUS "Using app_config.h include path: ${NRF5_APPCONFIG_PATH}")
+endif()
 
 set(NRF5_NRFJPROG "" CACHE FILEPATH "nrfjprog utility executable file. If not specified, it is assumed that nrfjprog is available from PATH.")
 if(NOT NRF5_NRFJPROG)
@@ -84,6 +90,13 @@ string(TOUPPER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT_UPPER)
 nrf5_get_device_name(NRF5_DEVICE_NAME ${NRF5_TARGET})
 nrf5_get_mdk_postfix(NRF5_MDK_POSTFIX ${NRF5_TARGET})
 
+add_library(nrf5_config INTERFACE)
+target_include_directories(nrf5_config INTERFACE "${NRF5_SDKCONFIG_PATH}")
+if(NRF5_APPCONFIG_PATH)
+  target_include_directories(nrf5_config INTERFACE "${NRF5_APPCONFIG_PATH}")
+  target_compile_definitions(nrf5_config INTERFACE USE_APP_CONFIG)
+endif()
+
 # Microcontroller Development Kit (MDK)
 add_library(nrf5_mdk OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_${NRF5_MDK_POSTFIX}.S"
@@ -112,11 +125,10 @@ add_library(nrf5_strerror OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/strerror/nrf_strerror.c"
 )
 target_include_directories(nrf5_strerror PUBLIC
-  "${NRF5_SDKCONFIG_PATH}"
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/strerror"
 )
-target_link_libraries(nrf5_strerror PUBLIC nrf5_mdk nrf5_softdevice_headers)
+target_link_libraries(nrf5_strerror PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers)
 
 # Logger (frontend & formatter)
 add_library(nrf5_log OBJECT EXCLUDE_FROM_ALL
@@ -124,23 +136,21 @@ add_library(nrf5_log OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_str_formatter.c"
 )
 target_include_directories(nrf5_log PUBLIC
-  "${NRF5_SDKCONFIG_PATH}"
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/log"
   "${NRF5_SDK_PATH}/components/libraries/log/src"
 )
-target_link_libraries(nrf5_log PUBLIC nrf5_mdk nrf5_softdevice_headers)
+target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers)
 
 # Section variables (experimental)
 add_library(nrf5_section OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars/nrf_section_iter.c"
 )
 target_include_directories(nrf5_section PUBLIC
-  "${NRF5_SDKCONFIG_PATH}"
   "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars"
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_section nrf5_mdk nrf5_softdevice_headers)
+target_link_libraries(nrf5_section nrf5_config nrf5_mdk nrf5_softdevice_headers)
 
 # Application error
 add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
@@ -155,20 +165,19 @@ target_link_libraries(nrf5_app_error PUBLIC nrf5_mdk nrf5_softdevice_headers nrf
 # A common set of libraries most other libraries depend on
 add_library(nrf5_common_libs INTERFACE)
 target_include_directories(nrf5_common_libs INTERFACE
-  "${NRF5_SDKCONFIG_PATH}"
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_common_libs INTERFACE nrf5_app_error nrf5_log)
+target_link_libraries(nrf5_common_libs INTERFACE nrf5_config nrf5_app_error nrf5_log)
 
 add_library(nrf5_nrfx_common INTERFACE)
 target_include_directories(nrf5_nrfx_common INTERFACE
-  "${NRF5_SDKCONFIG_PATH}"
   "${NRF5_SDK_PATH}/modules/nrfx"
   "${NRF5_SDK_PATH}/integration/nrfx"
 )
 target_compile_definitions(nrf5_nrfx_common INTERFACE
   SOFTDEVICE_PRESENT
 )
+target_link_libraries(nrf5_nrfx_common INTERFACE nrf5_config)
 
 add_library(nrf5_nrfx_hal INTERFACE)
 target_include_directories(nrf5_nrfx_hal INTERFACE
