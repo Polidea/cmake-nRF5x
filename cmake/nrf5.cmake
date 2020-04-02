@@ -188,4 +188,8 @@ function(nrf5_target exec_target)
     COMMAND ${NRF5_NRFJPROG} --program "${exec_target}.hex" -f nrf52 --sectorerase
     COMMAND ${NRF5_NRFJPROG} --reset -f nrf52
   )
+  # target for erasing Flash memory and the UICR page
+  add_custom_target(erase_all
+    COMMAND ${NRF5_NRFJPROG} --eraseall -f nrf52
+  )
 endfunction()
