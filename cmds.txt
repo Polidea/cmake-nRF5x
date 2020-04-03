@@ -4,4 +4,6 @@ cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-none-eabi.cma
 
 cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-none-eabi.cmake -DTOOLCHAIN_PREFIX=D:/tools/gcc-arm-none-eabi-9-2019-q4-major-win32 -DNRF5_SDK_PATH=D:/tools/nRF5_SDK_15.2.0_9412b96 -DNRF5_TARGET=nrf52840 -DNRF5_SOFTDEVICE_HEX=D:/tools/nRF5_SDK_15.2.0_9412b96/components/softdevice/s140/hex/s140_nrf52_6.1.0_softdevice.hex -DNRF5_SOFTDEVICE_VARIANT=S140 -G "Ninja" ..
 
-cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-none-eabi.cmake -DTOOLCHAIN_PREFIX=D:/tools/gcc-arm-none-eabi-9-2019-q4-major-win32 -DNRF5_SDK_PATH=D:/tools/nRF5_SDK_15.2.0_9412b96 -DNRF5_TARGET=nrf52840 -DNRF5_APP_CONFIG=../config -G "Ninja" ..
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-none-eabi.cmake -DTOOLCHAIN_PREFIX=D:/tools/gcc-arm-none-eabi-9-2019-q4-major-win32 -DNRF5_SDK_PATH=D:/tools/nRF5_SDK_15.2.0_9412b96 -DNRF5_TARGET=nrf52840 -DNRF5_APPCONFIG_PATH=../config -G "Ninja" ..
+
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-none-eabi.cmake -DTOOLCHAIN_PREFIX=D:/tools/gcc-arm-none-eabi-9-2019-q4-major-win32 -DNRF5_SDK_PATH=D:/tools/nRF5_SDK_15.2.0_9412b96 -DNRF5_TARGET=nrf52840 -DNRF5_BOARD=pca10056 -DNRF5_APPCONFIG_PATH=../config -G "Ninja" ..

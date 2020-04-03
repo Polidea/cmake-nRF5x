@@ -34,6 +34,17 @@ else()
   message(FATAL_ERROR "NRF5_TARGET not specified")
 endif()
 
+message(STATUS "Using nRF5 target: ${NRF5_TARGET}")
+
+set(NRF5_BOARD "" CACHE STRING "nRF5 DK board e.g. pca10040, pca10056, pca10059")
+if(NRF5_BOARD)
+  nrf5_validate_board(${NRF5_BOARD})
+  string(TOLOWER ${NRF5_BOARD} NRF5_BOARD_LOWER)
+  string(TOUPPER ${NRF5_BOARD} NRF5_BOARD_UPPER)
+endif()
+
+message(STATUS "Using nRF5 DK board: ${NRF5_BOARD}")
+
 set(NRF5_LINKER_SCRIPT "" CACHE FILEPATH "Linker script file. If not specified, a generic script for a selected target will be used.")
 if(NRF5_LINKER_SCRIPT)
   if(NOT EXISTS ${NRF5_LINKER_SCRIPT})
@@ -297,6 +308,68 @@ target_include_directories(nrf5_app_error PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_app_error PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_log nrf5_section nrf5_strerror nrf5_memobj)
+
+# Scheduler
+add_library(nrf5_app_scheduler OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/scheduler/app_scheduler.c"
+)
+target_include_directories(nrf5_app_scheduler PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/scheduler"
+)
+target_link_libraries(nrf5_app_scheduler PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers)
+
+# Application timer
+add_library(nrf5_app_timer OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/timer/app_timer.c"
+)
+target_include_directories(nrf5_app_timer PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/timer"
+)
+target_link_libraries(nrf5_app_timer PUBLIC nrf5_app_scheduler nrf5_delay nrf5_nrfx_hal)
+
+# GPIOTE nrfx driver
+add_library(nrf5_nrfx_gpiote OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_gpiote.c"
+)
+target_include_directories(nrf5_nrfx_gpiote PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_nrfx_gpiote PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_nrfx_common)
+
+# Application button
+add_library(nrf5_app_button OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/button/app_button.c"
+)
+target_include_directories(nrf5_app_button PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/button"
+)
+target_link_libraries(nrf5_app_button PUBLIC nrf5_app_timer nrf5_nrfx_gpiote)
+
+# Boards
+add_library(nrf5_boards OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/boards/boards.c"
+)
+target_include_directories(nrf5_boards PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/boards"
+)
+if(NRF5_BOARD)
+  target_compile_definitions(nrf5_boards PUBLIC "BOARD_${NRF5_BOARD_UPPER}")
+endif()
+target_link_libraries(nrf5_boards PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_nrfx_hal)
+
+# Board Support Package
+add_library(nrf5_bsp OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bsp/bsp.c"
+)
+target_include_directories(nrf5_bsp PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bsp"
+)
+target_link_libraries(nrf5_bsp PUBLIC nrf5_boards nrf5_app_button)
 
 # A common set of libraries most other libraries depend on
 add_library(nrf5_common_libs INTERFACE)
