@@ -268,6 +268,15 @@ target_include_directories(nrf5_atfifo PUBLIC
 )
 target_link_libraries(nrf5_atfifo PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror)
 
+# Atomic flags
+add_library(nrf5_atflags OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/atomic_flags/nrf_atflags.c"
+)
+target_include_directories(nrf5_atflags PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/atomic_flags"
+)
+target_link_libraries(nrf5_atflags PUBLIC nrf5_atomic)
+
 # File storage
 add_library(nrf5_fstorage OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage.c"
@@ -301,13 +310,23 @@ target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_heade
 
 # Application error
 add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/util/app_error.c"  
   "${NRF5_SDK_PATH}/components/libraries/util/app_error_weak.c"
-  "${NRF5_SDK_PATH}/components/libraries/util/app_error.c"
+  "${NRF5_SDK_PATH}/components/libraries/util/app_error_handler_gcc.c"
 )
 target_include_directories(nrf5_app_error PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_app_error PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_log nrf5_section nrf5_strerror nrf5_memobj)
+
+# Application platform utilities
+add_library(nrf5_app_util_platform OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/util/app_util_platform.c"
+)
+target_include_directories(nrf5_app_util_platform PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_app_util_platform PUBLIC nrf5_mdk nrf5_softdevice_headers)
 
 # Scheduler
 add_library(nrf5_app_scheduler OBJECT EXCLUDE_FROM_ALL
@@ -337,7 +356,7 @@ target_include_directories(nrf5_nrfx_gpiote PUBLIC
   "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
   "${NRF5_SDK_PATH}/integration/nrfx/legacy"
 )
-target_link_libraries(nrf5_nrfx_gpiote PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_nrfx_common)
+target_link_libraries(nrf5_nrfx_gpiote PUBLIC nrf5_log nrf5_nrfx_common)
 
 # Application button
 add_library(nrf5_app_button OBJECT EXCLUDE_FROM_ALL
@@ -398,16 +417,6 @@ add_library(nrf5_delay INTERFACE)
 target_include_directories(nrf5_delay INTERFACE
   "${NRF5_SDK_PATH}/components/libraries/delay")
 
-# BLE common
-add_library(nrf5_ble_common OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/ble/common/ble_srv_common.c"
-)
-target_include_directories(nrf5_ble_common PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/ble/common"
-)
-target_link_libraries(nrf5_ble_common PUBLIC nrf5_mdk nrf5_softdevice_headers)
-
 # SoftDevice Handler
 add_library(nrf5_softdevice_handler OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh.c"
@@ -419,6 +428,38 @@ target_include_directories(nrf5_softdevice_handler PUBLIC
   "${NRF5_SDK_PATH}/components/softdevice/common"
 )
 target_link_libraries(nrf5_softdevice_handler PUBLIC nrf5_log)
+
+# BLE common
+add_library(nrf5_ble_common OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/common/ble_advdata.c"
+  "${NRF5_SDK_PATH}/components/ble/common/ble_conn_params.c"
+  "${NRF5_SDK_PATH}/components/ble/common/ble_conn_state.c"
+  "${NRF5_SDK_PATH}/components/ble/common/ble_srv_common.c"
+)
+target_include_directories(nrf5_ble_common PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/common"
+)
+target_link_libraries(nrf5_ble_common PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_atomic nrf5_softdevice_handler nrf5_app_timer nrf5_atflags)
+
+# BLE GATT
+add_library(nrf5_ble_gatt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/nrf_ble_gatt/nrf_ble_gatt.c"
+)
+target_include_directories(nrf5_ble_gatt PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/nrf_ble_gatt"
+)
+target_link_libraries(nrf5_ble_gatt PUBLIC nrf5_log nrf5_strerror)
+
+# BLE Queued Writes
+add_library(nrf5_ble_qwr OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr/nrf_ble_qwr.c"
+)
+target_include_directories(nrf5_ble_qwr PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr"
+)
+target_link_libraries(nrf5_ble_qwr PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_ble_common)
 
 # BLE LBS service
 add_library(nrf5_ble_srv_lbs OBJECT EXCLUDE_FROM_ALL
