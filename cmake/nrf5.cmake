@@ -247,6 +247,35 @@ target_include_directories(nrf5_ringbuf PUBLIC
 )
 target_link_libraries(nrf5_ringbuf PUBLIC nrf5_atomic)
 
+# Atomic FIFO
+add_library(nrf5_atfifo OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/atomic_fifo/nrf_atfifo.c"
+)
+target_include_directories(nrf5_atfifo PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/atomic_fifo"
+)
+target_link_libraries(nrf5_atfifo PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror)
+
+# File storage
+add_library(nrf5_fstorage OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage.c"
+  "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage_sd.c"
+)
+target_include_directories(nrf5_fstorage PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/fstorage"
+)
+target_link_libraries(nrf5_fstorage PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror nrf5_sdh nrf5_atomic nrf5_atfifo)
+
+# File data storage
+add_library(nrf5_fds OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/fds/fds.c"
+)
+target_include_directories(nrf5_fds PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/fds"
+)
+target_link_libraries(nrf5_fds PUBLIC nrf5_fstorage)
+
 # Logger (frontend & formatter)
 add_library(nrf5_log OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_frontend.c"
@@ -257,7 +286,7 @@ target_include_directories(nrf5_log PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/log"
   "${NRF5_SDK_PATH}/components/libraries/log/src"
 )
-target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf nrf5_cli)
+target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf nrf5_cli nrf5_fds)
 
 # Application error
 add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
