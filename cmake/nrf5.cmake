@@ -308,6 +308,18 @@ target_include_directories(nrf5_log PUBLIC
 )
 target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf nrf5_cli nrf5_fds)
 
+# Logger UART backend
+add_library(nrf5_log_backend_uart OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_uart.c"
+)
+target_link_libraries(nrf5_log_backend_uart PUBLIC nrf5_log nrf5_drv_uart)
+
+# Logger (default backends)
+add_library(nrf5_log_default_backends OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_default_backends.c"
+)
+target_link_libraries(nrf5_log_default_backends PUBLIC nrf5_log)
+
 # Application error
 add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/util/app_error.c"  
@@ -357,6 +369,33 @@ target_include_directories(nrf5_nrfx_gpiote PUBLIC
   "${NRF5_SDK_PATH}/integration/nrfx/legacy"
 )
 target_link_libraries(nrf5_nrfx_gpiote PUBLIC nrf5_log nrf5_nrfx_common)
+
+# UART (EasyDMA) nrfx driver
+add_library(nrf5_nrfx_uarte OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_uarte.c"
+)
+target_include_directories(nrf5_nrfx_uarte PUBLIC
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_uarte PUBLIC nrf5_log nrf5_nrfx_common)
+
+# UART (no EasyDMA) nrfx driver
+add_library(nrf5_nrfx_uart OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_uart.c"
+)
+target_include_directories(nrf5_nrfx_uart PUBLIC
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_uart PUBLIC nrf5_log nrf5_nrfx_common)
+
+# UART legacy driver
+add_library(nrf5_drv_uart OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_uart.c"
+)
+target_include_directories(nrf5_drv_uart PUBLIC
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_uart PUBLIC nrf5_nrfx_uarte nrf5_nrfx_uart)
 
 # Application button
 add_library(nrf5_app_button OBJECT EXCLUDE_FROM_ALL
