@@ -398,6 +398,38 @@ add_library(nrf5_delay INTERFACE)
 target_include_directories(nrf5_delay INTERFACE
   "${NRF5_SDK_PATH}/components/libraries/delay")
 
+# BLE common
+add_library(nrf5_ble_common OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/common/ble_srv_common.c"
+)
+target_include_directories(nrf5_ble_common PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/common"
+)
+target_link_libraries(nrf5_ble_common PUBLIC nrf5_mdk nrf5_softdevice_headers)
+
+# SoftDevice Handler
+add_library(nrf5_softdevice_handler OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh.c"
+  "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_ble.c"
+  "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_soc.c"
+)
+target_include_directories(nrf5_softdevice_handler PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/softdevice/common"
+)
+target_link_libraries(nrf5_softdevice_handler PUBLIC nrf5_log)
+
+# BLE LBS service
+add_library(nrf5_ble_srv_lbs OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs/ble_lbs.c"
+)
+target_include_directories(nrf5_ble_srv_lbs PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs"
+)
+target_link_libraries(nrf5_ble_srv_lbs PUBLIC nrf5_config nrf5_ble_common nrf5_softdevice_handler)
+
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
   target_link_libraries(${exec_target} PRIVATE nrf5_common_libs nrf5_mdk)
