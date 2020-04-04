@@ -124,13 +124,14 @@ target_compile_definitions(nrf5_mdk PUBLIC
   ${NRF5_DEVICE_NAME}
 )
 
-# SoftDevice headers
-add_library(nrf5_softdevice_headers INTERFACE)
-target_include_directories(nrf5_softdevice_headers INTERFACE
+# SoC header files (SoftDevice variant)
+# NOTE: there is another variant of this dependency for non-SoftDevice projects but it is not supported by this solution
+add_library(nrf5_soc INTERFACE)
+target_include_directories(nrf5_soc INTERFACE
   "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT_LOWER}/headers"
   "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT_LOWER}/headers/nrf52"
 )
-target_compile_definitions(nrf5_softdevice_headers INTERFACE
+target_compile_definitions(nrf5_soc INTERFACE
   SOFTDEVICE_PRESENT  
   ${NRF5_SOFTDEVICE_VARIANT_UPPER}
 )
@@ -143,7 +144,7 @@ target_include_directories(nrf5_strerror PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/strerror"
 )
-target_link_libraries(nrf5_strerror PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers)
+target_link_libraries(nrf5_strerror PUBLIC nrf5_config nrf5_mdk nrf5_soc)
 
 # Section variables (experimental)
 add_library(nrf5_section OBJECT EXCLUDE_FROM_ALL
@@ -153,7 +154,7 @@ target_include_directories(nrf5_section PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars"
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_section nrf5_config nrf5_mdk nrf5_softdevice_headers)
+target_link_libraries(nrf5_section nrf5_config nrf5_mdk nrf5_soc)
 
 # fprintf
 add_library(nrf5_fprintf OBJECT EXCLUDE_FROM_ALL
@@ -164,7 +165,7 @@ target_include_directories(nrf5_fprintf PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/external/fprintf"
 )
-target_link_libraries(nrf5_fprintf PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_config)
+target_link_libraries(nrf5_fprintf PUBLIC nrf5_mdk nrf5_soc nrf5_config)
 
 # Atomic
 add_library(nrf5_atomic OBJECT EXCLUDE_FROM_ALL
@@ -174,7 +175,7 @@ target_include_directories(nrf5_atomic PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/atomic"
 )
-target_link_libraries(nrf5_atomic PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_config)
+target_link_libraries(nrf5_atomic PUBLIC nrf5_mdk nrf5_soc nrf5_config)
 
 # Mutex
 add_library(nrf5_mtx INTERFACE)
@@ -237,7 +238,7 @@ add_library(nrf5_balloc OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_balloc PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/balloc"
 )
-target_link_libraries(nrf5_balloc PUBLIC nrf5_section nrf5_log_fwd nrf5_softdevice_headers nrf5_strerror)
+target_link_libraries(nrf5_balloc PUBLIC nrf5_section nrf5_log_fwd nrf5_soc nrf5_strerror)
 
 # Memory object
 add_library(nrf5_memobj OBJECT EXCLUDE_FROM_ALL
@@ -307,7 +308,7 @@ target_include_directories(nrf5_log PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/log"
   "${NRF5_SDK_PATH}/components/libraries/log/src"
 )
-target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf nrf5_cli nrf5_fds)
+target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf nrf5_cli nrf5_fds)
 
 # Logger Serial backend
 add_library(nrf5_log_backend_serial OBJECT EXCLUDE_FROM_ALL
@@ -336,7 +337,7 @@ add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_app_error PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_error PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_log nrf5_section nrf5_strerror nrf5_memobj)
+target_link_libraries(nrf5_app_error PUBLIC nrf5_mdk nrf5_soc nrf5_log nrf5_section nrf5_strerror nrf5_memobj)
 
 # Application platform utilities
 add_library(nrf5_app_util_platform OBJECT EXCLUDE_FROM_ALL
@@ -345,7 +346,7 @@ add_library(nrf5_app_util_platform OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_app_util_platform PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_util_platform PUBLIC nrf5_mdk nrf5_softdevice_headers)
+target_link_libraries(nrf5_app_util_platform PUBLIC nrf5_mdk nrf5_soc)
 
 # Scheduler
 add_library(nrf5_app_scheduler OBJECT EXCLUDE_FROM_ALL
@@ -355,7 +356,7 @@ target_include_directories(nrf5_app_scheduler PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/scheduler"
 )
-target_link_libraries(nrf5_app_scheduler PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers)
+target_link_libraries(nrf5_app_scheduler PUBLIC nrf5_config nrf5_mdk nrf5_soc)
 
 # Application timer
 add_library(nrf5_app_timer OBJECT EXCLUDE_FROM_ALL
@@ -435,7 +436,7 @@ target_include_directories(nrf5_boards PUBLIC
 if(NRF5_BOARD)
   target_compile_definitions(nrf5_boards PUBLIC "BOARD_${NRF5_BOARD_UPPER}")
 endif()
-target_link_libraries(nrf5_boards PUBLIC nrf5_mdk nrf5_softdevice_headers nrf5_nrfx_hal)
+target_link_libraries(nrf5_boards PUBLIC nrf5_mdk nrf5_soc nrf5_nrfx_hal)
 
 # Board Support Package
 add_library(nrf5_bsp OBJECT EXCLUDE_FROM_ALL
@@ -496,7 +497,7 @@ target_include_directories(nrf5_ble_common PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/ble/common"
 )
-target_link_libraries(nrf5_ble_common PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_atomic nrf5_softdevice_handler nrf5_app_timer nrf5_atflags)
+target_link_libraries(nrf5_ble_common PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_atomic nrf5_softdevice_handler nrf5_app_timer nrf5_atflags)
 
 # BLE GATT
 add_library(nrf5_ble_gatt OBJECT EXCLUDE_FROM_ALL
@@ -515,7 +516,7 @@ target_include_directories(nrf5_ble_qwr PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr"
 )
-target_link_libraries(nrf5_ble_qwr PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_ble_common)
+target_link_libraries(nrf5_ble_qwr PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_ble_common)
 
 # BLE LBS service
 add_library(nrf5_ble_srv_lbs OBJECT EXCLUDE_FROM_ALL
