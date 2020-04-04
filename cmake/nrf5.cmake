@@ -131,6 +131,7 @@ target_include_directories(nrf5_softdevice_headers INTERFACE
   "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT_LOWER}/headers/nrf52"
 )
 target_compile_definitions(nrf5_softdevice_headers INTERFACE
+  SOFTDEVICE_PRESENT  
   ${NRF5_SOFTDEVICE_VARIANT_UPPER}
 )
 
@@ -308,6 +309,12 @@ target_include_directories(nrf5_log PUBLIC
 )
 target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_softdevice_headers nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf nrf5_cli nrf5_fds)
 
+# Logger Serial backend
+add_library(nrf5_log_backend_serial OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_serial.c"
+)
+target_link_libraries(nrf5_log_backend_serial PUBLIC nrf5_log)
+
 # Logger UART backend
 add_library(nrf5_log_backend_uart OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_uart.c"
@@ -358,6 +365,16 @@ target_include_directories(nrf5_app_timer PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/timer"
 )
 target_link_libraries(nrf5_app_timer PUBLIC nrf5_app_scheduler nrf5_delay nrf5_nrfx_hal)
+
+# nrfx Peripheral Resource Sharing (PRS)
+add_library(nrf5_nrfx_prs OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/prs/nrfx_prs.c"
+)
+target_include_directories(nrf5_nrfx_prs PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/prs"
+)
+target_link_libraries(nrf5_nrfx_prs PUBLIC nrf5_log)
 
 # GPIOTE nrfx driver
 add_library(nrf5_nrfx_gpiote OBJECT EXCLUDE_FROM_ALL
