@@ -1,1 +1,3 @@
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-none-eabi.cmake -DTOOLCHAIN_PREFIX=D:/tools/gcc-arm-none-eabi-9-2019-q4-major-win32 -DNRF5_SDK_PATH=D:/tools/nRF5_SDK_15.2.0_9412b96 -DNRF5_TARGET=nrf52832 -DNRF5_BOARD=pca10040 -DNRF5_LINKER_SCRIPT=../ble_app_blinky/pca10040_s132/ble_app_blinky_gcc_nrf52.ld -DNRF5_SDKCONFIG_PATH=../ble_app_blinky/pca10040_s132 -G "Ninja" ../ble_app_blinky
+
 cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-none-eabi.cmake -DTOOLCHAIN_PREFIX=D:/tools/gcc-arm-none-eabi-9-2019-q4-major-win32 -DNRF5_SDK_PATH=D:/tools/nRF5_SDK_15.2.0_9412b96 -DNRF5_TARGET=nrf52840 -DNRF5_BOARD=pca10056 -DNRF5_SDKCONFIG_PATH=../ble_app_blinky/pca10056_s140 -G "Ninja" ../ble_app_blinky
