@@ -534,6 +534,10 @@ function(nrf5_target exec_target)
     "-L${NRF5_SDK_PATH}/modules/nrfx/mdk"
     "-T${NRF5_LINKER_SCRIPT}"
   )
+  # print size information after build
+  add_custom_command(TARGET ${exec_target} POST_BUILD
+    COMMAND ${CMAKE_SIZE_BIN} "${exec_target}"
+  )
   # targets for creating Intel HEX and binary executable forms
   add_custom_target(hex DEPENDS ${exec_target} COMMAND ${CMAKE_OBJCOPY_BIN} -O ihex "${exec_target}" "${exec_target}.hex")
   add_custom_target(bin DEPENDS ${exec_target} COMMAND ${CMAKE_OBJCOPY_BIN} -O binary "${exec_target}" "${exec_target}.bin")
