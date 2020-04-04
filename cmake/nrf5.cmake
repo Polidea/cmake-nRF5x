@@ -494,6 +494,33 @@ target_include_directories(nrf5_ble_common PUBLIC
 )
 target_link_libraries(nrf5_ble_common PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_atomic nrf5_softdevice_handler nrf5_app_timer nrf5_atflags)
 
+# BLE advertising
+add_library(nrf5_ble_advertising OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_advertising/ble_advertising.c"
+)
+target_include_directories(nrf5_ble_advertising PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_advertising"
+)
+target_link_libraries(nrf5_ble_advertising PUBLIC nrf5_log nrf5_ble_common)
+
+# BLE scanning
+add_library(nrf5_ble_scan OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/nrf_ble_scan/nrf_ble_scan.c"
+)
+target_include_directories(nrf5_ble_scan PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/nrf_ble_scan"
+)
+target_link_libraries(nrf5_ble_scan PUBLIC nrf5_log nrf5_ble_common)
+
+# BLE data base discovery
+add_library(nrf5_ble_db_discovery OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_db_discovery/ble_db_discovery.c"
+)
+target_include_directories(nrf5_ble_db_discovery PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_db_discovery"
+)
+target_link_libraries(nrf5_ble_db_discovery PUBLIC nrf5_log nrf5_ble_common)
+
 # BLE GATT
 add_library(nrf5_ble_gatt OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/nrf_ble_gatt/nrf_ble_gatt.c"
@@ -513,7 +540,7 @@ target_include_directories(nrf5_ble_qwr PUBLIC
 )
 target_link_libraries(nrf5_ble_qwr PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_ble_common)
 
-# BLE LBS service
+# BLE LED Button Service (Peripheral)
 add_library(nrf5_ble_srv_lbs OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs/ble_lbs.c"
 )
@@ -522,6 +549,16 @@ target_include_directories(nrf5_ble_srv_lbs PUBLIC
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs"
 )
 target_link_libraries(nrf5_ble_srv_lbs PUBLIC nrf5_config nrf5_ble_common nrf5_softdevice_handler)
+
+# BLE LED Button Service (Central)
+add_library(nrf5_ble_srv_lbs_c OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs_c/ble_lbs_c.c"
+)
+target_include_directories(nrf5_ble_srv_lbs_c PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs_c"
+)
+target_link_libraries(nrf5_ble_srv_lbs_c PUBLIC nrf5_ble_db_discovery)
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
