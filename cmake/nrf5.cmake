@@ -447,13 +447,7 @@ target_include_directories(nrf5_bsp PUBLIC
 )
 target_link_libraries(nrf5_bsp PUBLIC nrf5_boards nrf5_app_button)
 
-# A common set of libraries most other libraries depend on
-add_library(nrf5_common_libs INTERFACE)
-target_include_directories(nrf5_common_libs INTERFACE
-  "${NRF5_SDK_PATH}/components/libraries/util"
-)
-target_link_libraries(nrf5_common_libs INTERFACE nrf5_config nrf5_app_error nrf5_log)
-
+# nrfx common
 add_library(nrf5_nrfx_common INTERFACE)
 target_include_directories(nrf5_nrfx_common INTERFACE
   "${NRF5_SDK_PATH}/modules/nrfx"
@@ -464,6 +458,7 @@ target_compile_definitions(nrf5_nrfx_common INTERFACE
 )
 target_link_libraries(nrf5_nrfx_common INTERFACE nrf5_config)
 
+# nrfx Hardware Abstraction Layer (HAL)
 add_library(nrf5_nrfx_hal INTERFACE)
 target_include_directories(nrf5_nrfx_hal INTERFACE
   "${NRF5_SDK_PATH}/modules/nrfx/hal"
@@ -530,7 +525,7 @@ target_link_libraries(nrf5_ble_srv_lbs PUBLIC nrf5_config nrf5_ble_common nrf5_s
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
-  target_link_libraries(${exec_target} PRIVATE nrf5_common_libs nrf5_mdk)
+  target_link_libraries(${exec_target} PRIVATE nrf5_mdk)
   target_link_options(${exec_target} PRIVATE
     "-L${NRF5_SDK_PATH}/modules/nrfx/mdk"
     "-T${NRF5_LINKER_SCRIPT}"
