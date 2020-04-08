@@ -8,6 +8,8 @@ endif ()
 
 set(NRF5_SDK_PATH "${CMAKE_CURRENT_LIST_DIR}/../../toolchains/nRF5/nRF5_SDK")
 set(NRFJPROG "${CMAKE_CURRENT_LIST_DIR}/../../toolchains/nRF5/nrfjprog/nrfjprog")
+set(SD_FAMILY "s132")
+set(SD_REVISION "7.0.1")
 
 include("${CMAKE_CURRENT_LIST_DIR}/../CMake_nRF5x.cmake")
 

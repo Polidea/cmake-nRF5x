@@ -42,6 +42,8 @@ The script makes use of the following tools:
 	
 	set(NRF5_SDK_PATH "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nRF5_SDK")
 	set(NRFJPROG "${CMAKE_SOURCE_DIR}/toolchains/nRF5/nrfjprog/nrfjprog")
+	set(SD_FAMILY "s132")
+	set(SD_REVISION "7.0.1")
 
 	include("cmake-nRF5x/CMake_nRF5x.cmake")
 
