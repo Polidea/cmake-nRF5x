@@ -121,7 +121,7 @@ function download_gcc_toolchain() {
 
     # Unzip toolchain
     echo "Extracting GCC toolchain..."
-    tar -xzf "$1.tar.bz2" -C "$1"
+    tar -xf "$1.tar.bz2" -C "$1"
 
     # Merge folders
     merge_folders_inside "$1" || {
