@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Include
-source "$(dirname $0)/functions/utils.sh"
-source "$(dirname $0)/functions/consts.sh"
-source "$(dirname $0)/functions/download.sh"
+source "${BASH_SOURCE%/*}/common/consts.sh"
+source "${BASH_SOURCE%/*}/common/download.sh"
 
 # List of SDKs to download
 sdks=( "15.3.0" "16.0.0" )
