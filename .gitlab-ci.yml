@@ -1,0 +1,27 @@
+stages:
+  - build
+
+build_mac:
+  stage: build
+  tags:
+    - xcode-11.3
+  before_script:
+    - bash ./ci/scripts/prepare.sh
+  script: 
+    - bash ./ci/scripts/build_all.sh
+  only:
+    - merge_requests
+
+build_linux:
+  stage: build
+  image: ubuntu:20.04
+  tags:
+    - docker
+  before_script:
+    - apt-get update
+    - apt-get -y install curl cmake ninja-build unzip tar
+    - bash ./ci/scripts/prepare.sh
+  script: 
+    - bash ./ci/scripts/build_all.sh
+  only:
+    - merge_requests
