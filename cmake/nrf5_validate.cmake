@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-function(nrf5_validate_sdk sdk_path sdk_version)
+function(nrf5_validate_sdk sdk_path out_sdk_version)
     if(NOT EXISTS ${sdk_path})
         message(FATAL_ERROR "Specified nRF SDK doesn't exist: ${sdk_path}")
     endif()
@@ -30,7 +30,7 @@ function(nrf5_validate_sdk sdk_path sdk_version)
     endif()
     file(STRINGS "${release_notes_path}" release_notes LIMIT_COUNT 1)
     string(REGEX MATCH "[0-9]+\.[0-9]+\.[0-9]+" version "${release_notes}")
-    set(${sdk_version} ${version} PARENT_SCOPE)
+    set(${out_sdk_version} ${version} PARENT_SCOPE)
 endfunction()
 
 function(nrf5_validate_sdk_version sdk_version)
@@ -41,91 +41,54 @@ function(nrf5_validate_sdk_version sdk_version)
     endif()
 endfunction()
 
-function(nrf5_validate_board sdk_version board target)
-  # List of all supported boards, append only
-  set (supported_boards 
-    nrf6310 
-    pca10000 
-    pca10001 
-    pca10002 
-    pca10003 
-    pca10028
-    pca10031
-    pca10036 
-    pca10040 
-    pca10056 
-    pca10059 
-    pca20006
-    d52dk1 
-    wt51822
-  )
+function(nrf5_validate_board sdk_version board out_target out_define)
+  # Information about the board. In order:
+  # * Board target
+  # * Board define
+  # * Min SDK version
+  # * Max SDK version
 
-  # Minimum SDK version supported by the board, append only
-  set (boards_min_ver
-    "15.3.0" # nrf6310 
-    "15.3.0" # pca10000 
-    "15.3.0" # pca10001 
-    "15.3.0" # pca10002 
-    "15.3.0" # pca10003 
-    "15.3.0" # pca10028
-    "15.3.0" # pca10031
-    "15.3.0" # pca10036 
-    "15.3.0" # pca10040 
-    "15.3.0" # pca10056 
-    "15.3.0" # pca10059 
-    "15.3.0" # pca20006
-    "15.3.0" # d52dk1 
-    "15.3.0" # wt51822
-  )
+  set(target_key 0)
+  set(define_key 1)
+  set(min_sdk_key 2)
+  set(max_sdk_key 3)
 
-  # Maximum SDK version supported by the board, append only
-  set (boards_max_ver
-    "16.0.0" # nrf6310 
-    "16.0.0" # pca10000 
-    "16.0.0" # pca10001 
-    "16.0.0" # pca10002 
-    "16.0.0" # pca10003 
-    "16.0.0" # pca10028
-    "16.0.0" # pca10031
-    "16.0.0" # pca10036 
-    "16.0.0" # pca10040 
-    "16.0.0" # pca10056 
-    "16.0.0" # pca10059 
-    "16.0.0" # pca20006
-    "16.0.0" # d52dk1 
-    "16.0.0" # wt51822
-  )
+  set(board_nrf6310       "nrf51822" "BOARD_NRF6310"  "15.3.0" "16.0.0")
+  set(board_pca10000      "nrf51822" "BOARD_PCA10000" "15.3.0" "16.0.0")
+  set(board_pca10001      "nrf51822" "BOARD_PCA10001" "15.3.0" "16.0.0")
+  set(board_pca10002      "nrf51422" "BOARD_PCA10002" "15.3.0" "16.0.0")
+  set(board_pca10003      "nrf51422" "BOARD_PCA10003" "15.3.0" "16.0.0")
+  set(board_pca20006      "nrf51822" "BOARD_PCA20006" "15.3.0" "16.0.0")
+  set(board_pca10028      "nrf51422" "BOARD_PCA10028" "15.3.0" "16.0.0")
+  set(board_pca10031      "nrf51422" "BOARD_PCA10031" "15.3.0" "16.0.0")
+  set(board_pca10036      "nrf52832" "BOARD_PCA10036" "15.3.0" "16.0.0")
+  set(board_pca10040      "nrf52832" "BOARD_PCA10040" "15.3.0" "16.0.0")
+  set(board_pca10040e     "nrf52810" "BOARD_PCA10040" "15.3.0" "16.0.0")
+  set(board_pca10056      "nrf52840" "BOARD_PCA10056" "15.3.0" "16.0.0")
+  set(board_pca10056e     "nrf52811" "BOARD_PCA10056" "15.3.0" "16.0.0")
+  set(board_pca10100      "nrf52833" "BOARD_PCA10100" "15.3.0" "15.3.0")
+  set(board_pca20020      "nrf52832" "BOARD_PCA20020" "15.3.0" "16.0.0")
+  set(board_pca10059      "nrf52840" "BOARD_PCA10059" "15.3.0" "16.0.0")
+  set(board_wt51822       "nrf51822" "BOARD_WT51822"  "15.3.0" "16.0.0")
+  set(board_n5dk1         "nrf51422" "BOARD_N5DK1"    "15.3.0" "16.0.0")
+  set(board_d52dk1        "nrf52832" "BOARD_D52DK1"   "15.3.0" "16.0.0")
+  set(board_arduinoprimo  "nrf52832" "BOARD_ARDUINO_PRIMO" "15.3.0" "16.0.0")
+  # TODO: Support for custom boards?
 
-  # Board target, append only
-  set (boards_target
-    "nrf51822" # nrf6310
-    "nrf51822" # pca10000
-    "nrf51822" # pca10001
-    "nrf51422" # pca10002
-    "nrf51422" # pca10003
-    "nrf51422" # pca10028
-    "nrf51822" # pca10031
-    "nrf52832" # pca10036
-    "nrf52832" # pca10040
-    "nrf52840" # pca10056 
-    "nrf52840" # pca10059 
-    "nrf51822" # pca20006
-    "nrf52832" # d52dk1 
-    "nrf51822" # wt51822
-  )
-
-  list(FIND supported_boards ${board} index)
-  if(index EQUAL -1)
+  if(NOT board_${board})
     message(FATAL_ERROR "Unsupported nRF board: ${board}")
   endif()
 
-  list(GET boards_min_ver ${index} board_min_ver)
-  list(GET boards_max_ver ${index} board_max_ver)  
+  list(GET board_${board} ${min_sdk_key} board_min_ver)
+  list(GET board_${board} ${max_sdk_key} board_max_ver)
   if((sdk_version VERSION_LESS board_min_ver) OR (sdk_version VERSION_GREATER board_max_ver))
     message(FATAL_ERROR "Unsupported nRF board ${board} in version ${sdk_version}")
   endif()
 
-  list(GET boards_target ${index} board_target)
-  set(${target} ${board_target} PARENT_SCOPE)
+  list(GET board_${board} ${target_key} board_target)
+  set(${out_target} ${board_target} PARENT_SCOPE)
+
+  list(GET board_${board} ${define_key} board_define)
+  set(${out_define} ${board_define} PARENT_SCOPE)
 
 endfunction()

@@ -42,7 +42,8 @@ set(NRF5_TARGET "" CACHE STRING "nRF5 target name e.g. nrf52810, nrf52832, nrf52
 
 if(NRF5_BOARD)
   string(TOLOWER ${NRF5_BOARD} NRF5_BOARD)
-  nrf5_validate_board(${NRF5_SDK_VERSION} ${NRF5_BOARD} local_board_target)
+  nrf5_validate_board(${NRF5_SDK_VERSION} ${NRF5_BOARD} local_board_target local_board_define)
+  set(NRF5_BOARD_DEFINE ${local_board_define})
   if (NOT NRF5_TARGET)
     set(NRF5_TARGET ${local_board_target})
     message(STATUS "nRF5 target for board ${NRF5_BOARD} not specified, using: ${NRF5_TARGET}")
