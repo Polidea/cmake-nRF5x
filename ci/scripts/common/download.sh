@@ -186,6 +186,11 @@ function download_nrf_tools() {
         };;
         "linux") {
             echo "Executing Linux specific steps..."
+            mkdir -p "$1/tmp"
+            tar -xzf "$1.$file_type" -C "$1/tmp"
+            local inner_archive=$(find . -name "nRF*Command*Line*.tar.gz")
+            tar -xzf "$inner_archive" -C "$1"
+            rm -rf "$1/tmp"
         };;
         *) {
             echo "Extracting for variant $file_variant not supported"
