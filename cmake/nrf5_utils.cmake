@@ -40,16 +40,6 @@ function(nrf5_validate_softdevice_variant softdevice_variant)
   endif()
 endfunction()
 
-function(nrf5_validate_board board)
-  set(supported_boards pca10040 pca10056 pca10059)
-  string(TOLOWER ${board} board_lower)
-  list(FIND supported_boards ${board} index)
-
-  if(index EQUAL -1)
-    message(FATAL_ERROR "Invalid board: ${board}")
-  endif()
-endfunction()
-
 function(nrf5_get_mdk_postfix out_postfix target)
   if(target STREQUAL "nrf52810")
     set(${out_postfix} "nrf52810" PARENT_SCOPE)
