@@ -108,6 +108,15 @@ function build_example() {
         nrfjprog="$NRFJPROG_DIR/nrfjprog"
     fi
 
+    # Get build command
+    local build_cmd="make -j4"
+    local build_type="Unix Makefiles"
+
+    if [[ ! -z $(which ninja) ]]; then
+        build_cmd="ninja"
+        build_type="Ninja"
+    fi
+
     # Call cmake with proper params
     # TODO: Remove target as it should be deduced from board
     cmake \
@@ -123,14 +132,14 @@ function build_example() {
         -DNRF5_LINKER_SCRIPT="$sdk_example_dir/$selected_variant/$linker_file" \
         -DNRF5_SDKCONFIG_PATH="$sdk_example_dir/$selected_variant" \
         --loglevel=WARNING \
-        -G "Ninja" || {
+        -G "$build_type" || {
             echo "Failed to configure project with CMake"
             return 1
         }
 
     # Move to the build directory
     pushd "$cmake_build_path" > /dev/null
-        ninja || {
+        $build_cmd || {
             echo "Failed to build with ninja"
             popd > /dev/null
             return 1
