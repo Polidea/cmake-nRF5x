@@ -14,7 +14,7 @@ stages:
 
 build_linux:
   stage: build
-  image: ubuntu:latest
+  image: ubuntu:20.04
   tags:
     - docker
   before_script:
