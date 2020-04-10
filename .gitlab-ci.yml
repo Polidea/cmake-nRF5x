@@ -1,33 +1,25 @@
 stages:
   - build
 
-default:
-  before_script: 
-    - bash ./ci/scripts/prepare.sh
-
-build_mac:
-  stage: build
-  script: 
-    - bash ./ci/scripts/build_all.sh
-  tags:
-    - ios
-  only:
-    - merge_requests
+# build_mac:
+#   stage: build
+#   tags:
+#     - ios
+#   before_script:
+#     - bash ./ci/scripts/prepare.sh
+#   script: 
+#     - bash ./ci/scripts/build_all.sh
+#   only:
+#     - merge_requests
 
 build_linux:
   stage: build
+  image: ubuntu:latest
+  tags:
+    - docker
+  before_script:
+    - bash ./ci/scripts/prepare.sh
   script: 
     - bash ./ci/scripts/build_all.sh
-  tags:
-    - android
-  only:
-    - merge_requests
-
-build_windows:
-  stage: build
-  script: 
-    - bash ./ci/scripts/build_all.sh
-  tags:
-    - windows-10
   only:
     - merge_requests
