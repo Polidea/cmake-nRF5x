@@ -4,7 +4,7 @@ stages:
 build_mac:
   stage: build
   tags:
-    - ios
+    - xcode-11.3
   before_script:
     - bash ./ci/scripts/prepare.sh
   script: 
