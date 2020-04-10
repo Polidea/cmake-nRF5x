@@ -4,3 +4,4 @@ build
 # Ignore CI temporary directories
 ci/sdks
 ci/toolchains
+ci/tools

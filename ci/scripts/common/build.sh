@@ -1,6 +1,19 @@
 #!/bin/bash
 
 source "${BASH_SOURCE%/*}/consts.sh"
+source "${BASH_SOURCE%/*}/check_deps.sh"
+
+if [[ -d $NRFJPROG_DIR ]]; then
+    echo "* nrfjprog - using intree"
+else
+    check_binary nrfjprog
+fi
+
+if [[ -d $MERGEHEX_DIR ]]; then
+    echo "* mergehex - using intree"
+else
+    check_binary mergehex
+fi
 
 # Builds an example, following arguments are required:
 # 1) local path to the example
@@ -89,11 +102,18 @@ function build_example() {
     mkdir -p "$cmake_build_path"
     echo -e "\n${HEADER_START} ######## Building $cmake_build_path ######## ${HEADER_END}\n"
 
+    # Get path to tools
+    local nrfjprog="nrfjprog"
+    if [[ -d $NRFJPROG_DIR ]]; then
+        nrfjprog="$NRFJPROG_DIR/nrfjprog"
+    fi
+
     # Call cmake with proper params
     # TODO: Remove target as it should be deduced from board
     cmake \
         -S "$sdk_example_dir" \
         -B "$cmake_build_path" \
+        -DNRF5_NRFJPROG="$nrfjprog" \
         -DCMAKE_BUILD_TYPE=Debug \
         -DCMAKE_TOOLCHAIN_FILE="$CMAKE_DIR/arm-none-eabi.cmake" \
         -DTOOLCHAIN_PREFIX="$toolchain_dir" \

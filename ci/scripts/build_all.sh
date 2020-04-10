@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source "${BASH_SOURCE%/*}/common/consts.sh"
 source "${BASH_SOURCE%/*}/common/build.sh"
 
 # Collect relative paths to the examples.
@@ -12,7 +11,6 @@ pushd "$EXAMPLES_DIR" > /dev/null
 popd > /dev/null
 
 # Applying examples to included SDKs
-echo "Applying examples for:"
 for sdk in `ls -d $SDKS_DIR/*/`; do
     sdk_version=`basename $sdk`
     # For each SDK, try to apply examples

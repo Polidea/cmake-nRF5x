@@ -20,3 +20,10 @@ if [[ -d "$TOOLCHAINS_DIR/gcc" ]]; then
 else
     download_gcc_toolchain "$TOOLCHAINS_DIR/gcc"
 fi
+
+# Download nRF tools
+if [[ -d "$TOOLS_DIR/nrf" ]]; then
+    echo "nRF Tools already present, skipping..."
+else
+    download_nrf_tools "$TOOLS_DIR/nrf"
+fi

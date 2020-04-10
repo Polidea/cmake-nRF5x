@@ -14,3 +14,7 @@ rm -rf "$SDKS_DIR"
 # Remove Toolchains
 echo "Removing: $TOOLCHAINS_DIR"
 rm -rf "$TOOLCHAINS_DIR"
+
+# Remove Tools
+echo "Removing: $TOOLS_DIR"
+rm -rf "$TOOLS_DIR"

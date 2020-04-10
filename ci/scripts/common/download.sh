@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "${BASH_SOURCE%/*}/check_deps.sh"
+
 # Function moves content of subdirectories to provided directory
 # 1) Current folder.
 function merge_folders_inside() {
@@ -36,7 +38,7 @@ function merge_folders_inside() {
 # 2) Path of a downloaded file.
 function download_sdk() {
     # Location where binary files are placed.
-    local NRF5_BASE_URL="https://www.nordicsemi.com/-/media/Software-and-other-downloads/SDKs/nRF5/Binaries"
+    local nrf5_base_url="https://www.nordicsemi.com/-/media/Software-and-other-downloads/SDKs/nRF5/Binaries"
 
     # Expected two args
     if [[ $# != 2 ]]; then
@@ -45,25 +47,25 @@ function download_sdk() {
     fi
 
     # Validate first verion arg.
-    local ARG_REGEXP="[0-9]+\.[0-9]+.[0-9]+"
-    if [[ !($1 =~ $ARG_REGEXP) ]]; then
+    local arg_regexp="[0-9]+\.[0-9]+.[0-9]+"
+    if [[ !($1 =~ $arg_regexp) ]]; then
         echo "Expected nRF5 SDK version X.X.X, got: $1"
         return 1
     fi
 
     # Get proper suffix for SDK version.
     case $1 in
-        "15.3.0") local NRF_SUFFIX="nRF5SDK153059ac345.zip";;
-        "16.0.0") local NRF_SUFFIX="nRF5SDK160098a08e2.zip";;
+        "15.3.0") local nrf_suffix="nRF5SDK153059ac345.zip";;
+        "16.0.0") local nrf_suffix="nRF5SDK160098a08e2.zip";;
         *) echo "nRF5 SDK $1 not supported!" && return 1;;
     esac
 
     # Prepare dirs.
-    mkdir -p $2
+    mkdir -p "$2"
 
     # Download file 
     echo "Downloading nRF5 SDK $1..."
-    curl "$NRF5_BASE_URL/$NRF_SUFFIX" --output "$2.zip" || {
+    curl "$nrf5_base_url/$nrf_suffix" --output "$2.zip" || {
         echo "Failed to download nRF5 SDK $1"
         return 1
     }
@@ -98,11 +100,11 @@ function download_gcc_toolchain() {
     case $OSTYPE in
         darwin*) {
             echo "Downloading ARM GCC for Mac OS..."
-            local ARM_GCC_URL="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-mac.tar.bz2"
+            local arm_gcc_url="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-mac.tar.bz2"
         };;
         linux-gnu) {
             echo "Downloading ARM GCC for Linux..."
-            local ARM_GCC_URL="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2"
+            local arm_gcc_url="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2"
         };;
         *) {
             echo "'$OSTYPE' OS is not supported."
@@ -111,10 +113,10 @@ function download_gcc_toolchain() {
     esac
 
     # Prepare directory
-    mkdir -p $1
+    mkdir -p "$1"
 
     # Download toolchain
-    curl "$ARM_GCC_URL" --output "$1.tar.bz2" || {
+    curl "$arm_gcc_url" --output "$1.tar.bz2" || {
         echo "Failed to download GCC toolchain"
         return 1
     }
@@ -131,4 +133,85 @@ function download_gcc_toolchain() {
 
     # Remove file
     rm "$1.tar.bz2"
+}
+
+# Download nRF tools.
+# 1) Directory where tools should be put.
+function download_nrf_tools() {
+    # Expect one argument
+    if [[ $# != 1 ]]; then
+        echo "Expected one argument, directory where to place tools."
+        return 1
+    fi
+
+    # Select binary based on the OS type.
+    case $OSTYPE in
+        darwin*) {
+            echo "Downloading nRF Tools for Mac OS..."
+            local nrf_tools_url="https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-7-0/nRF-Command-Line-Tools_10_7_0_OSX.tar"
+            local file_type="tar"
+            local file_variant="mac"
+        };;
+        linux-gnu) {
+            echo "Downloading nRF Tools for Linux..."
+            local nrf_tools_url="https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-7-0/nRFCommandLineTools1070Linuxamd64tar.gz"
+            local file_type="tar.gz"
+            local file_variant="linux"
+        };;
+        *) {
+            echo "'$OSTYPE' OS is not supported."
+            return 1
+        };;
+    esac
+
+    # Prepare directory
+    mkdir -p "$1"
+
+    # Download tools
+    curl "$nrf_tools_url" --output "$1.$file_type" || {
+        echo "Failed to download nRF tools"
+        return 1
+    }
+
+    # Unzip tools
+    echo "Extracting nRF tools..."
+    case $file_variant in
+        "mac") {
+            echo "Executing Mac specific steps..."
+            mkdir -p "$1/tmp"
+            tar -xf "$1.$file_type" -C "$1/tmp"
+            local inner_archive=$(find . -name "nRF*Command*Line*.tar")
+            tar -xf "$inner_archive" -C "$1"
+            rm -rf "$1/tmp"
+        };;
+        "linux") {
+            echo "Executing Linux specific steps..."
+        };;
+        *) {
+            echo "Extracting for variant $file_variant not supported"
+            return 1
+        };;
+    esac
+
+    # Merge folders
+    merge_folders_inside "$1" || {
+        echo "Failed to merge folder $1"
+        return 1
+    }
+
+    # Check if proper directories are there as expected
+    if [[ ! -d $NRFJPROG_DIR ]]; then
+        echo "Extracting failed, cannot find nrfjprog..."
+        rm -rf $1
+        return 1
+    fi
+
+    if [[ ! -d $MERGEHEX_DIR ]]; then
+        echo "Extracting failed, cannot find mergehex..."
+        rm -rf $1
+        return 1
+    fi
+
+    # Remove file
+    rm "$1.$file_type"
 }
