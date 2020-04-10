@@ -18,7 +18,8 @@ build_linux:
   tags:
     - docker
   before_script:
-    - apt-get install curl cmake ninja
+    - apt-get update
+    - apt-get -y install curl cmake ninja
     - bash ./ci/scripts/prepare.sh
   script: 
     - bash ./ci/scripts/build_all.sh
