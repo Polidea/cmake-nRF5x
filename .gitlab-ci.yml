@@ -1,16 +1,16 @@
 stages:
   - build
 
-# build_mac:
-#   stage: build
-#   tags:
-#     - ios
-#   before_script:
-#     - bash ./ci/scripts/prepare.sh
-#   script: 
-#     - bash ./ci/scripts/build_all.sh
-#   only:
-#     - merge_requests
+build_mac:
+  stage: build
+  tags:
+    - ios
+  before_script:
+    - bash ./ci/scripts/prepare.sh
+  script: 
+    - bash ./ci/scripts/build_all.sh
+  only:
+    - merge_requests
 
 build_linux:
   stage: build
