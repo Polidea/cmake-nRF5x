@@ -2,11 +2,11 @@ stages:
   - build
 
 default:
-  before_script: bash ./ci/scripts/prepare.sh
+  before_script: 
+    - bash ./ci/scripts/prepare.sh
 
 build_mac:
-  stage:
-    - build
+  stage: build
   script: 
     - bash ./ci/scripts/build_all.sh
   tags:
@@ -15,8 +15,7 @@ build_mac:
     - merge_requests
 
 build_linux:
-  stage:
-    - build
+  stage: build
   script: 
     - bash ./ci/scripts/build_all.sh
   tags:
@@ -25,8 +24,7 @@ build_linux:
     - merge_requests
 
 build_windows:
-  stage:
-    - build
+  stage: build
   script: 
     - bash ./ci/scripts/build_all.sh
   tags:
