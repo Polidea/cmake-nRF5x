@@ -453,7 +453,7 @@ target_include_directories(nrf5_boards PUBLIC
   "${NRF5_SDK_PATH}/components/boards"
 )
 if(NRF5_BOARD)
-  target_compile_definitions(nrf5_boards PUBLIC "BOARD_${NRF5_BOARD_UPPER}")
+  target_compile_definitions(nrf5_boards PUBLIC ${NRF5_BOARD_DEFINE})
 endif()
 target_link_libraries(nrf5_boards PUBLIC nrf5_mdk nrf5_soc nrf5_nrfx_hal)
 
