@@ -50,7 +50,6 @@ if(NRF5_BOARD)
   else()
     message(STATUS "nRF5 target for board ${NRF5_BOARD} overwritten by ${NRF5_TARGET}")
   endif()
-  string(TOUPPER ${NRF5_BOARD} NRF5_BOARD_UPPER)
   message(STATUS "Using nRF5 DK board: ${NRF5_BOARD}")
 endif()
 
