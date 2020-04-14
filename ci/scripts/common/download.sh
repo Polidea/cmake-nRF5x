@@ -65,7 +65,7 @@ function download_sdk() {
 
     # Download file 
     echo "Downloading nRF5 SDK $1..."
-    curl "$nrf5_base_url/$nrf_suffix" --output "$2.zip" || {
+    curl "$nrf5_base_url/$nrf_suffix" > "$2.zip" || {
         echo "Failed to download nRF5 SDK $1"
         return 1
     }
@@ -101,10 +101,17 @@ function download_gcc_toolchain() {
         darwin*) {
             echo "Downloading ARM GCC for Mac OS..."
             local arm_gcc_url="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-mac.tar.bz2"
+            local arm_gcc_outfile="$1.tar.bz2"
         };;
         linux-gnu) {
             echo "Downloading ARM GCC for Linux..."
             local arm_gcc_url="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2"
+            local arm_gcc_outfile="$1.tar.bz2"
+        };;
+        cygwin) {
+            echo "Downloading ARM GCC for Windows (Cygwin)..."
+            local arm_gcc_url="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-win32.zip"
+            local arm_gcc_outfile="$1.zip"
         };;
         *) {
             echo "'$OSTYPE' OS is not supported."
@@ -116,14 +123,29 @@ function download_gcc_toolchain() {
     mkdir -p "$1"
 
     # Download toolchain
-    curl "$arm_gcc_url" --output "$1.tar.bz2" || {
+    curl "$arm_gcc_url" > "$arm_gcc_outfile" || {
         echo "Failed to download GCC toolchain"
         return 1
     }
 
     # Unzip toolchain
     echo "Extracting GCC toolchain..."
-    tar -xf "$1.tar.bz2" -C "$1"
+
+    # Use appropriate tool depending on the type of the archive
+    local arm_gcc_archive_type="${arm_gcc_outfile#*.}" 
+    case $arm_gcc_archive_type in
+        tar.bz2) tar -xf "$arm_gcc_outfile" -C "$1";;
+        zip) unzip -q "$arm_gcc_outfile" "-d$1";;
+        *) {
+            echo "Unsupported toolchain archive type '$arm_gcc_archive_type'"
+            return 1
+        };;
+    esac
+
+    if [[ $? -ne 0 ]]; then
+        echo "Failed to extract GCC toolchain"
+        return 1
+    fi
 
     # Merge folders
     merge_folders_inside "$1" || {
@@ -132,7 +154,7 @@ function download_gcc_toolchain() {
     }
 
     # Remove file
-    rm "$1.tar.bz2"
+    rm "$arm_gcc_outfile"
 }
 
 # Download nRF tools.
