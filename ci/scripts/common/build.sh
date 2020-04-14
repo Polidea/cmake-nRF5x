@@ -118,7 +118,6 @@ function build_example() {
     fi
 
     # Call cmake with proper params
-    # TODO: Remove target as it should be deduced from board
     cmake \
         -S "$sdk_example_dir" \
         -B "$cmake_build_path" \
@@ -127,7 +126,6 @@ function build_example() {
         -DCMAKE_TOOLCHAIN_FILE="$CMAKE_DIR/arm-none-eabi.cmake" \
         -DTOOLCHAIN_PREFIX="$toolchain_dir" \
         -DNRF5_SDK_PATH="$SDKS_DIR/$sdk_version" \
-        -DNRF5_TARGET=nrf52832 \
         -DNRF5_BOARD="$pca_variant" \
         -DNRF5_LINKER_SCRIPT="$sdk_example_dir/$selected_variant/$linker_file" \
         -DNRF5_SDKCONFIG_PATH="$sdk_example_dir/$selected_variant" \
