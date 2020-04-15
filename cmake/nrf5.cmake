@@ -59,7 +59,9 @@ endif()
 
 # Check supported target
 if(NRF5_TARGET)
-  nrf5_validate_target(${NRF5_TARGET})
+  nrf5_validate_target(${NRF5_SDK_VERSION} ${NRF5_TARGET} local_target_flags)
+  add_compile_options(${local_target_flags})
+  add_link_options(${local_target_flags})
 else()
   message(FATAL_ERROR "NRF5_TARGET not specified")
 endif()

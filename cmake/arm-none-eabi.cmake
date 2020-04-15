@@ -44,16 +44,8 @@ endif()
 # Perform compiler test with static library
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-# nRF52810 IC doesn't consist of a hardware FPU. In such case, toolchain must perform floating-point operations by using library calls.
-# Infer FPU flags appropriate to a specific target.
-if(NRF5_TARGET STREQUAL "nrf52810")
-  set(OBJECT_FPU_FLAGS "-mfloat-abi=soft")
-else()
-  set(OBJECT_FPU_FLAGS "-mfloat-abi=hard -mfpu=fpv4-sp-d16")
-endif()
-
 # Set compiler linker flags
-set(OBJECT_GEN_FLAGS "-mabi=aapcs -mcpu=cortex-m4 -mthumb ${OBJECT_FPU_FLAGS}")
+set(OBJECT_GEN_FLAGS "-mabi=aapcs -mthumb")
 set(OBJECT_CXX_GEN_GLAGS "${OBJECT_GEN_FLAGS} -fdata-sections -ffunction-sections -fno-builtin -fno-strict-aliasing -fshort-enums -Wall -Werror")
 
 set(CMAKE_C_FLAGS   "${OBJECT_CXX_GEN_GLAGS} -std=c99 " CACHE INTERNAL "C Compiler options")

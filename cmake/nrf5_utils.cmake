@@ -20,16 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-function(nrf5_validate_target target)
-  set(supported_targets nrf52810 nrf52832 nrf52840)
-  string(TOLOWER ${target} target_lower)
-  list(FIND supported_targets ${target_lower} index)
-
-  if(index EQUAL -1)
-    message(FATAL_ERROR "Invalid target: ${target}")
-  endif()
-endfunction()
-
 function(nrf5_validate_softdevice_variant softdevice_variant)
   set(supported_sd_variants s112 s113 s132 s140 s212 s312 s332 s340)  
   string(TOLOWER ${softdevice_variant} sd_variant_lower)
