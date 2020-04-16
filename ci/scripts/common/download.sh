@@ -132,7 +132,8 @@ function download_gcc_toolchain() {
     echo "Extracting GCC toolchain..."
 
     # Use appropriate tool depending on the type of the archive
-    local arm_gcc_archive_type="${arm_gcc_outfile#*.}" 
+    local arm_gcc_archive_filename=$(basename $arm_gcc_outfile)
+    local arm_gcc_archive_type="${arm_gcc_archive_filename#*.}" 
     case $arm_gcc_archive_type in
         tar.bz2) tar -xf "$arm_gcc_outfile" -C "$1";;
         zip) unzip -q "$arm_gcc_outfile" "-d$1";;
