@@ -129,7 +129,6 @@ function build_example() {
         -DCMAKE_TOOLCHAIN_FILE="$(adapt_cmake_path $CMAKE_DIR/arm-none-eabi.cmake)" \
         -DTOOLCHAIN_PREFIX="$(adapt_cmake_path $toolchain_dir)" \
         -DNRF5_SDK_PATH="$(adapt_cmake_path $SDKS_DIR/$sdk_version)" \
-        -DNRF5_TARGET=nrf52832 \
         -DNRF5_BOARD="$pca_variant" \
         -DNRF5_LINKER_SCRIPT="$(adapt_cmake_path $sdk_example_dir/$selected_variant/$linker_file)" \
         -DNRF5_SDKCONFIG_PATH="$(adapt_cmake_path $sdk_example_dir/$selected_variant)" \
