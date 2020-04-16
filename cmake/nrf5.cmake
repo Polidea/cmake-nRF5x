@@ -21,13 +21,43 @@
 # SOFTWARE.
 
 include("nrf5_utils")
+include("nrf5_validate")
 
+# Check nRF SDK
 set(NRF5_SDK_PATH "" CACHE PATH "Path to the nRF5 SDK")
-if(NOT NRF5_SDK_PATH)
-  message(FATAL_ERROR "NRF5_SDK_PATH not specified")
+set(NRF5_SDK_VERSION "" CACHE STRING "nRF5 SDK version, e.g.: 15.3.0")
+
+nrf5_validate_sdk(${NRF5_SDK_PATH} local_sdk_version)
+if(NOT NRF5_SDK_VERSION)
+  message(STATUS "nRF SDK version not explicitly provided, using deduced one: ${local_sdk_version}")
+  set(NRF5_SDK_VERSION ${local_sdk_version})
+else()
+  message(STATUS "nRF SDK version ${local_sdk_version} overwritten by ${NRF5_SDK_VERSION}")
+endif()
+nrf5_validate_sdk_version(${NRF5_SDK_VERSION})
+
+# Check supported board type (based on SDK version as well)
+set(NRF5_BOARD "" CACHE STRING "nRF5 DK board e.g. pca10040, pca10056, pca10059")
+set(NRF5_TARGET "" CACHE STRING "nRF5 target name e.g. nrf52810, nrf52832, nrf52840")
+
+if(NRF5_BOARD)
+  string(TOLOWER ${NRF5_BOARD} NRF5_BOARD)
+  nrf5_validate_board(${NRF5_SDK_VERSION} ${NRF5_BOARD} local_board_target local_board_define)
+  set(NRF5_BOARD_DEFINE ${local_board_define})
+  if(NOT NRF5_TARGET)
+    set(NRF5_TARGET ${local_board_target})
+    message(STATUS "nRF5 target for board ${NRF5_BOARD} not specified, using: ${NRF5_TARGET}")
+  else()
+    string(TOLOWER ${NRF5_TARGET} NRF5_TARGET)
+    string(COMPARE NOTEQUAL ${NRF5_TARGET} ${local_board_target} board_target_overwritten)
+    if(board_target_overwritten)
+      message(WARNING "Default nRF5 target for board ${NRF5_BOARD} (${local_board_target}) overwritten by ${NRF5_TARGET}")
+    endif()
+  endif()
+  message(STATUS "Using nRF5 DK board: ${NRF5_BOARD}")
 endif()
 
-set(NRF5_TARGET "" CACHE STRING "nRF5 target name e.g. nrf52810, nrf52832, nrf52840")
+# Check supported target
 if(NRF5_TARGET)
   nrf5_validate_target(${NRF5_TARGET})
 else()
@@ -36,14 +66,6 @@ endif()
 
 message(STATUS "Using nRF5 target: ${NRF5_TARGET}")
 
-set(NRF5_BOARD "" CACHE STRING "nRF5 DK board e.g. pca10040, pca10056, pca10059")
-if(NRF5_BOARD)
-  nrf5_validate_board(${NRF5_BOARD})
-  string(TOLOWER ${NRF5_BOARD} NRF5_BOARD_LOWER)
-  string(TOUPPER ${NRF5_BOARD} NRF5_BOARD_UPPER)
-endif()
-
-message(STATUS "Using nRF5 DK board: ${NRF5_BOARD}")
 
 set(NRF5_LINKER_SCRIPT "" CACHE FILEPATH "Linker script file. If not specified, a generic script for a selected target will be used.")
 if(NRF5_LINKER_SCRIPT)
@@ -434,7 +456,7 @@ target_include_directories(nrf5_boards PUBLIC
   "${NRF5_SDK_PATH}/components/boards"
 )
 if(NRF5_BOARD)
-  target_compile_definitions(nrf5_boards PUBLIC "BOARD_${NRF5_BOARD_UPPER}")
+  target_compile_definitions(nrf5_boards PUBLIC ${NRF5_BOARD_DEFINE})
 endif()
 target_link_libraries(nrf5_boards PUBLIC nrf5_mdk nrf5_soc nrf5_nrfx_hal)
 
