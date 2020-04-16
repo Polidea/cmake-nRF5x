@@ -119,7 +119,6 @@ function build_example() {
     fi
 
     # Call cmake with proper params
-    # TODO: Remove target as it should be deduced from board
     # NOTE: CMake on Windows expects mixed path (Windows path with normal slashes)
     cmake \
         -S $(adapt_cmake_path $sdk_example_dir) \
