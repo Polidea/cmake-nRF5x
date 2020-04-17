@@ -9,3 +9,12 @@ function absolute() {
     pwd -P
     popd > /dev/null
 }
+
+# On Windows (Cygwin), convert Cygwin path to mixed path (Windows path with normal slashes)
+function adapt_cmake_path() {
+    if [[ "$OSTYPE" == "cygwin" ]]; then
+        cygpath -m $1
+    else
+        echo $1
+    fi
+}

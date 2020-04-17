@@ -2,6 +2,7 @@
 
 source "${BASH_SOURCE%/*}/consts.sh"
 source "${BASH_SOURCE%/*}/check_deps.sh"
+source "${BASH_SOURCE%/*}/utils.sh"
 
 if [[ -d $NRFJPROG_DIR ]]; then
     echo "* nrfjprog - using intree"
@@ -118,18 +119,19 @@ function build_example() {
     fi
 
     # Call cmake with proper params
+    # NOTE: CMake on Windows expects mixed path (Windows path with normal slashes)
     cmake \
-        -S "$sdk_example_dir" \
-        -B "$cmake_build_path" \
-        -DNRF5_NRFJPROG="$nrfjprog" \
+        -S $(adapt_cmake_path $sdk_example_dir) \
+        -B $(adapt_cmake_path $cmake_build_path) \
+        -DNRF5_NRFJPROG="$(adapt_cmake_path $nrfjprog)" \
         -DCMAKE_BUILD_TYPE=Debug \
-        -DCMAKE_TOOLCHAIN_FILE="$CMAKE_DIR/arm-none-eabi.cmake" \
-        -DTOOLCHAIN_PREFIX="$toolchain_dir" \
-        -DNRF5_SDK_PATH="$SDKS_DIR/$sdk_version" \
+        -DCMAKE_TOOLCHAIN_FILE="$(adapt_cmake_path $CMAKE_DIR/arm-none-eabi.cmake)" \
+        -DTOOLCHAIN_PREFIX="$(adapt_cmake_path $toolchain_dir)" \
+        -DNRF5_SDK_PATH="$(adapt_cmake_path $SDKS_DIR/$sdk_version)" \
         -DNRF5_BOARD="$pca_variant" \
         -DNRF5_SOFTDEVICE_VARIANT="$sd_variant" \
-        -DNRF5_LINKER_SCRIPT="$sdk_example_dir/$selected_variant/$linker_file" \
-        -DNRF5_SDKCONFIG_PATH="$sdk_example_dir/$selected_variant" \
+        -DNRF5_LINKER_SCRIPT="$(adapt_cmake_path $sdk_example_dir/$selected_variant/$linker_file)" \
+        -DNRF5_SDKCONFIG_PATH="$(adapt_cmake_path $sdk_example_dir/$selected_variant)" \
         --loglevel=WARNING \
         -G "$build_type" || {
             echo "Failed to configure project with CMake"
