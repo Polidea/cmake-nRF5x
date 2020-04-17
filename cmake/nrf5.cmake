@@ -1,6 +1,6 @@
 # MIT License
 
-# Copyright (c) 2019 Polidea
+# Copyright (c) 2020 Polidea
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -57,9 +57,10 @@ if(NRF5_BOARD)
   message(STATUS "Using nRF5 DK board: ${NRF5_BOARD}")
 endif()
 
-# Check supported target
+# Check supported target based on the provided SDK version.
 if(NRF5_TARGET)
-  nrf5_validate_target(${NRF5_SDK_VERSION} ${NRF5_TARGET} local_target_flags)
+  nrf5_validate_target(${NRF5_SDK_VERSION} ${NRF5_TARGET} local_target local_target_flags)
+  set(NRF5_TARGET ${local_target})
   add_compile_options(${local_target_flags})
   add_link_options(${local_target_flags})
 else()
@@ -68,14 +69,34 @@ endif()
 
 message(STATUS "Using nRF5 target: ${NRF5_TARGET}")
 
+# Check SoftDevice variant.
+set(NRF5_SOFTDEVICE_VARIANT "" CACHE STRING "SoftDevice variant. Set to 'blank' if SoftDevice is not used, otherwise specify version, e.g.: 's130'")
 
+if(NRF5_SOFTDEVICE_VARIANT)
+  string(TOLOWER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT)
+  nrf5_validate_softdevice_variant(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} ${NRF5_SOFTDEVICE_VARIANT} local_sd_hex_file_path local_sd_flags)
+else()
+  message(FATAL_ERROR "You must specify NRF5_SOFTDEVICE_VARIANT, e.g: blank, s130")
+endif()
+
+message(STATUS "Using SoftDevice HEX file: ${local_sd_hex_file_path}")
+message(STATUS "Using SoftDevice variant: ${NRF5_SOFTDEVICE_VARIANT}")
+
+string(TOLOWER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT_LOWER)
+string(TOUPPER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT_UPPER)
+
+# Get linker script.
 set(NRF5_LINKER_SCRIPT "" CACHE FILEPATH "Linker script file. If not specified, a generic script for a selected target will be used.")
 if(NRF5_LINKER_SCRIPT)
   if(NOT EXISTS ${NRF5_LINKER_SCRIPT})
     message(FATAL_ERROR "Linker script file (NRF5_LINKER_SCRIPT) doesn't exist: ${NRF5_LINKER_SCRIPT}")
   endif()
 else()
-  set(NRF5_LINKER_SCRIPT "${NRF5_SDK_PATH}/config/${NRF5_TARGET}/armgcc/generic_gcc_nrf52.ld" CACHE FILEPATH "" FORCE)
+  nrf5_find_linker_file(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} ${NRF5_SOFTDEVICE_VARIANT} local_linker_script)
+  if (NOT local_linker_script)
+    message(FATAL_ERROR "Cannot find generic linker script, please specify it via NRF5_LINKER_SCRIPT variable")
+  endif()
+  set(NRF5_LINKER_SCRIPT "${local_linker_script}")
 endif()
 
 message(STATUS "Using linker script: ${NRF5_LINKER_SCRIPT}")
@@ -101,33 +122,6 @@ else()
   message(STATUS "Using nrfjprog utility: ${NRF5_NRFJPROG}")
 endif()
 
-set(NRF5_SOFTDEVICE_VARIANT "" CACHE STRING "SoftDevice variant. If not specified, a variant typical for the specified target will be used.")
-
-set(NRF5_SOFTDEVICE_HEX "" CACHE FILEPATH "SoftDevice HEX file. If not specified, a SoftDevice file typical for specified the target found in the SDK will be used.")
-if(NOT NRF5_SOFTDEVICE_HEX)
-  nrf5_get_softdevice_variant(softdevice_variant ${NRF5_TARGET})
-  nrf5_find_softdevice_file(softdevice_hex "${NRF5_SDK_PATH}/components/softdevice" ${softdevice_variant})
-  if(NOT softdevice_hex)
-    message(FATAL_ERROR "Unable to find SoftDevice HEX file for the ${softdevice_variant} variant")
-  endif()
-  set(NRF5_SOFTDEVICE_VARIANT ${softdevice_variant} CACHE STRING "" FORCE)
-  set(NRF5_SOFTDEVICE_HEX ${softdevice_hex} CACHE FILEPATH "" FORCE)
-else()
-  if(NOT NRF5_SOFTDEVICE_VARIANT)
-    message(FATAL_ERROR "When using custom SoftDevice HEX file, you must specify the SoftDevice variant (NRF5_SOFTDEVICE_VARIANT) e.g. S112, S132, S140")
-  endif()
-  nrf5_validate_softdevice_variant(${NRF5_SOFTDEVICE_VARIANT})
-endif()
-
-message(STATUS "Using SoftDevice HEX file: ${NRF5_SOFTDEVICE_HEX}")
-message(STATUS "Using SoftDevice variant: ${NRF5_SOFTDEVICE_VARIANT}")
-
-string(TOLOWER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT_LOWER)
-string(TOUPPER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT_UPPER)
-
-nrf5_get_device_name(NRF5_DEVICE_NAME ${NRF5_TARGET})
-nrf5_get_mdk_postfix(NRF5_MDK_POSTFIX ${NRF5_TARGET})
-
 add_library(nrf5_config INTERFACE)
 target_include_directories(nrf5_config INTERFACE "${NRF5_SDKCONFIG_PATH}")
 if(NRF5_APPCONFIG_PATH)
@@ -136,16 +130,15 @@ if(NRF5_APPCONFIG_PATH)
 endif()
 
 # Microcontroller Development Kit (MDK)
+nrf5_get_startup_file(${NRF5_SDK_PATH} ${NRF5_TARGET} out_startup_file out_system_file)
+
 add_library(nrf5_mdk OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_${NRF5_MDK_POSTFIX}.S"
-  "${NRF5_SDK_PATH}/modules/nrfx/mdk/system_${NRF5_MDK_POSTFIX}.c"
+  "${out_startup_file}"
+  "${out_system_file}"
 )
 target_include_directories(nrf5_mdk PUBLIC
   "${NRF5_SDK_PATH}/components/toolchain/cmsis/include"
   "${NRF5_SDK_PATH}/modules/nrfx/mdk"
-)
-target_compile_definitions(nrf5_mdk PUBLIC
-  ${NRF5_DEVICE_NAME}
 )
 
 # SoC header files (SoftDevice variant)
@@ -600,7 +593,7 @@ function(nrf5_target exec_target)
   add_custom_target(bin DEPENDS ${exec_target} COMMAND ${CMAKE_OBJCOPY_BIN} -O binary "${exec_target}" "${exec_target}.bin")
   # target for flashing SoftDevice
   add_custom_target(flash_softdevice
-    COMMAND ${NRF5_NRFJPROG} --program ${NRF5_SOFTDEVICE_HEX} -f nrf52 --sectorerase
+    COMMAND ${NRF5_NRFJPROG} --program ${local_sd_hex_file_path} -f nrf52 --sectorerase
     COMMAND ${NRF5_NRFJPROG} --reset -f nrf52
   )
   # target for flashing the output executable

@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+include("nrf5_utils")
+
 function(nrf5_validate_sdk sdk_path out_sdk_version)
   if(NOT EXISTS ${sdk_path})
     message(FATAL_ERROR "Specified nRF SDK doesn't exist: ${sdk_path}")
@@ -92,7 +94,7 @@ function(nrf5_validate_board sdk_version board out_target out_define)
   set(${out_define} ${board_define} PARENT_SCOPE)
 endfunction()
 
-function(nrf5_validate_target sdk_version target out_target_flags)
+function(nrf5_validate_target sdk_version target out_target out_target_flags)
   # Handle aliases
   set(target_alias_nrf51801 nrf51801_xxab)
   set(target_alias_nrf51802 nrf51802_xxaa)
@@ -161,6 +163,153 @@ function(nrf5_validate_target sdk_version target out_target_flags)
   set(nrf52833_flags -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DFLOAT_ABI_HARD)
   set(nrf52840_flags -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DFLOAT_ABI_HARD)
 
+  set(${out_target} ${target} PARENT_SCOPE)
   set(${out_target_flags} ${${target_value}_flags} "-D${define_value}" PARENT_SCOPE)
+
+endfunction()
+
+function(nrf5_find_linker_file sdk_path sdk_version target sd_variant out_linker_file_path)
+  nrf5_split_target(${target} target_family target_variant target_group)
+  set(linker_path_patterns 
+    # Config files (contain necessary sections)
+    "${sdk_path}/config/${target_group}/armgcc/*.ld"
+    # SoftDevice linker files (contain good start/end sections)
+    "${sdk_path}/components/softdevice/${sd_variant}/toolchain/armgcc/*${sd_variant}*${target}*.ld"
+    # MDK linker files (for explicit target)
+    "${sdk_path}/modules/nrfx/mdk/*${target}*.ld"
+    # More generic MDK files for specific board variant
+    "${sdk_path}/modules/nrfx/mdk/*${target_family}_${target_variant}*.ld"
+  )
+  nrf5_find_file_path_with_patterns("${linker_path_patterns}" linker_file_path)
+  set(${out_linker_file_path} "${linker_file_path}" PARENT_SCOPE)
+endfunction()
+
+function(nrf5_get_startup_file sdk_path target out_startup_file out_system_file)
+  nrf5_split_target(${target} target_family target_variant target_group)
+  set(startup_file_patterns 
+    # Target specific startup file.
+    "${sdk_path}/modules/nrfx/mdk/gcc_startup_${target_group}.S"
+    # Family specific startup file.
+    "${sdk_path}/modules/nrfx/mdk/gcc_startup_${target_family}.S"
+  )
+
+  nrf5_find_file_path_with_patterns("${startup_file_patterns}" startup_file)
+  if (NOT startup_file)
+    message(FATAL_ERROR "Cannot find startup file for ${target}")
+  endif()
+
+  set(system_file_patterns 
+    # Target specific system file.
+    "${sdk_path}/modules/nrfx/mdk/system_${target_group}.c"
+    # Family specific system file.
+    "${sdk_path}/modules/nrfx/mdk/system_${target_family}.c"
+  )
+
+  nrf5_find_file_path_with_patterns("${system_file_patterns}" system_file)
+  if (NOT system_file)
+    message(FATAL_ERROR "Cannot find system file for ${target}")
+  endif()
+
+  set(${out_startup_file} "${startup_file}" PARENT_SCOPE)
+  set(${out_system_file} "${system_file}" PARENT_SCOPE)
+endfunction()
+
+function(nrf5_validate_softdevice_variant sdk_path sdk_version target sd_variant out_sd_hex_file_path out_sd_flags)
+  # If we have blank sd_variant then continue...
+  if(sd_variant STREQUAL blank)
+    return()
+  endif()
+
+  # Get more info about the target
+  nrf5_split_target(${target} target_family target_variant target_group)
+
+  # Check supported SD.
+  set(softdevices_15.3.0 s112 s132 s140 s212 s312 s332 s340)
+  set(softdevices_16.0.0 s112 s113 s132 s140 s212 s312 s332 s340)
+
+  list(FIND softdevices_${sdk_version} ${sd_variant} sd_variant_supported)
+  if (sd_variant_supported EQUAL -1)
+    message(FATAL_ERROR "SoftDevice variant ${sd_variant} is not supported in SDK ${sdk_version}")
+  endif()
+
+  # Supported targets
+  set(supports_15.3.0_s112 nrf52810 nrf52811 nrf52832)
+  set(supports_15.3.0_s132 nrf52832)
+  set(supports_15.3.0_s140 nrf52840)
+  set(supports_15.3.0_s212 nrf52810 nrf52832)
+  set(supports_15.3.0_s312 nrf52810)
+  set(supports_15.3.0_s332 nrf52832)
+  set(supports_15.3.0_s340 nrf52840)
+
+  set(supports_16.0.0_s112 nrf52810 nrf52811 nrf52820 nrf52832)
+  set(supports_16.0.0_s113 nrf52810 nrf52811 nrf52832 nrf52833 nrf52840)
+  set(supports_16.0.0_s132 nrf52832)
+  set(supports_16.0.0_s140 nrf52811 nrf52820 nrf52833 nrf52840)
+  set(supports_16.0.0_s212 nrf52810 nrf52832)
+  set(supports_16.0.0_s312 nrf52810)
+  set(supports_16.0.0_s332 nrf52832)
+  set(supports_16.0.0_s340 nrf52840)
+
+  list(FIND supports_${sdk_version}_${sd_variant} ${target_group} sd_target_supported)
+  if (sd_target_supported EQUAL -1)
+    message(FATAL_ERROR "SoftDevice variant ${sd_variant} is not supported on ${target_group}")
+  endif()
+
+  # Check if headers are preset.
+  set(sd_header_path_pattern "${sdk_path}/components/softdevice/${sd_variant}/headers/*.h")
+  file(GLOB sd_headers "${sd_header_path_pattern}")
+  list(LENGTH sd_headers sd_headers_count)
+  if(sd_headers_count EQUAL 0)
+    message(FATAL_ERROR "SoftDevice header files missing inside: ${sd_header_path_pattern}")
+  endif()
+
+  # Get information about SoftDevice.
+  set(sd_key_version 0)
+  set(sd_key_use_ble 1)
+  set(sd_key_use_ant 2)
+
+  set(softdevice_15.3.0_s112 6.1.1 YES NO)
+  set(softdevice_15.3.0_s132 6.1.1 YES NO)
+  set(softdevice_15.3.0_s140 6.1.1 YES NO)
+  set(softdevice_15.3.0_s212 6.1.1 NO YES)
+  set(softdevice_15.3.0_s312 6.1.1 YES YES)
+  set(softdevice_15.3.0_s332 6.1.1 YES YES)
+  set(softdevice_15.3.0_s340 6.1.1 YES YES)
+
+  set(softdevice_16.0.0_s112 7.0.1 YES NO)
+  set(softdevice_16.0.0_s113 7.0.1 YES NO)
+  set(softdevice_16.0.0_s132 7.0.1 YES NO)
+  set(softdevice_16.0.0_s140 7.0.1 YES NO)
+  set(softdevice_16.0.0_s212 6.1.1 NO YES)
+  set(softdevice_16.0.0_s312 6.1.1 YES YES)
+  set(softdevice_16.0.0_s332 6.1.1 YES YES)
+  set(softdevice_16.0.0_s340 6.1.1 YES YES)
+
+  list(GET softdevice_${sdk_version}_${sd_variant} ${sd_key_version} sd_version)
+  list(GET softdevice_${sdk_version}_${sd_variant} ${sd_key_use_ble} sd_use_ble)
+  list(GET softdevice_${sdk_version}_${sd_variant} ${sd_key_use_ant} sd_use_ant)
+  string(REGEX REPLACE "\.[0-9]\.[0-9]" "" sd_version_major ${sd_version})
+
+  # Check if hex file is present.
+  set(sd_hex_file_path_pattern "${sdk_path}/components/softdevice/${sd_variant}/hex/*${sd_variant}*${sd_version}*.hex")
+  file(GLOB hex_file_path ${sd_hex_file_path_pattern})
+  if (NOT hex_file_path)
+    message(FATAL_ERROR "Cannot find SoftDevice HEX file inside SDK: ${sd_hex_file_path_pattern}")
+  endif()
+
+  # Add flags
+  string(TOUPPER ${sd_variant} sd_variant_upper)
+  set(sd_flags "-DSOFTDEVICE_PRESENT" "-D${sd_variant_upper}")
+  if(${sd_use_ble})
+    list(APPEND sd_flags "-DNRF_SD_BLE_API_VERSION=${sd_version_major}" "-DBLE_STACK_SUPPORT_REQD")
+  endif()
+
+  if(${sd_use_ant})
+    list(APPEND sd_flags "-DANT_STACK_SUPPORT_REQD")
+  endif()
+
+  # Set output variables
+  set(${out_sd_hex_file_path} "${hex_file_path}" PARENT_SCOPE)
+  set(${out_sd_flags} ${sd_flags} PARENT_SCOPE)
 
 endfunction()

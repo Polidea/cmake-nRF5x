@@ -1,6 +1,6 @@
 # MIT License
 
-# Copyright (c) 2019 Polidea
+# Copyright (c) 2020 Polidea
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,59 +20,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-function(nrf5_validate_softdevice_variant softdevice_variant)
-  set(supported_sd_variants s112 s113 s132 s140 s212 s312 s332 s340)  
-  string(TOLOWER ${softdevice_variant} sd_variant_lower)
-  list(FIND supported_sd_variants ${sd_variant_lower} index)
-
-  if(index EQUAL -1)
-    message(FATAL_ERROR "Invalid SoftDevice variant: ${softdevice_variant}")
-  endif()
+function(nrf5_split_target target out_target_family out_target_variant out_target_group)
+  string(REGEX REPLACE "_[a-z]+" "" target_group ${target})
+  string(REGEX REPLACE "[a-z0-9]+_" "" target_variant ${target})
+  string(REGEX MATCH "nrf[0-9][0-9]" target_family ${target})
+  set(${out_target_family} ${target_family} PARENT_SCOPE)
+  set(${out_target_variant} ${target_variant} PARENT_SCOPE)
+  set(${out_target_group} ${target_group} PARENT_SCOPE)
 endfunction()
 
-function(nrf5_get_mdk_postfix out_postfix target)
-  if(target STREQUAL "nrf52810")
-    set(${out_postfix} "nrf52810" PARENT_SCOPE)
-  elseif(target STREQUAL "nrf52832")
-    set(${out_postfix} "nrf52" PARENT_SCOPE)
-  elseif(target STREQUAL "nrf52840")
-    set(${out_postfix} "nrf52840" PARENT_SCOPE)
-  else()
-    message(FATAL_ERROR "Invalid target passed to nrf5_target_system_postfix() function")
-  endif()
-endfunction()
-
-function(nrf5_get_device_name out_device_name target)
-  # There are two nRF52832 SoC variants available with varying Flash and RAM sizes. Currently, only XXAA variant is supported.
-  if(target STREQUAL "nrf52832")
-    message(WARNING "nRF52832 target specified. nRF52832_XXAA variant assumed (512kB Flash / 64kB RAM).")
-  endif()
-
-  string(TOUPPER ${target} target_upper)
-  set(${out_device_name} "${target_upper}_XXAA" PARENT_SCOPE)
-endfunction()
-
-function(nrf5_get_softdevice_variant out_sd_variant target)
-  if(target STREQUAL "nrf52810")
-    set(${out_sd_variant} "s112" PARENT_SCOPE)
-  elseif(target STREQUAL "nrf52832")
-   set(${out_sd_variant} "s132" PARENT_SCOPE)
-  elseif(target STREQUAL "nrf52840")
-    set(${out_sd_variant} "s140" PARENT_SCOPE)
-  else()
-    message(FATAL_ERROR "Invalid target passed to nrf5_get_softdevice_variant() function")
-  endif()
-endfunction()
-
-function(nrf5_find_softdevice_file out_softdevice_file search_path softdevice_variant)
-  file(GLOB_RECURSE softdevice_file_list LIST_DIRECTORIES false "${search_path}/*${softdevice_variant}*.hex")
-  if(softdevice_file_list)
-    list(LENGTH softdevice_file_list softdevice_file_list_len)
-    if(softdevice_file_list_len GREATER 1)
-      message(WARNING "Found multiple matching SoftDevice HEX files: ${softdevice_file_list}")
+function(nrf5_find_file_path_with_patterns file_path_patterns_list out_file_path)
+  foreach(file_path_pattern ${file_path_patterns_list})
+    file(GLOB file_path_candidates "${file_path_pattern}")
+    list(LENGTH file_path_candidates candidates_count)
+    if(${candidates_count} GREATER_EQUAL 1)
+      list(GET file_path_candidates 0 file_path_candidate)
+      if(file_path_candidate)
+        set(${out_file_path} ${file_path_candidate} PARENT_SCOPE)
+        return()
+      endif()
     endif()
-
-    list(GET softdevice_file_list 0 softdevice_file)
-    set(${out_softdevice_file} ${softdevice_file} PARENT_SCOPE)
-  endif()
+  endforeach()
 endfunction()

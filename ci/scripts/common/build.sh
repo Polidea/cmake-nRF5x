@@ -127,6 +127,7 @@ function build_example() {
         -DTOOLCHAIN_PREFIX="$toolchain_dir" \
         -DNRF5_SDK_PATH="$SDKS_DIR/$sdk_version" \
         -DNRF5_BOARD="$pca_variant" \
+        -DNRF5_SOFTDEVICE_VARIANT="$sd_variant" \
         -DNRF5_LINKER_SCRIPT="$sdk_example_dir/$selected_variant/$linker_file" \
         -DNRF5_SDKCONFIG_PATH="$sdk_example_dir/$selected_variant" \
         --loglevel=WARNING \
