@@ -23,7 +23,7 @@
 
 source "${BASH_SOURCE%/*}/common/consts.sh"
 
-sdks=("16.0.0")
+sdks=($@)
 for sdk in ${sdks[@]}; do
     FILES=$(
         find "${SDKS_DIR}/${sdk}" | 

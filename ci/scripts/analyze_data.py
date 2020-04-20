@@ -97,59 +97,62 @@ if active_example["path"] != None:
     examples.append(active_example)
 
 # Finds common source, flags etc. among all examples matching specified filters
-core_example = new_example()
+def find_common_example(examples, example_filters):
+    common_example = new_example()
+    first_example = True
 
-first_example = True
-for example in examples:
-    # Make sure that example matches specified filters
-    matches = True
-    for key in example:
-        # Filter by path if present.
-        if key == "path":
-            if example_filters["path"] != '' and not re.search(example_filters["path"], example["path"]):
-                matches = False
-            continue
+    for example in examples:
+        # Make sure that example matches specified filters
+        matches = True
+        for key in example:
+            # Filter by path if present.
+            if key == "path":
+                if example_filters["path"] != '' and not re.search(example_filters["path"], example["path"]):
+                    matches = False
+                continue
 
-        # Check if filter is present
-        if not example_filters[key]:
-            continue
-        
-        # Go over each pattern and make sure that it was matched at least
-        # once in sources, includes etc.
-        for pattern in example_filters[key]:
-            found_in_any = False
-            for item in example[key]:
-                if re.search(pattern, item):
-                    found_in_any = True
-            if not found_in_any:
-                matches = False
+            # Check if filter is present
+            if not example_filters[key]:
+                continue
+            
+            # Go over each pattern and make sure that it was matched at least
+            # once in sources, includes etc.
+            for pattern in example_filters[key]:
+                found_in_any = False
+                for item in example[key]:
+                    if re.search(pattern, item):
+                        found_in_any = True
+                if not found_in_any:
+                    matches = False
+                    break
+
+            # Return early if we don't match.
+            if not matches:
                 break
 
-        # Return early if we don't match.
+        # Ignore examples, which don't match filters.
         if not matches:
-            break
-
-    # Ignore examples, which don't match filters.
-    if not matches:
-        continue
-
-    # First example populates array
-    if first_example == True:
-        core_example = example
-        first_example = False
-        continue
-
-    # Make sure to keep elements which appear in every example.
-    for key in core_example:
-        if key == "path":
             continue
 
-        items_to_remove = []
-        for item in core_example[key]:
-            if not item in example[key]:
-                items_to_remove.append(item)
+        # First example populates array
+        if first_example == True:
+            common_example = example
+            first_example = False
+            continue
 
-        for item in items_to_remove:
-            core_example[key].remove(item)
+        # Make sure to keep elements which appear in every example.
+        for key in common_example:
+            if key == "path":
+                continue
 
-pp.pprint(core_example)
+            items_to_remove = []
+            for item in common_example[key]:
+                if not item in example[key]:
+                    items_to_remove.append(item)
+
+            for item in items_to_remove:
+                common_example[key].remove(item)
+
+    return common_example
+
+pp.pprint(find_common_example(examples, example_filters))
