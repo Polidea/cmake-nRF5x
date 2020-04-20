@@ -34,16 +34,17 @@ for sdk in ${sdks[@]}; do
         source_files=$(
             cat $file | 
             rg --multiline "SRC_FILES(.*\\\\\s*\n)+" |
-            rg "\s*(\\$\\(SDK_ROOT\\)/)" |
+            rg "\s*(\\$\\(SDK_ROOT\\)/)" -r "" |
             rg "\\\\" -r "" |
             rg "\s+" -r "" |
             sort | 
             uniq
         )
+
         include_files=$(
             cat $file | 
             rg --multiline "INC_FOLDERS(.*\\\\\s*\n)+" |
-            rg "\s*(\\$\\(SDK_ROOT\\)/)" |
+            rg "\s*(\\$\\(SDK_ROOT\\)/)" -r "" |
             rg "\\\\" -r "" |
             rg "\s+" -r "" |
             sort | 
