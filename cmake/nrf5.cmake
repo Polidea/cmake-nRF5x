@@ -344,6 +344,22 @@ add_library(nrf5_log_backend_uart OBJECT EXCLUDE_FROM_ALL
 )
 target_link_libraries(nrf5_log_backend_uart PUBLIC nrf5_log nrf5_drv_uart)
 
+# Segger RTT
+add_library(nrf5_ext_segger_rtt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT.c"
+)
+target_include_directories(nrf5_ext_segger_rtt PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/external/segger_rtt"
+)
+target_link_libraries(nrf5_ext_segger_rtt PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Logger RTT backend
+add_library(nrf5_log_backend_rtt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_rtt.c"
+)
+target_link_libraries(nrf5_log_backend_rtt PUBLIC nrf5_log nrf5_ext_segger_rtt)
+
 # Logger (default backends)
 add_library(nrf5_log_default_backends OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_default_backends.c"
@@ -447,6 +463,36 @@ target_include_directories(nrf5_app_button PUBLIC
 )
 target_link_libraries(nrf5_app_button PUBLIC nrf5_app_timer nrf5_nrfx_gpiote)
 
+# Application FIFO
+add_library(nrf5_app_fifo OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/fifo/app_fifo.c"
+)
+target_include_directories(nrf5_app_fifo PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/fifo"
+)
+target_link_libraries(nrf5_app_fifo PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Application UART
+add_library(nrf5_app_uart OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/uart/app_uart.c"
+)
+target_include_directories(nrf5_app_uart PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/uart"
+)
+target_link_libraries(nrf5_app_uart PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_drv_uart)
+
+# Application UART (with FIFO)
+add_library(nrf5_app_uart_fifo OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/uart/app_uart_fifo.c"
+)
+target_include_directories(nrf5_app_uart_fifo PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/uart"
+)
+target_link_libraries(nrf5_app_uart_fifo PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_drv_uart nrf5_app_fifo)
+
 # Boards
 add_library(nrf5_boards OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/boards/boards.c"
@@ -468,6 +514,15 @@ target_include_directories(nrf5_bsp PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/bsp"
 )
 target_link_libraries(nrf5_bsp PUBLIC nrf5_boards nrf5_app_button)
+
+# BSP Button BLE
+add_library(nrf5_bsp_btn_ble OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bsp/bsp_btn_ble.c"
+)
+target_include_directories(nrf5_bsp_btn_ble PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bsp"
+)
+target_link_libraries(nrf5_bsp_btn_ble PUBLIC nrf5_boards nrf5_app_button)
 
 # nrfx common
 add_library(nrf5_nrfx_common INTERFACE)
@@ -562,6 +617,15 @@ target_include_directories(nrf5_ble_qwr PUBLIC
 )
 target_link_libraries(nrf5_ble_qwr PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_ble_common)
 
+# BLE Link Context Manager
+add_library(nrf5_ble_link_ctx_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c"
+)
+target_include_directories(nrf5_ble_link_ctx_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager"
+)
+target_link_libraries(nrf5_ble_link_ctx_manager PUBLIC nrf5_ble_common)
+
 # BLE LED Button Service (Peripheral)
 add_library(nrf5_ble_srv_lbs OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs/ble_lbs.c"
@@ -581,6 +645,16 @@ target_include_directories(nrf5_ble_srv_lbs_c PUBLIC
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs_c"
 )
 target_link_libraries(nrf5_ble_srv_lbs_c PUBLIC nrf5_ble_db_discovery)
+
+# BLE Nordic UART Service (Peripheral)
+add_library(nrf5_ble_srv_nus OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/ble_nus.c"
+)
+target_include_directories(nrf5_ble_srv_nus PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/"
+)
+target_link_libraries(nrf5_ble_srv_nus PUBLIC nrf5_ble_link_ctx_manager)
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
