@@ -12,6 +12,11 @@ function absolute() {
 
 # On Windows (Cygwin), convert Cygwin path to mixed path (Windows path with normal slashes)
 function adapt_cmake_path() {
+    # Handle an empty path (so `cygpath` won't complain)
+    if [[ -z "$1" ]]; then
+        return 0
+    fi
+
     if [[ "$OSTYPE" == "cygwin" ]]; then
         cygpath -m $1
     else
