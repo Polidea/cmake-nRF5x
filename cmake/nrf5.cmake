@@ -826,6 +826,16 @@ target_include_directories(nrf5_ble_link_ctx_manager PUBLIC
 )
 target_link_libraries(nrf5_ble_link_ctx_manager PUBLIC nrf5_ble_common)
 
+# BLE LESC
+add_library(nrf5_ble_lesc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/nrf_ble_lesc.c"
+)
+target_include_directories(nrf5_ble_lesc PUBLIC
+"${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_lesc PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_crypto_fwd)
+
 # Peer Database
 add_library(nrf5_ble_peer_database OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_database.c"
@@ -899,6 +909,34 @@ target_include_directories(nrf5_ble_security_manager PUBLIC
 )
 target_link_libraries(nrf5_ble_security_manager PUBLIC nrf5_ble_common)
 
+# GATT Cache Manager
+add_library(nrf5_ble_gatt_cache_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/gatt_cache_manager.c"
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/gatts_cache_manager.c"
+)
+target_include_directories(nrf5_ble_gatt_cache_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_gatt_cache_manager PUBLIC nrf5_ble_common)
+
+# Peer Manager Handler
+add_library(nrf5_ble_peer_manager_handler OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_manager_handler.c"
+)
+target_include_directories(nrf5_ble_peer_manager_handler PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_peer_manager_handler PUBLIC nrf5_ble_common)
+
+# Peer Manager
+add_library(nrf5_ble_peer_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_manager.c"
+)
+target_include_directories(nrf5_ble_peer_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_peer_manager PUBLIC nrf5_ble_common)
+
 # BLE LED Button Service (Peripheral)
 add_library(nrf5_ble_srv_lbs OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs/ble_lbs.c"
@@ -928,6 +966,26 @@ target_include_directories(nrf5_ble_srv_nus PUBLIC
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/"
 )
 target_link_libraries(nrf5_ble_srv_nus PUBLIC nrf5_ble_link_ctx_manager)
+
+# BLE Device Information Service (Peripheral)
+add_library(nrf5_ble_srv_dis OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_dis/ble_dis.c"
+)
+target_include_directories(nrf5_ble_srv_dis PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_dis/"
+)
+target_link_libraries(nrf5_ble_srv_dis PUBLIC nrf5_ble_common)
+
+# BLE Bond Management Service
+add_library(nrf5_ble_srv_bms OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/nrf_ble_bms/nrf_ble_bms.c"
+)
+target_include_directories(nrf5_ble_srv_bms PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/nrf_ble_bms/"
+)
+target_link_libraries(nrf5_ble_srv_bms PUBLIC nrf5_ble_common nrf5_ble_qwr)
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
