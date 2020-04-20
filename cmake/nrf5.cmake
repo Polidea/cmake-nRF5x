@@ -991,6 +991,16 @@ target_include_directories(nrf5_ble_srv_nus PUBLIC
 )
 target_link_libraries(nrf5_ble_srv_nus PUBLIC nrf5_ble_link_ctx_manager)
 
+# BLE Nordic UART Service (Central)
+add_library(nrf5_ble_srv_nus_c OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus_c/ble_nus_c.c"
+)
+target_include_directories(nrf5_ble_srv_nus_c PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus_c/"
+)
+target_link_libraries(nrf5_ble_srv_nus_c PUBLIC nrf5_ble_db_discovery)
+
 # BLE Device Information Service (Peripheral)
 add_library(nrf5_ble_srv_dis OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_dis/ble_dis.c"
