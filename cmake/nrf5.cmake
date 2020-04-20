@@ -272,6 +272,16 @@ target_include_directories(nrf5_memobj PUBLIC
 )
 target_link_libraries(nrf5_memobj PUBLIC nrf5_balloc nrf5_atomic)
 
+# Memory Manager
+add_library(nrf5_mem_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/mem_manager/mem_manager.c"
+)
+target_include_directories(nrf5_mem_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/mem_manager"
+)
+target_link_libraries(nrf5_mem_manager PUBLIC nrf5_log)
+
 # Ring buffer
 add_library(nrf5_ringbuf OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/ringbuf/nrf_ringbuf.c"
@@ -937,6 +947,12 @@ target_include_directories(nrf5_ble_peer_manager PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_manager PUBLIC nrf5_ble_common)
 
+# IoT Common
+add_library(nrf5_iot_common INTERFACE)
+target_include_directories(nrf5_iot_common INTERFACE
+  "${NRF5_SDK_PATH}/components/iot/common"
+)
+
 # BLE LED Button Service (Peripheral)
 add_library(nrf5_ble_srv_lbs OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs/ble_lbs.c"
@@ -986,6 +1002,16 @@ target_include_directories(nrf5_ble_srv_bms PUBLIC
   "${NRF5_SDK_PATH}/components/ble/ble_services/nrf_ble_bms/"
 )
 target_link_libraries(nrf5_ble_srv_bms PUBLIC nrf5_ble_common nrf5_ble_qwr)
+
+# BLE Internet Protocol Support Profile Service
+add_library(nrf5_ble_srv_ipsp OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ipsp/ble_ipsp.c"
+)
+target_include_directories(nrf5_ble_srv_ipsp PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ipsp/"
+)
+target_link_libraries(nrf5_ble_srv_ipsp PUBLIC nrf5_ble_common)
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
