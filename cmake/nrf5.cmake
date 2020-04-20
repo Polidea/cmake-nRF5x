@@ -518,6 +518,14 @@ target_include_directories(nrf5_svc PUBLIC
 )
 target_link_libraries(nrf5_svc PUBLIC nrf5_section)
 
+# Sensor Data Simulator
+add_library(nrf5_sensorsim OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/sensorsim/sensorsim.c"
+)
+target_include_directories(nrf5_sensorsim PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/sensorsim"
+)
+
 # CC310 library forwarding interface (external, include directories only)
 add_library(nrf5_ext_cc310_fwd INTERFACE)
 target_include_directories(nrf5_ext_cc310_fwd INTERFACE
