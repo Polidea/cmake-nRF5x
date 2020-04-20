@@ -129,6 +129,7 @@ function build_example() {
         -DTOOLCHAIN_PREFIX="$(adapt_cmake_path $toolchain_dir)" \
         -DNRF5_SDK_PATH="$(adapt_cmake_path $SDKS_DIR/$sdk_version)" \
         -DNRF5_BOARD="$pca_variant" \
+        -DNRF5_SOFTDEVICE_VARIANT="$sd_variant" \
         -DNRF5_LINKER_SCRIPT="$(adapt_cmake_path $sdk_example_dir/$selected_variant/$linker_file)" \
         -DNRF5_SDKCONFIG_PATH="$(adapt_cmake_path $sdk_example_dir/$selected_variant)" \
         --loglevel=WARNING \
