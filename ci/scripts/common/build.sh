@@ -104,7 +104,7 @@ function build_example() {
     echo -e "\n${HEADER_START} ######## Building $cmake_build_path ######## ${HEADER_END}\n"
 
     # Get path to tools
-    local nrfjprog="nrfjprog"
+    local nrfjprog=""
     if [[ -d $NRFJPROG_DIR ]]; then
         nrfjprog="$NRFJPROG_DIR/nrfjprog"
     fi
