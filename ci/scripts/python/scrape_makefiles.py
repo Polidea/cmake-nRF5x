@@ -3,6 +3,7 @@
 import sys
 import re
 import json
+import argparse
 
 # Process each example's Makefile and collect data
 def process_example(file_path, examples):
@@ -76,13 +77,20 @@ def process_example(file_path, examples):
 def sort_examples(example):
     return example["path"]
 
-# Gather info about all examples provided via args.
+# Parse arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("--output")
+args = parser.parse_args()
+
 examples = []
-file_paths = iter(sys.argv)
-next(file_paths)
-for file_path in file_paths:
-    process_example(file_path, examples)
+for line in sys.stdin.readlines():
+    paths = line.split(" ")
+    for path in paths:
+        file_path = path.strip()
+        if file_path != '':
+            process_example(file_path, examples)
 
 # Sort examples and print them
+output_file = open(args.output, 'w+')
 examples.sort(key=sort_examples, reverse=True)
-print(json.dumps(examples))
+json.dump(examples, output_file)
