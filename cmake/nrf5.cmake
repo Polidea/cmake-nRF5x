@@ -267,6 +267,16 @@ target_include_directories(nrf5_memobj PUBLIC
 )
 target_link_libraries(nrf5_memobj PUBLIC nrf5_balloc nrf5_atomic)
 
+# Memory Manager
+add_library(nrf5_mem_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/mem_manager/mem_manager.c"
+)
+target_include_directories(nrf5_mem_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/mem_manager"
+)
+target_link_libraries(nrf5_mem_manager PUBLIC nrf5_log)
+
 # Ring buffer
 add_library(nrf5_ringbuf OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/ringbuf/nrf_ringbuf.c"
@@ -338,6 +348,22 @@ add_library(nrf5_log_backend_uart OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_uart.c"
 )
 target_link_libraries(nrf5_log_backend_uart PUBLIC nrf5_log nrf5_drv_uart)
+
+# Segger RTT
+add_library(nrf5_ext_segger_rtt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT.c"
+)
+target_include_directories(nrf5_ext_segger_rtt PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/external/segger_rtt"
+)
+target_link_libraries(nrf5_ext_segger_rtt PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Logger RTT backend
+add_library(nrf5_log_backend_rtt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_rtt.c"
+)
+target_link_libraries(nrf5_log_backend_rtt PUBLIC nrf5_log nrf5_ext_segger_rtt)
 
 # Logger (default backends)
 add_library(nrf5_log_default_backends OBJECT EXCLUDE_FROM_ALL
@@ -442,6 +468,244 @@ target_include_directories(nrf5_app_button PUBLIC
 )
 target_link_libraries(nrf5_app_button PUBLIC nrf5_app_timer nrf5_nrfx_gpiote)
 
+# Application FIFO
+add_library(nrf5_app_fifo OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/fifo/app_fifo.c"
+)
+target_include_directories(nrf5_app_fifo PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/fifo"
+)
+target_link_libraries(nrf5_app_fifo PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Application UART
+add_library(nrf5_app_uart OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/uart/app_uart.c"
+)
+target_include_directories(nrf5_app_uart PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/uart"
+)
+target_link_libraries(nrf5_app_uart PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_drv_uart)
+
+# Application UART (with FIFO)
+add_library(nrf5_app_uart_fifo OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/uart/app_uart_fifo.c"
+)
+target_include_directories(nrf5_app_uart_fifo PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/uart"
+)
+target_link_libraries(nrf5_app_uart_fifo PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_drv_uart nrf5_app_fifo)
+
+# Stack Info
+add_library(nrf5_stack_info INTERFACE)
+target_include_directories(nrf5_stack_info INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/stack_info"
+)
+
+# SVC
+add_library(nrf5_svc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/svc/nrf_svc_handler.c"
+)
+target_include_directories(nrf5_svc PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/svc"
+)
+target_link_libraries(nrf5_svc PUBLIC nrf5_section)
+
+# Sensor Data Simulator
+add_library(nrf5_sensorsim OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/sensorsim/sensorsim.c"
+)
+target_include_directories(nrf5_sensorsim PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/sensorsim"
+)
+
+# CC310 library forwarding interface (external, include directories only)
+add_library(nrf5_ext_cc310_fwd INTERFACE)
+target_include_directories(nrf5_ext_cc310_fwd INTERFACE
+  "${NRF5_SDK_PATH}/external/nrf_cc310/include"
+)
+
+# mbedTLS library forwarding interface (external, include directories only)
+add_library(nrf5_ext_mbedtls_fwd INTERFACE)
+target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE
+  "${NRF5_SDK_PATH}/external/mbedtls/include"
+)
+
+# nRF Crypto forwarding interface (include directories only)
+add_library(nrf5_crypto_fwd INTERFACE)
+target_include_directories(nrf5_crypto_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/crypto"
+)
+
+# Crypto CC310 backend
+add_library(nrf5_crypto_cc310_backend OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_aes.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_aes_aead.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_chacha_poly_aead.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_ecc.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_ecdh.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_ecdsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_eddsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_hash.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_hmac.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_init.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_mutex.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_rng.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310/cc310_backend_shared.c"
+)
+target_include_directories(nrf5_crypto_cc310_backend PUBLIC
+"${NRF5_SDK_PATH}/components/libraries/util"
+"${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310"
+)
+target_link_libraries(nrf5_crypto_cc310_backend PUBLIC nrf5_mtx nrf5_nrfx_common nrf5_ext_cc310_fwd)
+
+# Crypto CC310 BL backend
+add_library(nrf5_crypto_cc310_bl_backend OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_ecc.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_ecdsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_hash.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_init.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_shared.c"
+)
+target_include_directories(nrf5_crypto_cc310_bl_backend PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310_bl"
+)
+target_link_libraries(nrf5_crypto_cc310_bl_backend PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Crypto Cifra backend
+add_library(nrf5_crypto_cifra_backend OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cifra/cifra_backend_aes_aead.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cifra/cifra_backend_aes_aead.c"
+)
+target_include_directories(nrf5_crypto_cifra_backend PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cifra"
+)
+target_link_libraries(nrf5_crypto_cifra_backend PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Crypto mbedTLS backend
+add_library(nrf5_crypto_mbedtls_backend OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls/mbedtls_backend_aes.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls/mbedtls_backend_aes_aead.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls/mbedtls_backend_ecc.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls/mbedtls_backend_ecdh.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls/mbedtls_backend_ecdsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls/mbedtls_backend_hash.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls/mbedtls_backend_hmac.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls/mbedtls_backend_init.c"
+)
+target_include_directories(nrf5_crypto_mbedtls_backend PUBLIC
+"${NRF5_SDK_PATH}/components/libraries/util"
+"${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls"
+)
+target_link_libraries(nrf5_crypto_mbedtls_backend PUBLIC nrf5_mdk nrf5_soc nrf5_nrfx_common nrf5_crypto_fwd nrf5_ext_mbedtls_fwd)
+
+# Crypto micro-ecc backend
+add_library(nrf5_crypto_micro_ecc_backend OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/micro_ecc/micro_ecc_backend_ecc.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/micro_ecc/micro_ecc_backend_ecdh.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/micro_ecc/micro_ecc_backend_ecdsa.c"
+)
+target_include_directories(nrf5_crypto_micro_ecc_backend PUBLIC
+"${NRF5_SDK_PATH}/components/libraries/util"
+"${NRF5_SDK_PATH}/components/libraries/crypto/backend/micro_ecc"
+)
+target_link_libraries(nrf5_crypto_micro_ecc_backend PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Crypto Oberon backend
+add_library(nrf5_crypto_oberon_backend OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon/oberon_backend_chacha_poly_aead.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon/oberon_backend_ecc.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon/oberon_backend_ecdh.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon/oberon_backend_ecdsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon/oberon_backend_eddsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon/oberon_backend_hash.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon/oberon_backend_hmac.c"
+)
+target_include_directories(nrf5_crypto_oberon_backend PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon"
+)
+target_link_libraries(nrf5_crypto_oberon_backend PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Crypto nRF HW backend
+add_library(nrf5_crypto_nrf_hw_backend OBJECT EXCLUDE_FROM_ALL
+"${NRF5_SDK_PATH}/components/libraries/crypto/backend/nrf_hw/nrf_hw_backend_init.c"
+"${NRF5_SDK_PATH}/components/libraries/crypto/backend/nrf_hw/nrf_hw_backend_rng.c"
+"${NRF5_SDK_PATH}/components/libraries/crypto/backend/nrf_hw/nrf_hw_backend_rng_mbedtls.c"
+)
+target_include_directories(nrf5_crypto_nrf_hw_backend PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/nrf_hw"
+)
+target_link_libraries(nrf5_crypto_nrf_hw_backend PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Crypto nRF SW backend
+add_library(nrf5_crypto_nrf_sw_backend OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/nrf_sw/nrf_sw_backend_hash.c"
+)
+target_include_directories(nrf5_crypto_nrf_sw_backend PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/nrf_sw"
+)
+target_link_libraries(nrf5_crypto_nrf_sw_backend PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# Crypto Optiga backend
+add_library(nrf5_crypto_optiga_backend OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga/optiga_backend_ecc.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga/optiga_backend_ecdh.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga/optiga_backend_ecdsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga/optiga_backend_init.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga/optiga_backend_rng.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga/optiga_backend_utils.c"
+)
+target_include_directories(nrf5_crypto_optiga_backend PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga"
+)
+target_link_libraries(nrf5_crypto_optiga_backend PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_crypto_fwd)
+
+# Crypto
+add_library(nrf5_crypto OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_aead.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_aes.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_aes_shared.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_ecc.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_ecdh.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_ecdsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_eddsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_error.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_hash.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_hkdf.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_hmac.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_init.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_rng.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_shared.c"
+)
+target_include_directories(nrf5_crypto PUBLIC
+"${NRF5_SDK_PATH}/components/libraries/util"
+"${NRF5_SDK_PATH}/components/libraries/svc"
+"${NRF5_SDK_PATH}/components/libraries/crypto"
+)
+target_link_libraries(nrf5_crypto PUBLIC
+  nrf5_section
+  nrf5_log
+  nrf5_stack_info
+  nrf5_svc
+  nrf5_crypto_cc310_backend
+  nrf5_crypto_cc310_bl_backend
+  nrf5_crypto_cifra_backend
+  nrf5_crypto_mbedtls_backend
+  nrf5_crypto_micro_ecc_backend
+  nrf5_crypto_oberon_backend
+  nrf5_crypto_nrf_hw_backend
+  nrf5_crypto_nrf_sw_backend
+  nrf5_crypto_optiga_backend
+)
+
 # Boards
 add_library(nrf5_boards OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/boards/boards.c"
@@ -463,6 +727,15 @@ target_include_directories(nrf5_bsp PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/bsp"
 )
 target_link_libraries(nrf5_bsp PUBLIC nrf5_boards nrf5_app_button)
+
+# BSP Button BLE
+add_library(nrf5_bsp_btn_ble OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bsp/bsp_btn_ble.c"
+)
+target_include_directories(nrf5_bsp_btn_ble PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bsp"
+)
+target_link_libraries(nrf5_bsp_btn_ble PUBLIC nrf5_boards nrf5_app_button)
 
 # nrfx common
 add_library(nrf5_nrfx_common INTERFACE)
@@ -557,6 +830,132 @@ target_include_directories(nrf5_ble_qwr PUBLIC
 )
 target_link_libraries(nrf5_ble_qwr PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_ble_common)
 
+# BLE Link Context Manager
+add_library(nrf5_ble_link_ctx_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c"
+)
+target_include_directories(nrf5_ble_link_ctx_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager"
+)
+target_link_libraries(nrf5_ble_link_ctx_manager PUBLIC nrf5_ble_common)
+
+# BLE LESC
+add_library(nrf5_ble_lesc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/nrf_ble_lesc.c"
+)
+target_include_directories(nrf5_ble_lesc PUBLIC
+"${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_lesc PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_crypto_fwd)
+
+# Peer Database
+add_library(nrf5_ble_peer_database OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_database.c"
+)
+target_include_directories(nrf5_ble_peer_database PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_peer_database PUBLIC nrf5_ble_common)
+
+# Peer Data Storage
+add_library(nrf5_ble_peer_data_storage OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_data_storage.c"
+)
+target_include_directories(nrf5_ble_peer_data_storage PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_peer_data_storage PUBLIC nrf5_ble_common)
+
+# ID Manager
+add_library(nrf5_ble_id_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/id_manager.c"
+)
+target_include_directories(nrf5_ble_id_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_id_manager PUBLIC nrf5_ble_common)
+
+# Peer ID
+add_library(nrf5_ble_peer_id OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_id.c"
+)
+target_include_directories(nrf5_ble_peer_id PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_peer_id PUBLIC nrf5_ble_common)
+
+# Peer Manager Buffer
+add_library(nrf5_ble_pm_buffer OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/pm_buffer.c"
+)
+target_include_directories(nrf5_ble_pm_buffer PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_pm_buffer PUBLIC nrf5_ble_common)
+
+# Authorization Status Tracker
+add_library(nrf5_ble_auth_status_tracker OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/auth_status_tracker.c"
+)
+target_include_directories(nrf5_ble_auth_status_tracker PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_auth_status_tracker PUBLIC nrf5_ble_common)
+
+# Security Dispatcher
+add_library(nrf5_ble_security_dispatcher OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/security_dispatcher.c"
+)
+target_include_directories(nrf5_ble_security_dispatcher PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_security_dispatcher PUBLIC nrf5_ble_common)
+
+# Security Manager
+add_library(nrf5_ble_security_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/security_manager.c"
+)
+target_include_directories(nrf5_ble_security_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_security_manager PUBLIC nrf5_ble_common)
+
+# GATT Cache Manager
+add_library(nrf5_ble_gatt_cache_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/gatt_cache_manager.c"
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/gatts_cache_manager.c"
+)
+target_include_directories(nrf5_ble_gatt_cache_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_gatt_cache_manager PUBLIC nrf5_ble_common)
+
+# Peer Manager Handler
+add_library(nrf5_ble_peer_manager_handler OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_manager_handler.c"
+)
+target_include_directories(nrf5_ble_peer_manager_handler PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_peer_manager_handler PUBLIC nrf5_ble_common)
+
+# Peer Manager
+add_library(nrf5_ble_peer_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/peer_manager/peer_manager.c"
+)
+target_include_directories(nrf5_ble_peer_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/peer_manager"
+)
+target_link_libraries(nrf5_ble_peer_manager PUBLIC nrf5_ble_common)
+
+# IoT Common
+add_library(nrf5_iot_common INTERFACE)
+target_include_directories(nrf5_iot_common INTERFACE
+  "${NRF5_SDK_PATH}/components/iot/common"
+)
+
 # BLE LED Button Service (Peripheral)
 add_library(nrf5_ble_srv_lbs OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs/ble_lbs.c"
@@ -576,6 +975,56 @@ target_include_directories(nrf5_ble_srv_lbs_c PUBLIC
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs_c"
 )
 target_link_libraries(nrf5_ble_srv_lbs_c PUBLIC nrf5_ble_db_discovery)
+
+# BLE Nordic UART Service (Peripheral)
+add_library(nrf5_ble_srv_nus OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/ble_nus.c"
+)
+target_include_directories(nrf5_ble_srv_nus PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/"
+)
+target_link_libraries(nrf5_ble_srv_nus PUBLIC nrf5_ble_link_ctx_manager)
+
+# BLE Nordic UART Service (Central)
+add_library(nrf5_ble_srv_nus_c OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus_c/ble_nus_c.c"
+)
+target_include_directories(nrf5_ble_srv_nus_c PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus_c/"
+)
+target_link_libraries(nrf5_ble_srv_nus_c PUBLIC nrf5_ble_db_discovery)
+
+# BLE Device Information Service (Peripheral)
+add_library(nrf5_ble_srv_dis OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_dis/ble_dis.c"
+)
+target_include_directories(nrf5_ble_srv_dis PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_dis/"
+)
+target_link_libraries(nrf5_ble_srv_dis PUBLIC nrf5_ble_common)
+
+# BLE Bond Management Service
+add_library(nrf5_ble_srv_bms OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/nrf_ble_bms/nrf_ble_bms.c"
+)
+target_include_directories(nrf5_ble_srv_bms PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/nrf_ble_bms/"
+)
+target_link_libraries(nrf5_ble_srv_bms PUBLIC nrf5_ble_common nrf5_ble_qwr)
+
+# BLE Internet Protocol Support Profile Service
+add_library(nrf5_ble_srv_ipsp OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ipsp/ble_ipsp.c"
+)
+target_include_directories(nrf5_ble_srv_ipsp PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ipsp/"
+)
+target_link_libraries(nrf5_ble_srv_ipsp PUBLIC nrf5_ble_common)
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
