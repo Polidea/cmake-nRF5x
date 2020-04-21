@@ -43,7 +43,7 @@ for sdk_ver in "${sdk_versions[@]}"; do
         # For each varaint
         for variant in $(ls "$EXAMPLES_DIR/$example"); do
             if [[ $variant =~ $VARIANT_REGEXP ]]; then
-                build_example "$example" "$sdk_ver" "$variant"
+                build_example "$example" "$sdk_ver" "$variant" || exit 1
             fi
         done
     done
