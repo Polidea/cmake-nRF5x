@@ -20,3 +20,5 @@ VARIANT_REGEXP="(pca[0-9]{5})_(s[0-9]{3})"
 # Data files
 DATA_ALL_EXAMPLES="$DATA_DIR/all_examples.json"
 DATA_MODULES="$DATA_DIR/modules.json"
+DATA_MODULES_BUILTIN="$DATA_DIR/modules_builtin.json"
+DATA_MODULES_CMAKE="$DATA_DIR/modules_cmake.json"

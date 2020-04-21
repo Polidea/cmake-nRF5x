@@ -10,4 +10,8 @@ if [[ ! -f "$DATA_ALL_EXAMPLES" ]]; then
     exit 1
 fi
 
-python3 "${BASH_SOURCE%/*}/python/generate_modules.py" --all_examples "$DATA_ALL_EXAMPLES" --output "$DATA_MODULES"
+python3 "${BASH_SOURCE%/*}/python/generate_modules.py" \
+    --all_examples "$DATA_ALL_EXAMPLES" \
+    --builtin_modules "$DATA_MODULES_BUILTIN" \
+    --cmake_modules  "$DATA_MODULES_CMAKE" \
+    --output "$DATA_MODULES"

@@ -1,0 +1,138 @@
+{
+  "nrf5_strerror": {
+    "sources": ["components/libraries/strerror/nrf_strerror.c"],
+    "includes": ["components/libraries/strerror"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_section": {
+    "sources": ["components/libraries/experimental_section_vars/nrf_section_iter.c"],
+    "includes": ["components/libraries/experimental_section_vars"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_fprintf": {
+    "sources": ["external/fprintf/nrf_fprintf.c", "external/fprintf/nrf_fprintf_format.c"],
+    "includes": ["external/fprintf"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_atomic": {
+    "sources": ["components/libraries/atomic/nrf_atomic.c"],
+    "includes": ["components/libraries/atomic"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_mtx": {
+    "sources": [],
+    "includes": ["components/libraries/mutex"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_log_fwd": {
+    "sources": [],
+    "includes": ["components/libraries/log", "components/libraries/log/src"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_sdh": {
+    "sources": ["components/softdevice/common/nrf_sdh.c"],
+    "includes": ["components/softdevice/common"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_pwr_mgmt": {
+    "sources": ["components/libraries/pwr_mgmt/nrf_pwr_mgmt.c"],
+    "includes": ["components/libraries/pwr_mgmt"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_queue": {
+    "sources": ["components/libraries/queue/nrf_queue.c"],
+    "includes": ["components/libraries/queue"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_cli": {
+    "sources": ["components/libraries/cli/nrf_cli.c"],
+    "includes": ["components/libraries/cli"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_balloc": {
+    "sources": ["components/libraries/balloc/nrf_balloc.c"],
+    "includes": ["components/libraries/balloc"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_memobj": {
+    "sources": ["components/libraries/memobj/nrf_memobj.c"],
+    "includes": ["components/libraries/memobj"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_ringbuf": {
+    "sources": ["components/libraries/ringbuf/nrf_ringbuf.c"],
+    "includes": ["components/libraries/ringbuf"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_atfifo": {
+    "sources": ["components/libraries/atomic_fifo/nrf_atfifo.c"],
+    "includes": ["components/libraries/atomic_fifo"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_atflags": {
+    "sources": ["components/libraries/atomic_flags/nrf_atflags.c"],
+    "includes": ["components/libraries/atomic_flags"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_fstorage": {
+    "sources": ["components/libraries/fstorage/nrf_fstorage.c", "components/libraries/fstorage/nrf_fstorage_sd.c"],
+    "includes": ["components/libraries/fstorage"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  },
+  "nrf5_fds": {
+    "sources": ["components/libraries/fds/fds.c"],
+    "includes": ["components/libraries/fds"],
+    "cflags": [],
+    "asmflags": [],
+    "ldflags": [],
+    "dependencies": []
+  }
+}

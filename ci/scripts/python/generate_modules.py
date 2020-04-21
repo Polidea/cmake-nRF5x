@@ -79,6 +79,15 @@ def convert_module_to_json(module):
     module["dependencies"] = list(module["dependencies"])
     module["dependencies"].sort()
 
+# Convert module from JSON representation
+def convert_module_from_json(module):
+    module["sources"] = set(module["sources"])
+    module["includes"] = set(module["includes"])
+    module["cflags"] = set(module["cflags"])
+    module["asmflags"] = set(module["asmflags"])
+    module["ldflags"] = set(module["ldflags"])
+    module["dependencies"] = set(module["dependencies"])
+
 # Get a common definition of an example with sources, includes, flags which
 # are included by every example.
 def get_common_example(examples, filter_function=None):
@@ -143,6 +152,7 @@ def generate_modules(examples, modules_builtin, modules_cmake):
 
     # Collect sum example
     union_example = get_union_example(examples)
+    remove_duplicates_from_modules(union_example)
 
     # Iterate until all sources are processed
     while len(union_example["sources"]) > 0:
@@ -245,9 +255,21 @@ def generate_module_dependencies(examples, modules):
         # Update module's dependencies:
         module["dependencies"] = dependencies
 
+# Loads modules from file.
+def load_modules_from_file(filepath):
+    with open(filepath, 'r') as file:
+        modules = json.load(file)
+        for module_name in modules:
+            module = modules[module_name]
+            convert_module_from_json(module)
+        return modules
+    return {}
+
 # Parse arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--all_examples")
+parser.add_argument("--builtin_modules")
+parser.add_argument("--cmake_modules")
 parser.add_argument("--output")
 args = parser.parse_args()
 
@@ -257,8 +279,12 @@ all_examples = json.load(all_examples_file)
 for example in all_examples:
     convert_example_from_json(example)
 
+# Load builtin and cmake modules
+builtin_modules = load_modules_from_file(args.builtin_modules)
+cmake_modules = load_modules_from_file(args.cmake_modules)
+
 # Generates modules
-modules = generate_modules(all_examples, {}, {})
+modules = generate_modules(all_examples, builtin_modules, cmake_modules)
 
 # Generate dependencies
 generate_module_dependencies(all_examples, modules)
