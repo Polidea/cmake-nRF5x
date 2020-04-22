@@ -19,7 +19,7 @@ build_linux:
     - docker
   before_script:
     - apt-get update
-    - apt-get -y install curl cmake ninja-build unzip tar
+    - apt-get -y install curl cmake ninja-build unzip tar python3-pip
     - bash ./ci/scripts/prepare.sh
   script: 
     - bash ./ci/scripts/build_all.sh 15.3.0
