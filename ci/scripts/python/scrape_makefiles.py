@@ -5,14 +5,24 @@ import re
 import json
 import argparse
 
-# Process each example's Makefile and collect data
+from example_operations import examples_save_to_file
+
+
 def process_example(file_path, examples):
+    """Process example from a file and add to examples
+
+    Arguments:
+        file_path {Filepath} -- Filepath to Makefile describing example
+        examples {Examples} -- List of examples where new example should be 
+                               appended
+    """
     with open(file_path, 'r') as file:
         content = "".join(file.readlines())
 
         # File data
         file_local_path = re.sub(r"\S+\/[0-9]+\.[0-9]\.[0-9]\/", "", file_path)
-        file_sdk_version = re.findall(r"\/([0-9]+\.[0-9]\.[0-9])\/", file_path)[0]
+        file_sdk_version = re.findall(
+            r"\/([0-9]+\.[0-9]\.[0-9])\/", file_path)[0]
         file_sources = set()
         file_includes = set()
         file_cflags = set()
@@ -50,7 +60,7 @@ def process_example(file_path, examples):
             for cflag in ldflags:
                 file_ldflags.update(cflag.split(","))
 
-        # Convert to list and sort 
+        # Convert to list and sort
         file_sources = list(file_sources)
         file_sources.sort()
         file_includes = list(file_includes)
@@ -70,18 +80,16 @@ def process_example(file_path, examples):
             "includes": file_includes,
             "cflags": file_cflags,
             "asmflags": file_asmflags,
-            "ldflags": file_ldflags 
+            "ldflags": file_ldflags
         })
 
-# How examples are sorted.
-def sort_examples(example):
-    return example["path"]
 
 # Parse arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--output")
 args = parser.parse_args()
 
+# Scrape examples
 examples = []
 for line in sys.stdin.readlines():
     paths = line.split(" ")
@@ -90,7 +98,5 @@ for line in sys.stdin.readlines():
         if file_path != '':
             process_example(file_path, examples)
 
-# Sort examples and print them
-output_file = open(args.output, 'w+')
-examples.sort(key=sort_examples, reverse=True)
-json.dump(examples, output_file)
+# Save them to a file
+examples_save_to_file(args.output, examples)

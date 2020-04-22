@@ -3,6 +3,9 @@
 source "${BASH_SOURCE%/*}/common/consts.sh"
 source "${BASH_SOURCE%/*}/common/download.sh"
 
+# Prepare python dependencies
+pip3 install -r "${BASH_SOURCE%/*}/python/requirements.txt"
+
 # List of SDKs to download
 sdks=( "15.3.0" "16.0.0" )
 

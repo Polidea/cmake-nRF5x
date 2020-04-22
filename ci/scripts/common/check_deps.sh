@@ -19,4 +19,6 @@ check_binary curl
 check_binary tar
 check_binary unzip
 check_binary cmake
+check_binary python3
+check_binary pip3
 check_binary ninja make
