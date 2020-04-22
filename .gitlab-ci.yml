@@ -19,6 +19,7 @@ build_linux:
     - docker
   before_script:
     - apt-get update
+    - ln -fs /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
     - apt-get -y install curl cmake ninja-build unzip tar python3-pip
     - bash ./ci/scripts/prepare.sh
   script: 
