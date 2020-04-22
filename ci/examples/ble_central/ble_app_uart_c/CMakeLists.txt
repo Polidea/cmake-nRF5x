@@ -4,7 +4,9 @@ project(ble_app_uart_c LANGUAGES C ASM)
 list(APPEND CMAKE_MODULE_PATH "../cmake")
 include("nrf5")
 
-add_executable(${CMAKE_PROJECT_NAME} main.c)
+add_executable(${CMAKE_PROJECT_NAME}
+  "${NRF5_SDK_PATH}/examples/ble_central/ble_app_uart_c/main.c"
+)
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   # Common
