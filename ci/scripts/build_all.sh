@@ -15,13 +15,12 @@ for sdk in `ls -d $SDKS_DIR/*/`; do
     sdk_version=`basename $sdk`
     # For each SDK, try to apply examples
     for example in "${examples_dirs[@]}"; do
+        sdk_example_dir="$SDKS_DIR/$sdk_version/examples/$example"
+
         # For each varaint
-        for variant in $(ls "$EXAMPLES_DIR/$example"); do
-            if [[ $variant =~ $VARIANT_REGEXP ]]; then
+        for variant_dir in `ls -d $sdk_example_dir/pca*`; do
+            variant=`basename $variant_dir`
                 build_example "$example" "$sdk_version" "$variant"
-            fi
         done
     done
 done
-
-
