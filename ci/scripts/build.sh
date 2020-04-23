@@ -21,6 +21,11 @@ function print_help() {
     [Optional]
 
         --toolchain=<toolchain>     Toolchain, e.g. gcc [default]
+
+        --config_dir=<dir>          Configuration directory where configuration files
+                                    (.ld files, sdk_config.h) are located. The directory
+                                    tree must follow the structure of configuration directories
+                                    found in the SDK, e.g. examples/peripheral/blinky.
     "
     exit 0
 }
@@ -36,7 +41,8 @@ example=""
 sdk_version=""
 board=""
 sd_variant=""
-toolchain=""
+toolchain="gcc"
+config_dir=""
 
 while getopts ":h-:" opt; do
     case $opt in
@@ -53,6 +59,8 @@ while getopts ":h-:" opt; do
                     sd_variant=${OPTARG#*=} ;;
                 toolchain=*)
                     toolchain=${OPTARG#*=} ;;
+                config_dir=*)
+                    config_dir=${OPTARG#*=} ;;
                 help)
                     print_help ;;
                 *) {
@@ -81,4 +89,4 @@ check_option "sdk_version" $sdk_version
 check_option "board" $board
 check_option "sd_variant" $sd_variant
 
-build_example $example $sdk_version $board $sd_variant $toolchain
+build_example $example $sdk_version $board $sd_variant $toolchain $config_dir

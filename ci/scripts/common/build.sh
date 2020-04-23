@@ -29,6 +29,7 @@ function build_example() {
         echo "3) board symbol, e.g.: pca10040, pca10056"
         echo "4) SoftDevice variant e.g.: s112, s132, s140"
         echo "5) toolchain, e.g.: gcc [default]"
+        echo "6) configuration directory"
         return 1
     fi
 
@@ -37,10 +38,21 @@ function build_example() {
     local board_symbol=$3
     local sd_variant=$4
     local toolchain=${5:-gcc}
+    local config_dir=$6
 
     local repo_example_dir="$EXAMPLES_DIR/$example_local_dir"
     local sdk_example_dir="$SDKS_DIR/$sdk_version/examples/$example_local_dir"
     local toolchain_dir="$TOOLCHAINS_DIR/$toolchain"
+
+    # Verify config directory
+    if [[ -z $config_dir ]]; then
+        config_dir="$sdk_example_dir"
+    fi
+
+    if [[ ! -d $config_dir ]]; then
+        echo "'$config_dir' is not a valid configuration directory"
+        return 1
+    fi
 
     # Verify example path
     if [[ ! -d "$repo_example_dir" ]]; then
@@ -55,7 +67,7 @@ function build_example() {
     fi
 
     # Verify if the specified board is supported by the example.
-    local board_dir="$sdk_example_dir/$board_symbol"
+    local board_dir="$config_dir/$board_symbol"
 
     if [[ ! -d $board_dir ]]; then
             echo "'$board_symbol' board is incorrect or not supported by the '$example_local_dir' example"
