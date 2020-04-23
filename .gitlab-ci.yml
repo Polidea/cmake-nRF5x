@@ -8,7 +8,7 @@ build_mac:
   before_script:
     - bash ./ci/scripts/prepare.sh
   script: 
-    - bash ./ci/scripts/build_all.sh
+    - bash ./ci/scripts/build_all.sh 15.3.0
   only:
     - merge_requests
 
@@ -22,6 +22,6 @@ build_linux:
     - apt-get -y install curl cmake ninja-build unzip tar
     - bash ./ci/scripts/prepare.sh
   script: 
-    - bash ./ci/scripts/build_all.sh
+    - bash ./ci/scripts/build_all.sh 15.3.0
   only:
     - merge_requests
