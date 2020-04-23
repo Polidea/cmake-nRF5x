@@ -2,10 +2,33 @@
 
 source "${BASH_SOURCE%/*}/common/build.sh"
 
+function print_help() {
+    echo "
+    Usage:
+    --------------------------------------------------------------------------------
+
+    [Mandatory]
+
+        --example=<example>         Local example directory as present in the nRF SDK,
+                                    e.g. peripheral/blinky 
+
+        --sdk_version=<version>     nRF SDK version, e.g. 15.3.0
+
+        --board=<board>             Board symbol, e.g. pca10040, pca10056
+
+        --sd_variant=<variant>      SoftDevice variant, e.g. s132, s140
+
+    [Optional]
+
+        --toolchain=<toolchain>     Toolchain, e.g. gcc [default]
+    "
+    exit 0
+}
+
 function check_option() {
     if [[ $# -lt 2 ]] || [[ -z $1 ]]; then
-        echo "Missing mandatory option \"--$1\""
-        return 1 
+        echo "Missing mandatory option \"--$1\", use \"--help\""
+        exit 1 
     fi
 }
 
@@ -15,7 +38,7 @@ board=""
 sd_variant=""
 toolchain=""
 
-while getopts ":-:" opt; do
+while getopts ":h-:" opt; do
     case $opt in
         -) {
             # Handle long options ("--option=<arg>")
@@ -30,13 +53,18 @@ while getopts ":-:" opt; do
                     sd_variant=${OPTARG#*=} ;;
                 toolchain=*)
                     toolchain=${OPTARG#*=} ;;
+                help)
+                    print_help ;;
                 *) {
                     if [[ $OPTERR -eq 1 ]]; then
-                        echo "Unknown option \"--$OPTARG\" or missing argument (use \"--option=<arg>\" syntax)"
+                        echo "Unknown option \"--$OPTARG\" or missing argument (use \"--option=<arg>\" syntax), use \"--help\""
                         exit 1
                     fi
                 };;
             esac
+        };;
+        h) {
+            print_help
         };;
         \?) {
             unknown_optind=$(($OPTIND - 1))
