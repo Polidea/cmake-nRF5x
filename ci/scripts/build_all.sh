@@ -29,22 +29,38 @@ fi
 echo "Building examples for SDK versions: ${sdk_versions[@]}"
 
 # Collect relative paths to the examples.
-examples_dirs=()
+example_local_dirs=()
 pushd "$EXAMPLES_DIR" > /dev/null
     for example in `find . -name "CMakeLists.txt"`; do
-        examples_dirs+=(`dirname $example`)
+        example_dir=`dirname $example`
+        # Strip the '.' prefix (current directory) from the example directory
+        example_local_dirs+=(${example_dir#./})
     done
 popd > /dev/null
 
 # Applying examples to included SDKs
 for sdk_ver in "${sdk_versions[@]}"; do
     # For each SDK, try to apply examples
-    for example in "${examples_dirs[@]}"; do
-        # For each varaint
-        for variant in $(ls "$EXAMPLES_DIR/$example"); do
-            if [[ $variant =~ $VARIANT_REGEXP ]]; then
-                build_example "$example" "$sdk_ver" "$variant" || exit 1
+    for example in "${example_local_dirs[@]}"; do
+        sdk_example_dir="$SDKS_DIR/$sdk_version/examples/$example"
+
+        # For each board
+        for board_dir in `ls -d $sdk_example_dir/pca*`; do
+            board=`basename $board_dir`
+
+            # Identify SoftDevice variants available for the specified board (SoftDevice configurations only).
+            supported_sd_variant_dirs=($(ls -d $board_dir/s* 2> /dev/null))
+
+            if [[ ${#supported_sd_variant_dirs[@]} -eq 0 ]]; then
+                echo "A SoftDevice configuration for the '$example' for the '$board' board is not available. Non-SoftDevice builds are currently not supported. Build skipped."
+                continue
             fi
+
+            # For each SDK variant
+            for sd_variant_dir in ${supported_sd_variant_dirs[@]}; do
+                sd_variant=`basename $sd_variant_dir`
+                build_example "$example" "$sdk_version" "$board" "$sd_variant" || exit 1
+            done
         done
     done
 done
