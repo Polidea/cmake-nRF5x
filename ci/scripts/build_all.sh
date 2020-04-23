@@ -34,7 +34,7 @@ for sdk in `ls -d $SDKS_DIR/*/`; do
             # For each SDK variant
             for sd_variant_dir in ${supported_sd_variant_dirs[@]}; do
                 sd_variant=`basename $sd_variant_dir`
-                build_example "$example" "$sdk_version" "$board" "$sd_variant"
+                build_example "$example" "$sdk_version" "$board" "$sd_variant" || exit 1
             done
         done
     done
