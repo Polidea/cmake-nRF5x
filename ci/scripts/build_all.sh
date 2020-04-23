@@ -41,8 +41,8 @@ popd > /dev/null
 # Applying examples to included SDKs
 for sdk_ver in "${sdk_versions[@]}"; do
     # For each SDK, try to apply examples
-    for example in "${example_local_dirs[@]}"; do
-        sdk_example_dir="$SDKS_DIR/$sdk_version/examples/$example"
+    for example in "${example_local_dirs[@]}"; do 
+        sdk_example_dir="$SDKS_DIR/$sdk_ver/examples/$example"
 
         # For each board
         for board_dir in `ls -d $sdk_example_dir/pca*`; do
@@ -59,7 +59,7 @@ for sdk_ver in "${sdk_versions[@]}"; do
             # For each SDK variant
             for sd_variant_dir in ${supported_sd_variant_dirs[@]}; do
                 sd_variant=`basename $sd_variant_dir`
-                build_example "$example" "$sdk_version" "$board" "$sd_variant" || exit 1
+                build_example "$example" "$sdk_ver" "$board" "$sd_variant" || exit 1
             done
         done
     done
