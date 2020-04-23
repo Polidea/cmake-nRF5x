@@ -6,7 +6,9 @@ source "${BASH_SOURCE%/*}/common/build.sh"
 examples_dirs=()
 pushd "$EXAMPLES_DIR" > /dev/null
     for example in `find . -name "CMakeLists.txt"`; do
-        examples_dirs+=(`dirname $example`)
+        example_dir=`dirname $example`
+        # Strip the '.' prefix (current directory) from the example directory
+        examples_dirs+=(${example_dir#./})
     done
 popd > /dev/null
 
