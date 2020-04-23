@@ -22,19 +22,21 @@ fi
 # 3) prefix of build variant
 # 4) toolchain
 function build_example() {
-    if [[ $# -lt 3 ]]; then
-        echo "Expected 3-4 arguments:"
+    if [[ $# -lt 4 ]]; then
+        echo "Expected 4-5 arguments:"
         echo "1) local path to the example, e.g.: peripheral/blinky as visible in nRF SDK"
         echo "2) nRF SDK version, e.g.: 15.3.0"
-        echo "3) prefix of build variant, e.g.: pca10028"
-        echo "4) toolchain, e.g.: gcc [default]"
+        echo "3) board symbol, e.g.: pca10040, pca10056"
+        echo "4) SoftDevice variant e.g.: s112, s132, s140"
+        echo "5) toolchain, e.g.: gcc [default]"
         return 1
     fi
 
     local example_local_dir=$1
     local sdk_version=$2
-    local build_variant=$3
-    local toolchain=${4:-gcc}
+    local board_symbol=$3
+    local sd_variant=$4
+    local toolchain=${5:-gcc}
 
     local repo_example_dir="$EXAMPLES_DIR/$example_local_dir"
     local sdk_example_dir="$SDKS_DIR/$sdk_version/examples/$example_local_dir"
@@ -52,27 +54,26 @@ function build_example() {
         return 1
     fi
 
-    # Verify if the specified build variant is supported by the example.
-    local build_variant_dir="$sdk_example_dir/$build_variant"
+    # Verify if the specified board is supported by the example.
+    local board_dir="$sdk_example_dir/$board_symbol"
 
-    if [[ ! -d $build_variant_dir ]]; then
-            echo "'$build_variant' build variant is incorrect or not supported by the '$example_local_dir' example"
+    if [[ ! -d $board_dir ]]; then
+            echo "'$board_symbol' board is incorrect or not supported by the '$example_local_dir' example"
         return 1
     fi
 
-    # Determine SoftDevice variant for the specified build variant (board).
-    local supported_sd_variant_dirs=($(ls -d $build_variant_dir/s* 2> /dev/null))
-
-    if [[ ${#supported_sd_variant_dirs[@]} -eq 0 ]]; then
-        echo "'$example_local_dir' for the '$build_variant' is not available in SoftDevice configuration. Non-SoftDevice builds are currently not supported. Build skipped."
-        exit 0
-    elif [[ ${#supported_sd_variant_dirs[@]} -gt 1 ]]; then
-        echo "WARNING: Multiple SoftDevice configurations available for '$build_variant' in the '$example_local_dir' example."
+    # Verify is the SoftDevice variant is correct and supported by the example.
+    local sd_variant_dir="$board_dir/$sd_variant"
+    
+    if [[ ! -d $sd_variant_dir ]]; then
+        echo "SoftDevice variant '$sd_variant' is incorrect or not supported by the '$example_local_dir' example for the '$board_symbol' board."
+        return 1
     fi
 
-    local sd_variant_dir=${supported_sd_variant_dirs[0]}
-    local sd_variant=$(basename $sd_variant_dir)
-    local pca_variant=$build_variant
+    if [[ $sd_variant != s* ]]; then
+        echo "Non-SoftDevice configurations like '$sd_variant' are currently not supported. Build skipped."
+        return 1
+    fi
     
     # Verify toolchain
     if [[ ! -d "$toolchain_dir" ]]; then
@@ -90,7 +91,7 @@ function build_example() {
     fi
 
     # # Prepare build folder
-    local cmake_build_path="$BUILD_DIR/$sdk_version/$example_local_dir/$build_variant/$toolchain"
+    local cmake_build_path="$BUILD_DIR/$sdk_version/$example_local_dir/$board_symbol/$toolchain"
     mkdir -p "$cmake_build_path"
     echo -e "\n${HEADER_START} ######## Building $cmake_build_path ######## ${HEADER_END}\n"
 
@@ -119,7 +120,7 @@ function build_example() {
         -DCMAKE_TOOLCHAIN_FILE="$(adapt_cmake_path $CMAKE_DIR/arm-none-eabi.cmake)" \
         -DTOOLCHAIN_PREFIX="$(adapt_cmake_path $toolchain_dir)" \
         -DNRF5_SDK_PATH="$(adapt_cmake_path $SDKS_DIR/$sdk_version)" \
-        -DNRF5_BOARD="$pca_variant" \
+        -DNRF5_BOARD="$board_symbol" \
         -DNRF5_SOFTDEVICE_VARIANT="$sd_variant" \
         -DNRF5_LINKER_SCRIPT="$(adapt_cmake_path $linker_file)" \
         -DNRF5_SDKCONFIG_PATH="$(adapt_cmake_path $sd_variant_dir/config)" \
