@@ -91,7 +91,7 @@ function build_example() {
     fi
 
     # # Prepare build folder
-    local cmake_build_path="$BUILD_DIR/$sdk_version/$example_local_dir/$board_symbol/$toolchain"
+    local cmake_build_path="$BUILD_DIR/$sdk_version/$example_local_dir/$board_symbol/$sd_variant/$toolchain"
     mkdir -p "$cmake_build_path"
     echo -e "\n${HEADER_START} ######## Building $cmake_build_path ######## ${HEADER_END}\n"
 
