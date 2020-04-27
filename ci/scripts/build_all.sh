@@ -7,6 +7,7 @@ function build_all_configs() {
     local sdk_version=$2
     local toolchain=$3
     local config_dir=$4
+    local build_dir=$5
 
     if [[ ! -d $config_dir ]]; then
         echo "\"$config_dir\" is not a valid configuration directory"
@@ -28,7 +29,7 @@ function build_all_configs() {
         # For each SDK variant
         for sd_variant_dir in ${supported_sd_variant_dirs[@]}; do
             sd_variant=`basename $sd_variant_dir`
-            build_example $example $sdk_version $board $sd_variant $toolchain $config_dir || exit 1
+            build_example $example $sdk_version $board $sd_variant $toolchain $config_dir $build_dir || exit 1
         done
     done
 
@@ -77,7 +78,7 @@ for sdk_ver in "${sdk_versions[@]}"; do
     for example in "${example_local_dirs[@]}"; do
         # Build all custom configs in the local example directory
         if [[ -d "$EXAMPLES_DIR/$example/config" ]]; then
-            build_all_configs $example $sdk_ver "gcc" "$EXAMPLES_DIR/$example/config"
+            build_all_configs $example $sdk_ver "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local"
         fi
 
         # Build all configs in the SDK example directory
