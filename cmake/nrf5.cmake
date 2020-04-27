@@ -158,6 +158,7 @@ include("nrf5_storage")
 include("nrf5_log")
 include("nrf5_app")
 include("nrf5_nrfx")
+include("nrf5_bsp")
 
 # Power management
 add_library(nrf5_pwr_mgmt OBJECT EXCLUDE_FROM_ALL
@@ -430,36 +431,7 @@ target_link_libraries(nrf5_crypto PUBLIC
   nrf5_crypto_optiga_backend
 )
 
-# Boards
-add_library(nrf5_boards OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/boards/boards.c"
-)
-target_include_directories(nrf5_boards PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/boards"
-)
-if(NRF5_BOARD)
-  target_compile_definitions(nrf5_boards PUBLIC ${NRF5_BOARD_DEFINE})
-endif()
-target_link_libraries(nrf5_boards PUBLIC nrf5_mdk nrf5_soc nrf5_nrfx_hal)
 
-# Board Support Package
-add_library(nrf5_bsp OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/bsp/bsp.c"
-)
-target_include_directories(nrf5_bsp PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/bsp"
-)
-target_link_libraries(nrf5_bsp PUBLIC nrf5_boards nrf5_app_button)
-
-# BSP Button BLE
-add_library(nrf5_bsp_btn_ble OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/bsp/bsp_btn_ble.c"
-)
-target_include_directories(nrf5_bsp_btn_ble PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/bsp"
-)
-target_link_libraries(nrf5_bsp_btn_ble PUBLIC nrf5_boards nrf5_app_button)
 
 # SoftDevice Handler
 add_library(nrf5_softdevice_handler OBJECT EXCLUDE_FROM_ALL
