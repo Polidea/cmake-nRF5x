@@ -39,7 +39,7 @@ add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_app_error PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_error PUBLIC nrf5_mdk nrf5_soc nrf5_log nrf5_section nrf5_strerror nrf5_memobj)
+target_link_libraries(nrf5_app_error PUBLIC nrf5_log)
 
 # Application Platform Utilities
 add_library(nrf5_app_util_platform OBJECT EXCLUDE_FROM_ALL
@@ -87,7 +87,7 @@ target_include_directories(nrf5_app_uart PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/uart"
 )
-target_link_libraries(nrf5_app_uart PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_drv_uart)
+target_link_libraries(nrf5_app_uart PUBLIC nrf5_drv_uart)
 
 # Application UART (with FIFO)
 add_library(nrf5_app_uart_fifo OBJECT EXCLUDE_FROM_ALL
@@ -97,4 +97,4 @@ target_include_directories(nrf5_app_uart_fifo PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/uart"
 )
-target_link_libraries(nrf5_app_uart_fifo PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_drv_uart nrf5_app_fifo)
+target_link_libraries(nrf5_app_uart_fifo PUBLIC nrf5_drv_uart nrf5_app_fifo)
