@@ -26,6 +26,9 @@ function print_help() {
                                     (.ld files, sdk_config.h) are located. The directory
                                     tree must follow the structure of configuration directories
                                     found in the SDK, e.g. examples/peripheral/blinky.
+
+        --build_dir=<dir>           Build directory where the build system files
+                                    and build artifacts will be generated.
     "
     exit 0
 }
@@ -61,6 +64,8 @@ while getopts ":h-:" opt; do
                     toolchain=${OPTARG#*=} ;;
                 config_dir=*)
                     config_dir=${OPTARG#*=} ;;
+                build_dir=*)
+                    build_dir=${OPTARG#*=} ;;
                 help)
                     print_help ;;
                 *) {
@@ -89,4 +94,4 @@ check_option "sdk_version" $sdk_version
 check_option "board" $board
 check_option "sd_variant" $sd_variant
 
-build_example $example $sdk_version $board $sd_variant $toolchain $config_dir
+build_example $example $sdk_version $board $sd_variant $toolchain $config_dir $build_dir

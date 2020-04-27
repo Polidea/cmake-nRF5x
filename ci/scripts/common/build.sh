@@ -28,8 +28,9 @@ function build_example() {
         echo "2) nRF SDK version, e.g.: 15.3.0"
         echo "3) board symbol, e.g.: pca10040, pca10056"
         echo "4) SoftDevice variant e.g.: s112, s132, s140"
-        echo "5) toolchain, e.g.: gcc [default]"
-        echo "6) configuration directory"
+        echo "5) toolchain (optional), e.g.: gcc [default]"
+        echo "6) configuration directory (optional)"
+        echo "7) build directory (optional)"
         return 1
     fi
 
@@ -39,6 +40,7 @@ function build_example() {
     local sd_variant=$4
     local toolchain=${5:-gcc}
     local config_dir=$6
+    local build_dir=$7
 
     local repo_example_dir="$EXAMPLES_DIR/$example_local_dir"
     local sdk_example_dir="$SDKS_DIR/$sdk_version/examples/$example_local_dir"
@@ -104,7 +106,16 @@ function build_example() {
 
     # # Prepare build folder
     local cmake_build_path="$BUILD_DIR/$sdk_version/$example_local_dir/$board_symbol/$sd_variant/$toolchain"
-    mkdir -p "$cmake_build_path"
+    if [[ ! -z $build_dir ]]; then
+        # Use custom build path if specified
+        cmake_build_path="$build_dir/$sdk_version/$example_local_dir/$board_symbol/$sd_variant/$toolchain"
+    fi
+
+    mkdir -p "$cmake_build_path" || {
+        echo "Failed to create build directory $cmake_build_path, error code: $?"
+        return 1
+    }
+
     echo -e "\n${HEADER_START} ######## Building $cmake_build_path ######## ${HEADER_END}\n"
 
     # Get path to tools
