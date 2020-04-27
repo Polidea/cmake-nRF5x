@@ -1,9 +1,13 @@
 #!/bin/bash
 
+set -e
+
 source "${BASH_SOURCE%/*}/common/consts.sh"
 source "${BASH_SOURCE%/*}/common/download.sh"
 
-# Prepare python dependencies
+# Prepare python
+python3 -m venv "${BASH_SOURCE%/*}/python/.venv"
+source "${BASH_SOURCE%/*}/python/.venv/bin/activate"
 pip3 install -r "${BASH_SOURCE%/*}/python/requirements.txt"
 
 # List of SDKs to download

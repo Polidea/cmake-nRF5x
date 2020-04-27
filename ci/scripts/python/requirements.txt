@@ -1,2 +1,4 @@
 # Requirements for Python's script dependencies.
 jsonschema
+pylint
+autopep8

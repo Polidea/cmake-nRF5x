@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 source "${BASH_SOURCE%/*}/common/build.sh"
 
 sdk_versions=()

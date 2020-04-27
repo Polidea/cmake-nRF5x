@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 source "${BASH_SOURCE%/*}/common/consts.sh"
 source "${BASH_SOURCE%/*}/common/check_deps.sh"
 
