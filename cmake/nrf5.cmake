@@ -213,18 +213,6 @@ target_include_directories(nrf5_sensorsim PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/sensorsim"
 )
 
-# SoftDevice Handler
-add_library(nrf5_softdevice_handler OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh.c"
-  "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_ble.c"
-  "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_soc.c"
-)
-target_include_directories(nrf5_softdevice_handler PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/softdevice/common"
-)
-target_link_libraries(nrf5_softdevice_handler PUBLIC nrf5_log)
-
 # BLE common
 add_library(nrf5_ble_common OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/common/ble_advdata.c"
@@ -311,7 +299,7 @@ target_include_directories(nrf5_ble_peer_database PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
-target_link_libraries(nrf5_ble_peer_database PUBLIC nrf5_ble_common)
+target_link_libraries(nrf5_ble_peer_database PUBLIC nrf5_memobj nrf5_ble_common)
 
 # Peer Data Storage
 add_library(nrf5_ble_peer_data_storage OBJECT EXCLUDE_FROM_ALL
@@ -320,7 +308,7 @@ add_library(nrf5_ble_peer_data_storage OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ble_peer_data_storage PUBLIC
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
-target_link_libraries(nrf5_ble_peer_data_storage PUBLIC nrf5_ble_common)
+target_link_libraries(nrf5_ble_peer_data_storage PUBLIC nrf5_memobj nrf5_fds nrf5_ble_common)
 
 # ID Manager
 add_library(nrf5_ble_id_manager OBJECT EXCLUDE_FROM_ALL
@@ -329,7 +317,7 @@ add_library(nrf5_ble_id_manager OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ble_id_manager PUBLIC
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
-target_link_libraries(nrf5_ble_id_manager PUBLIC nrf5_ble_common)
+target_link_libraries(nrf5_ble_id_manager PUBLIC nrf5_memobj nrf5_ble_common)
 
 # Peer ID
 add_library(nrf5_ble_peer_id OBJECT EXCLUDE_FROM_ALL
@@ -365,7 +353,7 @@ add_library(nrf5_ble_security_dispatcher OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ble_security_dispatcher PUBLIC
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
-target_link_libraries(nrf5_ble_security_dispatcher PUBLIC nrf5_ble_common)
+target_link_libraries(nrf5_ble_security_dispatcher PUBLIC nrf5_memobj nrf5_ble_common)
 
 # Security Manager
 add_library(nrf5_ble_security_manager OBJECT EXCLUDE_FROM_ALL
@@ -374,7 +362,7 @@ add_library(nrf5_ble_security_manager OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ble_security_manager PUBLIC
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
-target_link_libraries(nrf5_ble_security_manager PUBLIC nrf5_ble_common)
+target_link_libraries(nrf5_ble_security_manager PUBLIC nrf5_memobj nrf5_ble_common)
 
 # GATT Cache Manager
 add_library(nrf5_ble_gatt_cache_manager OBJECT EXCLUDE_FROM_ALL
@@ -384,7 +372,7 @@ add_library(nrf5_ble_gatt_cache_manager OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ble_gatt_cache_manager PUBLIC
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
-target_link_libraries(nrf5_ble_gatt_cache_manager PUBLIC nrf5_ble_common)
+target_link_libraries(nrf5_ble_gatt_cache_manager PUBLIC nrf5_memobj nrf5_mtx nrf5_ble_common)
 
 # Peer Manager Handler
 add_library(nrf5_ble_peer_manager_handler OBJECT EXCLUDE_FROM_ALL
@@ -393,7 +381,7 @@ add_library(nrf5_ble_peer_manager_handler OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ble_peer_manager_handler PUBLIC
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
-target_link_libraries(nrf5_ble_peer_manager_handler PUBLIC nrf5_ble_common)
+target_link_libraries(nrf5_ble_peer_manager_handler PUBLIC nrf5_fds nrf5_memobj nrf5_ble_common)
 
 # Peer Manager
 add_library(nrf5_ble_peer_manager OBJECT EXCLUDE_FROM_ALL
@@ -402,7 +390,7 @@ add_library(nrf5_ble_peer_manager OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ble_peer_manager PUBLIC
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
-target_link_libraries(nrf5_ble_peer_manager PUBLIC nrf5_ble_common)
+target_link_libraries(nrf5_ble_peer_manager PUBLIC nrf5_memobj nrf5_ble_common)
 
 # IoT Common
 add_library(nrf5_iot_common INTERFACE)
