@@ -141,3 +141,44 @@ target_include_directories(nrf5_atflags PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/atomic_flags"
 )
 target_link_libraries(nrf5_atflags PUBLIC nrf5_atomic)
+
+# Queue
+add_library(nrf5_queue OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/queue/nrf_queue.c"
+)
+target_include_directories(nrf5_queue PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/queue"
+)
+target_link_libraries(nrf5_queue PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror)
+
+# Power management
+add_library(nrf5_pwr_mgmt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c"
+)
+target_include_directories(nrf5_pwr_mgmt PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/pwr_mgmt"
+)
+target_link_libraries(nrf5_pwr_mgmt PUBLIC
+  nrf5_mtx
+  nrf5_section
+  nrf5_nrfx_hal
+  nrf5_log_fwd
+  nrf5_memobj
+  nrf5_sdh
+)
+
+# Stack Info
+add_library(nrf5_stack_info INTERFACE)
+target_include_directories(nrf5_stack_info INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/stack_info"
+)
+
+# SVC
+add_library(nrf5_svc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/svc/nrf_svc_handler.c"
+)
+target_include_directories(nrf5_svc PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/svc"
+)
+target_link_libraries(nrf5_svc PUBLIC nrf5_section)

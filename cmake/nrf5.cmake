@@ -160,24 +160,9 @@ include("nrf5_app")
 include("nrf5_nrfx")
 include("nrf5_bsp")
 
-# Power management
-add_library(nrf5_pwr_mgmt OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c"
-)
-target_include_directories(nrf5_pwr_mgmt PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/pwr_mgmt"
-)
-target_link_libraries(nrf5_pwr_mgmt PUBLIC nrf5_mtx nrf5_section nrf5_nrfx_hal nrf5_log_fwd nrf5_memobj nrf5_sdh)
 
-# Queue
-add_library(nrf5_queue OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/queue/nrf_queue.c"
-)
-target_include_directories(nrf5_queue PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/queue"
-)
-target_link_libraries(nrf5_queue PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror)
+
+
 
 # Memory Manager
 add_library(nrf5_mem_manager OBJECT EXCLUDE_FROM_ALL
@@ -222,21 +207,6 @@ add_library(nrf5_log_default_backends OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_default_backends.c"
 )
 target_link_libraries(nrf5_log_default_backends PUBLIC nrf5_log)
-
-# Stack Info
-add_library(nrf5_stack_info INTERFACE)
-target_include_directories(nrf5_stack_info INTERFACE
-  "${NRF5_SDK_PATH}/components/libraries/stack_info"
-)
-
-# SVC
-add_library(nrf5_svc OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/svc/nrf_svc_handler.c"
-)
-target_include_directories(nrf5_svc PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/svc"
-)
-target_link_libraries(nrf5_svc PUBLIC nrf5_section)
 
 # Sensor Data Simulator
 add_library(nrf5_sensorsim OBJECT EXCLUDE_FROM_ALL
