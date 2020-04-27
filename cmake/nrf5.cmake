@@ -224,7 +224,7 @@ target_include_directories(nrf5_ble_common PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/ble/common"
 )
-target_link_libraries(nrf5_ble_common PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_atomic nrf5_softdevice_handler nrf5_app_timer nrf5_atflags)
+target_link_libraries(nrf5_ble_common PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_atomic nrf5_sdh nrf5_app_timer nrf5_atflags)
 
 # BLE advertising
 add_library(nrf5_ble_advertising OBJECT EXCLUDE_FROM_ALL
@@ -406,7 +406,7 @@ target_include_directories(nrf5_ble_srv_lbs PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs"
 )
-target_link_libraries(nrf5_ble_srv_lbs PUBLIC nrf5_config nrf5_ble_common nrf5_softdevice_handler)
+target_link_libraries(nrf5_ble_srv_lbs PUBLIC nrf5_config nrf5_ble_common nrf5_sdh)
 
 # BLE LED Button Service (Central)
 add_library(nrf5_ble_srv_lbs_c OBJECT EXCLUDE_FROM_ALL

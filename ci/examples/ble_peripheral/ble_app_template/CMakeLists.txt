@@ -46,7 +46,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_bsp
   nrf5_bsp_btn_ble
   # BLE
-  nrf5_softdevice_handler
+  nrf5_sdh
   nrf5_ble_common
   nrf5_ble_advertising
   nrf5_ble_gatt

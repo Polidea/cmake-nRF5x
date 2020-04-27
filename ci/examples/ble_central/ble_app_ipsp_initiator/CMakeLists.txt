@@ -41,7 +41,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   # BSP
   nrf5_boards
   # BLE
-  nrf5_softdevice_handler
+  nrf5_sdh
   nrf5_ble_srv_ipsp
   # IoT
   nrf5_iot_common

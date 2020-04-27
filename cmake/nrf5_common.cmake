@@ -85,16 +85,16 @@ target_include_directories(nrf5_log_fwd INTERFACE
 )
 
 # SoftDevice Handler
-add_library(nrf5_softdevice_handler OBJECT EXCLUDE_FROM_ALL
+add_library(nrf5_sdh OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh.c"
   "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_ble.c"
   "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_soc.c"
 )
-target_include_directories(nrf5_softdevice_handler PUBLIC
+target_include_directories(nrf5_sdh PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/softdevice/common"
 )
-target_link_libraries(nrf5_softdevice_handler PUBLIC
+target_link_libraries(nrf5_sdh PUBLIC
   nrf5_section nrf5_strerror nrf5_log_fwd
 )
 
@@ -169,7 +169,7 @@ target_link_libraries(nrf5_pwr_mgmt PUBLIC
   nrf5_nrfx_hal
   nrf5_log_fwd
   nrf5_memobj
-  nrf5_softdevice_handler
+  nrf5_sdh
 )
 
 # Stack Info

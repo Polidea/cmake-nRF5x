@@ -29,7 +29,7 @@ target_include_directories(nrf5_fstorage PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/fstorage"
 )
 target_link_libraries(nrf5_fstorage PUBLIC
-  nrf5_section nrf5_log_fwd nrf5_strerror nrf5_softdevice_handler nrf5_atomic nrf5_atfifo
+  nrf5_section nrf5_log_fwd nrf5_strerror nrf5_sdh nrf5_atomic nrf5_atfifo
 )
 
 # File data storage
