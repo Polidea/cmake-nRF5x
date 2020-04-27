@@ -153,71 +153,11 @@ target_compile_definitions(nrf5_soc INTERFACE
   ${NRF5_SOFTDEVICE_VARIANT_UPPER}
 )
 
-# strerror (error to string converion)
-add_library(nrf5_strerror OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/strerror/nrf_strerror.c"
-)
-target_include_directories(nrf5_strerror PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/strerror"
-)
-target_link_libraries(nrf5_strerror PUBLIC nrf5_config nrf5_mdk nrf5_soc)
-
-# Section variables (experimental)
-add_library(nrf5_section OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars/nrf_section_iter.c"
-)
-target_include_directories(nrf5_section PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars"
-  "${NRF5_SDK_PATH}/components/libraries/util"
-)
-target_link_libraries(nrf5_section nrf5_config nrf5_mdk nrf5_soc)
-
-# fprintf
-add_library(nrf5_fprintf OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf.c"
-  "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf_format.c"
-)
-target_include_directories(nrf5_fprintf PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/external/fprintf"
-)
-target_link_libraries(nrf5_fprintf PUBLIC nrf5_mdk nrf5_soc nrf5_config)
-
-# Atomic
-add_library(nrf5_atomic OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/atomic/nrf_atomic.c"
-)
-target_include_directories(nrf5_atomic PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/atomic"
-)
-target_link_libraries(nrf5_atomic PUBLIC nrf5_mdk nrf5_soc nrf5_config)
-
-# Mutex
-add_library(nrf5_mtx INTERFACE)
-target_include_directories(nrf5_mtx INTERFACE
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/mutex"
-)
-target_link_libraries(nrf5_mtx INTERFACE nrf5_atomic)
-
-# Logger forwarding interface (include directories only)
-add_library(nrf5_log_fwd INTERFACE)
-target_include_directories(nrf5_log_fwd INTERFACE
-  "${NRF5_SDK_PATH}/components/libraries/log"
-  "${NRF5_SDK_PATH}/components/libraries/log/src"
-)
-
-# SoftDevice handler
-add_library(nrf5_sdh OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh.c"
-)
-target_include_directories(nrf5_sdh PUBLIC
-"${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/softdevice/common"
-)
-target_link_libraries(nrf5_sdh PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror)
+include("nrf5_common")
+include("nrf5_storage")
+include("nrf5_log")
+include("nrf5_app")
+include("nrf5_nrfx")
 
 # Power management
 add_library(nrf5_pwr_mgmt OBJECT EXCLUDE_FROM_ALL
@@ -238,35 +178,6 @@ target_include_directories(nrf5_queue PUBLIC
 )
 target_link_libraries(nrf5_queue PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror)
 
-# Command Line Interface (CLI)
-add_library(nrf5_cli OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/cli/nrf_cli.c"
-)
-target_include_directories(nrf5_cli PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/cli"
-)
-target_link_libraries(nrf5_cli PUBLIC nrf5_atomic nrf5_section nrf5_log_fwd nrf5_memobj nrf5_queue nrf5_fprintf nrf5_delay nrf5_nrfx_common nrf5_pwr_mgmt)
-
-# Block allocator
-add_library(nrf5_balloc OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/balloc/nrf_balloc.c"
-)
-target_include_directories(nrf5_balloc PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/balloc"
-)
-target_link_libraries(nrf5_balloc PUBLIC nrf5_section nrf5_log_fwd nrf5_soc nrf5_strerror)
-
-# Memory object
-add_library(nrf5_memobj OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/memobj/nrf_memobj.c"
-)
-target_include_directories(nrf5_memobj PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/memobj"
-)
-target_link_libraries(nrf5_memobj PUBLIC nrf5_balloc nrf5_atomic)
-
 # Memory Manager
 add_library(nrf5_mem_manager OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/mem_manager/mem_manager.c"
@@ -276,66 +187,6 @@ target_include_directories(nrf5_mem_manager PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/mem_manager"
 )
 target_link_libraries(nrf5_mem_manager PUBLIC nrf5_log)
-
-# Ring buffer
-add_library(nrf5_ringbuf OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/ringbuf/nrf_ringbuf.c"
-)
-target_include_directories(nrf5_ringbuf PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/ringbuf"
-)
-target_link_libraries(nrf5_ringbuf PUBLIC nrf5_atomic)
-
-# Atomic FIFO
-add_library(nrf5_atfifo OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/atomic_fifo/nrf_atfifo.c"
-)
-target_include_directories(nrf5_atfifo PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/atomic_fifo"
-)
-target_link_libraries(nrf5_atfifo PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror)
-
-# Atomic flags
-add_library(nrf5_atflags OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/atomic_flags/nrf_atflags.c"
-)
-target_include_directories(nrf5_atflags PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/atomic_flags"
-)
-target_link_libraries(nrf5_atflags PUBLIC nrf5_atomic)
-
-# File storage
-add_library(nrf5_fstorage OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage.c"
-  "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage_sd.c"
-)
-target_include_directories(nrf5_fstorage PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/fstorage"
-)
-target_link_libraries(nrf5_fstorage PUBLIC nrf5_section nrf5_log_fwd nrf5_strerror nrf5_sdh nrf5_atomic nrf5_atfifo)
-
-# File data storage
-add_library(nrf5_fds OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/fds/fds.c"
-)
-target_include_directories(nrf5_fds PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/fds"
-)
-target_link_libraries(nrf5_fds PUBLIC nrf5_fstorage)
-
-# Logger (frontend & formatter)
-add_library(nrf5_log OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_frontend.c"
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_str_formatter.c"
-)
-target_include_directories(nrf5_log PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/log"
-  "${NRF5_SDK_PATH}/components/libraries/log/src"
-)
-target_link_libraries(nrf5_log PUBLIC nrf5_config nrf5_mdk nrf5_soc nrf5_section nrf5_strerror nrf5_memobj nrf5_fprintf nrf5_ringbuf nrf5_cli nrf5_fds)
 
 # Logger Serial backend
 add_library(nrf5_log_backend_serial OBJECT EXCLUDE_FROM_ALL
@@ -391,16 +242,6 @@ target_include_directories(nrf5_app_util_platform PUBLIC
 )
 target_link_libraries(nrf5_app_util_platform PUBLIC nrf5_mdk nrf5_soc)
 
-# Scheduler
-add_library(nrf5_app_scheduler OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/scheduler/app_scheduler.c"
-)
-target_include_directories(nrf5_app_scheduler PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/scheduler"
-)
-target_link_libraries(nrf5_app_scheduler PUBLIC nrf5_config nrf5_mdk nrf5_soc)
-
 # Application timer
 add_library(nrf5_app_timer OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/timer/app_timer.c"
@@ -409,54 +250,6 @@ target_include_directories(nrf5_app_timer PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/timer"
 )
 target_link_libraries(nrf5_app_timer PUBLIC nrf5_app_scheduler nrf5_delay nrf5_nrfx_hal)
-
-# nrfx Peripheral Resource Sharing (PRS)
-add_library(nrf5_nrfx_prs OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/prs/nrfx_prs.c"
-)
-target_include_directories(nrf5_nrfx_prs PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/prs"
-)
-target_link_libraries(nrf5_nrfx_prs PUBLIC nrf5_log)
-
-# GPIOTE nrfx driver
-add_library(nrf5_nrfx_gpiote OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_gpiote.c"
-)
-target_include_directories(nrf5_nrfx_gpiote PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
-  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
-)
-target_link_libraries(nrf5_nrfx_gpiote PUBLIC nrf5_log nrf5_nrfx_common)
-
-# UART (EasyDMA) nrfx driver
-add_library(nrf5_nrfx_uarte OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_uarte.c"
-)
-target_include_directories(nrf5_nrfx_uarte PUBLIC
-  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
-)
-target_link_libraries(nrf5_nrfx_uarte PUBLIC nrf5_log nrf5_nrfx_common)
-
-# UART (no EasyDMA) nrfx driver
-add_library(nrf5_nrfx_uart OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_uart.c"
-)
-target_include_directories(nrf5_nrfx_uart PUBLIC
-  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
-)
-target_link_libraries(nrf5_nrfx_uart PUBLIC nrf5_log nrf5_nrfx_common)
-
-# UART legacy driver
-add_library(nrf5_drv_uart OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_uart.c"
-)
-target_include_directories(nrf5_drv_uart PUBLIC
-  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
-)
-target_link_libraries(nrf5_drv_uart PUBLIC nrf5_nrfx_uarte nrf5_nrfx_uart)
 
 # Application button
 add_library(nrf5_app_button OBJECT EXCLUDE_FROM_ALL
@@ -736,28 +529,6 @@ target_include_directories(nrf5_bsp_btn_ble PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/bsp"
 )
 target_link_libraries(nrf5_bsp_btn_ble PUBLIC nrf5_boards nrf5_app_button)
-
-# nrfx common
-add_library(nrf5_nrfx_common INTERFACE)
-target_include_directories(nrf5_nrfx_common INTERFACE
-  "${NRF5_SDK_PATH}/modules/nrfx"
-  "${NRF5_SDK_PATH}/integration/nrfx"
-)
-target_compile_definitions(nrf5_nrfx_common INTERFACE
-  SOFTDEVICE_PRESENT
-)
-target_link_libraries(nrf5_nrfx_common INTERFACE nrf5_config)
-
-# nrfx Hardware Abstraction Layer (HAL)
-add_library(nrf5_nrfx_hal INTERFACE)
-target_include_directories(nrf5_nrfx_hal INTERFACE
-  "${NRF5_SDK_PATH}/modules/nrfx/hal"
-)
-target_link_libraries(nrf5_nrfx_hal INTERFACE nrf5_nrfx_common)
-
-add_library(nrf5_delay INTERFACE)
-target_include_directories(nrf5_delay INTERFACE
-  "${NRF5_SDK_PATH}/components/libraries/delay")
 
 # SoftDevice Handler
 add_library(nrf5_softdevice_handler OBJECT EXCLUDE_FROM_ALL
