@@ -20,6 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# fprintf
+add_library(nrf5_ext_fprintf OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf.c"
+  "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf_format.c"
+)
+target_include_directories(nrf5_ext_fprintf PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/external/fprintf"
+)
+target_link_libraries(nrf5_ext_fprintf PUBLIC nrf5_mdk nrf5_soc nrf5_config)
+
 # Segger RTT
 add_library(nrf5_ext_segger_rtt OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT.c"

@@ -34,7 +34,7 @@ target_link_libraries(nrf5_cli PUBLIC
   nrf5_log_fwd
   nrf5_memobj
   nrf5_queue
-  nrf5_fprintf
+  nrf5_ext_fprintf
   nrf5_delay
   nrf5_nrfx_common
   nrf5_pwr_mgmt
@@ -57,7 +57,7 @@ target_link_libraries(nrf5_log PUBLIC
   nrf5_section
   nrf5_strerror
   nrf5_memobj
-  nrf5_fprintf
+  nrf5_ext_fprintf
   nrf5_ringbuf
   nrf5_cli
   nrf5_fds

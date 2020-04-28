@@ -58,17 +58,6 @@ target_include_directories(nrf5_atomic PUBLIC
 )
 target_link_libraries(nrf5_atomic PUBLIC nrf5_mdk nrf5_soc nrf5_config)
 
-# fprintf
-add_library(nrf5_fprintf OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf.c"
-  "${NRF5_SDK_PATH}/external/fprintf/nrf_fprintf_format.c"
-)
-target_include_directories(nrf5_fprintf PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/external/fprintf"
-)
-target_link_libraries(nrf5_fprintf PUBLIC nrf5_mdk nrf5_soc nrf5_config)
-
 # Mutex
 add_library(nrf5_mtx INTERFACE)
 target_include_directories(nrf5_mtx INTERFACE

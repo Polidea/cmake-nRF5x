@@ -20,8 +20,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_balloc
   nrf5_ringbuf
   nrf5_pwr_mgmt
-  nrf5_fprintf
   # External
+  nrf5_ext_fprintf
   nrf5_ext_segger_rtt
   # Drivers
   nrf5_nrfx_prs
