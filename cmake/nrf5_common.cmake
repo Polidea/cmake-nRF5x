@@ -195,4 +195,6 @@ target_include_directories(nrf5_mem_manager PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/mem_manager"
 )
-target_link_libraries(nrf5_mem_manager PUBLIC nrf5_mdk nrf5_soc nrf5_config nrf5_log_fwd)
+target_link_libraries(nrf5_mem_manager PUBLIC
+  nrf5_config nrf5_mdk nrf5_soc nrf5_strerror nrf5_section nrf5_log_fwd
+)
