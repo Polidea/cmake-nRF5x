@@ -161,6 +161,7 @@ include("nrf5_nrfx")
 include("nrf5_bsp")
 include("nrf5_crypto")
 include("nrf5_ble")
+include("nrf5_ble_srv")
 
 # Memory Manager
 add_library(nrf5_mem_manager OBJECT EXCLUDE_FROM_ALL
@@ -330,76 +331,6 @@ add_library(nrf5_iot_common INTERFACE)
 target_include_directories(nrf5_iot_common INTERFACE
   "${NRF5_SDK_PATH}/components/iot/common"
 )
-
-# BLE LED Button Service (Peripheral)
-add_library(nrf5_ble_srv_lbs OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs/ble_lbs.c"
-)
-target_include_directories(nrf5_ble_srv_lbs PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs"
-)
-target_link_libraries(nrf5_ble_srv_lbs PUBLIC nrf5_config nrf5_ble_common nrf5_sdh)
-
-# BLE LED Button Service (Central)
-add_library(nrf5_ble_srv_lbs_c OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs_c/ble_lbs_c.c"
-)
-target_include_directories(nrf5_ble_srv_lbs_c PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lbs_c"
-)
-target_link_libraries(nrf5_ble_srv_lbs_c PUBLIC nrf5_ble_db_discovery)
-
-# BLE Nordic UART Service (Peripheral)
-add_library(nrf5_ble_srv_nus OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/ble_nus.c"
-)
-target_include_directories(nrf5_ble_srv_nus PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/"
-)
-target_link_libraries(nrf5_ble_srv_nus PUBLIC nrf5_ble_link_ctx_manager)
-
-# BLE Nordic UART Service (Central)
-add_library(nrf5_ble_srv_nus_c OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus_c/ble_nus_c.c"
-)
-target_include_directories(nrf5_ble_srv_nus_c PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus_c/"
-)
-target_link_libraries(nrf5_ble_srv_nus_c PUBLIC nrf5_ble_db_discovery)
-
-# BLE Device Information Service (Peripheral)
-add_library(nrf5_ble_srv_dis OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_dis/ble_dis.c"
-)
-target_include_directories(nrf5_ble_srv_dis PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_dis/"
-)
-target_link_libraries(nrf5_ble_srv_dis PUBLIC nrf5_ble_common)
-
-# BLE Bond Management Service
-add_library(nrf5_ble_srv_bms OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/ble/ble_services/nrf_ble_bms/nrf_ble_bms.c"
-)
-target_include_directories(nrf5_ble_srv_bms PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/ble/ble_services/nrf_ble_bms/"
-)
-target_link_libraries(nrf5_ble_srv_bms PUBLIC nrf5_ble_common nrf5_ble_qwr)
-
-# BLE Internet Protocol Support Profile Service
-add_library(nrf5_ble_srv_ipsp OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ipsp/ble_ipsp.c"
-)
-target_include_directories(nrf5_ble_srv_ipsp PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ipsp/"
-)
-target_link_libraries(nrf5_ble_srv_ipsp PUBLIC nrf5_ble_common)
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
