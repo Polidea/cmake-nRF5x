@@ -166,14 +166,6 @@ include("nrf5_ble_srv")
 include("nrf5_iot")
 include("nrf5_external")
 
-# Sensor Data Simulator
-add_library(nrf5_sensorsim OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/sensorsim/sensorsim.c"
-)
-target_include_directories(nrf5_sensorsim PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/sensorsim"
-)
-
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
   target_link_libraries(${exec_target} PRIVATE nrf5_mdk)
