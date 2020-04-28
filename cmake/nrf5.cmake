@@ -153,6 +153,7 @@ target_compile_definitions(nrf5_soc INTERFACE
   ${NRF5_SOFTDEVICE_VARIANT_UPPER}
 )
 
+# Target definitions
 include("nrf5_common")
 include("nrf5_storage")
 include("nrf5_log")
@@ -165,6 +166,7 @@ include("nrf5_ble_pm")
 include("nrf5_ble_srv")
 include("nrf5_iot")
 include("nrf5_external")
+include("nrf5_misc")
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
