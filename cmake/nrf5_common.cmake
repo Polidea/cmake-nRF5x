@@ -186,3 +186,13 @@ target_include_directories(nrf5_svc PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/svc"
 )
 target_link_libraries(nrf5_svc PUBLIC nrf5_section)
+
+# Memory Manager
+add_library(nrf5_mem_manager OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/mem_manager/mem_manager.c"
+)
+target_include_directories(nrf5_mem_manager PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/components/libraries/mem_manager"
+)
+target_link_libraries(nrf5_mem_manager PUBLIC nrf5_mdk nrf5_soc nrf5_config nrf5_log_fwd)

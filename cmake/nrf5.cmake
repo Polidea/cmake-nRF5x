@@ -165,16 +165,6 @@ include("nrf5_ble_pm")
 include("nrf5_ble_srv")
 include("nrf5_iot")
 
-# Memory Manager
-add_library(nrf5_mem_manager OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/mem_manager/mem_manager.c"
-)
-target_include_directories(nrf5_mem_manager PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/components/libraries/mem_manager"
-)
-target_link_libraries(nrf5_mem_manager PUBLIC nrf5_log)
-
 # Logger Serial backend
 add_library(nrf5_log_backend_serial OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_serial.c"
