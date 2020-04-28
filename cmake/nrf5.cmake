@@ -164,6 +164,7 @@ include("nrf5_ble")
 include("nrf5_ble_pm")
 include("nrf5_ble_srv")
 include("nrf5_iot")
+include("nrf5_external")
 
 # Logger Serial backend
 add_library(nrf5_log_backend_serial OBJECT EXCLUDE_FROM_ALL
@@ -176,16 +177,6 @@ add_library(nrf5_log_backend_uart OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_uart.c"
 )
 target_link_libraries(nrf5_log_backend_uart PUBLIC nrf5_log nrf5_drv_uart)
-
-# Segger RTT
-add_library(nrf5_ext_segger_rtt OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT.c"
-)
-target_include_directories(nrf5_ext_segger_rtt PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
-  "${NRF5_SDK_PATH}/external/segger_rtt"
-)
-target_link_libraries(nrf5_ext_segger_rtt PUBLIC nrf5_config nrf5_mdk nrf5_soc)
 
 # Logger RTT backend
 add_library(nrf5_log_backend_rtt OBJECT EXCLUDE_FROM_ALL
