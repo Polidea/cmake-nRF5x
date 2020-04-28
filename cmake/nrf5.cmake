@@ -166,30 +166,6 @@ include("nrf5_ble_srv")
 include("nrf5_iot")
 include("nrf5_external")
 
-# Logger Serial backend
-add_library(nrf5_log_backend_serial OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_serial.c"
-)
-target_link_libraries(nrf5_log_backend_serial PUBLIC nrf5_log)
-
-# Logger UART backend
-add_library(nrf5_log_backend_uart OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_uart.c"
-)
-target_link_libraries(nrf5_log_backend_uart PUBLIC nrf5_log nrf5_drv_uart)
-
-# Logger RTT backend
-add_library(nrf5_log_backend_rtt OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_rtt.c"
-)
-target_link_libraries(nrf5_log_backend_rtt PUBLIC nrf5_log nrf5_ext_segger_rtt)
-
-# Logger (default backends)
-add_library(nrf5_log_default_backends OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_default_backends.c"
-)
-target_link_libraries(nrf5_log_default_backends PUBLIC nrf5_log)
-
 # Sensor Data Simulator
 add_library(nrf5_sensorsim OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/sensorsim/sensorsim.c"
