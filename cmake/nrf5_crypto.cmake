@@ -20,18 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# CC310 library forwarding interface (external, include directories only)
-add_library(nrf5_ext_cc310_fwd INTERFACE)
-target_include_directories(nrf5_ext_cc310_fwd INTERFACE
-  "${NRF5_SDK_PATH}/external/nrf_cc310/include"
-)
-
-# mbedTLS library forwarding interface (external, include directories only)
-add_library(nrf5_ext_mbedtls_fwd INTERFACE)
-target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE
-  "${NRF5_SDK_PATH}/external/mbedtls/include"
-)
-
 # nRF Crypto forwarding interface (include directories only)
 add_library(nrf5_crypto_fwd INTERFACE)
 target_include_directories(nrf5_crypto_fwd INTERFACE

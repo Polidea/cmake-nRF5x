@@ -40,3 +40,15 @@ target_include_directories(nrf5_ext_segger_rtt PUBLIC
   "${NRF5_SDK_PATH}/external/segger_rtt"
 )
 target_link_libraries(nrf5_ext_segger_rtt PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+
+# CC310 library forwarding interface (include directories only)
+add_library(nrf5_ext_cc310_fwd INTERFACE)
+target_include_directories(nrf5_ext_cc310_fwd INTERFACE
+  "${NRF5_SDK_PATH}/external/nrf_cc310/include"
+)
+
+# mbedTLS library forwarding interface (include directories only)
+add_library(nrf5_ext_mbedtls_fwd INTERFACE)
+target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE
+  "${NRF5_SDK_PATH}/external/mbedtls/include"
+)
