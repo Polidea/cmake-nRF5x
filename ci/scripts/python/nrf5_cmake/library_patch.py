@@ -6,7 +6,7 @@ from nrf5_cmake.version import Version
 from typing import Optional
 from unittest.case import TestCase
 from nrf5_cmake.library_version import LibraryVersion
-from nrf5_cmake.library_properties import LibraryProperties, LibraryProperyName
+from nrf5_cmake.library import Library, LibraryProperty
 from jsonschema import validate as validate_json
 
 
@@ -27,36 +27,37 @@ class LibraryPatch:
                 "enum": [x.value for x in LibraryOperation]
             },
             "sdk_version": LibraryVersion.json_schema,
-            ** LibraryProperties.props_json_schema
+            ** Library.props_json_schema
         }
     }
 
     def __init__(self,
                  operation: LibraryOperation,
                  sdk_version: Optional[LibraryVersion] = None,
-                 props: LibraryProperties = LibraryProperties()):
+                 library: Optional[Library] = None):
         self._operation = operation
-        self._sdk_version = sdk_version
-        self._props = props
+        self._sdk_version: Optional[LibraryVersion] = sdk_version
+        self._library: Library = library or Library()
 
     @staticmethod
     def from_json(json_value: dict) -> LibraryPatch:
         validate_json(instance=json_value,
                       schema=LibraryPatch.json_schema)
 
-        sdk_version = None
+        patch = LibraryPatch(LibraryOperation(json_value["operation"]))
+        patch._library = Library.from_json(json_value)
+
         if "sdk_version" in json_value:
-            sdk_version = LibraryVersion.from_json(json_value["sdk_version"])
+            patch._sdk_version = LibraryVersion.from_json(
+                json_value["sdk_version"]
+            )
 
-        operation = LibraryOperation(json_value["operation"])
-        props = LibraryProperties.from_json(json_value)
-
-        return LibraryPatch(operation, sdk_version, props)
+        return patch
 
     def to_json(self) -> dict:
         json_value = {
             "operation": self._operation.value,
-            **self._props.to_json()
+            **self._library.to_json()
         }
 
         if self._sdk_version != None:
@@ -84,12 +85,12 @@ class LibraryPatch:
         self._sdk_version = sdk_version
 
     @property
-    def props(self):
-        return self._props
+    def library(self):
+        return self._library
 
-    @props.setter
-    def props(self, props: LibraryProperties):
-        self._props = props
+    @library.setter
+    def library(self, library: Library):
+        self._library = library
 
 
 class LibraryPatchTestCase(TestCase):
@@ -115,12 +116,12 @@ class LibraryPatchTestCase(TestCase):
                            to_version=Version(16, 0, 0))
         )
         self.assertEqual(
-            patch.props.sources,
+            patch.library.sources,
             {'s1', 's2'}
         )
         self.assertEqual(
-            patch.props.get(LibraryProperyName.INCLUDES)
-                       .get_props(Access.PUBLIC),
+            patch.library.get_prop(LibraryProperty.INCLUDES)
+                         .get_items(Access.PUBLIC),
             {'inc1'}
         )
 

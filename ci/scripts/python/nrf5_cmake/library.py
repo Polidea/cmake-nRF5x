@@ -1,56 +1,54 @@
 from __future__ import annotations
-from nrf5_cmake.library_version import LibraryVersion
 
 from unittest import TestCase
 from enum import Enum
-from nrf5_cmake.library_properties import LibraryProperties, LibraryProperyName as PN
-from nrf5_cmake.library_patch import LibraryPatch
+from typing import Dict, Optional, Set
 from jsonschema import validate as validate_json
-from typing import List, Optional
+
+from nrf5_cmake.property import Access, Property
+from nrf5_cmake.version import Version
 
 
-class LibraryType(Enum):
-    BUILTIN = "builtin"
-    OBJECT = "object"
-    INTERFACE = "interface"
+class LibraryProperty(Enum):
+    DEPENDENCIES = "dependencies"
+    INCLUDES = "includes"
+    CFLAGS = "cflags"
+    ASMFLAGS = "asmflags"
+    LDFLAGS = "ldflags"
 
 
 class Library:
 
+    props_json_schema = {
+        "sources": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        ** {x.value: Property.json_schema for x in LibraryProperty}
+    }
+
     json_schema = {
         "type": "object",
-        "additionalProperties": False,
-        "required": ["type"],
-        "properties": {
-            **LibraryProperties.props_json_schema,
-            **{
-                "sdk_version": LibraryVersion.json_schema,
-                "documentation": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string",
-                    "enum": [x.value for x in LibraryType]
-                },
-                "patches": {
-                    "type": "array",
-                    "items": LibraryPatch.json_schema
-                }
-            }
-        }
+        "properties": props_json_schema
     }
 
     def __init__(self,
-                 sdk_version: Optional[LibraryVersion] = None,
-                 props: LibraryProperties = LibraryProperties(),
-                 documentation: str = "",
-                 type: LibraryType = LibraryType.OBJECT,
-                 patches: List[LibraryPatch] = []):
-        self._props = props
-        self._sdk_version = sdk_version
-        self._documentation = documentation
-        self._type = type
-        self._patches = patches
+                 sources: Optional[Set[str]] = None,
+                 dependencies: Optional[Property] = None,
+                 includes: Optional[Property] = None,
+                 cflags: Optional[Property] = None,
+                 asmflags: Optional[Property] = None,
+                 ldflags: Optional[Property] = None
+                 ):
+        self._sources: Set[str] = sources or set()
+        self._props: Dict[LibraryProperty, Property] = {}
+        self._props[LibraryProperty.DEPENDENCIES] = dependencies or Property()
+        self._props[LibraryProperty.INCLUDES] = includes or Property()
+        self._props[LibraryProperty.CFLAGS] = cflags or Property()
+        self._props[LibraryProperty.ASMFLAGS] = asmflags or Property()
+        self._props[LibraryProperty.LDFLAGS] = ldflags or Property()
 
     def __str__(self):
         return str(self.to_json())
@@ -60,74 +58,93 @@ class Library:
         validate_json(instance=json_value,
                       schema=Library.json_schema)
 
-        library = Library()
+        library_props = Library()
+        if "sources" in json_value:
+            library_props._sources = set(json_value["sources"])
 
-        if "sdk_version" in json_value:
-            library._sdk_version = LibraryVersion.from_json(
-                json_value["sdk_version"])
+        for property_name in LibraryProperty:
+            if property_name.value in json_value:
+                library_props._props[property_name] = Property.from_json(
+                    json_value[property_name.value]
+                )
 
-        if "documentation" in json_value:
-            library._documentation = json_value["documentation"]
-
-        if "type" in json_value:
-            library._type = LibraryType(json_value["type"])
-
-        library._props = LibraryProperties.from_json(json_value)
-
-        if "patches" in json_value:
-            for patch in json_value["patches"]:
-                library._patches.append(LibraryPatch.from_json(patch))
-
-        return library
+        return library_props
 
     def to_json(self) -> dict:
         json_value = {}
 
-        if self._sdk_version:
-            json_value["sdk_version"] = self._sdk_version.to_json()
+        if len(self._sources) != 0:
+            sources_json = list(self._sources)
+            sources_json.sort()
+            json_value["sources"] = sources_json
 
-        if self._documentation:
-            json_value["documentation"] = self._documentation
+        for property_name in LibraryProperty:
+            if len(self._props[property_name].get_items(Access.ALL)) == 0:
+                continue
+            prop_json = self._props[property_name].to_json()
+            json_value[property_name.value] = prop_json
 
-        if self._type:
-            json_value["type"] = self._type.value
+        return json_value
 
-        if len(self._patches) != 0:
-            json_patches = []
-            for patch in self._patches:
-                patch_json_value = patch.to_json()
-                json_patches.append(patch_json_value)
-            json_value["patches"] = json_patches
+    @property
+    def sources(self) -> Set[str]:
+        return self._sources
 
-        json_props = self._props.to_json()
-        return {
-            **json_value,
-            **json_props
-        }
+    @sources.setter
+    def sources(self, sources: Set[str]):
+        self._sources = sources
+
+    def get_prop(self, property_name: LibraryProperty) -> Property:
+        return self._props[property_name]
+
+    def set_prop(self, property_name: LibraryProperty, prop: Property):
+        self._props[property_name] = prop
 
 
 class LibraryTestCase(TestCase):
     def test_json(self):
         json_value = {
-            "type": "object",
-            "documentation": "This is a simple object library",
             "sources": ["s1", "s2"],
-            "sdk_version": {"from": "15.3.0"},
             "dependencies": {
-                "private": ["prv_dep1"],
-                "public": ["pub_dep1"]
+                "private": ["dep1", "dep2"]
             },
             "includes": {
-                "interface": ["inc1", "inc2"]
+                "public": ["inc1"]
             },
-            "patches": [
-                {
-                    "operation": "add",
-                    "sdk_version": {"to": "16.0.0"},
-                    "sources": ["s3", "s4"]
-                }
-            ]
+            "cflags": {
+                "interface": ["int1"]
+            },
+            "asmflags": {
+                "public": ["asm1"]
+            },
+            "ldflags": {
+                "public": ["ld1"]
+            }
         }
 
-        library = Library.from_json(json_value)
-        self.assertEqual(json_value, library.to_json())
+        value = Library.from_json(json_value)
+        self.assertSetEqual(value.sources, {"s1", "s2"})
+
+        LP = LibraryProperty
+        self.assertEqual(
+            value.get_prop(LP.DEPENDENCIES),
+            Property(private={"dep1", "dep2"})
+        )
+        self.assertEqual(
+            value.get_prop(LP.INCLUDES),
+            Property(public={"inc1"})
+        )
+        self.assertEqual(
+            value.get_prop(LP.CFLAGS),
+            Property(interface={"int1"})
+        )
+        self.assertEqual(
+            value.get_prop(LP.ASMFLAGS),
+            Property(public={"asm1"})
+        )
+        self.assertEqual(
+            value.get_prop(LP.LDFLAGS),
+            Property(public={"ld1"})
+        )
+
+        self.assertEqual(json_value, value.to_json())

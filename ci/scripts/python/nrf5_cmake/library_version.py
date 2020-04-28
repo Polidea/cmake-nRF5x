@@ -13,7 +13,7 @@ class LibraryVersion:
         "properties": {
             "from": {
                 "type": "string",
-                        "pattern": r"[0-9]+\.[0-9]+\.[0-9]+"
+                "pattern": r"[0-9]+\.[0-9]+\.[0-9]+"
             },
             "to": {
                 "type": "string",

@@ -5,35 +5,6 @@ from example_structure import example_create, example_convert_from_json, example
 import json
 import copy
 
-def examples_load_from_file(filepath):
-    """Load examples for a file
-
-    Arguments:
-        filepath {Filepath} -- Path to JSON file including examples list.
-
-    Returns:
-        Modules -- List of examples loaded from file.
-    """
-    with open(filepath, 'r') as file:
-        examples = json.load(file)
-        for example in examples:
-            example_validate(example)
-            example_convert_from_json(example)
-        return examples
-    return {}
-
-def examples_save_to_file(filepath, examples):
-    """Converts and saves examples into a file in JSON format
-
-    Arguments:
-        filepath {Filepath} -- Filepath to a location where examples are saved
-        examples {Examples} -- List of examples to save
-    """
-    with open(filepath, 'w+') as file:
-        for example in examples:
-            example_convert_to_json(example)
-        examples.sort(key=lambda e: e["path"], reverse=True)
-        json.dump(examples, file)
 
 def example_intersection_from_examples(examples, filter_function=None):
     """Creates a new example from intersections of sources, includes,
