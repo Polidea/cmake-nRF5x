@@ -163,6 +163,7 @@ include("nrf5_crypto")
 include("nrf5_ble")
 include("nrf5_ble_pm")
 include("nrf5_ble_srv")
+include("nrf5_iot")
 
 # Memory Manager
 add_library(nrf5_mem_manager OBJECT EXCLUDE_FROM_ALL
@@ -214,12 +215,6 @@ add_library(nrf5_sensorsim OBJECT EXCLUDE_FROM_ALL
 )
 target_include_directories(nrf5_sensorsim PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/sensorsim"
-)
-
-# IoT Common
-add_library(nrf5_iot_common INTERFACE)
-target_include_directories(nrf5_iot_common INTERFACE
-  "${NRF5_SDK_PATH}/components/iot/common"
 )
 
 function(nrf5_target exec_target)
