@@ -33,7 +33,7 @@ def examples_save_to_file(filepath: str, examples: Iterable[Example]):
         json.dump(json_examples, file, indent=2)
 
 
-def example_as_library(example: Example) -> Library:
+def library_from_example(example: Example) -> Library:
     return Library(sources=example.get_prop(ExampleProperty.SOURCES),
                    includes=Property(public=example.get_prop(
                        ExampleProperty.INCLUDES)),
