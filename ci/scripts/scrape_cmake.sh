@@ -7,8 +7,9 @@ source "${BASH_SOURCE%/*}/common/check_deps.sh"
 
 mkdir -p "$GENERATED_DIR"
 
-for sdk in `ls -d $CMAKE_DIR/*`; do
-    files="$files $(find "${sdk}" -regex ".*\.cmake")"
+for file_path in $(find "${CMAKE_DIR}" -name "*.cmake"); do
+    file_name="$(basename ${file_path})"
+    python3 -B "${BASH_SOURCE%/*}/python/scrape_cmake.py" \
+        --input "${file_path}" \
+        --output "${GENERATED_DIR}/${file_name%.*}.json"
 done
-
-echo "$files" | python3 -B "${BASH_SOURCE%/*}/python/scrape_cmake.py" --output "$GENERATED_CMAKE_LIBRARIES"

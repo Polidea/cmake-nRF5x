@@ -114,17 +114,17 @@ def process_library(file_path: str,
 
 # Parse arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("--output")
+parser.add_argument("--input", required=True)
+parser.add_argument("--output", required=True)
 args = parser.parse_args()
+
+input_file_path: str = args.input
+output_file_path: str = args.output
 
 # Scrape libraries
 libraries: Dict[str, LibraryDescription] = {}
-for line in sys.stdin.readlines():
-    paths = line.split(" ")
-    for path in paths:
-        file_path = path.strip()
-        if file_path != '':
-            process_library(file_path, libraries)
+process_library(input_file_path, libraries)
 
 # Save them to a file
-libraries_save_to_file(args.output, libraries)
+if len(libraries) > 0:
+    libraries_save_to_file(output_file_path, libraries)
