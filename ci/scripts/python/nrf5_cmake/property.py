@@ -8,15 +8,14 @@ from jsonschema.exceptions import ValidationError
 
 
 class Access(Enum):
-    PUBLIC = "public"
     PRIVATE = "private"
     INTERFACE = "interface"
-    ALL = "all"
+    PUBLIC = "public"
 
     @property
     def matches(self) -> List[Access]:
-        if self == Access.ALL:
-            return [Access.PUBLIC, Access.PRIVATE, Access.INTERFACE]
+        if self == Access.PUBLIC:
+            return [Access.PRIVATE, Access.INTERFACE]
         else:
             return [self]
 
@@ -52,10 +51,13 @@ class Property:
                  public: Optional[Set[str]] = None,
                  private: Optional[Set[str]] = None,
                  interface: Optional[Set[str]] = None):
-        self._items: Dict[Access, Set[str]] = {}
-        self._items[Access.PUBLIC] = public or set()
-        self._items[Access.PRIVATE] = private or set()
-        self._items[Access.INTERFACE] = interface or set()
+        self._items: Dict[Access, Set[str]] = {
+            Access.INTERFACE: interface or set(),
+            Access.PRIVATE: private or set(),
+        }
+        if public:
+            self._items[Access.INTERFACE].update(public)
+            self._items[Access.PRIVATE].update(public)
 
     def __str__(self):
         return str(self.to_json())
@@ -64,7 +66,7 @@ class Property:
         if not isinstance(other, Property):
             return False
 
-        for access in Access.ALL.matches:
+        for access in Access.PUBLIC.matches:
             if self._items[access] != other._items[access]:
                 return False
 
@@ -75,16 +77,39 @@ class Property:
         validate_json(instance=json_value,
                       schema=Property.json_schema)
         prop = Property()
-        for access in Access.ALL.matches:
+        for access in Access.PUBLIC.matches:
             if access.value in json_value:
                 prop._items[access] = set(json_value[access.value])
+            if Access.PUBLIC.value in json_value:
+                prop._items[access].update(
+                    set(json_value[Access.PUBLIC.value]))
+
         return prop
+
+    def to_json(self) -> dict:
+        json_items = {}
+
+        public_items = self._items[Access.PRIVATE] & self._items[Access.INTERFACE]
+
+        for access in Access.PUBLIC.matches:
+            items = self._items[access] - public_items
+            if len(items) != 0:
+                json_item = list(items)
+                json_item.sort()
+                json_items[access.value] = json_item
+
+        if len(public_items) != 0:
+            json_item = list(public_items)
+            json_item.sort()
+            json_items[Access.PUBLIC.value] = json_item
+
+        return json_items
 
     @staticmethod
     def union(properties: Iterable[Property], access: Access) -> Property:
         result = Property()
         for access in access.matches:
-            u = set.union(*[prop.get_items(access) for prop in properties])
+            u = set.union(*(prop.get_items(access) for prop in properties))
             result._items[access] = u
         return result
 
@@ -96,8 +121,8 @@ class Property:
     def intersection(properties: Iterable[Property], access: Access) -> Property:
         result = Property()
         for access in access.matches:
-            i = set.intersection(*[prop.get_items(access)
-                                   for prop in properties])
+            i = set.intersection(*(prop.get_items(access)
+                                   for prop in properties))
             result._items[access] = i
         return result
 
@@ -105,22 +130,24 @@ class Property:
         for access in access.matches:
             self._items[access].intersection_update(property._items[access])
 
+    @staticmethod
+    def difference(properties: Iterable[Property], access: Access) -> Property:
+        result = Property()
+        for access in access.matches:
+            d = set.difference(*(prop.get_items(access)
+                                 for prop in properties))
+            result._items[access] = d
+        return result
+
     def difference_update(self, property: Property, access: Access):
         for access in access.matches:
             self._items[access].difference_update(property._items[access])
 
-    def to_json(self) -> dict:
-        json_items = {}
-        for access in Access.ALL.matches:
-            if len(self._items[access]) != 0:
-                json_item = list(self._items[access])
-                json_item.sort()
-                json_items[access.value] = json_item
-
-        return json_items
+    def get_all_items(self) -> Set[str]:
+        return set.union(*(self._items[x] for x in Access.PUBLIC.matches))
 
     def get_items(self, access: Access) -> Set[str]:
-        return set.union(*[self._items[x] for x in access.matches])
+        return set.intersection(*(self._items[x] for x in access.matches))
 
     def set_items(self, items: Set[str], access: Access):
         for access in access.matches:
@@ -148,25 +175,25 @@ class PropertyTestCase(TestCase):
 
     def setUp(self):
         self.example = Property.from_json({
-            "public": ["A", "B", "Z"],
-            "private": ["C", "D", "E", "Z"],
-            "interface": ["Z"]
+            "public": ["A", "B"],
+            "private": ["C", "D", "E"],
+            "interface": ["F", "E"]
         })
         self.assertSetEqual(
-            self.example.get_items(Access.ALL),
-            {"A", "B", "Z", "C", "D", "E"}
-        )
-        self.assertSetEqual(
             self.example.get_items(Access.PUBLIC),
-            {"A", "B", "Z"}
+            {"A", "B", "E"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.PRIVATE),
-            {"C", "D", "E", "Z"}
+            {"A", "B", "C", "D", "E"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.INTERFACE),
-            {"Z"}
+            {"A", "B", "E", "F"}
+        )
+        self.assertSetEqual(
+            self.example.get_all_items(),
+            {"A", "B", "C", "D", "E", "F"}
         )
 
     def test_json_invalid_property(self):
@@ -175,31 +202,38 @@ class PropertyTestCase(TestCase):
             lambda: Property.from_json({"publi": []})
         )
 
+    def test_example_json(self):
+        expected_json = {
+            "public": ["A", "B", "E"],
+            "private": ["C", "D"],
+            "interface": ["F"]
+        }
+        self.assertEqual(
+            self.example.to_json(),
+            expected_json
+        )
+
     def test_private_json_only(self):
         example_private = Property.from_json({
             "private": ["A", "B"]
         })
         self.assertSetEqual(
-            example_private.get_items(Access.PRIVATE),
-            {"A", "B"}
-        )
-        self.assertSetEqual(
             example_private.get_items(Access.PUBLIC),
             set()
+        )
+        self.assertSetEqual(
+            example_private.get_items(Access.PRIVATE),
+            {"A", "B"}
         )
         self.assertSetEqual(
             example_private.get_items(Access.INTERFACE),
             set()
         )
-        self.assertSetEqual(
-            example_private.get_items(Access.ALL),
-            {"A", "B"}
-        )
 
     def test_inline_items(self):
-        props = Property(public={"A", "B", "Z"},
-                         private={"C", "D", "E", "Z"},
-                         interface={"Z"})
+        props = Property(public={"A", "B"},
+                         private={"C", "D", "E"},
+                         interface={"F", "E"})
 
         for access in Access:
             self.assertSetEqual(
@@ -208,9 +242,8 @@ class PropertyTestCase(TestCase):
             )
 
     def test_set_items(self):
-        self.example.set_items({"P1", "P2"}, Access.PUBLIC)
-        self.example.set_items({"P1", "P3"}, Access.PRIVATE)
-        self.example.set_items({"I1", "I2"}, Access.INTERFACE)
+        self.example.set_items({"P1", "P2", "P3"}, Access.PRIVATE)
+        self.example.set_items({"P1", "P2", "I1", "I2"}, Access.INTERFACE)
 
         self.assertSetEqual(
             self.example.get_items(Access.PUBLIC),
@@ -218,11 +251,11 @@ class PropertyTestCase(TestCase):
         )
         self.assertSetEqual(
             self.example.get_items(Access.PRIVATE),
-            {"P1", "P3"}
+            {"P1", "P2", "P3"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.INTERFACE),
-            {"I1", "I2"}
+            {"P1", "P2", "I1", "I2"}
         )
 
     def test_add_item(self):
@@ -232,15 +265,15 @@ class PropertyTestCase(TestCase):
 
         self.assertSetEqual(
             self.example.get_items(Access.PUBLIC),
-            {"A", "B", "Z", "P3"}
+            {"A", "B", "E", "P3"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.PRIVATE),
-            {"C", "D", "E", "Z", "P4"}
+            {"A", "B", "C", "D", "E", "P3", "P4"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.INTERFACE),
-            {"Z", "I3"}
+            {"A", "B", "F", "E", "I3", "P3"}
         )
 
     def test_add_items(self):
@@ -250,21 +283,21 @@ class PropertyTestCase(TestCase):
 
         self.assertSetEqual(
             self.example.get_items(Access.PUBLIC),
-            {"A", "B", "Z", "P4"}
+            {"A", "B", "E", "P4"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.PRIVATE),
-            {"C", "D", "E", "Z"}
+            {"A", "B", "E", "P4", "C", "D"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.INTERFACE),
-            {"Z", "I1", "I2"}
+            {"A", "B", "E", "P4", "F", "I1", "I2"}
         )
 
     def test_remove_item(self):
-        self.example.remove_item("Z", Access.PUBLIC)
-        self.example.remove_item("P4", Access.PRIVATE)
-        self.example.remove_item("Z", Access.INTERFACE)
+        self.example.remove_item("F", Access.PUBLIC)
+        self.example.remove_item("C", Access.PRIVATE)
+        self.example.remove_item("E", Access.INTERFACE)
 
         self.assertSetEqual(
             self.example.get_items(Access.PUBLIC),
@@ -272,11 +305,11 @@ class PropertyTestCase(TestCase):
         )
         self.assertSetEqual(
             self.example.get_items(Access.PRIVATE),
-            {"C", "D", "E", "Z"}
+            {"A", "B", "D", "E"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.INTERFACE),
-            set()
+            {"A", "B"}
         )
 
     def test_remove_items(self):
@@ -286,42 +319,42 @@ class PropertyTestCase(TestCase):
 
         self.assertSetEqual(
             self.example.get_items(Access.PUBLIC),
-            {"Z"}
+            {"E"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.PRIVATE),
-            {"C", "D", "E", "Z"}
+            {"C", "D", "E"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.INTERFACE),
-            set()
+            {"E", "F"}
         )
 
     def test_union(self):
         prop1 = Property.from_json({
             "public": ["A", "B", "C"],
-            "private": ["PA", "PB"],
-            "interface": ["I1", "I2"]
+            "private": ["D", "E"],
+            "interface": ["E", "F"]
         })
 
         prop2 = Property.from_json({
             "public": ["D"],
-            "private": ["PA", "PC"],
-            "interface": ["I1", "I2"]
+            "private": ["G", "H"],
+            "interface": ["E", "F"]
         })
 
-        union = Property.union([prop1, prop2], Access.ALL)
+        union = Property.union([prop1, prop2], Access.PUBLIC)
         self.assertSetEqual(
             union.get_items(Access.PUBLIC),
-            {"A", "B", "C", "D"}
+            {"A", "B", "C", "D", "E"}
         )
         self.assertSetEqual(
             union.get_items(Access.PRIVATE),
-            {"PA", "PB", "PC"}
+            {"A", "B", "C", "D", "E", "G", "H"}
         )
         self.assertSetEqual(
             union.get_items(Access.INTERFACE),
-            {"I1", "I2"}
+            {"A", "B", "C", "D", "E", "F"}
         )
 
     def test_intersection(self):
@@ -337,7 +370,7 @@ class PropertyTestCase(TestCase):
             "interface": ["I1", "I2"]
         })
 
-        intersection = Property.intersection([prop1, prop2], Access.ALL)
+        intersection = Property.intersection([prop1, prop2], Access.PUBLIC)
         self.assertSetEqual(
             intersection.get_items(Access.PUBLIC),
             set()
@@ -358,18 +391,18 @@ class PropertyTestCase(TestCase):
             "interface": ["Z"]
         })
 
-        self.example.union_update(prop, Access.ALL)
+        self.example.union_update(prop, Access.PUBLIC)
         self.assertSetEqual(
             self.example.get_items(Access.PUBLIC),
-            {"A", "B", "Z", "C"}
+            {"A", "B", "C", "E"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.PRIVATE),
-            {"E", "Z", "C", "D", "B"}
+            {"A", "B", "C", "D", "E"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.INTERFACE),
-            {"Z"}
+            {"A", "B", "C", "F", "E", "Z"}
         )
 
     def test_intersection_update(self):
@@ -379,18 +412,18 @@ class PropertyTestCase(TestCase):
             "interface": ["Z"]
         })
 
-        self.example.intersection_update(prop, Access.ALL)
+        self.example.intersection_update(prop, Access.PUBLIC)
         self.assertSetEqual(
             self.example.get_items(Access.PUBLIC),
             set()
         )
         self.assertSetEqual(
             self.example.get_items(Access.PRIVATE),
-            {"C", "D"}
+            {"C", "B", "D"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.INTERFACE),
-            {"Z"}
+            set()
         )
 
     def test_difference_update(self):
@@ -400,16 +433,16 @@ class PropertyTestCase(TestCase):
             "interface": ["Z"]
         })
 
-        self.example.difference_update(prop, Access.ALL)
+        self.example.difference_update(prop, Access.PUBLIC)
         self.assertSetEqual(
             self.example.get_items(Access.PUBLIC),
-            {"A", "B", "Z"}
+            {"A", "E"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.PRIVATE),
-            {"E", "Z"}
+            {"A", "E"}
         )
         self.assertSetEqual(
             self.example.get_items(Access.INTERFACE),
-            set()
+            {"A", "B", "F", "E"}
         )

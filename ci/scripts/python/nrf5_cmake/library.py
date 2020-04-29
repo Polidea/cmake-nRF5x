@@ -90,7 +90,7 @@ class Library:
             json_value["sources"] = sources_json
 
         for property_name in LibraryProperty:
-            if len(self._props[property_name].get_items(Access.ALL)) == 0:
+            if len(self._props[property_name].get_all_items()) == 0:
                 continue
             prop_json = self._props[property_name].to_json()
             json_value[property_name.value] = prop_json
@@ -119,7 +119,7 @@ class Library:
             for prop in LibraryProperty:
                 union_library.get_prop(prop).union_update(
                     library.get_prop(prop),
-                    Access.ALL
+                    Access.PUBLIC
                 )
         return union_library
 
@@ -128,7 +128,7 @@ class Library:
         for prop in LibraryProperty:
             self.get_prop(prop).union_update(
                 library.get_prop(prop),
-                Access.ALL
+                Access.PUBLIC
             )
 
     @staticmethod
@@ -144,7 +144,7 @@ class Library:
             for prop in LibraryProperty:
                 intersection_library.get_prop(prop).intersection_update(
                     library.get_prop(prop),
-                    Access.ALL
+                    Access.PUBLIC
                 )
         return intersection_library
 
@@ -153,7 +153,7 @@ class Library:
         for prop in LibraryProperty:
             self.get_prop(prop).intersection_update(
                 library.get_prop(prop),
-                Access.ALL
+                Access.PUBLIC
             )
 
     def difference_update(self, library: Library):
@@ -161,7 +161,7 @@ class Library:
         for prop in LibraryProperty:
             self.get_prop(prop).difference_update(
                 library.get_prop(prop),
-                Access.ALL
+                Access.PUBLIC
             )
 
 
