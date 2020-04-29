@@ -4,6 +4,7 @@ set -e
 
 source "${BASH_SOURCE%/*}/common/consts.sh"
 source "${BASH_SOURCE%/*}/common/check_deps.sh"
+source "${BASH_SOURCE%/*}/common/python.sh"
 
 mkdir -p "$GENERATED_DIR"
 

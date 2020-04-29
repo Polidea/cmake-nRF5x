@@ -4,6 +4,7 @@ set -e
 
 source "${BASH_SOURCE%/*}/common/consts.sh"
 source "${BASH_SOURCE%/*}/common/check_deps.sh"
+source "${BASH_SOURCE%/*}/common/python.sh"
 
 if [[ ! -f "$GENERATED_EXAMPLES" ]]; then
     echo "$GENERATED_EXAMPLES doesn't exist, create via scrape_makefiles.sh"

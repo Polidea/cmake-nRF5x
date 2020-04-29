@@ -15,6 +15,7 @@ function check_binary() {
 }
 
 echo "Checking binary dependencies:"
+check_binary chmod
 check_binary curl
 check_binary tar
 check_binary unzip
