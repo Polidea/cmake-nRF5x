@@ -13,5 +13,5 @@ fi
 
 python3 "${PYTHON_DIR}/generate_libraries.py" \
     --examples "$GENERATED_EXAMPLES" \
-    --libraries "$(find $LIBRARIES_DIR -name "*.json")" \
+    --libraries $(find ${LIBRARIES_DIR} -name "*.json") \
     --output "$GENERATED_LIBRARIES"
