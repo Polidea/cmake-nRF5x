@@ -15,7 +15,7 @@
     "ldflags": [],
     "dependencies": []
   },
-  "nrf5_fprintf": {
+  "nrf5_ext_fprintf": {
     "sources": ["external/fprintf/nrf_fprintf.c", "external/fprintf/nrf_fprintf_format.c"],
     "includes": ["external/fprintf"],
     "cflags": [],
