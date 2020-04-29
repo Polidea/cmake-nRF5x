@@ -9,14 +9,17 @@ from nrf5_cmake.library_operations import libraries_load_from_file, libraries_sa
 from nrf5_cmake.example_operations import library_from_example, examples_load_from_file
 from nrf5_cmake.example import Example, ExampleProperty
 from nrf5_cmake.library import Library, LibraryProperty
-from nrf5_cmake.property import Access
-from typing import Dict, Iterable, List
+from nrf5_cmake.property import Access, Property
+from typing import Dict, Iterable, List, Optional, Tuple
 
 pp = pprint.PrettyPrinter()
 
 
 def generate_libraries(examples: Iterable[Example],
                        known_libraries: Dict[str, LibraryDescription]) -> Dict[str, LibraryDescription]:
+    # Print what we are doing...
+    print("Generating modules...")
+
     # This dict contains new, generated libraries
     gen_libraries: Dict[str, LibraryDescription] = {}
     gen_library_count: int = 0
@@ -120,38 +123,71 @@ def generate_libraries(examples: Iterable[Example],
     return gen_libraries
 
 
-# def generate_module_dependencies(examples, modules):
-#     for module_name in modules:
-#         module = modules[module_name]
+def find_library_including_source(source: str, lib_descs: Dict[str, LibraryDescription]) -> Optional[Tuple[str, LibraryDescription]]:
+    for lib_desc_tuple in lib_descs.items():
+        if source in lib_desc_tuple[1].library.sources:
+            return lib_desc_tuple
+    return None
 
-#         # Get common example which includes all files from the modules
-#         def includes_all_sources_from_module(example):
-#             intersection = example["sources"].intersection(module["sources"])
-#             return len(intersection) != len(module["sources"])
 
-#         common_example = example_intersection_from_examples(
-#             examples, includes_all_sources_from_module)
+def generate_libraries_dependencies(
+        examples: List[Example],
+        lib_descs: Dict[str, LibraryDescription]):
 
-#         # Remove sources from common example
-#         common_example["sources"].difference_update(module["sources"])
+    print("Generating dependencies...")
+    remaining_deps = len(lib_descs)
 
-#         # While there are any sources left we try to find module for them.
-#         dependencies = items_with_access_modifiers_create()
-#         while len(common_example["sources"]) > 0:
+    for lib_desc_name in lib_descs:
+        lib_desc = lib_descs[lib_desc_name]
 
-#             # Take one random source and find module for it.
-#             source = common_example["sources"].pop()
-#             found_module = module_including_source(source, modules)
+        # Get info about dependencies generation
+        sys.stdout.write("\rRemaining dependencies: " +
+                         str(remaining_deps).ljust(4)
+                         )
+        remaining_deps -= 1
 
-#             if found_module == None:
-#                 print("WARNING: module not found for: " + source)
-#             else:
-#                 dependencies["public"].add(found_module[0])
-#                 common_example["sources"].difference_update(
-#                     found_module[1]["sources"])
+        # Function which checks if all sources from the library are included
+        # in the example sources
 
-#         # Update module's dependencies:
-#         module["dependencies"] = dependencies
+        def includes_all_sources_from_library(example: Example):
+            example_sources = example.get_prop(ExampleProperty.SOURCES)
+            library_sources = lib_desc.library.sources
+            sources_intersection = set.intersection(
+                example_sources,
+                library_sources
+            )
+            return len(sources_intersection) == len(library_sources)
+
+        # Find library converted from all examples, which include all sources
+        # from the library.
+        intersection_lib = Library.intersection(
+            library_from_example(example) for example in examples
+            if includes_all_sources_from_library(example)
+        )
+
+        # Remove used resources from library
+        intersection_lib.difference_update(lib_desc.library)
+
+        # While there are any sources left we try to find library for them.
+        dependencies = Property()
+        while len(intersection_lib.sources) > 0:
+
+            # Take one random source and find library for it.
+            source = intersection_lib.sources.pop()
+            found_library = find_library_including_source(source, lib_descs)
+
+            if found_library == None:
+                print("WARNING: library not found for: " + source)
+            else:
+                dependencies.add_item(found_library[0], Access.PUBLIC)
+                intersection_lib.difference_update(found_library[1].library)
+
+        # Update library's dependencies:
+        lib_desc.library.set_prop(LibraryProperty.DEPENDENCIES, dependencies)
+
+    # Info about success
+    print("\nDependency generation finished!")
+
 
 # Parse arguments
 parser = argparse.ArgumentParser()
@@ -177,7 +213,7 @@ gen_libraries = generate_libraries(all_examples, all_libraries)
 all_libraries.update(gen_libraries)
 
 # Generate dependencies
-# generate_module_dependencies(all_examples, libraries)
+generate_libraries_dependencies(all_examples, all_libraries)
 
 # Convert libraries to JSON and save to ouptut file
 libraries_save_to_file(output_filepath, all_libraries)
