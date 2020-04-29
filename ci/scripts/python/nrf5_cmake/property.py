@@ -106,12 +106,25 @@ class Property:
         return json_items
 
     @staticmethod
-    def union(properties: Iterable[Property], access: Access) -> Property:
+    def _set_action(properties: Iterable[Property], access: Access, action) -> Property:
         result = Property()
-        for access in access.matches:
-            u = set.union(*(prop.get_items(access) for prop in properties))
-            result._items[access] = u
+        new_props: Dict[Access, List[Set[str]]] = {
+            x: [] for x in access.matches
+        }
+
+        for prop in properties:
+            for a in access.matches:
+                new_props[a].append(prop.get_items(a))
+
+        for a, props in new_props.items():
+            if props:
+                result._items[a] = action(*props)
+
         return result
+
+    @staticmethod
+    def union(properties: Iterable[Property], access: Access) -> Property:
+        return Property._set_action(properties, access, set.union)
 
     def union_update(self, property: Property, access: Access):
         for access in access.matches:
@@ -119,12 +132,7 @@ class Property:
 
     @staticmethod
     def intersection(properties: Iterable[Property], access: Access) -> Property:
-        result = Property()
-        for access in access.matches:
-            i = set.intersection(*(prop.get_items(access)
-                                   for prop in properties))
-            result._items[access] = i
-        return result
+        return Property._set_action(properties, access, set.intersection)
 
     def intersection_update(self, property: Property, access: Access):
         for access in access.matches:
@@ -132,12 +140,7 @@ class Property:
 
     @staticmethod
     def difference(properties: Iterable[Property], access: Access) -> Property:
-        result = Property()
-        for access in access.matches:
-            d = set.difference(*(prop.get_items(access)
-                                 for prop in properties))
-            result._items[access] = d
-        return result
+        return Property._set_action(properties, access, set.difference)
 
     def difference_update(self, property: Property, access: Access):
         for access in access.matches:

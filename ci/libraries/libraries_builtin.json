@@ -1,7 +1,7 @@
 {
   "core": {
     "documentation": "Core dependency for all nRF5 targets",
-    "variant": "object",
+    "variant": "builtin",
     "sources": [
       "modules/nrfx/mdk/gcc_startup_nrf52.S",
       "modules/nrfx/mdk/system_nrf52.c",

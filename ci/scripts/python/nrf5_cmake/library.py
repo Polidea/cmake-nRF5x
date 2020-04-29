@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from copy import deepcopy
 from unittest import TestCase
 from enum import Enum
-from typing import Dict, Iterable, Optional, Set
+from typing import Dict, Iterable, Optional, Set, List
 from jsonschema import validate as validate_json
 
 from nrf5_cmake.property import Access, Property
@@ -112,55 +111,63 @@ class Library:
         self._props[property_name] = prop
 
     @staticmethod
-    def union(libraries: Iterable[Library]) -> Library:
-        union_library = Library()
-        for library in libraries:
-            union_library.sources.update(library.sources)
+    def _prop_action(libraries: Iterable[Library], set_action, prop_action):
+        library = Library()
+        sources: List[Set[str]] = []
+        properties: Dict[LibraryProperty, List[Property]] = {
+            prop: [] for prop in LibraryProperty
+        }
+
+        for lib in libraries:
+            sources.append(lib._sources)
             for prop in LibraryProperty:
-                union_library.get_prop(prop).union_update(
-                    library.get_prop(prop),
+                properties[prop].append(lib._props[prop])
+
+        if sources:
+            library._sources = set_action(*sources)
+
+        for prop in LibraryProperty:
+            if properties[prop]:
+                library._props[prop] = prop_action(
+                    properties[prop],
                     Access.PUBLIC
                 )
-        return union_library
+
+        return library
+
+    @staticmethod
+    def union(libraries: Iterable[Library]) -> Library:
+        return Library._prop_action(libraries, set.union, Property.union)
 
     def union_update(self, library: Library):
         self._sources.update(library._sources)
         for prop in LibraryProperty:
-            self.get_prop(prop).union_update(
-                library.get_prop(prop),
+            self._props[prop].union_update(
+                library._props[prop],
                 Access.PUBLIC
             )
 
     @staticmethod
     def intersection(libraries: Iterable[Library]) -> Library:
-        iterator = libraries.__iter__()
-        try:
-            intersection_library = deepcopy(next(iterator))
-        except StopIteration:
-            return Library()
-
-        for library in iterator:
-            intersection_library.sources.intersection_update(library.sources)
-            for prop in LibraryProperty:
-                intersection_library.get_prop(prop).intersection_update(
-                    library.get_prop(prop),
-                    Access.PUBLIC
-                )
-        return intersection_library
+        return Library._prop_action(libraries, set.intersection, Property.intersection)
 
     def intersection_update(self, library: Library):
         self._sources.intersection_update(library._sources)
         for prop in LibraryProperty:
-            self.get_prop(prop).intersection_update(
-                library.get_prop(prop),
+            self._props[prop].intersection_update(
+                library._props[prop],
                 Access.PUBLIC
             )
+
+    @staticmethod
+    def difference(libraries: Iterable[Library]) -> Library:
+        return Library._prop_action(libraries, set.difference, Property.difference)
 
     def difference_update(self, library: Library):
         self._sources.difference_update(library._sources)
         for prop in LibraryProperty:
-            self.get_prop(prop).difference_update(
-                library.get_prop(prop),
+            self._props[prop].difference_update(
+                library._props[prop],
                 Access.PUBLIC
             )
 

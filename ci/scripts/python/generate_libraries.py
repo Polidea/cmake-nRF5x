@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 
+import sys
 import argparse
-from nrf5_cmake.library_description import LibraryDescription
 import pprint
 
+from nrf5_cmake.library_description import LibraryDescription
 from nrf5_cmake.library_operations import libraries_load_from_file, libraries_save_to_file
 from nrf5_cmake.example_operations import library_from_example, examples_load_from_file
 from nrf5_cmake.example import Example, ExampleProperty
 from nrf5_cmake.library import Library, LibraryProperty
 from nrf5_cmake.property import Access
-from typing import Dict, Iterable
+from typing import Dict, Iterable, List
 
 pp = pprint.PrettyPrinter()
 
@@ -42,7 +43,6 @@ def generate_libraries(examples: Iterable[Example],
         )
 
     # This function creates union library from all examples
-
     def union_library() -> Library:
         return Library.union((library_from_example(x) for x in examples))
 
@@ -53,6 +53,12 @@ def generate_libraries(examples: Iterable[Example],
 
     # Iterate until all sources are processed from the union library
     while len(union_lib.sources) > 0:
+
+        # Show progress...
+        sys.stdout.write("\rRemaining sources: " +
+                         str(len(union_lib.sources)).ljust(4)
+                         )
+
         # Pick first source at random
         union_lib_src = next(iter(union_lib.sources))
 
@@ -97,25 +103,21 @@ def generate_libraries(examples: Iterable[Example],
     )
 
     # Check differences
+    print("\nFinished processing all sources!")
+
     union_lib_from_examples.difference_update(union_lib_from_libs)
     if len(union_lib_from_examples.sources) > 0:
         print("WARNING: sources not handled:")
         pp.pprint(union_lib_from_examples.sources)
 
     for prop in LibraryProperty:
-        if len(union_lib_from_examples.get_prop(prop).get_items(Access.ALL)) > 0:
+        all_items = union_lib_from_examples.get_prop(prop).get_all_items()
+        if len(all_items) > 0:
             print("WARNING: " + prop.value + " not handled:")
-            for access in Access.ALL.matches:
-                print("Access: " + access.value)
-                pp.pprint(
-                    union_lib_from_examples.get_prop(prop).get_items(access)
-                )
+            pp.pprint(all_items)
 
-    # Return all libraries
-    return {
-        **{name: lib for name, lib in known_libraries.items()},
-        **{name: lib for name, lib in gen_libraries.items()}
-    }
+    # Return generated libs
+    return gen_libraries
 
 
 # def generate_module_dependencies(examples, modules):
@@ -151,30 +153,31 @@ def generate_libraries(examples: Iterable[Example],
 #         # Update module's dependencies:
 #         module["dependencies"] = dependencies
 
-
 # Parse arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("--all_examples")
-parser.add_argument("--builtin_modules")
-parser.add_argument("--cmake_modules")
-parser.add_argument("--output")
+parser.add_argument("--examples", required=True)
+parser.add_argument("--libraries", nargs='+', required=True)
+parser.add_argument("--output", required=True)
 args = parser.parse_args()
 
+examples_filepath: str = args.examples
+libraries_filepaths: List[str] = args.libraries
+output_filepath: str = args.output
+
 # List of all examples with sources, includes etc.
-all_examples = examples_load_from_file(args.all_examples)
+all_examples = examples_load_from_file(examples_filepath)
 
-# Load builtin and cmake modules
-builtin_modules = libraries_load_from_file(args.builtin_modules)
-cmake_modules = libraries_load_from_file(args.cmake_modules)
+# Load defined libraries
+all_libraries: Dict[str, LibraryDescription] = {}
+for filepath in libraries_filepaths:
+    all_libraries.update(libraries_load_from_file(filepath))
 
-# Generates modules
-modules = generate_libraries(all_examples, {
-    **{name: value for name, value in builtin_modules.items()},
-    **{name: value for name, value in cmake_modules.items()},
-})
+# Generates libraries
+gen_libraries = generate_libraries(all_examples, all_libraries)
+all_libraries.update(gen_libraries)
 
 # Generate dependencies
-# generate_module_dependencies(all_examples, modules)
+# generate_module_dependencies(all_examples, libraries)
 
-# Convert modules to JSON and save to ouptut file
-libraries_save_to_file(args.output, modules)
+# Convert libraries to JSON and save to ouptut file
+libraries_save_to_file(output_filepath, all_libraries)

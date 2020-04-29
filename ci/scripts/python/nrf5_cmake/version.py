@@ -9,7 +9,7 @@ class Version:
 
     @staticmethod
     def from_string(version: str):
-        return Version(*[int(x) for x in version.split('.')])
+        return Version(*(int(x) for x in version.split('.')))
 
     def __str__(self):
         return str(self._major) + "." + str(self._minor) + "." + str(self._patch)
