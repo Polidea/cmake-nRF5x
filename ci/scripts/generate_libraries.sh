@@ -11,7 +11,7 @@ if [[ ! -f "$GENERATED_EXAMPLES" ]]; then
     exit 1
 fi
 
-python3 -B "${BASH_SOURCE%/*}/python/generate_libraries.py" \
+python3 "${PYTHON_DIR}/generate_libraries.py" \
     --examples "$GENERATED_EXAMPLES" \
     --libraries "$(find $LIBRARIES_DIR -name "*.json")" \
     --output "$GENERATED_LIBRARIES"
