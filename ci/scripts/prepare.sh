@@ -6,9 +6,9 @@ source "${BASH_SOURCE%/*}/common/consts.sh"
 source "${BASH_SOURCE%/*}/common/download.sh"
 
 # Prepare python
-python3 -m venv "${BASH_SOURCE%/*}/python/.venv"
-source "${BASH_SOURCE%/*}/python/.venv/bin/activate"
-pip3 install -r "${BASH_SOURCE%/*}/python/requirements.txt"
+python3 -m venv "${PYTHON_VENV_DIR}"
+source "${PYTHON_VENV_SCRIPT}"
+pip3 install -r "${PYTHON_DIR}/requirements.txt"
 
 # List of SDKs to download
 sdks=( "15.3.0" "16.0.0" )

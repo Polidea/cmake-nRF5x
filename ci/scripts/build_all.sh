@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 source "${BASH_SOURCE%/*}/common/build.sh"
 
 function build_all_configs() {

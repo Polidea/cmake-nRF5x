@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 # Include
 source "${BASH_SOURCE%/*}/common/consts.sh"
 
