@@ -4,7 +4,9 @@ project(ble_app_blinky_c LANGUAGES C ASM)
 list(APPEND CMAKE_MODULE_PATH "../cmake")
 include("nrf5")
 
-add_executable(${CMAKE_PROJECT_NAME} main.c)
+add_executable(${CMAKE_PROJECT_NAME}
+  "${NRF5_SDK_PATH}/examples/ble_central/ble_app_blinky_c/main.c"
+)
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   # Common
@@ -18,7 +20,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_balloc
   nrf5_ringbuf
   nrf5_pwr_mgmt
-  nrf5_fprintf
+  # External
+  nrf5_ext_fprintf
   # Drivers
   nrf5_nrfx_prs
   nrf5_nrfx_gpiote
@@ -39,7 +42,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_boards
   nrf5_bsp
   # BLE
-  nrf5_softdevice_handler
+  nrf5_sdh
   nrf5_ble_common
   nrf5_ble_advertising
   nrf5_ble_scan

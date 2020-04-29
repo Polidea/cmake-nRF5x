@@ -4,7 +4,9 @@ project(ble_app_pwr_profiling LANGUAGES C ASM)
 list(APPEND CMAKE_MODULE_PATH "../cmake")
 include("nrf5")
 
-add_executable(${CMAKE_PROJECT_NAME} main.c)
+add_executable(${CMAKE_PROJECT_NAME} 
+  "${NRF5_SDK_PATH}/examples/ble_peripheral/ble_app_pwr_profiling/main.c"
+)
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   # Common
@@ -25,7 +27,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_boards
   nrf5_bsp
   # BLE
-  nrf5_softdevice_handler
+  nrf5_sdh
   nrf5_ble_common
   nrf5_ble_gatt
   nrf5_ble_qwr
