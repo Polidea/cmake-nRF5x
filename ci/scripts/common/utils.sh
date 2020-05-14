@@ -3,6 +3,15 @@
 HEADER_START="\033[1m"
 HEADER_END="\033[0m"
 
+# Python executable names
+if [[ "$OSTYPE" == "cygwin" ]]; then
+    PY3_EXE="python3.8"
+    PIP3_EXE="pip3.8"
+else
+    PY3_EXE="python3"
+    PIP3_EXE="pip3"
+fi
+
 # Get absolute path of a dir
 function absolute() {
     pushd $1 > /dev/null
@@ -22,4 +31,14 @@ function adapt_cmake_path() {
     else
         echo $1
     fi
+}
+
+# Wrapper for calling python3
+function invoke_py3() {
+    eval $PY3_EXE $@
+}
+
+# Wrapper for calling pip3
+function invoke_pip3() {
+    eval $PIP3_EXE $@
 }

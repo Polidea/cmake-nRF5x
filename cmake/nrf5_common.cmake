@@ -46,7 +46,7 @@ target_include_directories(nrf5_section PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars"
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_section nrf5_config nrf5_mdk nrf5_soc)
+target_link_libraries(nrf5_section PUBLIC nrf5_config nrf5_mdk nrf5_soc)
 
 # Atomic
 add_library(nrf5_atomic OBJECT EXCLUDE_FROM_ALL

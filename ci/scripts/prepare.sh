@@ -1,7 +1,15 @@
 #!/bin/bash
 
+set -e
+
 source "${BASH_SOURCE%/*}/common/consts.sh"
 source "${BASH_SOURCE%/*}/common/download.sh"
+source "${BASH_SOURCE%/*}/common/utils.sh"
+
+# Prepare python
+invoke_py3 -m venv "${PYTHON_VENV_DIR}"
+source "${PYTHON_VENV_SCRIPT}"
+invoke_pip3 install -r "${PYTHON_DIR}/requirements.txt"
 
 # List of SDKs to download
 sdks=( "15.3.0" "16.0.0" )

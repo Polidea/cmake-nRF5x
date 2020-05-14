@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
 
+from nrf5_cmake.version import Version
 import sys
 import re
-import json
 import argparse
 
-# Process each example's Makefile and collect data
-def process_example(file_path, examples):
+from typing import List
+from nrf5_cmake.example import Example
+from nrf5_cmake.example_operations import examples_save_to_file
+
+
+def process_example(file_path: str, examples: List[Example]):
     with open(file_path, 'r') as file:
-        content = "".join(file.readlines())
+        content = file.read()
 
         # File data
-        file_local_path = re.sub(r"\S+\/[0-9]+\.[0-9]\.[0-9]\/", "", file_path)
-        file_sdk_version = re.findall(r"\/([0-9]+\.[0-9]\.[0-9])\/", file_path)[0]
+        file_local_path = \
+            re.sub(r"\S+\/[0-9]+\.[0-9]\.[0-9]\/", "", file_path)
+        file_sdk_version = \
+            re.findall(r"\/([0-9]+\.[0-9]\.[0-9])\/", file_path)[0]
         file_sources = set()
         file_includes = set()
         file_cflags = set()
@@ -50,39 +56,25 @@ def process_example(file_path, examples):
             for cflag in ldflags:
                 file_ldflags.update(cflag.split(","))
 
-        # Convert to list and sort 
-        file_sources = list(file_sources)
-        file_sources.sort()
-        file_includes = list(file_includes)
-        file_includes.sort()
-        file_cflags = list(file_cflags)
-        file_cflags.sort()
-        file_asmflags = list(file_asmflags)
-        file_asmflags.sort()
-        file_ldflags = list(file_ldflags)
-        file_ldflags.sort()
+        examples.append(Example(
+            path=file_path,
+            local_path=file_local_path,
+            sdk_version=Version.from_string(file_sdk_version),
+            sources=file_sources,
+            includes=file_includes,
+            cflags=file_cflags,
+            asmflags=file_asmflags,
+            ldflags=file_ldflags
+        ))
 
-        examples.append({
-            "path": file_path,
-            "local_path": file_local_path,
-            "sdk_version": file_sdk_version,
-            "sources": file_sources,
-            "includes": file_includes,
-            "cflags": file_cflags,
-            "asmflags": file_asmflags,
-            "ldflags": file_ldflags 
-        })
-
-# How examples are sorted.
-def sort_examples(example):
-    return example["path"]
 
 # Parse arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--output")
 args = parser.parse_args()
 
-examples = []
+# Scrape examples
+examples: List[Example] = []
 for line in sys.stdin.readlines():
     paths = line.split(" ")
     for path in paths:
@@ -90,7 +82,5 @@ for line in sys.stdin.readlines():
         if file_path != '':
             process_example(file_path, examples)
 
-# Sort examples and print them
-output_file = open(args.output, 'w+')
-examples.sort(key=sort_examples, reverse=True)
-json.dump(examples, output_file)
+# Save them to a file
+examples_save_to_file(args.output, examples)

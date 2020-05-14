@@ -7,7 +7,8 @@ build_mac:
     - xcode-11.3
   before_script:
     - bash ./ci/scripts/prepare.sh
-  script: 
+  script:
+    - bash ./ci/scripts/run_tests.sh
     - bash ./ci/scripts/build_all.sh 15.3.0
   only:
     - merge_requests
@@ -19,9 +20,11 @@ build_linux:
     - docker
   before_script:
     - apt-get update
-    - apt-get -y install curl cmake ninja-build unzip tar
+    - ln -fs /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
+    - apt-get -y install curl cmake ninja-build unzip tar python3-pip python3-venv
     - bash ./ci/scripts/prepare.sh
-  script: 
+  script:
+    - bash ./ci/scripts/run_tests.sh
     - bash ./ci/scripts/build_all.sh 15.3.0
   only:
     - merge_requests

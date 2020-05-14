@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "${BASH_SOURCE%/*}/consts.sh"
+
 # Validate all progams used in the scripts
 function check_binary() {
     for binary in "$@"; do
@@ -15,8 +17,11 @@ function check_binary() {
 }
 
 echo "Checking binary dependencies:"
+check_binary chmod
 check_binary curl
 check_binary tar
 check_binary unzip
 check_binary cmake
+check_binary $PY3_EXE
+check_binary $PIP3_EXE
 check_binary ninja make
