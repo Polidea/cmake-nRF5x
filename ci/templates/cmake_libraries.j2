@@ -1,0 +1,38 @@
+{%- import 'cmake_common.j2' as cmake -%}
+{%- include 'license_header.j2' -%}
+
+{# Macro generating library additive patches #}
+{%- macro print_patch(name, lib) -%}
+target_sources({{name}} PRIVATE 
+{%- for source in lib["sources"] %}
+  "${NRF5_SDK_PATH}/{{ source }}"
+{%- endfor %}
+)
+{{- cmake.target_command("target_include_directories", name, lib["includes"] or None, '"${NRF5_SDK_PATH}/', '"') -}}
+{{- cmake.target_command("target_link_libraries", name, lib["dependencies"] or None) -}}
+{%- endmacro -%}
+
+{# Macro generating base library definitions #}
+{%- macro print_library(lib) -%}
+add_library({{lib["name"]}} {{lib["variant"]}} {%- if lib["variant"] != "INTERFACE" %} EXCLUDE_FROM_ALL{% endif %}
+{%- if lib["base"]["sources"] | length == 0 %})
+{%- else -%}
+{%- for source in lib["base"]["sources"] %}
+  "${NRF5_SDK_PATH}/{{ source }}"
+{%- endfor %}
+)
+{%- endif -%}
+{{- cmake.target_command("target_include_directories", lib["name"], lib["base"]["includes"] or None, '"${NRF5_SDK_PATH}/', '"') -}}
+{{- cmake.target_command("target_link_libraries", lib["name"], lib["base"]["dependencies"] or None) -}}
+{%- for sdk in lib["patches"] %}
+if(NRF5_SDK_VERSION VERSION_EQUAL {{ sdk }})
+  {{ print_patch(lib["name"], lib["patches"][sdk]) | indent(2) }}
+endif()
+{%- endfor -%}
+{%- endmacro -%}
+
+{#- Library may require specific SDK version... #}
+{% for library in libraries %}
+# {{ library["documentation"] }}
+{{ cmake.version_if(library["sdk_version"], print_library(library)) }}
+{% endfor -%}

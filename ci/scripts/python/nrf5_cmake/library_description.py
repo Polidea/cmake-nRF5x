@@ -5,7 +5,7 @@ from nrf5_cmake.library_version import LibraryVersion
 from unittest import TestCase
 from enum import Enum
 from nrf5_cmake.library import Library
-from nrf5_cmake.library_patch import LibraryPatch
+from nrf5_cmake.library_patch import LibraryOperation, LibraryPatch
 from jsonschema import validate as validate_json
 from typing import List, Optional
 
@@ -146,6 +146,27 @@ class LibraryDescription:
     def patches(self, patches: List[LibraryPatch]):
         self._patches = patches
 
+    def applies_to_sdk_version(self, version: Version) -> bool:
+        return not self.sdk_version or self.sdk_version.applies_to(version)
+
+    def library_for_sdk_version(self, version: Version) -> Optional[Library]:
+        if not self.applies_to_sdk_version(version):
+            return None
+
+        result_library = Library()
+        result_library.union_update(self.library)
+
+        for patch in self.patches:
+            if not patch.sdk_version.applies_to(version):
+                continue
+
+            if patch.operation == LibraryOperation.ADD:
+                result_library.union_update(patch.library)
+            else:
+                result_library.difference_update(patch.library)
+
+        return result_library
+
 
 class LibraryTestCase(TestCase):
     def test_json(self):
@@ -182,3 +203,61 @@ class LibraryTestCase(TestCase):
         )
 
         self.assertEqual(json_value, library.to_json())
+
+    def test_library_patches(self):
+        lib_desc = LibraryDescription(
+            variant=LibraryVariant.OBJECT,
+            documentation="",
+            sdk_version=LibraryVersion(Version(15, 0, 0), Version(16, 0, 0)),
+            library=Library(sources={"s1", "s2"}),
+            patches=[
+                LibraryPatch(
+                    LibraryOperation.ADD,
+                    LibraryVersion(Version(15, 1, 0)),
+                    Library({"s3"})
+                ),
+                LibraryPatch(
+                    LibraryOperation.ADD,
+                    LibraryVersion(Version(15, 2, 0), Version(15, 3, 0)),
+                    Library({"s4"})
+                ),
+                LibraryPatch(
+                    LibraryOperation.REMOVE,
+                    LibraryVersion(Version(15, 2, 1), Version(15, 4, 0)),
+                    Library({"s1"})
+                )
+            ]
+        )
+
+        self.assertEqual(
+            lib_desc.library_for_sdk_version(Version(14, 0, 0)),
+            None
+        )
+        self.assertEqual(
+            lib_desc.library_for_sdk_version(Version(16, 1, 0)),
+            None
+        )
+        self.assertSetEqual(
+            lib_desc.library_for_sdk_version(Version(15, 0, 2)).sources,
+            {'s1', 's2'}
+        )
+        self.assertSetEqual(
+            lib_desc.library_for_sdk_version(Version(15, 1, 2)).sources,
+            {'s1', 's2', 's3'}
+        )
+        self.assertSetEqual(
+            lib_desc.library_for_sdk_version(Version(15, 2, 0)).sources,
+            {'s1', 's2', 's3', 's4'}
+        )
+        self.assertSetEqual(
+            lib_desc.library_for_sdk_version(Version(15, 2, 2)).sources,
+            {'s2', 's3', 's4'}
+        )
+        self.assertSetEqual(
+            lib_desc.library_for_sdk_version(Version(15, 4, 0)).sources,
+            {'s2', 's3'}
+        )
+        self.assertSetEqual(
+            lib_desc.library_for_sdk_version(Version(15, 4, 1)).sources,
+            {'s1', 's2', 's3'}
+        )

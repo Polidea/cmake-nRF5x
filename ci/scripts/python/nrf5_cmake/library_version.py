@@ -10,6 +10,10 @@ class LibraryVersion:
     json_schema = {
         "type": "object",
         "additionalProperties": False,
+        "anyOf": [
+            {"required": ["from"]},
+            {"required": ["to"]}
+        ],
         "properties": {
             "from": {
                 "type": "string",

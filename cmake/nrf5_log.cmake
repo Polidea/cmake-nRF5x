@@ -25,19 +25,19 @@ add_library(nrf5_cli OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/cli/nrf_cli.c"
 )
 target_include_directories(nrf5_cli PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/cli"
+  "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_cli PUBLIC
   nrf5_atomic
-  nrf5_section
+  nrf5_delay
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_memobj
-  nrf5_queue
-  nrf5_ext_fprintf
-  nrf5_delay
   nrf5_nrfx_common
   nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_section
 )
 
 # Logger (frontend & formatter)
@@ -46,43 +46,53 @@ add_library(nrf5_log OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_str_formatter.c"
 )
 target_include_directories(nrf5_log PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/log"
   "${NRF5_SDK_PATH}/components/libraries/log/src"
+  "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_log PUBLIC
-  nrf5_config
-  nrf5_mdk
-  nrf5_soc
-  nrf5_section
-  nrf5_strerror
-  nrf5_memobj
-  nrf5_ext_fprintf
-  nrf5_ringbuf
   nrf5_cli
+  nrf5_config
+  nrf5_ext_fprintf
   nrf5_fds
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_ringbuf
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
 )
 
 # Logger Serial backend
 add_library(nrf5_log_backend_serial OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_serial.c"
 )
-target_link_libraries(nrf5_log_backend_serial PUBLIC nrf5_log)
+target_link_libraries(nrf5_log_backend_serial PUBLIC
+  nrf5_log
+)
 
 # Logger UART backend
 add_library(nrf5_log_backend_uart OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_uart.c"
 )
-target_link_libraries(nrf5_log_backend_uart PUBLIC nrf5_log nrf5_drv_uart)
+target_link_libraries(nrf5_log_backend_uart PUBLIC
+  nrf5_drv_uart
+  nrf5_log
+)
 
 # Logger RTT backend
 add_library(nrf5_log_backend_rtt OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_rtt.c"
 )
-target_link_libraries(nrf5_log_backend_rtt PUBLIC nrf5_log nrf5_ext_segger_rtt)
+target_link_libraries(nrf5_log_backend_rtt PUBLIC
+  nrf5_ext_segger_rtt
+  nrf5_log
+)
 
 # Logger (default backends)
 add_library(nrf5_log_default_backends OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_default_backends.c"
 )
-target_link_libraries(nrf5_log_default_backends PUBLIC nrf5_log)
+target_link_libraries(nrf5_log_default_backends PUBLIC
+  nrf5_log
+)

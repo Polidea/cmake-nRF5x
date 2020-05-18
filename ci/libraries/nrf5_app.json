@@ -1,0 +1,154 @@
+{
+  "nrf5_app_scheduler": {
+    "documentation": "Application Scheduler",
+    "variant": "object",
+    "sources": [
+      "components/libraries/scheduler/app_scheduler.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/scheduler",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_app_error": {
+    "documentation": "Application Error",
+    "variant": "object",
+    "sources": [
+      "components/libraries/util/app_error.c",
+      "components/libraries/util/app_error_handler_gcc.c",
+      "components/libraries/util/app_error_weak.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_app_util_platform": {
+    "documentation": "Application Platform Utilities",
+    "variant": "object",
+    "sources": [
+      "components/libraries/util/app_util_platform.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_app_timer": {
+    "documentation": "Application Timer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/timer/app_timer.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_scheduler",
+        "nrf5_delay",
+        "nrf5_nrfx_hal"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/timer"
+      ]
+    }
+  },
+  "nrf5_app_button": {
+    "documentation": "Application Button",
+    "variant": "object",
+    "sources": [
+      "components/libraries/button/app_button.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_timer",
+        "nrf5_nrfx_gpiote"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/button",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_app_fifo": {
+    "documentation": "Application FIFO",
+    "variant": "object",
+    "sources": [
+      "components/libraries/fifo/app_fifo.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/fifo",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_app_uart": {
+    "documentation": "Application UART",
+    "variant": "object",
+    "sources": [
+      "components/libraries/uart/app_uart.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_drv_uart"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/uart",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_app_uart_fifo": {
+    "documentation": "Application UART (with FIFO)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/uart/app_uart_fifo.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_fifo",
+        "nrf5_drv_uart"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/uart",
+        "components/libraries/util"
+      ]
+    }
+  }
+}

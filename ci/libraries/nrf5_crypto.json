@@ -1,0 +1,276 @@
+{
+  "nrf5_crypto_fwd": {
+    "documentation": "nRF Crypto forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/crypto"
+      ]
+    }
+  },
+  "nrf5_crypto_cc310_backend": {
+    "documentation": "Crypto CC310 backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/backend/cc310/cc310_backend_aes.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_aes_aead.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_chacha_poly_aead.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_ecc.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_ecdh.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_ecdsa.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_eddsa.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_hash.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_hmac.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_init.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_mutex.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_rng.c",
+      "components/libraries/crypto/backend/cc310/cc310_backend_shared.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ext_cc310_fwd",
+        "nrf5_mtx",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto/backend/cc310",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crypto_cc310_bl_backend": {
+    "documentation": "Crypto CC310 BL backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_ecc.c",
+      "components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_ecdsa.c",
+      "components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_hash.c",
+      "components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_init.c",
+      "components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_shared.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto/backend/cc310_bl",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crypto_cifra_backend": {
+    "documentation": "Crypto Cifra backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/backend/cifra/cifra_backend_aes_aead.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto/backend/cifra",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crypto_mbedtls_backend": {
+    "documentation": "Crypto mbedTLS backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/backend/mbedtls/mbedtls_backend_aes.c",
+      "components/libraries/crypto/backend/mbedtls/mbedtls_backend_aes_aead.c",
+      "components/libraries/crypto/backend/mbedtls/mbedtls_backend_ecc.c",
+      "components/libraries/crypto/backend/mbedtls/mbedtls_backend_ecdh.c",
+      "components/libraries/crypto/backend/mbedtls/mbedtls_backend_ecdsa.c",
+      "components/libraries/crypto/backend/mbedtls/mbedtls_backend_hash.c",
+      "components/libraries/crypto/backend/mbedtls/mbedtls_backend_hmac.c",
+      "components/libraries/crypto/backend/mbedtls/mbedtls_backend_init.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_crypto_fwd",
+        "nrf5_ext_mbedtls_fwd",
+        "nrf5_mdk",
+        "nrf5_nrfx_common",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto/backend/mbedtls",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crypto_micro_ecc_backend": {
+    "documentation": "Crypto micro-ecc backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/backend/micro_ecc/micro_ecc_backend_ecc.c",
+      "components/libraries/crypto/backend/micro_ecc/micro_ecc_backend_ecdh.c",
+      "components/libraries/crypto/backend/micro_ecc/micro_ecc_backend_ecdsa.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto/backend/micro_ecc",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crypto_oberon_backend": {
+    "documentation": "Crypto Oberon backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/backend/oberon/oberon_backend_chacha_poly_aead.c",
+      "components/libraries/crypto/backend/oberon/oberon_backend_ecc.c",
+      "components/libraries/crypto/backend/oberon/oberon_backend_ecdh.c",
+      "components/libraries/crypto/backend/oberon/oberon_backend_ecdsa.c",
+      "components/libraries/crypto/backend/oberon/oberon_backend_eddsa.c",
+      "components/libraries/crypto/backend/oberon/oberon_backend_hash.c",
+      "components/libraries/crypto/backend/oberon/oberon_backend_hmac.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto/backend/oberon",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crypto_nrf_hw_backend": {
+    "documentation": "Crypto nRF HW backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/backend/nrf_hw/nrf_hw_backend_init.c",
+      "components/libraries/crypto/backend/nrf_hw/nrf_hw_backend_rng.c",
+      "components/libraries/crypto/backend/nrf_hw/nrf_hw_backend_rng_mbedtls.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto/backend/nrf_hw",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crypto_nrf_sw_backend": {
+    "documentation": "Crypto nRF SW backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/backend/nrf_sw/nrf_sw_backend_hash.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto/backend/nrf_sw",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crypto_optiga_backend": {
+    "documentation": "Crypto Optiga backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/backend/optiga/optiga_backend_ecc.c",
+      "components/libraries/crypto/backend/optiga/optiga_backend_ecdh.c",
+      "components/libraries/crypto/backend/optiga/optiga_backend_ecdsa.c",
+      "components/libraries/crypto/backend/optiga/optiga_backend_init.c",
+      "components/libraries/crypto/backend/optiga/optiga_backend_rng.c",
+      "components/libraries/crypto/backend/optiga/optiga_backend_utils.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_crypto_fwd",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto/backend/optiga",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crypto": {
+    "documentation": "Crypto",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/nrf_crypto_aead.c",
+      "components/libraries/crypto/nrf_crypto_aes.c",
+      "components/libraries/crypto/nrf_crypto_aes_shared.c",
+      "components/libraries/crypto/nrf_crypto_ecc.c",
+      "components/libraries/crypto/nrf_crypto_ecdh.c",
+      "components/libraries/crypto/nrf_crypto_ecdsa.c",
+      "components/libraries/crypto/nrf_crypto_eddsa.c",
+      "components/libraries/crypto/nrf_crypto_error.c",
+      "components/libraries/crypto/nrf_crypto_hash.c",
+      "components/libraries/crypto/nrf_crypto_hkdf.c",
+      "components/libraries/crypto/nrf_crypto_hmac.c",
+      "components/libraries/crypto/nrf_crypto_init.c",
+      "components/libraries/crypto/nrf_crypto_rng.c",
+      "components/libraries/crypto/nrf_crypto_shared.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_crypto_cc310_backend",
+        "nrf5_crypto_cc310_bl_backend",
+        "nrf5_crypto_cifra_backend",
+        "nrf5_crypto_mbedtls_backend",
+        "nrf5_crypto_micro_ecc_backend",
+        "nrf5_crypto_nrf_hw_backend",
+        "nrf5_crypto_nrf_sw_backend",
+        "nrf5_crypto_oberon_backend",
+        "nrf5_crypto_optiga_backend",
+        "nrf5_log",
+        "nrf5_section",
+        "nrf5_stack_info",
+        "nrf5_svc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crypto",
+        "components/libraries/svc",
+        "components/libraries/util"
+      ]
+    }
+  }
+}

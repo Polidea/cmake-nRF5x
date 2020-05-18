@@ -1,0 +1,61 @@
+{
+  "nrf5_ext_fprintf": {
+    "documentation": "fprintf",
+    "variant": "object",
+    "sources": [
+      "external/fprintf/nrf_fprintf.c",
+      "external/fprintf/nrf_fprintf_format.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "external/fprintf"
+      ]
+    }
+  },
+  "nrf5_ext_segger_rtt": {
+    "documentation": "Segger RTT",
+    "variant": "object",
+    "sources": [
+      "external/segger_rtt/SEGGER_RTT.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "external/segger_rtt"
+      ]
+    }
+  },
+  "nrf5_ext_cc310_fwd": {
+    "documentation": "CC310 library forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "external/nrf_cc310/include"
+      ]
+    }
+  },
+  "nrf5_ext_mbedtls_fwd": {
+    "documentation": "mbedTLS library forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "external/mbedtls/include"
+      ]
+    }
+  }
+}

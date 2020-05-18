@@ -2,3 +2,4 @@
 jsonschema
 pylint
 autopep8
+Jinja2

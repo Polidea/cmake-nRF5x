@@ -29,7 +29,11 @@ target_include_directories(nrf5_ext_fprintf PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/external/fprintf"
 )
-target_link_libraries(nrf5_ext_fprintf PUBLIC nrf5_mdk nrf5_soc nrf5_config)
+target_link_libraries(nrf5_ext_fprintf PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
 
 # Segger RTT
 add_library(nrf5_ext_segger_rtt OBJECT EXCLUDE_FROM_ALL
@@ -39,7 +43,11 @@ target_include_directories(nrf5_ext_segger_rtt PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/external/segger_rtt"
 )
-target_link_libraries(nrf5_ext_segger_rtt PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+target_link_libraries(nrf5_ext_segger_rtt PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
 
 # CC310 library forwarding interface (include directories only)
 add_library(nrf5_ext_cc310_fwd INTERFACE)

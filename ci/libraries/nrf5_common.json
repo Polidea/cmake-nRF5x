@@ -1,0 +1,303 @@
+{
+  "nrf5_delay": {
+    "documentation": "Delay",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/delay"
+      ]
+    }
+  },
+  "nrf5_strerror": {
+    "documentation": "strerror (error to string converion)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/strerror/nrf_strerror.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/strerror",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_section": {
+    "documentation": "Section variables (experimental)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/experimental_section_vars/nrf_section_iter.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/experimental_section_vars",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_atomic": {
+    "documentation": "Atomic",
+    "variant": "object",
+    "sources": [
+      "components/libraries/atomic/nrf_atomic.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/atomic",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_mtx": {
+    "documentation": "Mutex",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_atomic"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "components/libraries/mutex",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_log_fwd": {
+    "documentation": "Logger forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/log",
+        "components/libraries/log/src"
+      ]
+    }
+  },
+  "nrf5_sdh": {
+    "documentation": "SoftDevice Handler",
+    "variant": "object",
+    "sources": [
+      "components/softdevice/common/nrf_sdh.c",
+      "components/softdevice/common/nrf_sdh_ble.c",
+      "components/softdevice/common/nrf_sdh_soc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log_fwd",
+        "nrf5_section",
+        "nrf5_strerror"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "components/softdevice/common"
+      ]
+    }
+  },
+  "nrf5_balloc": {
+    "documentation": "Block Allocator",
+    "variant": "object",
+    "sources": [
+      "components/libraries/balloc/nrf_balloc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log_fwd",
+        "nrf5_section",
+        "nrf5_soc",
+        "nrf5_strerror"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/balloc"
+      ]
+    }
+  },
+  "nrf5_memobj": {
+    "documentation": "Memory Object",
+    "variant": "object",
+    "sources": [
+      "components/libraries/memobj/nrf_memobj.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_atomic",
+        "nrf5_balloc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/memobj",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ringbuf": {
+    "documentation": "Ring Buffer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/ringbuf/nrf_ringbuf.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_atomic"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/ringbuf",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_atfifo": {
+    "documentation": "Atomic FIFO",
+    "variant": "object",
+    "sources": [
+      "components/libraries/atomic_fifo/nrf_atfifo.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log_fwd",
+        "nrf5_section",
+        "nrf5_strerror"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/atomic_fifo",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_atflags": {
+    "documentation": "Atomic Flags",
+    "variant": "object",
+    "sources": [
+      "components/libraries/atomic_flags/nrf_atflags.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_atomic"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/atomic_flags"
+      ]
+    }
+  },
+  "nrf5_queue": {
+    "documentation": "Queue",
+    "variant": "object",
+    "sources": [
+      "components/libraries/queue/nrf_queue.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log_fwd",
+        "nrf5_section",
+        "nrf5_strerror"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/queue",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_pwr_mgmt": {
+    "documentation": "Power management",
+    "variant": "object",
+    "sources": [
+      "components/libraries/pwr_mgmt/nrf_pwr_mgmt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log_fwd",
+        "nrf5_memobj",
+        "nrf5_mtx",
+        "nrf5_nrfx_hal",
+        "nrf5_sdh",
+        "nrf5_section"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/pwr_mgmt"
+      ]
+    }
+  },
+  "nrf5_stack_info": {
+    "documentation": "Stack Info",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/stack_info"
+      ]
+    }
+  },
+  "nrf5_svc": {
+    "documentation": "SVC",
+    "variant": "object",
+    "sources": [
+      "components/libraries/svc/nrf_svc_handler.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_section"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/svc"
+      ]
+    }
+  },
+  "nrf5_mem_manager": {
+    "documentation": "Memory Manager",
+    "variant": "object",
+    "sources": [
+      "components/libraries/mem_manager/mem_manager.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_log_fwd",
+        "nrf5_mdk",
+        "nrf5_section",
+        "nrf5_soc",
+        "nrf5_strerror"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/mem_manager",
+        "components/libraries/util"
+      ]
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "nrf5_cli": {
+    "documentation": "Command Line Interface (CLI)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/cli/nrf_cli.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_atomic",
+        "nrf5_delay",
+        "nrf5_ext_fprintf",
+        "nrf5_log_fwd",
+        "nrf5_memobj",
+        "nrf5_nrfx_common",
+        "nrf5_pwr_mgmt",
+        "nrf5_queue",
+        "nrf5_section"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/cli",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_log": {
+    "documentation": "Logger (frontend & formatter)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/log/src/nrf_log_frontend.c",
+      "components/libraries/log/src/nrf_log_str_formatter.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_cli",
+        "nrf5_config",
+        "nrf5_ext_fprintf",
+        "nrf5_fds",
+        "nrf5_mdk",
+        "nrf5_memobj",
+        "nrf5_ringbuf",
+        "nrf5_section",
+        "nrf5_soc",
+        "nrf5_strerror"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/log",
+        "components/libraries/log/src",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_log_backend_serial": {
+    "documentation": "Logger Serial backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/log/src/nrf_log_backend_serial.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log"
+      ]
+    }
+  },
+  "nrf5_log_backend_uart": {
+    "documentation": "Logger UART backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/log/src/nrf_log_backend_uart.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_drv_uart",
+        "nrf5_log"
+      ]
+    }
+  },
+  "nrf5_log_backend_rtt": {
+    "documentation": "Logger RTT backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/log/src/nrf_log_backend_rtt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ext_segger_rtt",
+        "nrf5_log"
+      ]
+    }
+  },
+  "nrf5_log_default_backends": {
+    "documentation": "Logger (default backends)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/log/src/nrf_log_default_backends.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log"
+      ]
+    }
+  }
+}
