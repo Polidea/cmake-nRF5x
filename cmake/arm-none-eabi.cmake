@@ -46,7 +46,7 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 # Set compiler linker flags
 set(OBJECT_GEN_FLAGS "-mabi=aapcs -mthumb")
-set(OBJECT_CXX_GEN_GLAGS "${OBJECT_GEN_FLAGS} -fdata-sections -ffunction-sections -fno-builtin -fno-strict-aliasing -fshort-enums -Wall -Werror")
+set(OBJECT_CXX_GEN_GLAGS "${OBJECT_GEN_FLAGS} -fdata-sections -ffunction-sections -fno-builtin -fno-strict-aliasing -fshort-enums -Wall")
 
 set(CMAKE_C_FLAGS   "${OBJECT_CXX_GEN_GLAGS} -std=c99 " CACHE INTERNAL "C Compiler options")
 set(CMAKE_CXX_FLAGS "${OBJECT_CXX_GEN_GLAGS} -fno-exceptions -fno-rtti -Wno-register -std=c++17 " CACHE INTERNAL "C++ Compiler options")

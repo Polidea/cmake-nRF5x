@@ -68,6 +68,7 @@ target_include_directories(nrf5_app_timer PUBLIC
 )
 target_link_libraries(nrf5_app_timer PUBLIC
   nrf5_app_scheduler
+  nrf5_app_util_platform
   nrf5_delay
   nrf5_nrfx_hal
 )

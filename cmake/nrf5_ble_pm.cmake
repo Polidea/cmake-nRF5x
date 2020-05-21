@@ -30,7 +30,8 @@ target_include_directories(nrf5_ble_lesc PUBLIC
 )
 target_link_libraries(nrf5_ble_lesc PUBLIC
   nrf5_config
-  nrf5_crypto_fwd
+  nrf5_crypto
+  nrf5_log
   nrf5_mdk
   nrf5_soc
 )

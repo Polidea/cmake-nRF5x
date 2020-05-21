@@ -1,0 +1,40 @@
+{%- import 'cmake_common.j2' as cmake -%}
+{%- include 'license_header.j2' %}
+#
+# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake_tests.sh SCRIPT.
+
+{# Macro generating dependency patches #}
+{%- macro print_patch(patch) -%}
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+{%- for dependency in patch %}
+  {{ dependency }}
+{%- endfor %}
+)
+{%- endmacro -%}
+
+{# Macro generating library #}
+{%- macro print_library(lib) -%}
+add_executable(${CMAKE_PROJECT_NAME} "main.c")
+nrf5_target(${CMAKE_PROJECT_NAME})
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+{%- for dependency in lib["base"] %}
+  {{ dependency }}
+{%- endfor %}
+)
+{%- for version, patch in lib["patches"].items() -%}
+{%- if patch | length != 0 %}
+if(NRF5_SDK_VERSION VERSION_EQUAL {{ version }})
+  {{ print_patch(patch) | indent(2) }}
+endif()
+{%- endif -%}
+{%- endfor -%}
+{%- endmacro -%}
+
+cmake_minimum_required(VERSION 3.14)
+project({{library["name"]}}_test LANGUAGES C ASM)
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../../cmake")
+include("nrf5")
+
+{{ cmake.version_if(library["sdk_version"], print_library(library)) }}
+

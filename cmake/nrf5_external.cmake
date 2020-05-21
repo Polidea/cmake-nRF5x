@@ -55,6 +55,12 @@ target_include_directories(nrf5_ext_cc310_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/nrf_cc310/include"
 )
 
+# CC310 BL library forwarding interface (include directories only)
+add_library(nrf5_ext_cc310_bl_fwd INTERFACE)
+target_include_directories(nrf5_ext_cc310_bl_fwd INTERFACE
+  "${NRF5_SDK_PATH}/external/nrf_cc310_bl/include"
+)
+
 # mbedTLS library forwarding interface (include directories only)
 add_library(nrf5_ext_mbedtls_fwd INTERFACE)
 target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE

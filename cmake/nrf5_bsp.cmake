@@ -25,13 +25,14 @@ add_library(nrf5_boards OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/boards/boards.c"
 )
 target_include_directories(nrf5_boards PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/boards"
+  "${NRF5_SDK_PATH}/components/libraries/util"
 )
-if(NRF5_BOARD)
-  target_compile_definitions(nrf5_boards PUBLIC ${NRF5_BOARD_DEFINE})
-endif()
-target_link_libraries(nrf5_boards PUBLIC nrf5_mdk nrf5_soc nrf5_nrfx_hal)
+target_link_libraries(nrf5_boards PUBLIC
+  nrf5_mdk
+  nrf5_nrfx_hal
+  nrf5_soc
+)
 
 # Board Support Package
 add_library(nrf5_bsp OBJECT EXCLUDE_FROM_ALL
@@ -40,7 +41,10 @@ add_library(nrf5_bsp OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_bsp PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/bsp"
 )
-target_link_libraries(nrf5_bsp PUBLIC nrf5_boards nrf5_app_button)
+target_link_libraries(nrf5_bsp PUBLIC
+  nrf5_app_button
+  nrf5_boards
+)
 
 # BSP Button BLE
 add_library(nrf5_bsp_btn_ble OBJECT EXCLUDE_FROM_ALL
@@ -49,4 +53,7 @@ add_library(nrf5_bsp_btn_ble OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_bsp_btn_ble PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/bsp"
 )
-target_link_libraries(nrf5_bsp_btn_ble PUBLIC nrf5_boards nrf5_app_button)
+target_link_libraries(nrf5_bsp_btn_ble PUBLIC
+  nrf5_app_button
+  nrf5_boards
+)

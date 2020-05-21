@@ -1,0 +1,58 @@
+{
+  "nrf5_boards": {
+    "documentation": "Boards",
+    "variant": "object",
+    "sources": [
+      "components/boards/boards.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_mdk",
+        "nrf5_nrfx_hal",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/boards",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_bsp": {
+    "documentation": "Board Support Package",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bsp/bsp.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_button",
+        "nrf5_boards"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bsp"
+      ]
+    }
+  },
+  "nrf5_bsp_btn_ble": {
+    "documentation": "BSP Button BLE",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bsp/bsp_btn_ble.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_button",
+        "nrf5_boards"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bsp"
+      ]
+    }
+  }
+}

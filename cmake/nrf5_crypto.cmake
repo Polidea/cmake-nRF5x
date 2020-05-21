@@ -20,10 +20,44 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# nRF Crypto forwarding interface (include directories only)
-add_library(nrf5_crypto_fwd INTERFACE)
-target_include_directories(nrf5_crypto_fwd INTERFACE
+# Crypto
+add_library(nrf5_crypto OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_aead.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_aes.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_aes_shared.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_ecc.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_ecdh.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_ecdsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_eddsa.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_error.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_hash.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_hkdf.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_hmac.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_init.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_rng.c"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_shared.c"
+)
+target_include_directories(nrf5_crypto PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/crypto"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cc310_bl"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/cifra"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/mbedtls"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/micro_ecc"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/nrf_hw"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/nrf_sw"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon"
+  "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga"
+  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_crypto PUBLIC
+  nrf5_config
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_log
+  nrf5_soc
+  nrf5_stack_info
 )
 
 # Crypto CC310 backend
@@ -47,7 +81,9 @@ target_include_directories(nrf5_crypto_cc310_backend PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_crypto_cc310_backend PUBLIC
+  nrf5_crypto
   nrf5_ext_cc310_fwd
+  nrf5_mem_manager
   nrf5_mtx
   nrf5_nrfx_common
 )
@@ -65,9 +101,8 @@ target_include_directories(nrf5_crypto_cc310_bl_backend PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_crypto_cc310_bl_backend PUBLIC
-  nrf5_config
-  nrf5_mdk
-  nrf5_soc
+  nrf5_crypto
+  nrf5_ext_cc310_bl_fwd
 )
 
 # Crypto Cifra backend
@@ -80,6 +115,7 @@ target_include_directories(nrf5_crypto_cifra_backend PUBLIC
 )
 target_link_libraries(nrf5_crypto_cifra_backend PUBLIC
   nrf5_config
+  nrf5_crypto_fwd
   nrf5_mdk
   nrf5_soc
 )
@@ -103,6 +139,7 @@ target_link_libraries(nrf5_crypto_mbedtls_backend PUBLIC
   nrf5_crypto_fwd
   nrf5_ext_mbedtls_fwd
   nrf5_mdk
+  nrf5_mem_manager
   nrf5_nrfx_common
   nrf5_soc
 )
@@ -119,6 +156,7 @@ target_include_directories(nrf5_crypto_micro_ecc_backend PUBLIC
 )
 target_link_libraries(nrf5_crypto_micro_ecc_backend PUBLIC
   nrf5_config
+  nrf5_crypto_fwd
   nrf5_mdk
   nrf5_soc
 )
@@ -139,6 +177,7 @@ target_include_directories(nrf5_crypto_oberon_backend PUBLIC
 )
 target_link_libraries(nrf5_crypto_oberon_backend PUBLIC
   nrf5_config
+  nrf5_crypto_fwd
   nrf5_mdk
   nrf5_soc
 )
@@ -155,6 +194,7 @@ target_include_directories(nrf5_crypto_nrf_hw_backend PUBLIC
 )
 target_link_libraries(nrf5_crypto_nrf_hw_backend PUBLIC
   nrf5_config
+  nrf5_crypto_fwd
   nrf5_mdk
   nrf5_soc
 )
@@ -169,6 +209,7 @@ target_include_directories(nrf5_crypto_nrf_sw_backend PUBLIC
 )
 target_link_libraries(nrf5_crypto_nrf_sw_backend PUBLIC
   nrf5_config
+  nrf5_crypto_fwd
   nrf5_mdk
   nrf5_soc
 )
@@ -191,42 +232,4 @@ target_link_libraries(nrf5_crypto_optiga_backend PUBLIC
   nrf5_crypto_fwd
   nrf5_mdk
   nrf5_soc
-)
-
-# Crypto
-add_library(nrf5_crypto OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_aead.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_aes.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_aes_shared.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_ecc.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_ecdh.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_ecdsa.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_eddsa.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_error.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_hash.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_hkdf.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_hmac.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_init.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_rng.c"
-  "${NRF5_SDK_PATH}/components/libraries/crypto/nrf_crypto_shared.c"
-)
-target_include_directories(nrf5_crypto PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/crypto"
-  "${NRF5_SDK_PATH}/components/libraries/svc"
-  "${NRF5_SDK_PATH}/components/libraries/util"
-)
-target_link_libraries(nrf5_crypto PUBLIC
-  nrf5_crypto_cc310_backend
-  nrf5_crypto_cc310_bl_backend
-  nrf5_crypto_cifra_backend
-  nrf5_crypto_mbedtls_backend
-  nrf5_crypto_micro_ecc_backend
-  nrf5_crypto_nrf_hw_backend
-  nrf5_crypto_nrf_sw_backend
-  nrf5_crypto_oberon_backend
-  nrf5_crypto_optiga_backend
-  nrf5_log
-  nrf5_section
-  nrf5_stack_info
-  nrf5_svc
 )

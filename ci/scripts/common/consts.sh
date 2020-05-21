@@ -13,6 +13,7 @@ PYTHON_DIR="$SCRIPTS_DIR/python"
 PYTHON_VENV_DIR="$PYTHON_DIR/.venv"
 GENERATED_DIR="$CI_DIR/generated"
 LIBRARIES_DIR="$CI_DIR/libraries"
+LIBRARIES_TESTS_DIR="$CI_DIR/libraries_tests"
 TEMPLATES_DIR="$CI_DIR/templates"
 EXAMPLES_DIR="$CI_DIR/examples"
 TOOLCHAINS_DIR="$CI_DIR/toolchains"
@@ -32,3 +33,4 @@ GENERATED_CMAKE_LIBRARIES="$GENERATED_DIR/cmake_libraries.json"
 
 # Template files
 LIBRARIES_CMAKE_TEMPLATE_FILE="$TEMPLATES_DIR/cmake_libraries.j2"
+LIBRARIES_CMAKE_TESTS_TEMPLATE_FILE="$TEMPLATES_DIR/cmake_libraries_tests.j2"

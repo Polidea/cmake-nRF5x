@@ -1,0 +1,123 @@
+{
+  "nrf5_nrfx_common": {
+    "documentation": "nrfx common",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_config"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx",
+        "modules/nrfx"
+      ]
+    }
+  },
+  "nrf5_nrfx_hal": {
+    "documentation": "nrfx Hardware Abstraction Layer (HAL)",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "modules/nrfx/hal"
+      ]
+    }
+  },
+  "nrf5_nrfx_prs": {
+    "documentation": "nrfx Peripheral Resource Sharing (PRS)",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/prs/nrfx_prs.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/src/prs"
+      ]
+    }
+  },
+  "nrf5_nrfx_gpiote": {
+    "documentation": "GPIOTE nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_gpiote.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "integration/nrfx/legacy",
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_nrfx_uarte": {
+    "documentation": "UART (EasyDMA) nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_uarte.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_nrfx_uart": {
+    "documentation": "UART (no EasyDMA) nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_uart.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_drv_uart": {
+    "documentation": "UART legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_uart.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_uart",
+        "nrf5_nrfx_uarte"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  }
+}

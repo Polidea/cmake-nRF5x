@@ -49,6 +49,15 @@
       ]
     }
   },
+  "nrf5_ext_cc310_bl_fwd": {
+    "documentation": "CC310 BL library forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "external/nrf_cc310_bl/include"
+      ]
+    }
+  },
   "nrf5_ext_mbedtls_fwd": {
     "documentation": "mbedTLS library forwarding interface (include directories only)",
     "variant": "interface",
