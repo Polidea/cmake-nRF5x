@@ -217,7 +217,8 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_crypto_fwd",
+        "nrf5_crypto",
+        "nrf5_drv_rng",
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc"

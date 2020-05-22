@@ -100,3 +100,28 @@ target_link_libraries(nrf5_drv_uart PUBLIC
   nrf5_nrfx_uart
   nrf5_nrfx_uarte
 )
+
+# RNG driver
+add_library(nrf5_nrfx_drv_rng OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_rng.c"
+)
+target_include_directories(nrf5_nrfx_drv_rng PUBLIC
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_drv_rng PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# RNG legacy driver
+add_library(nrf5_drv_rng OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_rng.c"
+)
+target_include_directories(nrf5_drv_rng PUBLIC
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_rng PUBLIC
+  nrf5_app_util_platform
+  nrf5_nrfx_drv_rng
+  nrf5_soc
+)

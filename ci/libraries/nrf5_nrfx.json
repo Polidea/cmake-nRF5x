@@ -119,5 +119,42 @@
         "integration/nrfx/legacy"
       ]
     }
+  },
+  "nrf5_nrfx_drv_rng": {
+    "documentation": "RNG driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_rng.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_drv_rng": {
+    "documentation": "RNG legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_rng.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_soc",
+        "nrf5_nrfx_drv_rng",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
   }
 }
