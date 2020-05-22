@@ -61,6 +61,25 @@ target_include_directories(nrf5_ext_cc310_bl_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/nrf_cc310_bl/include"
 )
 
+# Cifra AES128 EAX library (include directories only)
+add_library(nrf5_ext_cifra_aes128_eax_fwd INTERFACE)
+target_include_directories(nrf5_ext_cifra_aes128_eax_fwd INTERFACE
+  "${NRF5_SDK_PATH}/external/cifra_AES128-EAX/"
+)
+
+# Cifra AES128 EAX library
+add_library(nrf5_ext_cifra_aes128_eax OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/cifra_AES128-EAX/blockwise.c"
+  "${NRF5_SDK_PATH}/external/cifra_AES128-EAX/cifra_cmac.c"
+  "${NRF5_SDK_PATH}/external/cifra_AES128-EAX/cifra_eax_aes.c"
+  "${NRF5_SDK_PATH}/external/cifra_AES128-EAX/eax.c"
+  "${NRF5_SDK_PATH}/external/cifra_AES128-EAX/gf128.c"
+  "${NRF5_SDK_PATH}/external/cifra_AES128-EAX/modes.c"
+)
+target_link_libraries(nrf5_ext_cifra_aes128_eax PUBLIC
+  nrf5_ext_cifra_aes128_eax_fwd
+)
+
 # mbedTLS library forwarding interface (include directories only)
 add_library(nrf5_ext_mbedtls_fwd INTERFACE)
 target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE

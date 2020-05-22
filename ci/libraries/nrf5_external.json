@@ -58,6 +58,32 @@
       ]
     }
   },
+  "nrf5_ext_cifra_aes128_eax_fwd": {
+    "documentation": "Cifra AES128 EAX library (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "external/cifra_AES128-EAX/"
+      ]
+    }
+  },
+  "nrf5_ext_cifra_aes128_eax": {
+    "documentation": "Cifra AES128 EAX library",
+    "variant": "object",
+    "sources": [
+      "external/cifra_AES128-EAX/blockwise.c",
+      "external/cifra_AES128-EAX/cifra_cmac.c",
+      "external/cifra_AES128-EAX/cifra_eax_aes.c",
+      "external/cifra_AES128-EAX/eax.c",
+      "external/cifra_AES128-EAX/gf128.c",
+      "external/cifra_AES128-EAX/modes.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ext_cifra_aes128_eax_fwd"
+      ]
+    }
+  },
   "nrf5_ext_mbedtls_fwd": {
     "documentation": "mbedTLS library forwarding interface (include directories only)",
     "variant": "interface",
