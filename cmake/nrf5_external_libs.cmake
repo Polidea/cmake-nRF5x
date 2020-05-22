@@ -103,3 +103,41 @@ target_compile_definitions(mbedcrypto PUBLIC "MBEDTLS_CONFIG_FILE=\"nrf_crypto_m
 target_link_libraries(mbedcrypto PUBLIC nrf5_config)
 
 target_link_libraries(nrf5_crypto_mbedtls_backend PUBLIC mbedtls)
+
+# Micro ECC
+function(add_micro_ecc_target micro_ecc_source)
+  add_library(nrf5_ext_micro_ecc_fwd INTERFACE)
+  target_include_directories(nrf5_ext_micro_ecc_fwd INTERFACE
+    "${micro_ecc_source}"
+  )
+  add_library(micro_ecc OBJECT
+    "${micro_ecc_source}/uECC.c"
+  )
+  set_source_files_properties(
+    "${micro_ecc_source}/uECC.c" PROPERTIES GENERATED TRUE
+  )
+  target_link_libraries(micro_ecc PUBLIC
+    nrf5_ext_micro_ecc_fwd
+  )
+endfunction()
+
+set(micro_ecc_source_dir "${NRF5_SDK_PATH}/external/micro-ecc/micro-ecc")
+if(EXISTS "${micro_ecc_source_dir}/uECC.c")
+  # Use included uECC library.
+  add_micro_ecc_target("${micro_ecc_source_dir}")
+else()
+  # Download uECC from github.
+  include(ExternalProject)
+  ExternalProject_Add(micro_ecc_src
+    PREFIX external/micro_ecc_src
+    GIT_REPOSITORY "https://github.com/kmackay/micro-ecc.git"
+    BUILD_COMMAND ""
+    CONFIGURE_COMMAND ""
+    INSTALL_COMMAND ""
+    TEST_COMMAND ""
+  )
+  ExternalProject_Get_property(micro_ecc_src SOURCE_DIR)
+  set(micro_ecc_source_dir "${SOURCE_DIR}")
+  add_micro_ecc_target("${micro_ecc_source_dir}")
+  add_dependencies(nrf5_ext_micro_ecc_fwd micro_ecc_src)
+endif()

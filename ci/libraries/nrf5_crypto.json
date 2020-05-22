@@ -24,11 +24,12 @@
         "nrf5_config",
         "nrf5_soc",
         "nrf5_stack_info",
+        "nrf5_mem_manager",
         "nrf5_ext_cc310_fwd",
         "nrf5_ext_cc310_bl_fwd",
         "nrf5_ext_cifra_aes128_eax_fwd",
         "nrf5_ext_mbedtls_fwd",
-        "nrf5_mem_manager"
+        "nrf5_ext_micro_ecc_fwd"
       ]
     },
     "includes": {
@@ -165,7 +166,8 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_crypto_fwd",
+        "nrf5_crypto",
+        "micro_ecc",
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc"
