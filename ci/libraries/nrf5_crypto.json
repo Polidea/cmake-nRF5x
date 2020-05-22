@@ -26,7 +26,9 @@
         "nrf5_stack_info",
         "nrf5_ext_cc310_fwd",
         "nrf5_ext_cc310_bl_fwd",
-        "nrf5_ext_cifra_aes128_eax_fwd"
+        "nrf5_ext_cifra_aes128_eax_fwd",
+        "nrf5_ext_mbedtls_fwd",
+        "nrf5_mem_manager"
       ]
     },
     "includes": {
@@ -68,7 +70,6 @@
       "public": [
         "nrf5_crypto",
         "nrf5_ext_cc310_fwd",
-        "nrf5_mem_manager",
         "nrf5_mtx",
         "nrf5_nrfx_common"
       ]
@@ -140,9 +141,8 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_crypto_fwd",
+        "nrf5_crypto",
         "nrf5_ext_mbedtls_fwd",
-        "nrf5_mem_manager",
         "nrf5_mdk",
         "nrf5_nrfx_common",
         "nrf5_soc"

@@ -94,3 +94,12 @@ set(cc310_bl_lib_path "${NRF5_SDK_PATH}/external/nrf_cc310_bl/lib/${cc310_bl_var
 if(EXISTS "${cc310_bl_lib_path}")
   target_link_libraries(nrf5_crypto_cc310_bl_backend PUBLIC "${cc310_bl_lib_path}")
 endif()
+
+# mbedtls library
+add_subdirectory("${NRF5_SDK_PATH}/external/mbedtls/library" "external/mbedtls" EXCLUDE_FROM_ALL)
+target_include_directories(mbedcrypto PUBLIC "${NRF5_SDK_PATH}/external/mbedtls/include")
+target_include_directories(mbedcrypto PUBLIC "${NRF5_SDK_PATH}/external/nrf_tls/mbedtls/nrf_crypto/config")
+target_compile_definitions(mbedcrypto PUBLIC "MBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"")
+target_link_libraries(mbedcrypto PUBLIC nrf5_config)
+
+target_link_libraries(nrf5_crypto_mbedtls_backend PUBLIC mbedtls)

@@ -56,7 +56,9 @@ target_link_libraries(nrf5_crypto PUBLIC
   nrf5_ext_cc310_bl_fwd
   nrf5_ext_cc310_fwd
   nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_mbedtls_fwd
   nrf5_log
+  nrf5_mem_manager
   nrf5_soc
   nrf5_stack_info
 )
@@ -84,7 +86,6 @@ target_include_directories(nrf5_crypto_cc310_backend PUBLIC
 target_link_libraries(nrf5_crypto_cc310_backend PUBLIC
   nrf5_crypto
   nrf5_ext_cc310_fwd
-  nrf5_mem_manager
   nrf5_mtx
   nrf5_nrfx_common
 )
@@ -138,10 +139,9 @@ target_include_directories(nrf5_crypto_mbedtls_backend PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_crypto_mbedtls_backend PUBLIC
-  nrf5_crypto_fwd
+  nrf5_crypto
   nrf5_ext_mbedtls_fwd
   nrf5_mdk
-  nrf5_mem_manager
   nrf5_nrfx_common
   nrf5_soc
 )

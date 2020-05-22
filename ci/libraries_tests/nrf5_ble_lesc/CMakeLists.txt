@@ -43,11 +43,13 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_ext_cc310_fwd
   nrf5_ext_cifra_aes128_eax_fwd
   nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
   nrf5_fds
   nrf5_fstorage
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_mem_manager
   nrf5_memobj
   nrf5_mtx
   nrf5_nrfx_common

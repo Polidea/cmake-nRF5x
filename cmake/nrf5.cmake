@@ -190,7 +190,7 @@ include("nrf5_ble_srv")
 include("nrf5_iot")
 include("nrf5_misc")
 include("nrf5_external")
-include("nrf5_external_blob")
+include("nrf5_external_libs")
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 
