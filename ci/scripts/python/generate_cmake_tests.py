@@ -74,6 +74,15 @@ def generate_library_test(library_name: str, library: LibraryDescription, librar
         *(x[1] for x in sdk_dependencies.items())
     )
 
+    # Custom patches
+    custom_patch: bool = False
+    custom_patches = {
+        "nrf5_ble_lesc": {"nrf5_crypto_cc310_backend"}
+    }
+    if library_name in custom_patches:
+        custom_patch = True
+        base_dependencies.update(custom_patches[library_name])
+
     # Add SDK version
     sdk_version = None
     if library.sdk_version:
@@ -82,6 +91,7 @@ def generate_library_test(library_name: str, library: LibraryDescription, librar
     # Return data used to create a library test.
     return {
         "name": library_name,
+        "custom_patch": custom_patch,
         "sdk_version": sdk_version,
         "base": sorted(base_dependencies),
         "patches": {

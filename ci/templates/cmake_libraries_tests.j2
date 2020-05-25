@@ -2,6 +2,10 @@
 {%- include 'license_header.j2' %}
 #
 # WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake_tests.sh SCRIPT.
+{%- if library["custom_patch"] %}
+# WARNING: This test contains custom patch to allow compilation. Please edit
+#          above script if there is a need to do it.
+{%- endif %}
 
 {# Macro generating dependency patches #}
 {%- macro print_patch(patch) -%}

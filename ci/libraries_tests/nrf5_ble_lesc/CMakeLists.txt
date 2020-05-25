@@ -21,6 +21,8 @@
 # SOFTWARE.
 #
 # WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake_tests.sh SCRIPT.
+# WARNING: This test contains custom patch to allow compilation. Please edit
+#          above script if there is a need to do it.
 
 cmake_minimum_required(VERSION 3.14)
 project(nrf5_ble_lesc_test LANGUAGES C ASM)
@@ -39,6 +41,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_cli
   nrf5_config
   nrf5_crypto
+  nrf5_crypto_cc310_backend
   nrf5_delay
   nrf5_ext_cc310_bl_fwd
   nrf5_ext_cc310_fwd
