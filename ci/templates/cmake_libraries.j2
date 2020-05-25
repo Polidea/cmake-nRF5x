@@ -1,7 +1,9 @@
 {%- import 'cmake_common.j2' as cmake -%}
-{%- include 'license_header.j2' -%}
+{%- include 'license_header.j2' %}
+#
+# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake.sh SCRIPT.
 
-{# Macro generating library additive patches #}
+{#- Macro generating library additive patches #}
 {%- macro print_patch(name, lib) -%}
 target_sources({{name}} PRIVATE 
 {%- for source in lib["sources"] %}
