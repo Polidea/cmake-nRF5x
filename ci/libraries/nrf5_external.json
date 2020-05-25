@@ -102,5 +102,56 @@
         "external/nrf_oberon"
       ]
     }
+  },
+  "nrf5_ext_optiga_fwd": {
+    "documentation": "Optiga library forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "external/infineon/optiga/include"
+      ]
+    }
+  },
+  "nrf5_ext_optiga": {
+    "documentation": "Optiga library",
+    "variant": "object",
+    "sources": [
+      "external/infineon/optiga/cmd/CommandLib.c",
+      "external/infineon/optiga/common/Logger.c",
+      "external/infineon/optiga/common/Util.c",
+      "external/infineon/optiga/comms/ifx_i2c/ifx_i2c.c",
+      "external/infineon/optiga/comms/ifx_i2c/ifx_i2c_config.c",
+      "external/infineon/optiga/comms/ifx_i2c/ifx_i2c_data_link_layer.c",
+      "external/infineon/optiga/comms/ifx_i2c/ifx_i2c_physical_layer.c",
+      "external/infineon/optiga/comms/ifx_i2c/ifx_i2c_transport_layer.c",
+      "external/infineon/optiga/comms/optiga_comms.c",
+      "external/infineon/optiga/crypt/optiga_crypt.c",
+      "external/infineon/optiga/util/optiga_util.c",
+      "external/infineon/pal/nrf5x/pal_gpio.c",
+      "external/infineon/pal/nrf5x/pal_i2c.c",
+      "external/infineon/pal/nrf5x/pal_ifx_i2c_config.c",
+      "external/infineon/pal/nrf5x/pal_os.c",
+      "external/infineon/pal/nrf5x/pal_os_lock.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ext_optiga_fwd",
+        "nrf5_boards",
+        "nrf5_twi_mngr",
+        "nrf5_drv_rtc",
+        "nrf5_nrfx_rtc",
+        "nrf5_pwr_mgmt"
+      ]
+    },
+    "cflags": {
+      "public": [
+        "-DDL_MAX_FRAME_SIZE=250"
+      ]
+    },
+    "asmflags": {
+      "public": [
+        "-DDL_MAX_FRAME_SIZE=250"
+      ]
+    }
   }
 }

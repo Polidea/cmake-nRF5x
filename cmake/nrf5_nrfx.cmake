@@ -102,13 +102,13 @@ target_link_libraries(nrf5_drv_uart PUBLIC
 )
 
 # RNG driver
-add_library(nrf5_nrfx_drv_rng OBJECT EXCLUDE_FROM_ALL
+add_library(nrf5_nrfx_rng OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_rng.c"
 )
-target_include_directories(nrf5_nrfx_drv_rng PUBLIC
+target_include_directories(nrf5_nrfx_rng PUBLIC
   "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
 )
-target_link_libraries(nrf5_nrfx_drv_rng PUBLIC
+target_link_libraries(nrf5_nrfx_rng PUBLIC
   nrf5_log
   nrf5_nrfx_common
 )
@@ -122,6 +122,53 @@ target_include_directories(nrf5_drv_rng PUBLIC
 )
 target_link_libraries(nrf5_drv_rng PUBLIC
   nrf5_app_util_platform
-  nrf5_nrfx_drv_rng
+  nrf5_nrfx_rng
+  nrf5_soc
+)
+
+# TWI legacy driver
+add_library(nrf5_drv_twi OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_twi.c"
+)
+target_include_directories(nrf5_drv_twi PUBLIC
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_twi PUBLIC
+  nrf5_nrfx_twi
+)
+
+# TWI driver
+add_library(nrf5_nrfx_twi OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_twi.c"
+)
+target_include_directories(nrf5_nrfx_twi PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_twi PUBLIC
+  nrf5_log
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_soc
+)
+
+# RTC legacy driver (header only)
+add_library(nrf5_drv_rtc INTERFACE)
+target_include_directories(nrf5_drv_rtc INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+
+# RTC driver
+add_library(nrf5_nrfx_rtc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_rtc.c"
+)
+target_include_directories(nrf5_nrfx_rtc PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_rtc PUBLIC
+  nrf5_log
+  nrf5_mdk
+  nrf5_nrfx_common
   nrf5_soc
 )

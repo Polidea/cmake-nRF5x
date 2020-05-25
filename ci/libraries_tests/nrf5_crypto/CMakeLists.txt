@@ -31,6 +31,7 @@ include("nrf5")
 add_executable(${CMAKE_PROJECT_NAME} "main.c")
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+  nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
@@ -45,6 +46,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_ext_mbedtls_fwd
   nrf5_ext_micro_ecc_fwd
   nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
   nrf5_log

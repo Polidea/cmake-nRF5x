@@ -33,6 +33,7 @@ nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_app_fifo
   nrf5_app_uart_fifo
+  nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc

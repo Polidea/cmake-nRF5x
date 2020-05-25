@@ -23,7 +23,7 @@
 # WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake_tests.sh SCRIPT.
 
 cmake_minimum_required(VERSION 3.14)
-project(nrf5_log_backend_serial_test LANGUAGES C ASM)
+project(nrf5_drv_twi_test LANGUAGES C ASM)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../../cmake")
 include("nrf5")
@@ -38,17 +38,18 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_cli
   nrf5_config
   nrf5_delay
+  nrf5_drv_twi
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
   nrf5_log
-  nrf5_log_backend_serial
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_twi
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf

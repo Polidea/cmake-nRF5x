@@ -59,6 +59,7 @@ target_link_libraries(nrf5_crypto PUBLIC
   nrf5_ext_mbedtls_fwd
   nrf5_ext_micro_ecc_fwd
   nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
   nrf5_log
   nrf5_mem_manager
   nrf5_sha256_fwd
@@ -237,7 +238,8 @@ target_include_directories(nrf5_crypto_optiga_backend PUBLIC
 )
 target_link_libraries(nrf5_crypto_optiga_backend PUBLIC
   nrf5_config
-  nrf5_crypto_fwd
+  nrf5_crypto
+  nrf5_ext_optiga
   nrf5_mdk
   nrf5_soc
 )

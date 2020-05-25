@@ -48,8 +48,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_memobj
   nrf5_mtx
   nrf5_nrfx_common
-  nrf5_nrfx_drv_rng
   nrf5_nrfx_hal
+  nrf5_nrfx_rng
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf

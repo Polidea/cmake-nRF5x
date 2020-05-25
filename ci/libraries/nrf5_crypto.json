@@ -31,7 +31,8 @@
         "nrf5_ext_mbedtls_fwd",
         "nrf5_ext_micro_ecc_fwd",
         "nrf5_sha256_fwd",
-        "nrf5_ext_oberon_fwd"
+        "nrf5_ext_oberon_fwd",
+        "nrf5_ext_optiga_fwd"
       ]
     },
     "includes": {
@@ -269,7 +270,8 @@
     "dependencies": {
       "public": [
         "nrf5_config",
-        "nrf5_crypto_fwd",
+        "nrf5_ext_optiga",
+        "nrf5_crypto",
         "nrf5_mdk",
         "nrf5_soc"
       ]

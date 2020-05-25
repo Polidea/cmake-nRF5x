@@ -92,3 +92,43 @@ target_include_directories(nrf5_ext_oberon_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/nrf_oberon"
   "${NRF5_SDK_PATH}/external/nrf_oberon/include"
 )
+
+# Optiga library forwarding interface (include directories only)
+add_library(nrf5_ext_optiga_fwd INTERFACE)
+target_include_directories(nrf5_ext_optiga_fwd INTERFACE
+  "${NRF5_SDK_PATH}/external/infineon/optiga/include"
+)
+
+# Optiga library
+add_library(nrf5_ext_optiga OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/infineon/optiga/cmd/CommandLib.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/common/Logger.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/common/Util.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/comms/ifx_i2c/ifx_i2c.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/comms/ifx_i2c/ifx_i2c_config.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/comms/ifx_i2c/ifx_i2c_data_link_layer.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/comms/ifx_i2c/ifx_i2c_physical_layer.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/comms/ifx_i2c/ifx_i2c_transport_layer.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/comms/optiga_comms.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/crypt/optiga_crypt.c"
+  "${NRF5_SDK_PATH}/external/infineon/optiga/util/optiga_util.c"
+  "${NRF5_SDK_PATH}/external/infineon/pal/nrf5x/pal_gpio.c"
+  "${NRF5_SDK_PATH}/external/infineon/pal/nrf5x/pal_i2c.c"
+  "${NRF5_SDK_PATH}/external/infineon/pal/nrf5x/pal_ifx_i2c_config.c"
+  "${NRF5_SDK_PATH}/external/infineon/pal/nrf5x/pal_os.c"
+  "${NRF5_SDK_PATH}/external/infineon/pal/nrf5x/pal_os_lock.c"
+)
+target_link_libraries(nrf5_ext_optiga PUBLIC
+  nrf5_boards
+  nrf5_drv_rtc
+  nrf5_ext_optiga_fwd
+  nrf5_nrfx_rtc
+  nrf5_pwr_mgmt
+  nrf5_twi_mngr
+)
+target_compile_options(nrf5_ext_optiga PUBLIC
+  "$<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:-DDL_MAX_FRAME_SIZE=250>"
+)
+target_compile_options(nrf5_ext_optiga PUBLIC
+  "$<$<COMPILE_LANGUAGE:ASM>:-DDL_MAX_FRAME_SIZE=250>"
+)

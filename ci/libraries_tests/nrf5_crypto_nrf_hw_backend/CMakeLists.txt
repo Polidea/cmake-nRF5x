@@ -48,6 +48,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_ext_mbedtls_fwd
   nrf5_ext_micro_ecc_fwd
   nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -57,8 +58,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_memobj
   nrf5_mtx
   nrf5_nrfx_common
-  nrf5_nrfx_drv_rng
   nrf5_nrfx_hal
+  nrf5_nrfx_rng
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf
