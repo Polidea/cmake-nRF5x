@@ -32,6 +32,7 @@ add_executable(${CMAKE_PROJECT_NAME} "main.c")
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_config
+  nrf5_mdk
   nrf5_sha256
   nrf5_sha256_fwd
   nrf5_soc
