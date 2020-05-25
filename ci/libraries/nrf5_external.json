@@ -92,5 +92,15 @@
         "external/mbedtls/include"
       ]
     }
+  },
+  "nrf5_ext_oberon_fwd": {
+    "documentation": "Oberon library forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "external/nrf_oberon/include",
+        "external/nrf_oberon"
+      ]
+    }
   }
 }

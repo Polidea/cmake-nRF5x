@@ -85,3 +85,10 @@ add_library(nrf5_ext_mbedtls_fwd INTERFACE)
 target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/mbedtls/include"
 )
+
+# Oberon library forwarding interface (include directories only)
+add_library(nrf5_ext_oberon_fwd INTERFACE)
+target_include_directories(nrf5_ext_oberon_fwd INTERFACE
+  "${NRF5_SDK_PATH}/external/nrf_oberon"
+  "${NRF5_SDK_PATH}/external/nrf_oberon/include"
+)

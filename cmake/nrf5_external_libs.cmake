@@ -77,6 +77,8 @@ set(cc310_lib_path "${NRF5_SDK_PATH}/external/nrf_cc310/lib/${cc310_variant}/lib
 
 if(EXISTS "${cc310_lib_path}")
   target_link_libraries(nrf5_crypto_cc310_backend PUBLIC "${cc310_lib_path}")
+else()
+  message(WARNING "CC310 library not found: ${cc310_lib_path}")
 endif()
 
 # CC310 BL library
@@ -93,6 +95,8 @@ set(cc310_bl_lib_path "${NRF5_SDK_PATH}/external/nrf_cc310_bl/lib/${cc310_bl_var
 
 if(EXISTS "${cc310_bl_lib_path}")
   target_link_libraries(nrf5_crypto_cc310_bl_backend PUBLIC "${cc310_bl_lib_path}")
+else()
+  message(WARNING "CC310 BL library not found: ${cc310_bl_lib_path}")
 endif()
 
 # mbedtls library
@@ -140,4 +144,15 @@ else()
   set(micro_ecc_source_dir "${SOURCE_DIR}")
   add_micro_ecc_target("${micro_ecc_source_dir}")
   add_dependencies(nrf5_ext_micro_ecc_fwd micro_ecc_src)
+endif()
+
+# Oberon
+
+set(oberon_variant "${cpu_type}/${float_abi}/${short_wchar}")
+set(oberon_lib_path "${NRF5_SDK_PATH}/external/nrf_oberon/lib/${oberon_variant}/liboberon_2.0.7.a")
+
+if(EXISTS "${oberon_lib_path}")
+  target_link_libraries(nrf5_crypto_oberon_backend PUBLIC "${oberon_lib_path}")
+else()
+  message(WARNING "Oberon library not found: ${oberon_lib_path}")
 endif()
