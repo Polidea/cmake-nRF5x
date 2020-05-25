@@ -37,13 +37,21 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_ble_auth_status_tracker
   nrf5_ble_common
+  nrf5_ble_gatt_cache_manager
+  nrf5_ble_id_manager
   nrf5_ble_peer_database
+  nrf5_ble_peer_manager
+  nrf5_ble_pm_buffer
+  nrf5_ble_security_dispatcher
+  nrf5_ble_security_manager
   nrf5_config
   nrf5_delay
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
   nrf5_sdh

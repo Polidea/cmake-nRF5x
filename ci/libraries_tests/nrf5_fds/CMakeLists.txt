@@ -21,6 +21,8 @@
 # SOFTWARE.
 #
 # WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake_tests.sh SCRIPT.
+# WARNING: This test contains custom patch to allow compilation. Please edit
+#          above script if there is a need to do it.
 
 cmake_minimum_required(VERSION 3.14)
 project(nrf5_fds_test LANGUAGES C ASM)
@@ -31,11 +33,13 @@ include("nrf5")
 add_executable(${CMAKE_PROJECT_NAME} "main.c")
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+  nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
   nrf5_config
   nrf5_fds
   nrf5_fstorage
+  nrf5_fstorage_sd
   nrf5_log_fwd
   nrf5_mdk
   nrf5_sdh

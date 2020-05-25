@@ -23,7 +23,7 @@
 # WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake_tests.sh SCRIPT.
 
 cmake_minimum_required(VERSION 3.14)
-project(nrf5_ble_security_manager_test LANGUAGES C ASM)
+project(nrf5_fstorage_sd_test LANGUAGES C ASM)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../../cmake")
 include("nrf5")
@@ -31,23 +31,14 @@ include("nrf5")
 add_executable(${CMAKE_PROJECT_NAME} "main.c")
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
-  nrf5_app_scheduler
-  nrf5_app_timer
   nrf5_app_util_platform
-  nrf5_atflags
+  nrf5_atfifo
   nrf5_atomic
-  nrf5_balloc
-  nrf5_ble_auth_status_tracker
-  nrf5_ble_common
-  nrf5_ble_security_dispatcher
-  nrf5_ble_security_manager
   nrf5_config
-  nrf5_delay
+  nrf5_fstorage
+  nrf5_fstorage_sd
   nrf5_log_fwd
   nrf5_mdk
-  nrf5_memobj
-  nrf5_nrfx_common
-  nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
   nrf5_soc

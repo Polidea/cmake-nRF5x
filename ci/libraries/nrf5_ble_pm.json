@@ -30,6 +30,8 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
+        "nrf5_ble_pm_buffer",
+        "nrf5_ble_peer_manager",
         "nrf5_memobj"
       ]
     },
@@ -49,6 +51,8 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
+        "nrf5_ble_peer_id",
+        "nrf5_ble_peer_database",
         "nrf5_fds",
         "nrf5_memobj"
       ]
@@ -137,7 +141,8 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
-        "nrf5_memobj"
+        "nrf5_memobj",
+        "nrf5_ble_auth_status_tracker"
       ]
     },
     "includes": {
@@ -155,7 +160,8 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
-        "nrf5_memobj"
+        "nrf5_memobj",
+        "nrf5_ble_security_dispatcher"
       ]
     },
     "includes": {
@@ -212,7 +218,10 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
-        "nrf5_memobj"
+        "nrf5_memobj",
+        "nrf5_ble_id_manager",
+        "nrf5_ble_gatt_cache_manager",
+        "nrf5_ble_security_manager"
       ]
     },
     "includes": {

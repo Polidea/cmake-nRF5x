@@ -224,5 +224,25 @@
         "modules/nrfx/drivers/include"
       ]
     }
+  },
+  "nrf5_nrfx_nvmc": {
+    "documentation": "NRFX NVMC HAL library",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/hal/nrf_nvmc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_mdk",
+        "nrf5_soc",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/hal"
+      ]
+    }
   }
 }

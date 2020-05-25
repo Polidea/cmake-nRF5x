@@ -31,14 +31,10 @@ include("nrf5")
 add_executable(${CMAKE_PROJECT_NAME} "main.c")
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
-  nrf5_atfifo
-  nrf5_atomic
   nrf5_config
   nrf5_fstorage
   nrf5_log_fwd
   nrf5_mdk
-  nrf5_sdh
   nrf5_section
   nrf5_soc
-  nrf5_strerror
 )

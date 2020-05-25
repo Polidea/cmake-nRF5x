@@ -48,6 +48,8 @@ target_include_directories(nrf5_ble_peer_database PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_database PUBLIC
   nrf5_ble_common
+  nrf5_ble_peer_manager
+  nrf5_ble_pm_buffer
   nrf5_memobj
 )
 
@@ -60,6 +62,8 @@ target_include_directories(nrf5_ble_peer_data_storage PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_data_storage PUBLIC
   nrf5_ble_common
+  nrf5_ble_peer_database
+  nrf5_ble_peer_id
   nrf5_fds
   nrf5_memobj
 )
@@ -117,6 +121,7 @@ target_include_directories(nrf5_ble_security_dispatcher PUBLIC
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
 target_link_libraries(nrf5_ble_security_dispatcher PUBLIC
+  nrf5_ble_auth_status_tracker
   nrf5_ble_common
   nrf5_memobj
 )
@@ -130,6 +135,7 @@ target_include_directories(nrf5_ble_security_manager PUBLIC
 )
 target_link_libraries(nrf5_ble_security_manager PUBLIC
   nrf5_ble_common
+  nrf5_ble_security_dispatcher
   nrf5_memobj
 )
 
@@ -169,5 +175,8 @@ target_include_directories(nrf5_ble_peer_manager PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_manager PUBLIC
   nrf5_ble_common
+  nrf5_ble_gatt_cache_manager
+  nrf5_ble_id_manager
+  nrf5_ble_security_manager
   nrf5_memobj
 )

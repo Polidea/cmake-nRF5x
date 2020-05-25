@@ -3,22 +3,52 @@
     "documentation": "File storage",
     "variant": "object",
     "sources": [
-      "components/libraries/fstorage/nrf_fstorage.c",
-      "components/libraries/fstorage/nrf_fstorage_sd.c"
+      "components/libraries/fstorage/nrf_fstorage.c"
     ],
     "dependencies": {
       "public": [
-        "nrf5_atfifo",
-        "nrf5_atomic",
-        "nrf5_log_fwd",
-        "nrf5_sdh",
+        "nrf5_soc",
+        "nrf5_config",
         "nrf5_section",
-        "nrf5_strerror"
+        "nrf5_log_fwd"
       ]
     },
     "includes": {
       "public": [
-        "components/libraries/fstorage"
+        "components/libraries/fstorage",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_fstorage_sd": {
+    "documentation": "File storage (SoftDevice)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/fstorage/nrf_fstorage_sd.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_fstorage",
+        "nrf5_sdh",
+        "nrf5_atomic",
+        "nrf5_atfifo",
+        "nrf5_section",
+        "nrf5_app_util_platform"
+      ]
+    }
+  },
+  "nrf5_fstorage_nvmc": {
+    "documentation": "File storage (NVMC)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/fstorage/nrf_fstorage_nvmc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_fstorage",
+        "nrf5_nrfx_hal",
+        "nrf5_nrfx_nvmc",
+        "nrf5_atomic"
       ]
     }
   },
@@ -30,7 +60,9 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_fstorage"
+        "nrf5_fstorage",
+        "nrf5_atomic",
+        "nrf5_atfifo"
       ]
     },
     "includes": {

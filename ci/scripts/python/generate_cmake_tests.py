@@ -15,7 +15,7 @@ from nrf5_cmake.library_operations import libraries_load_from_file
 
 def generate_library_test(library_name: str, library: LibraryDescription, libraries: Dict[str, LibraryDescription], supported_sdks: List[str]):
     # Collect all dependencies
-    print(library_name)
+    custom_patch: bool = False
 
     # Collect a list of dependencies for each SDK version.
     sdk_dependencies: Dict[str, Set[str]] = {}
@@ -33,6 +33,16 @@ def generate_library_test(library_name: str, library: LibraryDescription, librar
             LibraryProperty.DEPENDENCIES
         ).get_all_items()
         dependencies.add(library_name)
+
+        # Custom patches
+        custom_patches = {
+            "nrf5_ble_lesc": {"nrf5_crypto_cc310_backend"},
+            "nrf5_fds": {"nrf5_fstorage_sd"}
+        }
+
+        if library_name in custom_patches:
+            custom_patch = True
+            dependencies.update(custom_patches[library_name])
 
         # Iterate over all existing dependencies and collect new ones.
         # If expanded list of dependencies is bigger than original ones
@@ -73,15 +83,6 @@ def generate_library_test(library_name: str, library: LibraryDescription, librar
     base_dependencies = set.intersection(
         *(x[1] for x in sdk_dependencies.items())
     )
-
-    # Custom patches
-    custom_patch: bool = False
-    custom_patches = {
-        "nrf5_ble_lesc": {"nrf5_crypto_cc310_backend"}
-    }
-    if library_name in custom_patches:
-        custom_patch = True
-        base_dependencies.update(custom_patches[library_name])
 
     # Add SDK version
     sdk_version = None

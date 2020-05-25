@@ -174,3 +174,17 @@ target_link_libraries(nrf5_nrfx_rtc PUBLIC
   nrf5_nrfx_common
   nrf5_soc
 )
+
+# NRFX NVMC HAL library
+add_library(nrf5_nrfx_nvmc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/hal/nrf_nvmc.c"
+)
+target_include_directories(nrf5_nrfx_nvmc PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/hal"
+)
+target_link_libraries(nrf5_nrfx_nvmc PUBLIC
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_soc
+)

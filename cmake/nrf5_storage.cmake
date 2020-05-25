@@ -25,18 +25,40 @@
 # File storage
 add_library(nrf5_fstorage OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage.c"
-  "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage_sd.c"
 )
 target_include_directories(nrf5_fstorage PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/fstorage"
+  "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_fstorage PUBLIC
+  nrf5_config
+  nrf5_log_fwd
+  nrf5_section
+  nrf5_soc
+)
+
+# File storage (SoftDevice)
+add_library(nrf5_fstorage_sd OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage_sd.c"
+)
+target_link_libraries(nrf5_fstorage_sd PUBLIC
+  nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
-  nrf5_log_fwd
+  nrf5_fstorage
   nrf5_sdh
   nrf5_section
-  nrf5_strerror
+)
+
+# File storage (NVMC)
+add_library(nrf5_fstorage_nvmc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/fstorage/nrf_fstorage_nvmc.c"
+)
+target_link_libraries(nrf5_fstorage_nvmc PUBLIC
+  nrf5_atomic
+  nrf5_fstorage
+  nrf5_nrfx_hal
+  nrf5_nrfx_nvmc
 )
 
 # File data storage
@@ -47,5 +69,7 @@ target_include_directories(nrf5_fds PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/fds"
 )
 target_link_libraries(nrf5_fds PUBLIC
+  nrf5_atfifo
+  nrf5_atomic
   nrf5_fstorage
 )
