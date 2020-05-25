@@ -228,3 +228,22 @@ target_link_libraries(nrf5_mem_manager PUBLIC
   nrf5_soc
   nrf5_strerror
 )
+
+# SHA256 library (includes only)
+add_library(nrf5_sha256_fwd INTERFACE)
+target_include_directories(nrf5_sha256_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/sha256"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_sha256_fwd INTERFACE
+  nrf5_config
+  nrf5_soc
+)
+
+# SHA256 library
+add_library(nrf5_sha256 OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/sha256/sha256.c"
+)
+target_link_libraries(nrf5_sha256 PUBLIC
+  nrf5_sha256_fwd
+)

@@ -299,5 +299,33 @@
         "components/libraries/util"
       ]
     }
+  },
+  "nrf5_sha256_fwd": {
+    "documentation": "SHA256 library (includes only)",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_config",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "components/libraries/sha256",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_sha256": {
+    "documentation": "SHA256 library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/sha256/sha256.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_sha256_fwd"
+      ]
+    }
   }
 }

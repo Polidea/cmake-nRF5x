@@ -61,6 +61,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
