@@ -31,7 +31,6 @@
       "public": [
         "nrf5_ble_common",
         "nrf5_ble_pm_buffer",
-        "nrf5_ble_peer_manager",
         "nrf5_memobj"
       ]
     },
@@ -221,7 +220,8 @@
         "nrf5_memobj",
         "nrf5_ble_id_manager",
         "nrf5_ble_gatt_cache_manager",
-        "nrf5_ble_security_manager"
+        "nrf5_ble_security_manager",
+        "nrf5_ble_peer_data_storage"
       ]
     },
     "includes": {

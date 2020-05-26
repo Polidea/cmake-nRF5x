@@ -34,10 +34,12 @@ def generate_library_test(library_name: str, library: LibraryDescription, librar
         ).get_all_items()
         dependencies.add(library_name)
 
-        # Custom patches
+        # Custom patches to make tests buildable with optional deps.
         custom_patches = {
             "nrf5_ble_lesc": {"nrf5_crypto_cc310_backend"},
-            "nrf5_fds": {"nrf5_fstorage_sd"}
+            "nrf5_fds": {"nrf5_fstorage_sd"},
+            "nrf5_ble_peer_data_storage": {"nrf5_ble_peer_manager"},
+            "nrf5_ble_peer_manager": {"nrf5_fstorage_sd"},
         }
 
         if library_name in custom_patches:

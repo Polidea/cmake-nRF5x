@@ -48,7 +48,6 @@ target_include_directories(nrf5_ble_peer_database PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_database PUBLIC
   nrf5_ble_common
-  nrf5_ble_peer_manager
   nrf5_ble_pm_buffer
   nrf5_memobj
 )
@@ -177,6 +176,7 @@ target_link_libraries(nrf5_ble_peer_manager PUBLIC
   nrf5_ble_common
   nrf5_ble_gatt_cache_manager
   nrf5_ble_id_manager
+  nrf5_ble_peer_data_storage
   nrf5_ble_security_manager
   nrf5_memobj
 )

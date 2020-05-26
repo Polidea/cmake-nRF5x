@@ -21,6 +21,8 @@
 # SOFTWARE.
 #
 # WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake_tests.sh SCRIPT.
+# WARNING: This test contains custom patch to allow compilation. Please edit
+#          above script if there is a need to do it.
 
 cmake_minimum_required(VERSION 3.14)
 project(nrf5_ble_peer_manager_test LANGUAGES C ASM)
@@ -34,6 +36,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_app_scheduler
   nrf5_app_timer
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
@@ -41,11 +44,18 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_ble_common
   nrf5_ble_gatt_cache_manager
   nrf5_ble_id_manager
+  nrf5_ble_peer_data_storage
+  nrf5_ble_peer_database
+  nrf5_ble_peer_id
   nrf5_ble_peer_manager
+  nrf5_ble_pm_buffer
   nrf5_ble_security_dispatcher
   nrf5_ble_security_manager
   nrf5_config
   nrf5_delay
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_fstorage_sd
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
