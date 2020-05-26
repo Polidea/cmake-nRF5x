@@ -281,6 +281,17 @@
         "components/libraries/crypto/backend/optiga",
         "components/libraries/util"
       ]
-    }
+    },
+    "patches": [
+      {
+        "operation": "remove",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "sources": [
+          "components/libraries/crypto/backend/optiga/optiga_backend_utils.c"
+        ]
+      }
+    ]
   }
 }
