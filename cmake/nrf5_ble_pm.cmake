@@ -161,6 +161,7 @@ target_include_directories(nrf5_ble_peer_manager_handler PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_manager_handler PUBLIC
   nrf5_ble_common
+  nrf5_ble_peer_manager
   nrf5_fds
   nrf5_memobj
 )

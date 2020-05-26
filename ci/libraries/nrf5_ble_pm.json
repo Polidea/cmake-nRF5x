@@ -199,7 +199,8 @@
       "public": [
         "nrf5_ble_common",
         "nrf5_fds",
-        "nrf5_memobj"
+        "nrf5_memobj",
+        "nrf5_ble_peer_manager"
       ]
     },
     "includes": {
