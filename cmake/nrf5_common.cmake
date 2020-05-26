@@ -98,6 +98,7 @@ target_include_directories(nrf5_sdh PUBLIC
   "${NRF5_SDK_PATH}/components/softdevice/common"
 )
 target_link_libraries(nrf5_sdh PUBLIC
+  nrf5_app_util_platform
   nrf5_log_fwd
   nrf5_section
   nrf5_strerror
