@@ -39,6 +39,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_atomic
   nrf5_balloc
   nrf5_boards
+  nrf5_bsp
   nrf5_bsp_btn_ble
   nrf5_cli
   nrf5_config

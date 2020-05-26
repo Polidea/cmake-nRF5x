@@ -45,8 +45,7 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_app_button",
-        "nrf5_boards"
+        "nrf5_bsp"
       ]
     },
     "includes": {

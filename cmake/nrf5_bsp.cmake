@@ -56,6 +56,5 @@ target_include_directories(nrf5_bsp_btn_ble PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/bsp"
 )
 target_link_libraries(nrf5_bsp_btn_ble PUBLIC
-  nrf5_app_button
-  nrf5_boards
+  nrf5_bsp
 )
