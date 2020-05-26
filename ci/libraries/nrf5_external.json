@@ -155,6 +155,22 @@
       "public": [
         "-DDL_MAX_FRAME_SIZE=250"
       ]
-    }
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "sources": [
+          "external/infineon/examples/ecdsa_utils/ecdsa_utils.c"
+        ],
+        "includes": {
+          "public": [
+            "external/infineon/examples/ecdsa_utils"
+          ]
+        }
+      }
+    ]
   }
 }

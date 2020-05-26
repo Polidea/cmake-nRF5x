@@ -149,7 +149,11 @@ endif()
 # Oberon
 
 set(oberon_variant "${cpu_type}/${float_abi}/${short_wchar}")
+if(NRF5_SDK_VERSION VERSION_EQUAL 15.3.0)
 set(oberon_lib_path "${NRF5_SDK_PATH}/external/nrf_oberon/lib/${oberon_variant}/liboberon_2.0.7.a")
+else()
+set(oberon_lib_path "${NRF5_SDK_PATH}/external/nrf_oberon/lib/${oberon_variant}/liboberon_3.0.1.a")
+endif()
 
 if(EXISTS "${oberon_lib_path}")
   target_link_libraries(nrf5_crypto_oberon_backend PUBLIC "${oberon_lib_path}")
