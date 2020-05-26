@@ -78,6 +78,12 @@ target_link_libraries(nrf5_ble_db_discovery PUBLIC
   nrf5_ble_common
   nrf5_log
 )
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  
+  target_link_libraries(nrf5_ble_db_discovery PUBLIC
+    nrf5_ble_gq
+  )
+endif()
 
 # BLE GATT
 add_library(nrf5_ble_gatt OBJECT EXCLUDE_FROM_ALL

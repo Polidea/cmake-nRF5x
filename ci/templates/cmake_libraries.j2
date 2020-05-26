@@ -5,11 +5,14 @@
 
 {#- Macro generating library additive patches #}
 {%- macro print_patch(name, lib) -%}
+{%- if lib["sources"] -%}
 target_sources({{name}} PRIVATE 
 {%- for source in lib["sources"] %}
   "${NRF5_SDK_PATH}/{{ source }}"
 {%- endfor %}
 )
+{%- else -%}
+{%- endif -%}
 {{- cmake.target_command("target_include_directories", name, lib["includes"] or None, '"${NRF5_SDK_PATH}/', '"') -}}
 {{- cmake.target_command("target_link_libraries", name, lib["dependencies"] or None) -}}
 {{- cmake.target_command("target_compile_options", name, lib["cflags"] or None, '"$<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:', '>"') -}}

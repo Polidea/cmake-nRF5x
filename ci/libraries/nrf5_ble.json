@@ -78,7 +78,20 @@
       "public": [
         "components/ble/ble_db_discovery"
       ]
-    }
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
   },
   "nrf5_ble_gatt": {
     "documentation": "BLE GATT",

@@ -61,3 +61,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_soc
   nrf5_strerror
 )
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+    nrf5_ble_gq
+  )
+endif()
