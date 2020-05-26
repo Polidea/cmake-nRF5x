@@ -40,12 +40,15 @@ target_link_libraries(nrf5_ext_fprintf PUBLIC
 # Segger RTT
 add_library(nrf5_ext_segger_rtt OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT.c"
+  "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c"
+  "${NRF5_SDK_PATH}/external/segger_rtt/SEGGER_RTT_printf.c"
 )
 target_include_directories(nrf5_ext_segger_rtt PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/external/segger_rtt"
 )
 target_link_libraries(nrf5_ext_segger_rtt PUBLIC
+  nrf5_app_util_platform
   nrf5_config
   nrf5_mdk
   nrf5_soc
