@@ -41,6 +41,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_app_button
   # Flash storage
   nrf5_fstorage
+  nrf5_fstorage_sd
   nrf5_fds
   # BSP
   nrf5_boards

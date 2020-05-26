@@ -37,4 +37,5 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_mdk
   nrf5_section
   nrf5_soc
+  nrf5_strerror
 )

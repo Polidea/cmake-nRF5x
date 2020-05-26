@@ -10,7 +10,8 @@
         "nrf5_soc",
         "nrf5_config",
         "nrf5_section",
-        "nrf5_log_fwd"
+        "nrf5_log_fwd",
+        "nrf5_strerror"
       ]
     },
     "includes": {

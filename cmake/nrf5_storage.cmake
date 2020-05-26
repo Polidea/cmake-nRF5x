@@ -35,6 +35,7 @@ target_link_libraries(nrf5_fstorage PUBLIC
   nrf5_log_fwd
   nrf5_section
   nrf5_soc
+  nrf5_strerror
 )
 
 # File storage (SoftDevice)

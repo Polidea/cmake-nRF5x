@@ -1,6 +1,9 @@
 #!/bin/bash
 
-source "${BASH_SOURCE%/*}/common/build.sh"
+source "${BASH_SOURCE%/*}/common/build_example.sh"
+
+# Ignored list of examples separated with semicolon.
+build_ignore_config_list="pca10100_16.0.0"
 
 function build_all_configs() {
     local example=$1
@@ -29,6 +32,12 @@ function build_all_configs() {
         # For each SDK variant
         for sd_variant_dir in ${supported_sd_variant_dirs[@]}; do
             sd_variant=`basename $sd_variant_dir`
+
+            # Check if combination is ignored 
+            if [[ $build_ignore_config_list =~ "${board}_${sdk_version}" ]]; then
+                continue
+            fi
+            
             build_example $example $sdk_version $board $sd_variant $toolchain $config_dir $build_dir || exit 1
         done
     done
