@@ -135,5 +135,27 @@
         "components/ble/ble_link_ctx_manager"
       ]
     }
+  },
+  "nrf5_ble_gq": {
+    "documentation": "BLE GATT Queue library",
+    "variant": "object",
+    "sdk_version": {
+      "from": "16.0.0"
+    },
+    "sources": [
+      "components/ble/nrf_ble_gq/nrf_ble_gq.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_memobj",
+        "nrf5_queue"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/nrf_ble_gq"
+      ]
+    }
   }
 }

@@ -116,3 +116,18 @@ target_include_directories(nrf5_ble_link_ctx_manager PUBLIC
 target_link_libraries(nrf5_ble_link_ctx_manager PUBLIC
   nrf5_ble_common
 )
+
+# BLE GATT Queue library
+if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
+  add_library(nrf5_ble_gq OBJECT EXCLUDE_FROM_ALL
+    "${NRF5_SDK_PATH}/components/ble/nrf_ble_gq/nrf_ble_gq.c"
+  )
+  target_include_directories(nrf5_ble_gq PUBLIC
+    "${NRF5_SDK_PATH}/components/ble/nrf_ble_gq"
+  )
+  target_link_libraries(nrf5_ble_gq PUBLIC
+    nrf5_ble_common
+    nrf5_memobj
+    nrf5_queue
+  )
+endif()
