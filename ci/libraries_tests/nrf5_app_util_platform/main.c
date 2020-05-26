@@ -1,7 +1,8 @@
+#include "stddef.h"
 #include "app_util_platform.h"
 
 int main()
 {
-    CRITICAL_REGION_ENTER();
+    app_util_critical_region_enter(NULL);
     return 0;
 }

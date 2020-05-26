@@ -15,11 +15,18 @@ invoke_pip3 install -r "${PYTHON_DIR}/requirements.txt"
 sdks=( "15.3.0" "16.0.0" )
 
 for sdk in "${sdks[@]}"; do
-    if [[ -d "$SDKS_DIR/$sdk" ]]; then
-        echo "SDK $sdk is already present, skipping..."
-        continue
+    if [[ ! -d "$SDKS_DIR/$sdk" ]]; then
+        echo "Downloading SDK $sdk..."
+        download_sdk "$sdk" "$SDKS_DIR/$sdk"
     fi
-    download_sdk "$sdk" "$SDKS_DIR/$sdk"
+
+    # Clone uECC library if needed
+    if [[ ! -d "$SDKS_DIR/$sdk/external/micro-ecc/micro-ecc" ]]; then
+        echo "Cloning uECC lib into SDK ver $sdk..."
+        pushd "$SDKS_DIR/$sdk/external/micro-ecc"
+            git clone "https://github.com/kmackay/micro-ecc.git"
+        popd
+    fi
 done
 
 # Download toolchains

@@ -114,7 +114,7 @@ function(add_micro_ecc_target micro_ecc_source)
   target_include_directories(nrf5_ext_micro_ecc_fwd INTERFACE
     "${micro_ecc_source}"
   )
-  add_library(micro_ecc OBJECT
+  add_library(micro_ecc OBJECT EXCLUDE_FROM_ALL
     "${micro_ecc_source}/uECC.c"
   )
   set_source_files_properties(
