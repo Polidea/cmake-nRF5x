@@ -46,6 +46,9 @@ function build_library() {
         build_type="Ninja"
     fi
 
+    # Check linker file
+    local linker_file=$(find ${library_dir} -name "*.ld")
+
     # Prepare build folder
     local cmake_build_path="$BUILD_DIR/$sdk_version/$library_name/$board_symbol/$sd_variant/$toolchain"
     mkdir -p "$cmake_build_path" || {
@@ -65,8 +68,8 @@ function build_library() {
         -DNRF5_SDK_PATH="$(adapt_cmake_path $SDKS_DIR/$sdk_version)" \
         -DNRF5_BOARD="$board_symbol" \
         -DNRF5_SOFTDEVICE_VARIANT="$sd_variant" \
+        -DNRF5_LINKER_SCRIPT="$(adapt_cmake_path $linker_file)" \
         -DNRF5_SDKCONFIG_PATH="$(adapt_cmake_path $library_dir)" \
-        --loglevel=WARNING \
         -G "$build_type" || {
             echo "Failed to configure project with CMake"
             return 1
