@@ -83,11 +83,6 @@ function build_example() {
         echo "SoftDevice variant '$sd_variant' is incorrect or not supported by the '$example_local_dir' example for the '$board_symbol' board."
         return 1
     fi
-
-    if [[ $sd_variant != s* ]]; then
-        echo "Non-SoftDevice configurations like '$sd_variant' are currently not supported. Build skipped."
-        return 1
-    fi
     
     # Verify toolchain
     if [[ ! -d "$toolchain_dir" ]]; then

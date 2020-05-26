@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "${BASH_SOURCE%/*}/common/build.sh"
+source "${BASH_SOURCE%/*}/common/build_example.sh"
 
 function print_help() {
     echo "
