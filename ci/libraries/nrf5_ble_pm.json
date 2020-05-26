@@ -1,0 +1,223 @@
+{
+  "nrf5_ble_lesc": {
+    "documentation": "BLE LESC",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/nrf_ble_lesc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_crypto_fwd",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_peer_database": {
+    "documentation": "Peer Database",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/peer_database.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_memobj"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_peer_data_storage": {
+    "documentation": "Peer Data Storage",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/peer_data_storage.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_fds",
+        "nrf5_memobj"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  },
+  "nrf5_ble_id_manager": {
+    "documentation": "ID Manager",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/id_manager.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_memobj"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  },
+  "nrf5_ble_peer_id": {
+    "documentation": "Peer ID",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/peer_id.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  },
+  "nrf5_ble_pm_buffer": {
+    "documentation": "Peer Manager Buffer",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/pm_buffer.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  },
+  "nrf5_ble_auth_status_tracker": {
+    "documentation": "Authorization Status Tracker",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/auth_status_tracker.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  },
+  "nrf5_ble_security_dispatcher": {
+    "documentation": "Security Dispatcher",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/security_dispatcher.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_memobj"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  },
+  "nrf5_ble_security_manager": {
+    "documentation": "Security Manager",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/security_manager.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_memobj"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  },
+  "nrf5_ble_gatt_cache_manager": {
+    "documentation": "GATT Cache Manager",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/gatt_cache_manager.c",
+      "components/ble/peer_manager/gatts_cache_manager.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_memobj",
+        "nrf5_mtx"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  },
+  "nrf5_ble_peer_manager_handler": {
+    "documentation": "Peer Manager Handler",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/peer_manager_handler.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_fds",
+        "nrf5_memobj"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  },
+  "nrf5_ble_peer_manager": {
+    "documentation": "Peer Manager",
+    "variant": "object",
+    "sources": [
+      "components/ble/peer_manager/peer_manager.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_memobj"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/peer_manager"
+      ]
+    }
+  }
+}

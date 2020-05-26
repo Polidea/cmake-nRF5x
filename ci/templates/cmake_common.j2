@@ -1,0 +1,36 @@
+{#- Macro generating SDK version if statement with indented content -#}
+{%- macro version_if(version, content) -%}
+{%- if version -%}
+{%- if version["from"] and version["to"] -%}
+{%- if version["from"] == version["to"] -%}
+if(NRF5_SDK_VERSION VERSION_EQUAL {{version["from"]}})
+  {% else -%}
+if((NRF5_SDK_VERSION VERSION_EQUAL {{version["from"]}} OR NRF5_SDK_VERSION VERSION_GREATER {{version["from"]}}) AND
+   (NRF5_SDK_VERSION VERSION_EQUAL {{version["to"]}} OR NRF5_SDK_VERSION VERSION_LESS {{version["to"]}}))
+  {% endif -%}
+{%- elif version["from"] -%}
+if(NRF5_SDK_VERSION VERSION_EQUAL {{version["from"]}} OR NRF5_SDK_VERSION VERSION_GREATER {{version["from"]}})
+  {% else -%}
+if(NRF5_SDK_VERSION VERSION_EQUAL {{version["to"]}} OR NRF5_SDK_VERSION VERSION_LESS {{version["to"]}})
+  {% endif -%}
+  {{ content | indent(2) }}
+endif()
+{%- else -%}
+{{ content }}
+{%- endif -%}
+{%- endmacro -%}
+
+{# Macro generating target command invocation #}
+{%- macro target_command(property_name, target_name, item_set, item_prefix='', item_suffix='') -%}
+{%- if item_set is not none -%}
+{%- for access in item_set -%}
+{%- if item_set[access] | length != 0 %}
+{{ property_name }}({{ target_name }} {{ access | upper }}
+{%- for item in item_set[access] %}
+  {{ item_prefix }}{{ item }}{{ item_suffix }}
+{%- endfor %}
+)
+{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}

@@ -1,0 +1,11 @@
+{
+  "nrf5_iot_common": {
+    "documentation": "IoT Common",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/iot/common"
+      ]
+    }
+  }
+}

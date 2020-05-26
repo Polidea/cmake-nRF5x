@@ -25,21 +25,27 @@ add_library(nrf5_app_scheduler OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/scheduler/app_scheduler.c"
 )
 target_include_directories(nrf5_app_scheduler PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/scheduler"
+  "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_scheduler PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+target_link_libraries(nrf5_app_scheduler PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
 
 # Application Error
 add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/util/app_error.c"  
-  "${NRF5_SDK_PATH}/components/libraries/util/app_error_weak.c"
+  "${NRF5_SDK_PATH}/components/libraries/util/app_error.c"
   "${NRF5_SDK_PATH}/components/libraries/util/app_error_handler_gcc.c"
+  "${NRF5_SDK_PATH}/components/libraries/util/app_error_weak.c"
 )
 target_include_directories(nrf5_app_error PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_error PUBLIC nrf5_log)
+target_link_libraries(nrf5_app_error PUBLIC
+  nrf5_log
+)
 
 # Application Platform Utilities
 add_library(nrf5_app_util_platform OBJECT EXCLUDE_FROM_ALL
@@ -48,7 +54,10 @@ add_library(nrf5_app_util_platform OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_app_util_platform PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_util_platform PUBLIC nrf5_mdk nrf5_soc)
+target_link_libraries(nrf5_app_util_platform PUBLIC
+  nrf5_mdk
+  nrf5_soc
+)
 
 # Application Timer
 add_library(nrf5_app_timer OBJECT EXCLUDE_FROM_ALL
@@ -57,44 +66,60 @@ add_library(nrf5_app_timer OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_app_timer PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/timer"
 )
-target_link_libraries(nrf5_app_timer PUBLIC nrf5_app_scheduler nrf5_delay nrf5_nrfx_hal)
+target_link_libraries(nrf5_app_timer PUBLIC
+  nrf5_app_scheduler
+  nrf5_delay
+  nrf5_nrfx_hal
+)
 
 # Application Button
 add_library(nrf5_app_button OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/button/app_button.c"
 )
 target_include_directories(nrf5_app_button PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/button"
+  "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_button PUBLIC nrf5_app_timer nrf5_nrfx_gpiote)
+target_link_libraries(nrf5_app_button PUBLIC
+  nrf5_app_timer
+  nrf5_nrfx_gpiote
+)
 
 # Application FIFO
 add_library(nrf5_app_fifo OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/fifo/app_fifo.c"
 )
 target_include_directories(nrf5_app_fifo PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/fifo"
+  "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_fifo PUBLIC nrf5_config nrf5_mdk nrf5_soc)
+target_link_libraries(nrf5_app_fifo PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
 
 # Application UART
 add_library(nrf5_app_uart OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/uart/app_uart.c"
 )
 target_include_directories(nrf5_app_uart PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/uart"
+  "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_uart PUBLIC nrf5_drv_uart)
+target_link_libraries(nrf5_app_uart PUBLIC
+  nrf5_drv_uart
+)
 
 # Application UART (with FIFO)
 add_library(nrf5_app_uart_fifo OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/uart/app_uart_fifo.c"
 )
 target_include_directories(nrf5_app_uart_fifo PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/util"
   "${NRF5_SDK_PATH}/components/libraries/uart"
+  "${NRF5_SDK_PATH}/components/libraries/util"
 )
-target_link_libraries(nrf5_app_uart_fifo PUBLIC nrf5_drv_uart nrf5_app_fifo)
+target_link_libraries(nrf5_app_uart_fifo PUBLIC
+  nrf5_app_fifo
+  nrf5_drv_uart
+)

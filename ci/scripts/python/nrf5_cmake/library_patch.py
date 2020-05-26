@@ -20,7 +20,7 @@ class LibraryPatch:
     json_schema = {
         "type": "object",
         "additionalProperties": False,
-        "required": ["operation"],
+        "required": ["operation", "sdk_version"],
         "properties": {
             "operation": {
                 "type": "string",
@@ -33,10 +33,10 @@ class LibraryPatch:
 
     def __init__(self,
                  operation: LibraryOperation,
-                 sdk_version: Optional[LibraryVersion] = None,
+                 sdk_version: LibraryVersion,
                  library: Optional[Library] = None):
         self._operation = operation
-        self._sdk_version: Optional[LibraryVersion] = sdk_version
+        self._sdk_version = sdk_version
         self._library: Library = library or Library()
 
     @staticmethod
@@ -44,13 +44,11 @@ class LibraryPatch:
         validate_json(instance=json_value,
                       schema=LibraryPatch.json_schema)
 
-        patch = LibraryPatch(LibraryOperation(json_value["operation"]))
+        patch = LibraryPatch(
+            LibraryOperation(json_value["operation"]),
+            LibraryVersion.from_json(json_value["sdk_version"])
+        )
         patch._library = Library.from_json(json_value)
-
-        if "sdk_version" in json_value:
-            patch._sdk_version = LibraryVersion.from_json(
-                json_value["sdk_version"]
-            )
 
         return patch
 

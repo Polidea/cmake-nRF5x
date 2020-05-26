@@ -1,0 +1,14 @@
+{
+  "nrf5_sensorsim": {
+    "documentation": "Sensor Data Simulator",
+    "variant": "object",
+    "sources": [
+      "components/libraries/sensorsim/sensorsim.c"
+    ],
+    "includes": {
+      "public": [
+        "components/libraries/sensorsim"
+      ]
+    }
+  }
+}

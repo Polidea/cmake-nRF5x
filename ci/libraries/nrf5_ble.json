@@ -1,0 +1,139 @@
+{
+  "nrf5_ble_common": {
+    "documentation": "BLE common",
+    "variant": "object",
+    "sources": [
+      "components/ble/common/ble_advdata.c",
+      "components/ble/common/ble_conn_params.c",
+      "components/ble/common/ble_conn_state.c",
+      "components/ble/common/ble_srv_common.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_timer",
+        "nrf5_atflags",
+        "nrf5_atomic",
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_sdh",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/common",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_advertising": {
+    "documentation": "BLE advertising",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_advertising/ble_advertising.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_advertising"
+      ]
+    }
+  },
+  "nrf5_ble_scan": {
+    "documentation": "BLE scanning",
+    "variant": "object",
+    "sources": [
+      "components/ble/nrf_ble_scan/nrf_ble_scan.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/nrf_ble_scan"
+      ]
+    }
+  },
+  "nrf5_ble_db_discovery": {
+    "documentation": "BLE data base discovery",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_db_discovery/ble_db_discovery.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_db_discovery"
+      ]
+    }
+  },
+  "nrf5_ble_gatt": {
+    "documentation": "BLE GATT",
+    "variant": "object",
+    "sources": [
+      "components/ble/nrf_ble_gatt/nrf_ble_gatt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_strerror"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/nrf_ble_gatt"
+      ]
+    }
+  },
+  "nrf5_ble_qwr": {
+    "documentation": "BLE Queued Writes",
+    "variant": "object",
+    "sources": [
+      "components/ble/nrf_ble_qwr/nrf_ble_qwr.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/nrf_ble_qwr",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_link_ctx_manager": {
+    "documentation": "BLE Link Context Manager",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_link_ctx_manager"
+      ]
+    }
+  }
+}

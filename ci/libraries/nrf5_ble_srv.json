@@ -1,0 +1,131 @@
+{
+  "nrf5_ble_srv_lbs": {
+    "documentation": "BLE LED Button Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_lbs/ble_lbs.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_config",
+        "nrf5_sdh"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_lbs",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_srv_lbs_c": {
+    "documentation": "BLE LED Button Service (Central)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_lbs_c/ble_lbs_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_lbs_c",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_srv_nus": {
+    "documentation": "BLE Nordic UART Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_nus/ble_nus.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_link_ctx_manager"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_nus",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_srv_nus_c": {
+    "documentation": "BLE Nordic UART Service (Central)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_nus_c/ble_nus_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_nus_c",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_srv_dis": {
+    "documentation": "BLE Device Information Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_dis/ble_dis.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_dis",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_srv_bms": {
+    "documentation": "BLE Bond Management Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/nrf_ble_bms/nrf_ble_bms.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_ble_qwr"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/nrf_ble_bms",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_ble_srv_ipsp": {
+    "documentation": "BLE Internet Protocol Support Profile Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_ipsp/ble_ipsp.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_ipsp",
+        "components/libraries/util"
+      ]
+    }
+  }
+}

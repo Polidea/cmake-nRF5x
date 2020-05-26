@@ -1,0 +1,42 @@
+{
+  "nrf5_fstorage": {
+    "documentation": "File storage",
+    "variant": "object",
+    "sources": [
+      "components/libraries/fstorage/nrf_fstorage.c",
+      "components/libraries/fstorage/nrf_fstorage_sd.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_atfifo",
+        "nrf5_atomic",
+        "nrf5_log_fwd",
+        "nrf5_sdh",
+        "nrf5_section",
+        "nrf5_strerror"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/fstorage"
+      ]
+    }
+  },
+  "nrf5_fds": {
+    "documentation": "File data storage",
+    "variant": "object",
+    "sources": [
+      "components/libraries/fds/fds.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_fstorage"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/fds"
+      ]
+    }
+  }
+}
