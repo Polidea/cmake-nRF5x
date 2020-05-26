@@ -9,7 +9,10 @@ build_mac:
     - bash ./ci/scripts/prepare.sh
   script:
     - bash ./ci/scripts/run_tests.sh
-    - bash ./ci/scripts/build_all.sh 15.3.0
+    - bash ./ci/scripts/generate_cmake.sh
+    - bash ./ci/scripts/generate_cmake_tests.sh
+    - bash ./ci/scripts/build_all_libraries.sh
+    - bash ./ci/scripts/build_all_examples.sh
   only:
     - merge_requests
 
@@ -25,6 +28,9 @@ build_linux:
     - bash ./ci/scripts/prepare.sh
   script:
     - bash ./ci/scripts/run_tests.sh
-    - bash ./ci/scripts/build_all.sh 15.3.0
+    - bash ./ci/scripts/generate_cmake.sh
+    - bash ./ci/scripts/generate_cmake_tests.sh
+    - bash ./ci/scripts/build_all_libraries.sh
+    - bash ./ci/scripts/build_all_examples.sh
   only:
     - merge_requests
