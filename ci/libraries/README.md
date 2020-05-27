@@ -1,0 +1,1 @@
+# nRF library JSON definition
