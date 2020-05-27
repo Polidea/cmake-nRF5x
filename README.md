@@ -7,7 +7,7 @@ starting from nRF5 SDK version 15.3.0.
 ## How to use
 
 Copy all CMake files from the `./cmake` folder located in this repository to
-your project location and create a basic `CMakeList.txt` file:
+your project location and create a basic `CMakeLists.txt` file:
 
 ```cmake
 cmake_minimum_required(VERSION 3.14)
@@ -62,7 +62,7 @@ Make sure to check all available cached variables, which are documented below.
 ## Configuration
 
 CMake files are configured with cached variables. A lot of them are optional and
-can be deduces from other ones or SDK itself. Specify `-DNAME=VALUE` during
+can be deduced from other ones or SDK itself. Specify `-DNAME=VALUE` during
 project generation to pass them.
 
 ### `CMAKE_TOOLCHAIN_FILE` (file path, requred)
@@ -76,7 +76,7 @@ file is included in `./cmake` folder, which you should copy to your project.
 Path to the directory containing GCC toolchain. If not specified, version
 installed globally is used.
 
-### `NRF5_SDK_PATH` (dir path, required)
+### `NRF5_SDK_PATH` (directory path, required)
 
 Specifies a path to the nRF5 SDK, which should be used during compilation. Root
 directory should include folders like `examples`, `components` etc.
@@ -136,9 +136,9 @@ specified, globally installed binary is used.
 
 ## Contributing
 
-Project is developed in semi-automated way and throughly tested with CI by
-compiling both SDK provided examples and libraries. You can find more
-information about the project's setup, stucture, scripts etc. in the
+The project is developed in a semi-automated way and thoroughly tested with CI
+by compiling both SDK provided examples and libraries. You can find more
+information about the project's setup, structure, scripts, etc. in
 [`./ci/README.md`](./ci/README.md) file.
 
 [Thank you!](https://github.com/Polidea/cmake-nRF5x/graphs/contributors)
