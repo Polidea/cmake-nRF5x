@@ -1,0 +1,278 @@
+{
+  "nrf5_config": {
+    "documentation": "Config library",
+    "variant": "builtin"
+  },
+  "nrf5_mdk": {
+    "documentation": "Microcontroller Development Kit (MDK)",
+    "variant": "builtin",
+    "sources": [
+      "modules/nrfx/mdk/gcc_startup_nrf52.S",
+      "modules/nrfx/mdk/system_nrf52.c",
+      "modules/nrfx/mdk/gcc_startup_nrf52840.S",
+      "modules/nrfx/mdk/system_nrf52840.c",
+      "modules/nrfx/mdk/gcc_startup_nrf52810.S",
+      "modules/nrfx/mdk/system_nrf52810.c",
+      "modules/nrfx/mdk/gcc_startup_nrf52833.S",
+      "modules/nrfx/mdk/system_nrf52833.c",
+      "modules/nrfx/mdk/gcc_startup_nrf52811.S",
+      "modules/nrfx/mdk/system_nrf52811.c"
+    ],
+    "includes": {
+      "public": [
+        "components/toolchain/cmsis/include"
+      ]
+    },
+    "cflags": {
+      "public": [
+        "-DBOARD_NRF6310",
+        "-DBOARD_PCA10000",
+        "-DBOARD_PCA10001",
+        "-DBOARD_PCA10002",
+        "-DBOARD_PCA10003",
+        "-DBOARD_PCA20006",
+        "-DBOARD_PCA10028",
+        "-DBOARD_PCA10031",
+        "-DBOARD_PCA10036",
+        "-DBOARD_PCA10040",
+        "-DBOARD_PCA10040",
+        "-DBOARD_PCA10056",
+        "-DBOARD_PCA10056",
+        "-DBOARD_PCA10100",
+        "-DBOARD_PCA20020",
+        "-DBOARD_PCA10059",
+        "-DBOARD_WT51822",
+        "-DBOARD_N5DK1",
+        "-DBOARD_D52DK1",
+        "-DBOARD_ARDUINO_PRIMO",
+
+        "-DNRF51801_XXAB",
+        "-DNRF51802_XXAA",
+        "-DNRF51822_XXAA",
+        "-DNRF51822_XXAB",
+        "-DNRF51822_XXAC",
+        "-DNRF51824_XXAA",
+        "-DNRF51422_XXAA",
+        "-DNRF51422_XXAB",
+        "-DNRF51422_XXAC",
+        "-DNRF52805_XXAA",
+        "-DNRF52810_XXAA",
+        "-DNRF52811_XXAA",
+        "-DNRF52832_XXAA",
+        "-DNRF52832_XXAB",
+        "-DNRF52833_XXAA",
+        "-DNRF52840_XXAA",
+        "-DNRF51",
+        "-DNRF52",
+
+        "-mcpu=cortex-m0",
+        "-mcpu=cortex-m4",
+        "-mfloat-abi=soft",
+        "-DFLOAT_ABI_SOFT",
+        "-mfloat-abi=hard",
+        "-mfpu=fpv4-sp-d16",
+        "-DFLOAT_ABI_HARD",
+
+        "-fdata-sections",
+        "-ffunction-sections",
+        "-fno-builtin",
+        "-fno-strict-aliasing",
+        "-fshort-enums",
+        "-mabi=aapcs",
+        "-mthumb"
+      ]
+    },
+    "asmflags": {
+      "public":[
+        "-DBOARD_NRF6310",
+        "-DBOARD_PCA10000",
+        "-DBOARD_PCA10001",
+        "-DBOARD_PCA10002",
+        "-DBOARD_PCA10003",
+        "-DBOARD_PCA20006",
+        "-DBOARD_PCA10028",
+        "-DBOARD_PCA10031",
+        "-DBOARD_PCA10036",
+        "-DBOARD_PCA10040",
+        "-DBOARD_PCA10040",
+        "-DBOARD_PCA10056",
+        "-DBOARD_PCA10056",
+        "-DBOARD_PCA10100",
+        "-DBOARD_PCA20020",
+        "-DBOARD_PCA10059",
+        "-DBOARD_WT51822",
+        "-DBOARD_N5DK1",
+        "-DBOARD_D52DK1",
+        "-DBOARD_ARDUINO_PRIMO",
+
+        "-DNRF51801_XXAB",
+        "-DNRF51802_XXAA",
+        "-DNRF51822_XXAA",
+        "-DNRF51822_XXAB",
+        "-DNRF51822_XXAC",
+        "-DNRF51824_XXAA",
+        "-DNRF51422_XXAA",
+        "-DNRF51422_XXAB",
+        "-DNRF51422_XXAC",
+        "-DNRF52805_XXAA",
+        "-DNRF52810_XXAA",
+        "-DNRF52811_XXAA",
+        "-DNRF52832_XXAA",
+        "-DNRF52832_XXAB",
+        "-DNRF52833_XXAA",
+        "-DNRF52840_XXAA",
+        "-DNRF51",
+        "-DNRF52",
+
+        "-mcpu=cortex-m0",
+        "-mcpu=cortex-m4",
+        "-mfloat-abi=soft",
+        "-DFLOAT_ABI_SOFT",
+        "-mfloat-abi=hard",
+        "-mfpu=fpv4-sp-d16",
+        "-DFLOAT_ABI_HARD",
+
+        "-fdata-sections",
+        "-ffunction-sections",
+        "-fno-builtin",
+        "-fno-strict-aliasing",
+        "-fshort-enums",
+        "-mabi=aapcs",
+        "-mthumb"
+      ]
+    },
+    "ldflags": {
+      "public": [
+        "-DBOARD_NRF6310",
+        "-DBOARD_PCA10000",
+        "-DBOARD_PCA10001",
+        "-DBOARD_PCA10002",
+        "-DBOARD_PCA10003",
+        "-DBOARD_PCA20006",
+        "-DBOARD_PCA10028",
+        "-DBOARD_PCA10031",
+        "-DBOARD_PCA10036",
+        "-DBOARD_PCA10040",
+        "-DBOARD_PCA10040",
+        "-DBOARD_PCA10056",
+        "-DBOARD_PCA10056",
+        "-DBOARD_PCA10100",
+        "-DBOARD_PCA20020",
+        "-DBOARD_PCA10059",
+        "-DBOARD_WT51822",
+        "-DBOARD_N5DK1",
+        "-DBOARD_D52DK1",
+        "-DBOARD_ARDUINO_PRIMO",
+
+        "-DNRF51801_XXAB",
+        "-DNRF51802_XXAA",
+        "-DNRF51822_XXAA",
+        "-DNRF51822_XXAB",
+        "-DNRF51822_XXAC",
+        "-DNRF51824_XXAA",
+        "-DNRF51422_XXAA",
+        "-DNRF51422_XXAB",
+        "-DNRF51422_XXAC",
+        "-DNRF52805_XXAA",
+        "-DNRF52810_XXAA",
+        "-DNRF52811_XXAA",
+        "-DNRF52832_XXAA",
+        "-DNRF52832_XXAB",
+        "-DNRF52833_XXAA",
+        "-DNRF52840_XXAA",
+        "-DNRF51",
+        "-DNRF52",
+
+        "-mcpu=cortex-m0",
+        "-mcpu=cortex-m4",
+        "-mfloat-abi=soft",
+        "-DFLOAT_ABI_SOFT",
+        "-mfloat-abi=hard",
+        "-mfpu=fpv4-sp-d16",
+        "-DFLOAT_ABI_HARD",
+
+        "-fdata-sections",
+        "-ffunction-sections",
+        "-fno-builtin",
+        "-fno-strict-aliasing",
+        "-fshort-enums",
+        "-mabi=aapcs",
+        "-mthumb",
+
+        "--gc-sections",
+        "--specs=nano.specs",
+        "-L$(SDK_ROOT)/modules/nrfx/mdk",
+        "-T$(LINKER_SCRIPT)",
+        "-Wl",
+        "-mabi=aapcs",
+        "-mthumb"
+      ]
+    }
+  },
+  "nrf5_soc": {
+    "documentation": "SoC SoftDevice variant.",
+    "variant": "builtin",
+    "dependencies": {
+      "public": [
+        "nrf5_mdk"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "components/softdevice/mbr/headers",
+        "components/softdevice/mbr/nrf52810/headers",
+        "components/softdevice/mbr/nrf52832/headers",
+        "components/softdevice/mbr/nrf52840/headers",
+        "components/softdevice/s112/headers",
+        "components/softdevice/s112/headers/nrf52",
+        "components/softdevice/s113/headers",
+        "components/softdevice/s113/headers/nrf52",
+        "components/softdevice/s132/headers",
+        "components/softdevice/s132/headers/nrf52",
+        "components/softdevice/s312/headers",
+        "components/softdevice/s312/headers/nrf52",
+        "components/softdevice/s332/headers",
+        "components/softdevice/s332/headers/nrf52",
+        "components/softdevice/s340/headers",
+        "components/softdevice/s340/headers/nrf52",
+        "components/drivers_nrf/nrf_soc_nosd"
+      ]
+    },
+    "asmflags": {
+      "public": [
+        "-DS112",
+        "-DS113",
+        "-DS132",
+        "-DS140",
+        "-DS212",
+        "-DS312",
+        "-DS332",
+        "-DS340"
+      ]
+    },
+    "cflags": {
+      "public": [
+        "-DS112",
+        "-DS113",
+        "-DS132",
+        "-DS140",
+        "-DS212",
+        "-DS312",
+        "-DS332",
+        "-DS340"
+      ]
+    },
+    "ldflags": {
+      "public": [
+        "-DS112",
+        "-DS113",
+        "-DS132",
+        "-DS140",
+        "-DS212",
+        "-DS312",
+        "-DS332",
+        "-DS340"
+      ]
+    }
+  }
+}

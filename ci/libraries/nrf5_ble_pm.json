@@ -8,7 +8,8 @@
     "dependencies": {
       "public": [
         "nrf5_config",
-        "nrf5_crypto_fwd",
+        "nrf5_crypto",
+        "nrf5_log",
         "nrf5_mdk",
         "nrf5_soc"
       ]
@@ -29,6 +30,7 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
+        "nrf5_ble_pm_buffer",
         "nrf5_memobj"
       ]
     },
@@ -48,6 +50,8 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
+        "nrf5_ble_peer_id",
+        "nrf5_ble_peer_database",
         "nrf5_fds",
         "nrf5_memobj"
       ]
@@ -136,7 +140,8 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
-        "nrf5_memobj"
+        "nrf5_memobj",
+        "nrf5_ble_auth_status_tracker"
       ]
     },
     "includes": {
@@ -154,7 +159,8 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
-        "nrf5_memobj"
+        "nrf5_memobj",
+        "nrf5_ble_security_dispatcher"
       ]
     },
     "includes": {
@@ -193,7 +199,8 @@
       "public": [
         "nrf5_ble_common",
         "nrf5_fds",
-        "nrf5_memobj"
+        "nrf5_memobj",
+        "nrf5_ble_peer_manager"
       ]
     },
     "includes": {
@@ -211,7 +218,11 @@
     "dependencies": {
       "public": [
         "nrf5_ble_common",
-        "nrf5_memobj"
+        "nrf5_memobj",
+        "nrf5_ble_id_manager",
+        "nrf5_ble_gatt_cache_manager",
+        "nrf5_ble_security_manager",
+        "nrf5_ble_peer_data_storage"
       ]
     },
     "includes": {

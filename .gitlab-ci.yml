@@ -9,7 +9,10 @@ build_mac:
     - bash ./ci/scripts/prepare.sh
   script:
     - bash ./ci/scripts/run_tests.sh
-    - bash ./ci/scripts/build_all.sh 15.3.0
+    - bash ./ci/scripts/generate_cmake.sh
+    - bash ./ci/scripts/generate_cmake_tests.sh
+    - bash ./ci/scripts/build_all_libraries.sh
+    - bash ./ci/scripts/build_all_examples.sh
   only:
     - merge_requests
 
@@ -21,10 +24,13 @@ build_linux:
   before_script:
     - apt-get update
     - ln -fs /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
-    - apt-get -y install curl cmake ninja-build unzip tar python3-pip python3-venv
+    - apt-get -y install curl cmake ninja-build unzip tar python3-pip python3-venv git
     - bash ./ci/scripts/prepare.sh
   script:
     - bash ./ci/scripts/run_tests.sh
-    - bash ./ci/scripts/build_all.sh 15.3.0
+    - bash ./ci/scripts/generate_cmake.sh
+    - bash ./ci/scripts/generate_cmake_tests.sh
+    - bash ./ci/scripts/build_all_libraries.sh
+    - bash ./ci/scripts/build_all_examples.sh
   only:
     - merge_requests

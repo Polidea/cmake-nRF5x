@@ -1,0 +1,10 @@
+{
+  "nrf5_ext_micro_ecc_fwd": {
+    "documentation": "Micro ECC (forward interface)",
+    "variant": "builtin"
+  },
+  "micro_ecc": {
+    "documentation": "Micro ECC",
+    "variant": "builtin"
+  }
+}

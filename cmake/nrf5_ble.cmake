@@ -19,6 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+#
+# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake.sh SCRIPT.
 
 # BLE common
 add_library(nrf5_ble_common OBJECT EXCLUDE_FROM_ALL
@@ -76,6 +78,12 @@ target_link_libraries(nrf5_ble_db_discovery PUBLIC
   nrf5_ble_common
   nrf5_log
 )
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  
+  target_link_libraries(nrf5_ble_db_discovery PUBLIC
+    nrf5_ble_gq
+  )
+endif()
 
 # BLE GATT
 add_library(nrf5_ble_gatt OBJECT EXCLUDE_FROM_ALL
@@ -114,3 +122,18 @@ target_include_directories(nrf5_ble_link_ctx_manager PUBLIC
 target_link_libraries(nrf5_ble_link_ctx_manager PUBLIC
   nrf5_ble_common
 )
+
+# BLE GATT Queue library
+if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
+  add_library(nrf5_ble_gq OBJECT EXCLUDE_FROM_ALL
+    "${NRF5_SDK_PATH}/components/ble/nrf_ble_gq/nrf_ble_gq.c"
+  )
+  target_include_directories(nrf5_ble_gq PUBLIC
+    "${NRF5_SDK_PATH}/components/ble/nrf_ble_gq"
+  )
+  target_link_libraries(nrf5_ble_gq PUBLIC
+    nrf5_ble_common
+    nrf5_memobj
+    nrf5_queue
+  )
+endif()

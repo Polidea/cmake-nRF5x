@@ -19,6 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+#
+# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake.sh SCRIPT.
 
 # Delay
 add_library(nrf5_delay INTERFACE)
@@ -96,6 +98,7 @@ target_include_directories(nrf5_sdh PUBLIC
   "${NRF5_SDK_PATH}/components/softdevice/common"
 )
 target_link_libraries(nrf5_sdh PUBLIC
+  nrf5_app_util_platform
   nrf5_log_fwd
   nrf5_section
   nrf5_strerror
@@ -187,6 +190,7 @@ target_include_directories(nrf5_pwr_mgmt PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/pwr_mgmt"
 )
 target_link_libraries(nrf5_pwr_mgmt PUBLIC
+  nrf5_app_util_platform
   nrf5_log_fwd
   nrf5_memobj
   nrf5_mtx
@@ -227,4 +231,38 @@ target_link_libraries(nrf5_mem_manager PUBLIC
   nrf5_section
   nrf5_soc
   nrf5_strerror
+)
+
+# SHA256 library (includes only)
+add_library(nrf5_sha256_fwd INTERFACE)
+target_include_directories(nrf5_sha256_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/sha256"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_sha256_fwd INTERFACE
+  nrf5_config
+  nrf5_soc
+)
+
+# SHA256 library
+add_library(nrf5_sha256 OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/sha256/sha256.c"
+)
+target_link_libraries(nrf5_sha256 PUBLIC
+  nrf5_sha256_fwd
+)
+
+# TWI transaction manager
+add_library(nrf5_twi_mngr OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/twi_mngr/nrf_twi_mngr.c"
+)
+target_include_directories(nrf5_twi_mngr PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/twi_mngr"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_twi_mngr PUBLIC
+  nrf5_app_util_platform
+  nrf5_config
+  nrf5_drv_twi
+  nrf5_queue
 )

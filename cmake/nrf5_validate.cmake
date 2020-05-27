@@ -184,6 +184,16 @@ function(nrf5_find_linker_file sdk_path sdk_version target sd_variant out_linker
   set(${out_linker_file_path} "${linker_file_path}" PARENT_SCOPE)
 endfunction()
 
+function(nrf5_find_sdk_config_file sdk_path sdk_version target out_sdk_config_path)
+  nrf5_split_target(${target} target_family target_variant target_group)
+  set(sdk_config_path_patterns 
+    # Common config file for taget group
+    "${sdk_path}/config/${target_group}/config"
+  )
+  nrf5_find_file_path_with_patterns("${sdk_config_path_patterns}" sdk_config_path)
+  set(${out_sdk_config_path} "${sdk_config_path}" PARENT_SCOPE)
+endfunction()
+
 function(nrf5_get_startup_file sdk_path target out_startup_file out_system_file)
   nrf5_split_target(${target} target_family target_variant target_group)
   set(startup_file_patterns 

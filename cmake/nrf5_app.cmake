@@ -19,6 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+#
+# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake.sh SCRIPT.
 
 # Application Scheduler
 add_library(nrf5_app_scheduler OBJECT EXCLUDE_FROM_ALL
@@ -68,6 +70,7 @@ target_include_directories(nrf5_app_timer PUBLIC
 )
 target_link_libraries(nrf5_app_timer PUBLIC
   nrf5_app_scheduler
+  nrf5_app_util_platform
   nrf5_delay
   nrf5_nrfx_hal
 )

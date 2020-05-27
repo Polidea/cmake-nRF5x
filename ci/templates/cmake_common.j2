@@ -5,13 +5,13 @@
 {%- if version["from"] == version["to"] -%}
 if(NRF5_SDK_VERSION VERSION_EQUAL {{version["from"]}})
   {% else -%}
-if((NRF5_SDK_VERSION VERSION_EQUAL {{version["from"]}} OR NRF5_SDK_VERSION VERSION_GREATER {{version["from"]}}) AND
-   (NRF5_SDK_VERSION VERSION_EQUAL {{version["to"]}} OR NRF5_SDK_VERSION VERSION_LESS {{version["to"]}}))
+if((NRF5_SDK_VERSION VERSION_GREATER_EQUAL {{version["from"]}}) AND
+   (NRF5_SDK_VERSION VERSION_LESS_EQUAL {{version["to"]}}))
   {% endif -%}
 {%- elif version["from"] -%}
-if(NRF5_SDK_VERSION VERSION_EQUAL {{version["from"]}} OR NRF5_SDK_VERSION VERSION_GREATER {{version["from"]}})
+if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL {{version["from"]}})
   {% else -%}
-if(NRF5_SDK_VERSION VERSION_EQUAL {{version["to"]}} OR NRF5_SDK_VERSION VERSION_LESS {{version["to"]}})
+if(NRF5_SDK_VERSION VERSION_LESS_EQUAL {{version["to"]}})
   {% endif -%}
   {{ content | indent(2) }}
 endif()

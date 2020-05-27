@@ -1,10 +1,54 @@
 {
-  "nrf5_crypto_fwd": {
-    "documentation": "nRF Crypto forwarding interface (include directories only)",
-    "variant": "interface",
+  "nrf5_crypto": {
+    "documentation": "Crypto",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crypto/nrf_crypto_aead.c",
+      "components/libraries/crypto/nrf_crypto_aes.c",
+      "components/libraries/crypto/nrf_crypto_aes_shared.c",
+      "components/libraries/crypto/nrf_crypto_ecc.c",
+      "components/libraries/crypto/nrf_crypto_ecdh.c",
+      "components/libraries/crypto/nrf_crypto_ecdsa.c",
+      "components/libraries/crypto/nrf_crypto_eddsa.c",
+      "components/libraries/crypto/nrf_crypto_error.c",
+      "components/libraries/crypto/nrf_crypto_hash.c",
+      "components/libraries/crypto/nrf_crypto_hkdf.c",
+      "components/libraries/crypto/nrf_crypto_hmac.c",
+      "components/libraries/crypto/nrf_crypto_init.c",
+      "components/libraries/crypto/nrf_crypto_rng.c",
+      "components/libraries/crypto/nrf_crypto_shared.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_config",
+        "nrf5_soc",
+        "nrf5_stack_info",
+        "nrf5_mem_manager",
+        "nrf5_ext_cc310_fwd",
+        "nrf5_ext_cc310_bl_fwd",
+        "nrf5_ext_cifra_aes128_eax_fwd",
+        "nrf5_ext_mbedtls_fwd",
+        "nrf5_ext_micro_ecc_fwd",
+        "nrf5_sha256_fwd",
+        "nrf5_ext_oberon_fwd",
+        "nrf5_ext_optiga_fwd"
+      ]
+    },
     "includes": {
-      "interface": [
-        "components/libraries/crypto"
+      "public": [
+        "components/libraries/crypto",
+        "components/libraries/crypto/backend/cc310",
+        "components/libraries/crypto/backend/cc310_bl",
+        "components/libraries/crypto/backend/cifra",
+        "components/libraries/crypto/backend/mbedtls",
+        "components/libraries/crypto/backend/oberon",
+        "components/libraries/crypto/backend/micro_ecc",
+        "components/libraries/crypto/backend/optiga",
+        "components/libraries/crypto/backend/nrf_sw",
+        "components/libraries/crypto/backend/nrf_hw",
+        "components/libraries/util",
+        "components/libraries/experimental_section_vars"
       ]
     }
   },
@@ -28,6 +72,7 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_crypto",
         "nrf5_ext_cc310_fwd",
         "nrf5_mtx",
         "nrf5_nrfx_common"
@@ -52,9 +97,8 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_config",
-        "nrf5_mdk",
-        "nrf5_soc"
+        "nrf5_crypto",
+        "nrf5_ext_cc310_bl_fwd"
       ]
     },
     "includes": {
@@ -72,6 +116,8 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_crypto",
+        "nrf5_ext_cifra_aes128_eax",
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc"
@@ -99,7 +145,7 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_crypto_fwd",
+        "nrf5_crypto",
         "nrf5_ext_mbedtls_fwd",
         "nrf5_mdk",
         "nrf5_nrfx_common",
@@ -123,6 +169,8 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_crypto",
+        "micro_ecc",
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc"
@@ -149,6 +197,7 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_crypto",
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc"
@@ -171,6 +220,8 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_crypto",
+        "nrf5_drv_rng",
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc"
@@ -191,6 +242,8 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_crypto",
+        "nrf5_sha256",
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc"
@@ -217,7 +270,8 @@
     "dependencies": {
       "public": [
         "nrf5_config",
-        "nrf5_crypto_fwd",
+        "nrf5_ext_optiga",
+        "nrf5_crypto",
         "nrf5_mdk",
         "nrf5_soc"
       ]
@@ -227,50 +281,17 @@
         "components/libraries/crypto/backend/optiga",
         "components/libraries/util"
       ]
-    }
-  },
-  "nrf5_crypto": {
-    "documentation": "Crypto",
-    "variant": "object",
-    "sources": [
-      "components/libraries/crypto/nrf_crypto_aead.c",
-      "components/libraries/crypto/nrf_crypto_aes.c",
-      "components/libraries/crypto/nrf_crypto_aes_shared.c",
-      "components/libraries/crypto/nrf_crypto_ecc.c",
-      "components/libraries/crypto/nrf_crypto_ecdh.c",
-      "components/libraries/crypto/nrf_crypto_ecdsa.c",
-      "components/libraries/crypto/nrf_crypto_eddsa.c",
-      "components/libraries/crypto/nrf_crypto_error.c",
-      "components/libraries/crypto/nrf_crypto_hash.c",
-      "components/libraries/crypto/nrf_crypto_hkdf.c",
-      "components/libraries/crypto/nrf_crypto_hmac.c",
-      "components/libraries/crypto/nrf_crypto_init.c",
-      "components/libraries/crypto/nrf_crypto_rng.c",
-      "components/libraries/crypto/nrf_crypto_shared.c"
-    ],
-    "dependencies": {
-      "public": [
-        "nrf5_crypto_cc310_backend",
-        "nrf5_crypto_cc310_bl_backend",
-        "nrf5_crypto_cifra_backend",
-        "nrf5_crypto_mbedtls_backend",
-        "nrf5_crypto_micro_ecc_backend",
-        "nrf5_crypto_nrf_hw_backend",
-        "nrf5_crypto_nrf_sw_backend",
-        "nrf5_crypto_oberon_backend",
-        "nrf5_crypto_optiga_backend",
-        "nrf5_log",
-        "nrf5_section",
-        "nrf5_stack_info",
-        "nrf5_svc"
-      ]
     },
-    "includes": {
-      "public": [
-        "components/libraries/crypto",
-        "components/libraries/svc",
-        "components/libraries/util"
-      ]
-    }
+    "patches": [
+      {
+        "operation": "remove",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "sources": [
+          "components/libraries/crypto/backend/optiga/optiga_backend_utils.c"
+        ]
+      }
+    ]
   }
 }

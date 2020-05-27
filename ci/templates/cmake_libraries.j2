@@ -1,15 +1,23 @@
 {%- import 'cmake_common.j2' as cmake -%}
-{%- include 'license_header.j2' -%}
+{%- include 'license_header.j2' %}
+#
+# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake.sh SCRIPT.
 
-{# Macro generating library additive patches #}
+{#- Macro generating library additive patches #}
 {%- macro print_patch(name, lib) -%}
+{%- if lib["sources"] -%}
 target_sources({{name}} PRIVATE 
 {%- for source in lib["sources"] %}
   "${NRF5_SDK_PATH}/{{ source }}"
 {%- endfor %}
 )
+{%- else -%}
+{%- endif -%}
 {{- cmake.target_command("target_include_directories", name, lib["includes"] or None, '"${NRF5_SDK_PATH}/', '"') -}}
 {{- cmake.target_command("target_link_libraries", name, lib["dependencies"] or None) -}}
+{{- cmake.target_command("target_compile_options", name, lib["cflags"] or None, '"$<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:', '>"') -}}
+{{- cmake.target_command("target_compile_options", name, lib["asmflags"] or None, '"$<$<COMPILE_LANGUAGE:ASM>:', '>"') -}}
+{{- cmake.target_command("target_link_options", name, lib["ldflags"] or None, '"', '"') -}}
 {%- endmacro -%}
 
 {# Macro generating base library definitions #}
@@ -24,6 +32,9 @@ add_library({{lib["name"]}} {{lib["variant"]}} {%- if lib["variant"] != "INTERFA
 {%- endif -%}
 {{- cmake.target_command("target_include_directories", lib["name"], lib["base"]["includes"] or None, '"${NRF5_SDK_PATH}/', '"') -}}
 {{- cmake.target_command("target_link_libraries", lib["name"], lib["base"]["dependencies"] or None) -}}
+{{- cmake.target_command("target_compile_options", lib["name"], lib["base"]["cflags"] or None, '"$<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:', '>"') -}}
+{{- cmake.target_command("target_compile_options", lib["name"], lib["base"]["asmflags"] or None, '"$<$<COMPILE_LANGUAGE:ASM>:', '>"') -}}
+{{- cmake.target_command("target_link_options", lib["name"], lib["base"]["ldflags"] or None, '"', '"') -}}
 {%- for sdk in lib["patches"] %}
 if(NRF5_SDK_VERSION VERSION_EQUAL {{ sdk }})
   {{ print_patch(lib["name"], lib["patches"][sdk]) | indent(2) }}

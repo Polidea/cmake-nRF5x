@@ -27,6 +27,10 @@ include("nrf5_validate")
 set(NRF5_SDK_PATH "" CACHE PATH "Path to the nRF5 SDK")
 set(NRF5_SDK_VERSION "" CACHE STRING "nRF5 SDK version, e.g.: 15.3.0")
 
+if(NOT NRF5_SDK_PATH)
+  message(FATAL_ERROR "Path to the nRF5 SDK not provided. Please set NRF5_SDK_PATH cache variable.")
+endif()
+
 nrf5_validate_sdk(${NRF5_SDK_PATH} local_sdk_version)
 if(NOT NRF5_SDK_VERSION)
   message(STATUS "nRF SDK version not explicitly provided, using deduced one: ${local_sdk_version}")
@@ -63,6 +67,9 @@ if(NRF5_TARGET)
   set(NRF5_TARGET ${local_target})
   add_compile_options(${local_target_flags})
   add_link_options(${local_target_flags})
+  if(NRF5_BOARD_DEFINE)
+    add_compile_options("-D${NRF5_BOARD_DEFINE}")
+  endif()
 else()
   message(FATAL_ERROR "NRF5_TARGET not specified")
 endif()
@@ -75,15 +82,14 @@ set(NRF5_SOFTDEVICE_VARIANT "" CACHE STRING "SoftDevice variant. Set to 'blank' 
 if(NRF5_SOFTDEVICE_VARIANT)
   string(TOLOWER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT)
   nrf5_validate_softdevice_variant(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} ${NRF5_SOFTDEVICE_VARIANT} local_sd_hex_file_path local_sd_flags)
+  add_compile_options(${local_sd_flags})
+  add_link_options(${local_sd_flags})
 else()
   message(FATAL_ERROR "You must specify NRF5_SOFTDEVICE_VARIANT, e.g: blank, s130")
 endif()
 
 message(STATUS "Using SoftDevice HEX file: ${local_sd_hex_file_path}")
 message(STATUS "Using SoftDevice variant: ${NRF5_SOFTDEVICE_VARIANT}")
-
-string(TOLOWER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT_LOWER)
-string(TOUPPER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT_UPPER)
 
 # Get linker script.
 set(NRF5_LINKER_SCRIPT "" CACHE FILEPATH "Linker script file. If not specified, a generic script for a selected target will be used.")
@@ -101,19 +107,30 @@ endif()
 
 message(STATUS "Using linker script: ${NRF5_LINKER_SCRIPT}")
 
+# SDK config file
 set(NRF5_SDKCONFIG_PATH "" CACHE PATH "Path to the sdk_config.h file. If not specified, a generic sdk_config.h for a selected target file will be used.")
 if(NOT NRF5_SDKCONFIG_PATH)
-  set(NRF5_SDKCONFIG_PATH "${NRF5_SDK_PATH}/config/${NRF5_TARGET}/config" CACHE PATH "" FORCE)
+  nrf5_find_sdk_config_file(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} out_sdk_config_path)
+  if(NOT out_sdk_config_path)
+    message(FATAL_ERROR "Cannot find generic SDK config file, please specify it via NRF5_SDKCONFIG_PATH variable")
+  endif()
+  set(NRF5_SDKCONFIG_PATH "${out_sdk_config_path}")
+else()
+  if (NOT EXISTS "${NRF5_SDKCONFIG_PATH}/sdk_config.h")
+    message(FATAL_ERROR "SDK config file not found in ${NRF5_SDKCONFIG_PATH}")
+  endif()
 endif()
 
-set(NRF5_APPCONFIG_PATH "" CACHE PATH "Path to the app_config.h file. If not specified, app_config.h will not be used.")
-
 message(STATUS "Using sdk_config.h include path: ${NRF5_SDKCONFIG_PATH}")
+
+# App config path
+set(NRF5_APPCONFIG_PATH "" CACHE PATH "Path to the app_config.h file. If not specified, app_config.h will not be used.")
 
 if(NRF5_APPCONFIG_PATH)
   message(STATUS "Using app_config.h include path: ${NRF5_APPCONFIG_PATH}")
 endif()
 
+# NRFJPROG executable
 set(NRF5_NRFJPROG "" CACHE FILEPATH "nrfjprog utility executable file. If not specified, it is assumed that nrfjprog is available from PATH.")
 if(NOT NRF5_NRFJPROG)
   set(NRF5_NRFJPROG "nrfjprog" CACHE FILEPATH "" FORCE)
@@ -122,6 +139,7 @@ else()
   message(STATUS "Using nrfjprog utility: ${NRF5_NRFJPROG}")
 endif()
 
+# Config library
 add_library(nrf5_config INTERFACE)
 target_include_directories(nrf5_config INTERFACE "${NRF5_SDKCONFIG_PATH}")
 if(NRF5_APPCONFIG_PATH)
@@ -141,17 +159,25 @@ target_include_directories(nrf5_mdk PUBLIC
   "${NRF5_SDK_PATH}/modules/nrfx/mdk"
 )
 
-# SoC header files (SoftDevice variant)
-# NOTE: there is another variant of this dependency for non-SoftDevice projects but it is not supported by this solution
-add_library(nrf5_soc INTERFACE)
-target_include_directories(nrf5_soc INTERFACE
-  "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT_LOWER}/headers"
-  "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT_LOWER}/headers/nrf52"
-)
-target_compile_definitions(nrf5_soc INTERFACE
-  SOFTDEVICE_PRESENT  
-  ${NRF5_SOFTDEVICE_VARIANT_UPPER}
-)
+if(${NRF5_SOFTDEVICE_VARIANT} STREQUAL "blank")
+  # SoC no SoftDevice variant.
+  add_library(nrf5_soc OBJECT
+    "${NRF5_SDK_PATH}/components/drivers_nrf/nrf_soc_nosd/nrf_nvic.c"
+    "${NRF5_SDK_PATH}/components/drivers_nrf/nrf_soc_nosd/nrf_soc.c"
+  )
+  target_include_directories(nrf5_soc INTERFACE
+    "${NRF5_SDK_PATH}/components/drivers_nrf/nrf_soc_nosd"
+  )
+  target_link_libraries(nrf5_soc PUBLIC nrf5_mdk)
+else()
+  # SoC SoftDevice variant.
+  add_library(nrf5_soc INTERFACE)
+  target_include_directories(nrf5_soc INTERFACE
+    "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT}/headers"
+    "${NRF5_SDK_PATH}/components/softdevice/${NRF5_SOFTDEVICE_VARIANT}/headers/nrf52"
+  )
+  target_link_libraries(nrf5_soc INTERFACE nrf5_mdk)
+endif()
 
 # Target definitions
 include("nrf5_common")
@@ -165,8 +191,9 @@ include("nrf5_ble")
 include("nrf5_ble_pm")
 include("nrf5_ble_srv")
 include("nrf5_iot")
-include("nrf5_external")
 include("nrf5_misc")
+include("nrf5_external")
+include("nrf5_external_libs")
 
 function(nrf5_target exec_target)
   # nrf5_mdk must be linked as startup_*.S contains definition of the Reset_Handler entry symbol 

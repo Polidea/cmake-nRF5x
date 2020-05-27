@@ -19,6 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+#
+# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake.sh SCRIPT.
 
 # BLE LESC
 add_library(nrf5_ble_lesc OBJECT EXCLUDE_FROM_ALL
@@ -30,7 +32,8 @@ target_include_directories(nrf5_ble_lesc PUBLIC
 )
 target_link_libraries(nrf5_ble_lesc PUBLIC
   nrf5_config
-  nrf5_crypto_fwd
+  nrf5_crypto
+  nrf5_log
   nrf5_mdk
   nrf5_soc
 )
@@ -45,6 +48,7 @@ target_include_directories(nrf5_ble_peer_database PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_database PUBLIC
   nrf5_ble_common
+  nrf5_ble_pm_buffer
   nrf5_memobj
 )
 
@@ -57,6 +61,8 @@ target_include_directories(nrf5_ble_peer_data_storage PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_data_storage PUBLIC
   nrf5_ble_common
+  nrf5_ble_peer_database
+  nrf5_ble_peer_id
   nrf5_fds
   nrf5_memobj
 )
@@ -114,6 +120,7 @@ target_include_directories(nrf5_ble_security_dispatcher PUBLIC
   "${NRF5_SDK_PATH}/components/ble/peer_manager"
 )
 target_link_libraries(nrf5_ble_security_dispatcher PUBLIC
+  nrf5_ble_auth_status_tracker
   nrf5_ble_common
   nrf5_memobj
 )
@@ -127,6 +134,7 @@ target_include_directories(nrf5_ble_security_manager PUBLIC
 )
 target_link_libraries(nrf5_ble_security_manager PUBLIC
   nrf5_ble_common
+  nrf5_ble_security_dispatcher
   nrf5_memobj
 )
 
@@ -153,6 +161,7 @@ target_include_directories(nrf5_ble_peer_manager_handler PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_manager_handler PUBLIC
   nrf5_ble_common
+  nrf5_ble_peer_manager
   nrf5_fds
   nrf5_memobj
 )
@@ -166,5 +175,9 @@ target_include_directories(nrf5_ble_peer_manager PUBLIC
 )
 target_link_libraries(nrf5_ble_peer_manager PUBLIC
   nrf5_ble_common
+  nrf5_ble_gatt_cache_manager
+  nrf5_ble_id_manager
+  nrf5_ble_peer_data_storage
+  nrf5_ble_security_manager
   nrf5_memobj
 )
