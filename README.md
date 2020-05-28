@@ -1,7 +1,7 @@
 # nRF5 CMake
 
 This repository provides platform-agnostic CMake files that can be used to build
-nRF5 projects. Our goal is to cover the most used libraries and examples
+custom nRF5 projects. Our goal is to cover the most used libraries and examples
 starting from nRF5 SDK version 15.3.0.
 
 ## How to use
@@ -26,7 +26,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
 )
 ```
 
-The above example compiles source from the SDK and the user is expected to copy
+The above example compiles source from the SDK but the user is expected to copy
 `main.c` and modify it instead. Below you can look at a very basic bash script,
 which builds and flashes blinky example.
 
