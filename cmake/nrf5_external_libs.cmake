@@ -133,6 +133,7 @@ else()
   # Download uECC from github.
   include(ExternalProject)
   ExternalProject_Add(micro_ecc_src
+    EXCLUDE_FROM_ALL TRUE
     PREFIX external/micro_ecc_src
     GIT_REPOSITORY "https://github.com/kmackay/micro-ecc.git"
     BUILD_COMMAND ""
