@@ -12,7 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: sudo add-apt-repository ppa:deadsnakes/ppa && sudo apt-get -y install python3.7 curl cmake ninja-build unzip tar python3-pip python3-venv git
+        run: |
+          sudo add-apt-repository ppa:deadsnakes/ppa
+          sudo apt-get -y install curl cmake ninja-build unzip tar python3.7 python3-pip python3-venv git
+          sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
+          python3 --version
       - name: Prepare repository
         run: ./ci/scripts/prepare.sh
       - name: Run Python tests
