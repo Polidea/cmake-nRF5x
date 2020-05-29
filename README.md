@@ -57,7 +57,9 @@ cmake --build build --target flash
 ```
 
 You can find more examples in the repo's [`./ci/examples/`](./ci/examples) folder.
-Make sure to check all available cached variables, which are documented below.
+Make sure to check all available cached variables, which are documented below
+and read [Contributing readme](./ci/README.md) file if you plan to automate SDK
+and tool downloads.
 
 ## Configuration
 
