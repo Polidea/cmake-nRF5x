@@ -1,0 +1,30 @@
+name: Github CI configuration
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+      - name: Install dependencies
+        run: sudo apt-get -y install curl cmake ninja-build unzip tar git
+      - name: Prepare repository
+        run: ./ci/scripts/prepare.sh
+      - name: Run Python tests
+        run: ./ci/scripts/run_tests.sh
+      - name: Generate CMake files
+        run: ./ci/scripts/generate_cmake.sh
+      - name: Generate CMake libraries tests
+        run: ./ci/scripts/generate_cmake_tests.sh
+      - name: Build all libraries tests
+        run: ./ci/scripts/build_all_libraries.sh
+      - name: Build all examples
+        run: ./ci/scripts/build_all_examples.sh
