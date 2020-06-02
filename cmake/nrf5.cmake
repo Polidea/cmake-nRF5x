@@ -130,6 +130,9 @@ if(NRF5_APPCONFIG_PATH)
   message(STATUS "Using app_config.h include path: ${NRF5_APPCONFIG_PATH}")
 endif()
 
+# NOTE: if `__STACK_SIZE` and/or `__HEAP_SIZE` are not the defined, the startup (.S) file automatically defines stack/heap boundaries
+# using default values for the specified target
+
 # Stack size
 set(NRF5_STACK_SIZE "" CACHE STRING "Max. size of the stack (in bytes), defines `__STACK_SIZE` accordingly. If not specified, a default value for the specified target will be used.")
 if(NRF5_STACK_SIZE)
