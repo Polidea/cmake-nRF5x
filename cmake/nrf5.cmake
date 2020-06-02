@@ -140,6 +140,16 @@ if(NRF5_STACK_SIZE)
   message(STATUS "Using stack size: ${NRF5_STACK_SIZE}")
 endif()
 
+# Heap size
+set(NRF5_HEAP_SIZE "" CACHE STRING "Max. size of the heap (in bytes), defines `__HEAP_SIZE` accordingly. If not specified, a default value for the specified target will be used.")
+if(NRF5_HEAP_SIZE)
+  if(NOT NRF5_HEAP_SIZE MATCHES "^[1-9][0-9]*$")
+    message(FATAL_ERROR "NRF5_HEAP_SIZE must be a positive decimal integer")
+  endif()
+  add_compile_options("-D__HEAP_SIZE=${NRF5_HEAP_SIZE}")
+  message(STATUS "Using heap size: ${NRF5_HEAP_SIZE}")
+endif()
+
 # NRFJPROG executable
 set(NRF5_NRFJPROG "" CACHE FILEPATH "nrfjprog utility executable file. If not specified, it is assumed that nrfjprog is available from PATH.")
 if(NOT NRF5_NRFJPROG)
