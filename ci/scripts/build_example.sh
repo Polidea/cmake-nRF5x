@@ -29,6 +29,10 @@ function print_help() {
 
         --build_dir=<dir>           Build directory where the build system files
                                     and build artifacts will be generated.
+
+        --log_level=<log_level>     CMake log level. Will be passed as '--log-level' option
+                                    when invoking CMake. Available log levels: TRACE, DEBUG,
+                                    VERBOSE, STATUS, NOTICE, WARNING, ERROR.
     "
     exit 0
 }
@@ -46,6 +50,7 @@ board=""
 sd_variant=""
 toolchain="gcc"
 config_dir=""
+log_level="STATUS"
 
 while getopts ":h-:" opt; do
     case $opt in
@@ -66,6 +71,13 @@ while getopts ":h-:" opt; do
                     config_dir=${OPTARG#*=} ;;
                 build_dir=*)
                     build_dir=${OPTARG#*=} ;;
+                log_level=*) {
+                    log_level=${OPTARG#*=} 
+                    if [[ ! $log_level =~ $CMAKE_LOG_LEVEL_REGEXP ]]; then
+                        echo "Invalid log level \"$log_level\" (available log levels: TRACE, DEBUG, VERBOSE, STATUS, NOTICE, WARNING, ERROR)"
+                        exit 1
+                    fi
+                };;
                 help)
                     print_help ;;
                 *) {
@@ -94,4 +106,4 @@ check_option "sdk_version" $sdk_version
 check_option "board" $board
 check_option "sd_variant" $sd_variant
 
-build_example $example $sdk_version $board $sd_variant $toolchain $config_dir $build_dir
+build_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$config_dir" "$build_dir" "$log_level"
