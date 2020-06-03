@@ -47,8 +47,22 @@ function build_all_configs() {
 }
 
 function print_help() {
-    # TODO: write help
-    echo "Help!"
+    echo "
+    Usage:
+    --------------------------------------------------------------------------------
+
+    [Optional]
+
+        --sdk_versions={<version>}  nRF5 SDK version used for building examples, multiple
+                                    SDK versions can be passed, e.g. \"15.3.0 16.0.0\".
+                                    By default, the examples will be built for all SDK
+                                    versions downloaded during the prepare step.
+
+        --log_level=<log_level>     CMake log level. Will be passed as '--log-level' option
+                                    when invoking CMake. Available log levels: TRACE, DEBUG,
+                                    VERBOSE, STATUS, NOTICE, WARNING, ERROR.
+    "
+    exit 0
 }
 
 sdk_version_list=""
