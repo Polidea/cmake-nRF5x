@@ -164,7 +164,9 @@ popd > /dev/null
 build_summary_file="$BUILD_DIR/.tmp/build_summary.tmp"
 mkdir -p `dirname $build_summary_file`
 
-printf "\n" > $build_summary_file
+# Print build summary header
+
+printf "BUILD SUMMARY\n\n" > $build_summary_file
 printf "$BUILD_SUMMARY_ENTRY_FORMAT" "example" "board" "sd_variant" "sdk_version" "elapsed" "status" >> "$build_summary_file"
 
 for i in `seq 1 128`; do
@@ -187,4 +189,5 @@ for sdk_ver in "${sdk_versions[@]}"; do
     done
 done
 
+echo ""
 cat "$build_summary_file"
