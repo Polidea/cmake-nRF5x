@@ -5,6 +5,14 @@ source "${BASH_SOURCE%/*}/common/build_example.sh"
 # Ignored list of examples separated with semicolon.
 build_ignore_config_list="pca10100_16.0.0"
 
+function ns_to_ms() {
+    if [[ ${#1} -lt 7 ]]; then
+        echo 0
+    fi
+
+    echo ${1::-6}
+}
+
 function build_all_configs() {
     local example=$1
     local sdk_version=$2
@@ -12,6 +20,7 @@ function build_all_configs() {
     local config_dir=$4
     local build_dir=$5
     local log_level=$6
+    local build_summary_file=$7
 
     if [[ ! -d $config_dir ]]; then
         echo "\"$config_dir\" is not a valid configuration directory"
@@ -39,7 +48,18 @@ function build_all_configs() {
                 continue
             fi
             
-            build_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$config_dir" "$build_dir" "$log_level" || exit 1
+            local start_ts=`date +%s%N`
+
+            local build_status
+            build_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$config_dir" "$build_dir" "$log_level"
+            [[ $? -eq 0 ]] && build_status="success" || build_status="failure" 
+
+            local end_ts=`date +%s%N`
+            local build_time_ms=$(ns_to_ms `expr $end_ts - $start_ts`)
+            
+            if [[ -f $build_summary_file ]]; then
+                printf "$BUILD_SUMMARY_ENTRY_FORMAT" "$example" "$board" "$sd_variant" "$sdk_version" "$build_time_ms ms" "$build_status" >> "$build_summary_file"
+            fi
         done
     done
 
@@ -140,16 +160,34 @@ pushd "$EXAMPLES_DIR" > /dev/null
     done
 popd > /dev/null
 
+# Init temp. file to contain build summary
+build_summary_file="$BUILD_DIR/.tmp/build_summary.tmp"
+mkdir -p `dirname $build_summary_file`
+
+# Print build summary header
+
+printf "BUILD SUMMARY\n\n" > $build_summary_file
+printf "$BUILD_SUMMARY_ENTRY_FORMAT" "example" "board" "sd_variant" "sdk_version" "elapsed" "status" >> "$build_summary_file"
+
+for i in `seq 1 128`; do
+    printf "-" >> "$build_summary_file"
+done
+
+printf "\n" >> "$build_summary_file"
+
 # Applying examples to included SDKs
 for sdk_ver in "${sdk_versions[@]}"; do
     # For each SDK, try to apply examples
     for example in "${example_local_dirs[@]}"; do
         # Build all custom configs in the local example directory
         if [[ -d "$EXAMPLES_DIR/$example/config" ]]; then
-            build_all_configs "$example" "$sdk_ver" "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local" "$log_level"
+            build_all_configs "$example" "$sdk_ver" "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local" "$log_level" "$build_summary_file"
         fi
 
         # Build all configs in the SDK example directory
-        build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "" "$log_level"
+        build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "$BUILD_DIR" "$log_level" "$build_summary_file"
     done
 done
+
+echo ""
+cat "$build_summary_file"
