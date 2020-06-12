@@ -84,7 +84,7 @@ function print_help() {
     --------------------------------------------------------------------------------
 
     [Optional]
-        --example-name=<name>       Part of the name of the example(s) to be build. Passed
+        --example=<name>            Part of the name of the example(s) to be build. Passed
                                     to grep to filter the examples.
 
         --board=<board>             Complete name of the board to build examples for
@@ -105,7 +105,7 @@ function print_help() {
     exit 0
 }
 
-example_name=""
+example_filter=""
 board_filter=""
 sd_variant_filter=""
 sdk_version_list=""
@@ -116,8 +116,8 @@ while getopts ":h-:" opt; do
         -) {
             # Handle long options ("--option=<arg>")
             case $OPTARG in
-                example_name=*)
-                    example_name=${OPTARG#*=} ;;
+                example=*)
+                    example_filter=${OPTARG#*=} ;;
                 board=*)
                     board_filter=${OPTARG#*=} ;;
                 sd_variant=*)
@@ -181,8 +181,8 @@ echo "Building examples for SDK versions: ${sdk_versions[@]}"
 
 # Collect relative paths to the examples.
 example_local_dirs=()
-# Filter example dirs with grep if '--example_name' option was passed
-[[ -n $example_name ]] && example_filter="grep $example_name" || example_filter="cat"
+# Filter example dirs with grep if '--example' option was passed
+[[ -n $example_filter ]] && example_filter="grep $example_filter" || example_filter="cat"
 pushd "$EXAMPLES_DIR" > /dev/null
     for example in `eval 'find . -name "CMakeLists.txt" | $example_filter'`; do
         example_dir=`dirname $example`
