@@ -165,7 +165,7 @@ function build_example() {
         fi
 
         $build_cmd || {
-            echo "Failed to build with ninja"
+            echo "Failed to build with $build_type"
             popd > /dev/null
             return 1
         }
