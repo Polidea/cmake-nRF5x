@@ -32,6 +32,7 @@ function build_example() {
         echo "6) configuration directory (optional)"
         echo "7) build directory (optional)"
         echo "8) CMake log level (optional), e.g.: STATUS, WARNING, FATAL_ERROR"
+        echo "9) flags (optional), e.g. clean"
         return 1
     fi
 
@@ -43,6 +44,7 @@ function build_example() {
     local config_dir=$6
     local build_dir=$7
     local log_level=$8
+    local flags=$9
 
     local repo_example_dir="$EXAMPLES_DIR/$example_local_dir"
     local sdk_example_dir="$SDKS_DIR/$sdk_version/examples/$example_local_dir"
@@ -158,6 +160,10 @@ function build_example() {
 
     # Move to the build directory
     pushd "$cmake_build_path" > /dev/null
+        if [[ "${flags[@]}" =~ [[:\<:]]clean[[:\>:]] ]]; then
+            $build_cmd clean
+        fi
+
         $build_cmd || {
             echo "Failed to build with ninja"
             popd > /dev/null
