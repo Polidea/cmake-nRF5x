@@ -21,6 +21,8 @@ function build_all_configs() {
     local build_dir=$5
     local log_level=$6
     local build_summary_file=$7
+    local board_filter=$8
+    local sd_variant_filter=$9
 
     if [[ ! -d $config_dir ]]; then
         echo "\"$config_dir\" is not a valid configuration directory"
@@ -30,6 +32,11 @@ function build_all_configs() {
     # For each board
     for board_dir in `ls -d $config_dir/pca*`; do
         board=`basename $board_dir`
+
+        # Skip board configuration that does not match the filter
+        if [[ -n "$board_filter" ]] && [[ "$board" != "$board_filter" ]]; then
+            continue
+        fi
 
         # Identify SoftDevice variants available for the specified board (SoftDevice configurations only)
         supported_sd_variant_dirs=($(ls -d $board_dir/s* 2> /dev/null))
@@ -42,6 +49,11 @@ function build_all_configs() {
         # For each SDK variant
         for sd_variant_dir in ${supported_sd_variant_dirs[@]}; do
             sd_variant=`basename $sd_variant_dir`
+
+            # Skip SD variant that does not match the filter
+            if [[ -n "$sd_variant_filter" ]] && [[ "$sd_variant" != "$sd_variant_filter" ]]; then
+                continue
+            fi
 
             # Check if combination is ignored 
             if [[ $build_ignore_config_list =~ "${board}_${sdk_version}" ]]; then
@@ -75,6 +87,12 @@ function print_help() {
         --example-name=<name>       Part of the name of the example(s) to be build. Passed
                                     to grep to filter the examples.
 
+        --board=<board>             Complete name of the board to build examples for
+                                    eg. pca10040, pca10056.
+
+        --sd_variant=<variant>      Complete name of the SoftDevice variant use when building
+                                    examples e.g. s132, s140.
+
         --sdk_versions={<version>}  nRF5 SDK version used for building examples, multiple
                                     SDK versions can be passed, e.g. \"15.3.0 16.0.0\".
                                     By default, the examples will be built for all SDK
@@ -88,6 +106,8 @@ function print_help() {
 }
 
 example_name=""
+board_filter=""
+sd_variant_filter=""
 sdk_version_list=""
 log_level="NOTICE"
 
@@ -98,6 +118,10 @@ while getopts ":h-:" opt; do
             case $OPTARG in
                 example_name=*)
                     example_name=${OPTARG#*=} ;;
+                board=*)
+                    board_filter=${OPTARG#*=} ;;
+                sd_variant=*)
+                    sd_variant_filter=${OPTARG#*=} ;;
                 sdk_versions=*)
                     sdk_version_list=${OPTARG#*=} ;;
                 log_level=*) {
@@ -188,11 +212,11 @@ for sdk_ver in "${sdk_versions[@]}"; do
     for example in "${example_local_dirs[@]}"; do
         # Build all custom configs in the local example directory
         if [[ -d "$EXAMPLES_DIR/$example/config" ]]; then
-            build_all_configs "$example" "$sdk_ver" "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local" "$log_level" "$build_summary_file"
+            build_all_configs "$example" "$sdk_ver" "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter"
         fi
 
         # Build all configs in the SDK example directory
-        build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "$BUILD_DIR" "$log_level" "$build_summary_file"
+        build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "$BUILD_DIR" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter"
     done
 done
 
