@@ -72,6 +72,8 @@ function print_help() {
     --------------------------------------------------------------------------------
 
     [Optional]
+        --example-name=<name>       Part of the name of the example(s) to be build. Passed
+                                    to grep to filter the examples.
 
         --sdk_versions={<version>}  nRF5 SDK version used for building examples, multiple
                                     SDK versions can be passed, e.g. \"15.3.0 16.0.0\".
@@ -85,6 +87,7 @@ function print_help() {
     exit 0
 }
 
+example_name=""
 sdk_version_list=""
 log_level="NOTICE"
 
@@ -93,6 +96,8 @@ while getopts ":h-:" opt; do
         -) {
             # Handle long options ("--option=<arg>")
             case $OPTARG in
+                example_name=*)
+                    example_name=${OPTARG#*=} ;;
                 sdk_versions=*)
                     sdk_version_list=${OPTARG#*=} ;;
                 log_level=*) {
@@ -152,8 +157,10 @@ echo "Building examples for SDK versions: ${sdk_versions[@]}"
 
 # Collect relative paths to the examples.
 example_local_dirs=()
+# Filter example dirs with grep if '--example_name' option was passed
+[[ -n $example_name ]] && example_filter="grep $example_name" || example_filter="cat"
 pushd "$EXAMPLES_DIR" > /dev/null
-    for example in `find . -name "CMakeLists.txt"`; do
+    for example in `eval 'find . -name "CMakeLists.txt" | $example_filter'`; do
         example_dir=`dirname $example`
         # Strip the '.' prefix (current directory) from the example directory
         example_local_dirs+=(${example_dir#./})
