@@ -231,6 +231,25 @@
       ]
     }
   },
+  "nrf5_nrfx_twim": {
+    "documentation": "TWIM nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_twim.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
   "nrf5_drv_rtc": {
     "documentation": "RTC legacy driver (header only)",
     "variant": "interface",

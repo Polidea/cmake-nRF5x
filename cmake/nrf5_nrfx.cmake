@@ -178,6 +178,19 @@ target_link_libraries(nrf5_nrfx_twi PUBLIC
   nrf5_soc
 )
 
+# TWIM nrfx driver
+add_library(nrf5_nrfx_twim OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_twim.c"
+)
+target_include_directories(nrf5_nrfx_twim PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_twim PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
 # RTC legacy driver (header only)
 add_library(nrf5_drv_rtc INTERFACE)
 target_include_directories(nrf5_drv_rtc INTERFACE
