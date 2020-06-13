@@ -263,5 +263,22 @@
         "modules/nrfx/drivers/include"
       ]
     }
+  },
+  "nrf5_drv_spi": {
+    "documentation": "SPIM legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_spi.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_spim"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
   }
 }

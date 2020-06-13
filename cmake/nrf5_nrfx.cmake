@@ -201,3 +201,14 @@ target_link_libraries(nrf5_nrfx_spim PUBLIC
   nrf5_log
   nrf5_nrfx_common
 )
+
+# SPIM legacy driver
+add_library(nrf5_drv_spi OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_spi.c"
+)
+target_include_directories(nrf5_drv_spi PUBLIC
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_spi PUBLIC
+  nrf5_nrfx_spim
+)
