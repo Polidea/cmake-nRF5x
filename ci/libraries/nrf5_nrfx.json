@@ -264,6 +264,25 @@
       ]
     }
   },
+  "nrf5_nrfx_spis": {
+    "documentation": "SPIS nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_spis.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
   "nrf5_drv_spi": {
     "documentation": "SPIM legacy driver",
     "variant": "object",
@@ -273,6 +292,23 @@
     "dependencies": {
       "public": [
         "nrf5_nrfx_spim"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_spis": {
+    "documentation": "SPIS legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_spis.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_spis"
       ]
     },
     "includes": {

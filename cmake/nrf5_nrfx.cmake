@@ -202,6 +202,19 @@ target_link_libraries(nrf5_nrfx_spim PUBLIC
   nrf5_nrfx_common
 )
 
+# SPIS nrfx driver
+add_library(nrf5_nrfx_spis OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_spis.c"
+)
+target_include_directories(nrf5_nrfx_spis PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_spis PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
 # SPIM legacy driver
 add_library(nrf5_drv_spi OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_spi.c"
@@ -211,4 +224,15 @@ target_include_directories(nrf5_drv_spi PUBLIC
 )
 target_link_libraries(nrf5_drv_spi PUBLIC
   nrf5_nrfx_spim
+)
+
+# SPIS legacy driver
+add_library(nrf5_drv_spis OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_spis.c"
+)
+target_include_directories(nrf5_drv_spis PUBLIC
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_spis PUBLIC
+  nrf5_nrfx_spis
 )
