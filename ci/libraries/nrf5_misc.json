@@ -10,5 +10,46 @@
         "components/libraries/sensorsim"
       ]
     }
+  },
+  "nrf5_gfx": {
+    "documentation": "GFX Library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/gfx/nrf_gfx.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_common",
+        "nrf5_log",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/gfx",
+        "components/libraries/util",
+        "external/thedotfactory_fonts"
+      ]
+    }
+  },
+  "nrf5_spi_mngr": {
+    "documentation": "SPI transaction manager",
+    "variant": "object",
+    "sources": [
+      "components/libraries/spi_mngr/nrf_spi_mngr.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_queue",
+        "nrf5_drv_spi",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/spi_mngr",
+        "components/libraries/util"
+      ]
+    }
   }
 }

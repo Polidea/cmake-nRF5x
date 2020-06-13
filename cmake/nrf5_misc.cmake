@@ -29,3 +29,32 @@ add_library(nrf5_sensorsim OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_sensorsim PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/sensorsim"
 )
+
+# GFX Library
+add_library(nrf5_gfx OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/gfx/nrf_gfx.c"
+)
+target_include_directories(nrf5_gfx PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/gfx"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/external/thedotfactory_fonts"
+)
+target_link_libraries(nrf5_gfx PUBLIC
+  nrf5_app_util_platform
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# SPI transaction manager
+add_library(nrf5_spi_mngr OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/spi_mngr/nrf_spi_mngr.c"
+)
+target_include_directories(nrf5_spi_mngr PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/spi_mngr"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_spi_mngr PUBLIC
+  nrf5_app_util_platform
+  nrf5_drv_spi
+  nrf5_queue
+)

@@ -46,6 +46,42 @@
       ]
     }
   },
+  "nrf5_nrfx_clock": {
+    "documentation": "CLOCK nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_clock.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_drv_clock": {
+    "documentation": "CLOCK legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_clock.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_clock"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
   "nrf5_nrfx_gpiote": {
     "documentation": "GPIOTE nrfx driver",
     "variant": "object",
@@ -242,6 +278,25 @@
       "public": [
         "components/libraries/util",
         "modules/nrfx/hal"
+      ]
+    }
+  },
+  "nrf5_nrfx_spi": {
+    "documentation": "SPI nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_spi.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/include"
       ]
     }
   },
