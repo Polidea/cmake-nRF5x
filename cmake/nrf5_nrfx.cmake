@@ -188,3 +188,16 @@ target_link_libraries(nrf5_nrfx_nvmc PUBLIC
   nrf5_nrfx_common
   nrf5_soc
 )
+
+# SPIM nrfx driver
+add_library(nrf5_nrfx_spim OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_spim.c"
+)
+target_include_directories(nrf5_nrfx_spim PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_spim PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)

@@ -244,5 +244,24 @@
         "modules/nrfx/hal"
       ]
     }
+  },
+  "nrf5_nrfx_spim": {
+    "documentation": "SPIM nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_spim.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/include"
+      ]
+    }
   }
 }
