@@ -51,5 +51,25 @@
         "components/libraries/util"
       ]
     }
+  },
+  "nrf5_twi_mngr": {
+    "documentation": "TWI transaction manager",
+    "variant": "object",
+    "sources": [
+      "components/libraries/twi_mngr/nrf_twi_mngr.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_queue",
+        "nrf5_drv_twi",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/twi_mngr",
+        "components/libraries/util"
+      ]
+    }
   }
 }

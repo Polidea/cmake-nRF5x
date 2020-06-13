@@ -58,3 +58,17 @@ target_link_libraries(nrf5_spi_mngr PUBLIC
   nrf5_drv_spi
   nrf5_queue
 )
+
+# TWI transaction manager
+add_library(nrf5_twi_mngr OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/twi_mngr/nrf_twi_mngr.c"
+)
+target_include_directories(nrf5_twi_mngr PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/twi_mngr"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_twi_mngr PUBLIC
+  nrf5_app_util_platform
+  nrf5_drv_twi
+  nrf5_queue
+)

@@ -329,26 +329,5 @@
         "nrf5_sha256_fwd"
       ]
     }
-  },
-  "nrf5_twi_mngr": {
-    "documentation": "TWI transaction manager",
-    "variant": "object",
-    "sources": [
-      "components/libraries/twi_mngr/nrf_twi_mngr.c"
-    ],
-    "includes": {
-      "public": [
-        "components/libraries/twi_mngr",
-        "components/libraries/util"
-      ]
-    },
-    "dependencies": {
-      "public": [
-        "nrf5_config",
-        "nrf5_drv_twi",
-        "nrf5_app_util_platform",
-        "nrf5_queue"
-      ]
-    }
   }
 }
