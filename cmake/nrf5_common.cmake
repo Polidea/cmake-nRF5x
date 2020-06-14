@@ -87,6 +87,12 @@ target_include_directories(nrf5_log_fwd INTERFACE
   "${NRF5_SDK_PATH}/components/libraries/log/src"
 )
 
+# CLI forwarding interface (include directories only)
+add_library(nrf5_cli_fwd INTERFACE)
+target_include_directories(nrf5_cli_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/cli"
+)
+
 # SoftDevice Handler
 add_library(nrf5_sdh OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh.c"
@@ -104,6 +110,12 @@ target_link_libraries(nrf5_sdh PUBLIC
   nrf5_strerror
 )
 
+# Memory Object forwarding interface (include directories only)
+add_library(nrf5_memobj_fwd INTERFACE)
+target_include_directories(nrf5_memobj_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/memobj"
+)
+
 # Block Allocator
 add_library(nrf5_balloc OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/balloc/nrf_balloc.c"
@@ -112,7 +124,11 @@ target_include_directories(nrf5_balloc PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/balloc"
 )
 target_link_libraries(nrf5_balloc PUBLIC
+  nrf5_cli_fwd
+  nrf5_ext_fprintf
   nrf5_log_fwd
+  nrf5_memobj_fwd
+  nrf5_queue
   nrf5_section
   nrf5_soc
   nrf5_strerror

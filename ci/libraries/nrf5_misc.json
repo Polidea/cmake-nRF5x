@@ -71,5 +71,41 @@
         "components/libraries/util"
       ]
     }
+  },
+  "nrf5_mpu": {
+    "documentation": "MPU (Memory Protection Unit) driver",
+    "variant": "object",
+    "sources": [
+      "components/libraries/mpu/nrf_mpu_lib.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_cli"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/mpu"
+      ]
+    }
+  },
+  "nrf5_stack_guard": {
+    "documentation": "Stack guard",
+    "variant": "object",
+    "sources": [
+      "components/libraries/stack_guard/nrf_stack_guard.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_mpu"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/stack_guard",
+        "components/libraries/util"
+      ]
+    }
   }
 }

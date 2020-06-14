@@ -72,3 +72,27 @@ target_link_libraries(nrf5_twi_mngr PUBLIC
   nrf5_drv_twi
   nrf5_queue
 )
+
+# MPU (Memory Protection Unit) driver
+add_library(nrf5_mpu OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/mpu/nrf_mpu_lib.c"
+)
+target_include_directories(nrf5_mpu PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/mpu"
+)
+target_link_libraries(nrf5_mpu PUBLIC
+  nrf5_cli
+  nrf5_log
+)
+
+# Stack guard
+add_library(nrf5_stack_guard OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/stack_guard/nrf_stack_guard.c"
+)
+target_include_directories(nrf5_stack_guard PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/stack_guard"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_stack_guard PUBLIC
+  nrf5_mpu
+)

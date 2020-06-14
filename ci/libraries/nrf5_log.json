@@ -25,6 +25,44 @@
       ]
     }
   },
+  "nrf5_cli_uart": {
+    "documentation": "UART command line interface transport layer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/cli/uart/nrf_cli_uart.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_cli",
+        "nrf5_drv_uart",
+        "nrf5_app_timer"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/cli/uart"
+      ]
+    }
+  },
+  "nrf5_cli_rtt": {
+    "documentation": "RTT command line interface transport layer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/cli/rtt/nrf_cli_rtt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_cli",
+        "nrf5_ext_segger_rtt",
+        "nrf5_app_timer"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/cli/rtt"
+      ]
+    }
+  },
   "nrf5_log": {
     "documentation": "Logger (frontend & formatter)",
     "variant": "object",

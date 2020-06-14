@@ -93,6 +93,15 @@
       ]
     }
   },
+  "nrf5_cli_fwd": {
+    "documentation": "CLI forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/cli"
+      ]
+    }
+  },
   "nrf5_sdh": {
     "documentation": "SoftDevice Handler",
     "variant": "object",
@@ -116,6 +125,15 @@
       ]
     }
   },
+  "nrf5_memobj_fwd": {
+    "documentation": "Memory Object forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/memobj"
+      ]
+    }
+  },
   "nrf5_balloc": {
     "documentation": "Block Allocator",
     "variant": "object",
@@ -124,10 +142,14 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_memobj_fwd",
         "nrf5_log_fwd",
+        "nrf5_cli_fwd",
         "nrf5_section",
         "nrf5_soc",
-        "nrf5_strerror"
+        "nrf5_strerror",
+        "nrf5_queue",
+        "nrf5_ext_fprintf"
       ]
     },
     "includes": {
