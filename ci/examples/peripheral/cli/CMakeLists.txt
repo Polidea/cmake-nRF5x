@@ -57,3 +57,24 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_mpu
   nrf5_stack_guard
 )
+
+# Link additional libraries when building for nRF52840 (CLI over USB CDC ACM support)
+if(NRF5_TARGET STREQUAL "nrf52840_xxaa")
+  target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
+    # Drivers
+    nrf5_nrfx_soc
+    nrf5_nrfx_systick
+    nrf5_nrfx_power
+    nrf5_drv_power  
+    nrf5_nrfx_usbd
+    nrf5_drv_usbd  
+    # Logger & CLI
+    nrf5_cli_cdc_acm
+    # USB
+    nrf5_app_usbd
+    nrf5_app_usbd_core
+    nrf5_app_usbd_serial_num
+    nrf5_app_usbd_string_desc
+    nrf5_app_usbd_cdc_acm
+  )
+endif()
