@@ -145,3 +145,28 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
     "${NRF5_SDK_PATH}/external/infineon/examples/ecdsa_utils"
   )
 endif()
+
+# The Dot Factory fonts
+add_library(nrf5_ext_thedotfactory_fonts OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/thedotfactory_fonts/orkney24pts.c"
+  "${NRF5_SDK_PATH}/external/thedotfactory_fonts/orkney8pts.c"
+)
+target_include_directories(nrf5_ext_thedotfactory_fonts PUBLIC
+  "${NRF5_SDK_PATH}/external/thedotfactory_fonts"
+)
+
+# fnmatch
+add_library(nrf5_ext_fnmatch OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/fnmatch/fnmatch.c"
+)
+target_include_directories(nrf5_ext_fnmatch PUBLIC
+  "${NRF5_SDK_PATH}/external/fnmatch"
+)
+
+# UTF converter
+add_library(nrf5_ext_utf_converter OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/utf_converter/utf.c"
+)
+target_include_directories(nrf5_ext_utf_converter PUBLIC
+  "${NRF5_SDK_PATH}/external/utf_converter"
+)

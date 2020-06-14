@@ -42,6 +42,44 @@ target_link_libraries(nrf5_cli PUBLIC
   nrf5_section
 )
 
+# UART command line interface transport layer
+add_library(nrf5_cli_uart OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/cli/uart/nrf_cli_uart.c"
+)
+target_include_directories(nrf5_cli_uart PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/cli/uart"
+)
+target_link_libraries(nrf5_cli_uart PUBLIC
+  nrf5_app_timer
+  nrf5_cli
+  nrf5_drv_uart
+)
+
+# RTT command line interface transport layer
+add_library(nrf5_cli_rtt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/cli/rtt/nrf_cli_rtt.c"
+)
+target_include_directories(nrf5_cli_rtt PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/cli/rtt"
+)
+target_link_libraries(nrf5_cli_rtt PUBLIC
+  nrf5_app_timer
+  nrf5_cli
+  nrf5_ext_segger_rtt
+)
+
+# CDC ACM command line interface transport layer
+add_library(nrf5_cli_cdc_acm OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/cli/cdc_acm/nrf_cli_cdc_acm.c"
+)
+target_include_directories(nrf5_cli_cdc_acm PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/cli/cdc_acm"
+)
+target_link_libraries(nrf5_cli_cdc_acm PUBLIC
+  nrf5_app_usbd_cdc_acm
+  nrf5_cli
+)
+
 # Logger (frontend & formatter)
 add_library(nrf5_log OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_frontend.c"
@@ -79,6 +117,16 @@ add_library(nrf5_log_backend_uart OBJECT EXCLUDE_FROM_ALL
 )
 target_link_libraries(nrf5_log_backend_uart PUBLIC
   nrf5_drv_uart
+  nrf5_log
+)
+
+# Logger Flash backend
+add_library(nrf5_log_backend_flash OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_flash.c"
+)
+target_link_libraries(nrf5_log_backend_flash PUBLIC
+  nrf5_fstorage
+  nrf5_fstorage_nvmc
   nrf5_log
 )
 

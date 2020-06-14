@@ -29,3 +29,70 @@ add_library(nrf5_sensorsim OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_sensorsim PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/sensorsim"
 )
+
+# GFX Library
+add_library(nrf5_gfx OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/gfx/nrf_gfx.c"
+)
+target_include_directories(nrf5_gfx PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/gfx"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/external/thedotfactory_fonts"
+)
+target_link_libraries(nrf5_gfx PUBLIC
+  nrf5_app_util_platform
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# SPI transaction manager
+add_library(nrf5_spi_mngr OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/spi_mngr/nrf_spi_mngr.c"
+)
+target_include_directories(nrf5_spi_mngr PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/spi_mngr"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_spi_mngr PUBLIC
+  nrf5_app_util_platform
+  nrf5_drv_spi
+  nrf5_queue
+)
+
+# TWI transaction manager
+add_library(nrf5_twi_mngr OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/twi_mngr/nrf_twi_mngr.c"
+)
+target_include_directories(nrf5_twi_mngr PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/twi_mngr"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_twi_mngr PUBLIC
+  nrf5_app_util_platform
+  nrf5_drv_twi
+  nrf5_queue
+)
+
+# MPU (Memory Protection Unit) driver
+add_library(nrf5_mpu OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/mpu/nrf_mpu_lib.c"
+)
+target_include_directories(nrf5_mpu PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/mpu"
+)
+target_link_libraries(nrf5_mpu PUBLIC
+  nrf5_cli
+  nrf5_log
+)
+
+# Stack guard
+add_library(nrf5_stack_guard OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/stack_guard/nrf_stack_guard.c"
+)
+target_include_directories(nrf5_stack_guard PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/stack_guard"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_stack_guard PUBLIC
+  nrf5_mpu
+)

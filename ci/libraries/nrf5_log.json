@@ -25,6 +25,62 @@
       ]
     }
   },
+  "nrf5_cli_uart": {
+    "documentation": "UART command line interface transport layer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/cli/uart/nrf_cli_uart.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_cli",
+        "nrf5_drv_uart",
+        "nrf5_app_timer"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/cli/uart"
+      ]
+    }
+  },
+  "nrf5_cli_rtt": {
+    "documentation": "RTT command line interface transport layer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/cli/rtt/nrf_cli_rtt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_cli",
+        "nrf5_ext_segger_rtt",
+        "nrf5_app_timer"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/cli/rtt"
+      ]
+    }
+  },
+  "nrf5_cli_cdc_acm": {
+    "documentation": "CDC ACM command line interface transport layer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/cli/cdc_acm/nrf_cli_cdc_acm.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_cli",
+        "nrf5_app_usbd_cdc_acm"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/cli/cdc_acm"
+      ]
+    }
+  },
   "nrf5_log": {
     "documentation": "Logger (frontend & formatter)",
     "variant": "object",
@@ -76,6 +132,20 @@
       "public": [
         "nrf5_drv_uart",
         "nrf5_log"
+      ]
+    }
+  },
+  "nrf5_log_backend_flash": {
+    "documentation": "Logger Flash backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/log/src/nrf_log_backend_flash.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_fstorage",
+        "nrf5_fstorage_nvmc"
       ]
     }
   },

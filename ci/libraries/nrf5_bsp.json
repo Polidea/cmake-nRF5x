@@ -53,5 +53,22 @@
         "components/libraries/bsp"
       ]
     }
+  },
+  "nrf5_bsp_cli": {
+    "documentation": "BSP over CLI Module",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bsp/bsp_cli.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_bsp"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bsp"
+      ]
+    }
   }
 }
