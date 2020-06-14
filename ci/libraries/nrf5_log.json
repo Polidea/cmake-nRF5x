@@ -63,6 +63,24 @@
       ]
     }
   },
+  "nrf5_cli_cdc_acm": {
+    "documentation": "CDC ACM command line interface transport layer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/cli/cdc_acm/nrf_cli_cdc_acm.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_cli",
+        "nrf5_app_usbd_cdc_acm"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/cli/cdc_acm"
+      ]
+    }
+  },
   "nrf5_log": {
     "documentation": "Logger (frontend & formatter)",
     "variant": "object",
