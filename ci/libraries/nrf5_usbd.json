@@ -52,5 +52,159 @@
         "nrf5_ext_utf_converter"
       ]
     }
+  },
+  "nrf5_app_usbd_cdc_acm": {
+    "documentation": "USB CDC ACM class",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/class/cdc/acm/app_usbd_cdc_acm.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/usbd/class/cdc",
+        "components/libraries/usbd/class/cdc/acm"
+      ]
+    }
+  },
+  "nrf5_app_usbd_hid": {
+    "documentation": "USB HID class",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/class/hid/app_usbd_hid.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/usbd/class/hid"
+      ]
+    }
+  },
+  "nrf5_app_usbd_hid_generic": {
+    "documentation": "USB HID generic",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/class/hid/generic/app_usbd_hid_generic.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd_hid"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/usbd/class/hid/generic"
+      ]
+    }
+  },
+  "nrf5_app_usbd_hid_kbd": {
+    "documentation": "USB HID keyboard",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/class/hid/kbd/app_usbd_hid_kbd.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd_hid"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/usbd/class/hid/kbd"
+      ]
+    }
+  },
+  "nrf5_app_usbd_hid_mouse": {
+    "documentation": "USB HID mouse",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/class/hid/mouse/app_usbd_hid_mouse.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd_hid"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/usbd/class/hid/mouse"
+      ]
+    }
+  },
+  "nrf5_app_usbd_msc": {
+    "documentation": "USB MSC class",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/class/msc/app_usbd_msc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/usbd/class/msc"
+      ]
+    }
+  },
+  "nrf5_app_usbd_audio": {
+    "documentation": "USB AUDIO class",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/class/audio/app_usbd_audio.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/usbd/class/audio"
+      ]
+    }
+  },
+  "nrf5_app_usbd_dummy": {
+    "documentation": "USB Dummy class",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/class/dummy/app_usbd_dummy.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/usbd/class/dummy"
+      ]
+    }
+  },
+  "nrf5_app_usbd_nrf_dfu_trigger": {
+    "documentation": "USB Nordic DFU Trigger class",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/class/nrf_dfu_trigger/app_usbd_nrf_dfu_trigger.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/usbd/class/nrf_dfu_trigger"
+      ]
+    }
   }
 }

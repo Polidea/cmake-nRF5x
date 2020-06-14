@@ -57,3 +57,103 @@ target_link_libraries(nrf5_app_usbd_string_desc PUBLIC
   nrf5_app_usbd
   nrf5_ext_utf_converter
 )
+
+# USB CDC ACM class
+add_library(nrf5_app_usbd_cdc_acm OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/cdc/acm/app_usbd_cdc_acm.c"
+)
+target_include_directories(nrf5_app_usbd_cdc_acm PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/cdc"
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/cdc/acm"
+)
+target_link_libraries(nrf5_app_usbd_cdc_acm PUBLIC
+  nrf5_app_usbd
+)
+
+# USB HID class
+add_library(nrf5_app_usbd_hid OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/hid/app_usbd_hid.c"
+)
+target_include_directories(nrf5_app_usbd_hid PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/hid"
+)
+target_link_libraries(nrf5_app_usbd_hid PUBLIC
+  nrf5_app_usbd
+)
+
+# USB HID generic
+add_library(nrf5_app_usbd_hid_generic OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/hid/generic/app_usbd_hid_generic.c"
+)
+target_include_directories(nrf5_app_usbd_hid_generic PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/hid/generic"
+)
+target_link_libraries(nrf5_app_usbd_hid_generic PUBLIC
+  nrf5_app_usbd_hid
+)
+
+# USB HID keyboard
+add_library(nrf5_app_usbd_hid_kbd OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/hid/kbd/app_usbd_hid_kbd.c"
+)
+target_include_directories(nrf5_app_usbd_hid_kbd PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/hid/kbd"
+)
+target_link_libraries(nrf5_app_usbd_hid_kbd PUBLIC
+  nrf5_app_usbd_hid
+)
+
+# USB HID mouse
+add_library(nrf5_app_usbd_hid_mouse OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/hid/mouse/app_usbd_hid_mouse.c"
+)
+target_include_directories(nrf5_app_usbd_hid_mouse PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/hid/mouse"
+)
+target_link_libraries(nrf5_app_usbd_hid_mouse PUBLIC
+  nrf5_app_usbd_hid
+)
+
+# USB MSC class
+add_library(nrf5_app_usbd_msc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/msc/app_usbd_msc.c"
+)
+target_include_directories(nrf5_app_usbd_msc PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/msc"
+)
+target_link_libraries(nrf5_app_usbd_msc PUBLIC
+  nrf5_app_usbd
+)
+
+# USB AUDIO class
+add_library(nrf5_app_usbd_audio OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/audio/app_usbd_audio.c"
+)
+target_include_directories(nrf5_app_usbd_audio PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/audio"
+)
+target_link_libraries(nrf5_app_usbd_audio PUBLIC
+  nrf5_app_usbd
+)
+
+# USB Dummy class
+add_library(nrf5_app_usbd_dummy OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/dummy/app_usbd_dummy.c"
+)
+target_include_directories(nrf5_app_usbd_dummy PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/dummy"
+)
+target_link_libraries(nrf5_app_usbd_dummy PUBLIC
+  nrf5_app_usbd
+)
+
+# USB Nordic DFU Trigger class
+add_library(nrf5_app_usbd_nrf_dfu_trigger OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/nrf_dfu_trigger/app_usbd_nrf_dfu_trigger.c"
+)
+target_include_directories(nrf5_app_usbd_nrf_dfu_trigger PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/usbd/class/nrf_dfu_trigger"
+)
+target_link_libraries(nrf5_app_usbd_nrf_dfu_trigger PUBLIC
+  nrf5_app_usbd
+)
