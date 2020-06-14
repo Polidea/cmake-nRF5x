@@ -225,8 +225,8 @@ function(nrf5_get_startup_file sdk_path target out_startup_file out_system_file)
 endfunction()
 
 function(nrf5_validate_softdevice_variant sdk_path sdk_version target sd_variant out_sd_hex_file_path out_sd_flags)
-  # If we have blank sd_variant then continue...
-  if(sd_variant STREQUAL blank)
+  # If we have blank or mbr sd_variant then continue...
+  if(sd_variant MATCHES "^(blank|mbr)$")
     return()
   endif()
 
