@@ -39,11 +39,12 @@ function build_all_configs() {
             continue
         fi
 
-        # Identify SoftDevice variants available for the specified board (SoftDevice configurations only)
+        # Identify SoftDevice variants (including 'blank' configs) available for the specified board
         supported_sd_variant_dirs=($(ls -d $board_dir/s* 2> /dev/null))
+        supported_sd_variant_dirs+=($(ls -d $board_dir/blank 2> /dev/null))
 
-        if [[ ${#supported_sd_variant_dirs[@]} -eq 0 ]]; then
-            echo "A SoftDevice configuration for the '$example' for the '$board' board is not available (config. dir.: $config_dir). Build skipped."
+        if [[ "${#supported_sd_variant_dirs[@]}" -eq 0 ]]; then
+            echo "No configurations found for the '$example' for the '$board' board (config. dir.: $config_dir). Build skipped."
             continue
         fi
 
