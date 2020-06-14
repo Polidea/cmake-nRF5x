@@ -1,0 +1,56 @@
+{
+  "nrf5_app_usbd": {
+    "documentation": "USB Device high level library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/app_usbd.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_drv_usbd"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "components/libraries/usbd"
+      ]
+    }
+  },
+  "nrf5_app_usbd_core": {
+    "documentation": "USB Device high level library core module",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/app_usbd_core.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd"
+      ]
+    }
+  },
+  "nrf5_app_usbd_serial_num": {
+    "documentation": "USBD serial number generator",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/app_usbd_serial_num.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd"
+      ]
+    }
+  },
+  "nrf5_app_usbd_string_desc": {
+    "documentation": "USBD string descriptors",
+    "variant": "object",
+    "sources": [
+      "components/libraries/usbd/app_usbd_string_desc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd",
+        "nrf5_ext_utf_converter"
+      ]
+    }
+  }
+}

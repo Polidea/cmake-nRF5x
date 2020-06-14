@@ -162,3 +162,11 @@ add_library(nrf5_ext_fnmatch OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ext_fnmatch PUBLIC
   "${NRF5_SDK_PATH}/external/fnmatch"
 )
+
+# UTF converter
+add_library(nrf5_ext_utf_converter OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/utf_converter/utf.c"
+)
+target_include_directories(nrf5_ext_utf_converter PUBLIC
+  "${NRF5_SDK_PATH}/external/utf_converter"
+)

@@ -197,5 +197,17 @@
         "external/fnmatch"
       ]
     }
+  },
+  "nrf5_ext_utf_converter": {
+    "documentation": "UTF converter",
+    "variant": "object",
+    "sources": [
+      "external/utf_converter/utf.c"
+    ],
+    "includes": {
+      "public": [
+        "external/utf_converter"
+      ]
+    }
   }
 }
