@@ -134,6 +134,15 @@
       ]
     }
   },
+  "nrf5_balloc_fwd": {
+    "documentation": "Block Allocator forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/balloc"
+      ]
+    }
+  },
   "nrf5_balloc": {
     "documentation": "Block Allocator",
     "variant": "object",
@@ -240,9 +249,13 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_balloc_fwd",
+        "nrf5_memobj_fwd",
         "nrf5_log_fwd",
+        "nrf5_cli_fwd",
         "nrf5_section",
-        "nrf5_strerror"
+        "nrf5_strerror",
+        "nrf5_ext_fprintf"
       ]
     },
     "includes": {

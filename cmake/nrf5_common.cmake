@@ -116,6 +116,12 @@ target_include_directories(nrf5_memobj_fwd INTERFACE
   "${NRF5_SDK_PATH}/components/libraries/memobj"
 )
 
+# Block Allocator forwarding interface (include directories only)
+add_library(nrf5_balloc_fwd INTERFACE)
+target_include_directories(nrf5_balloc_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/balloc"
+)
+
 # Block Allocator
 add_library(nrf5_balloc OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/balloc/nrf_balloc.c"
@@ -193,7 +199,11 @@ target_include_directories(nrf5_queue PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_queue PUBLIC
+  nrf5_balloc_fwd
+  nrf5_cli_fwd
+  nrf5_ext_fprintf
   nrf5_log_fwd
+  nrf5_memobj_fwd
   nrf5_section
   nrf5_strerror
 )
