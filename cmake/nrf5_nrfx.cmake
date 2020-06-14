@@ -32,6 +32,20 @@ target_link_libraries(nrf5_nrfx_common INTERFACE
   nrf5_config
 )
 
+# nrfx SoC
+add_library(nrf5_nrfx_soc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/soc/nrfx_atomic.c"
+)
+target_include_directories(nrf5_nrfx_soc PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/soc"
+)
+target_link_libraries(nrf5_nrfx_soc PUBLIC
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_soc
+)
+
 # nrfx Hardware Abstraction Layer (HAL)
 add_library(nrf5_nrfx_hal INTERFACE)
 target_include_directories(nrf5_nrfx_hal INTERFACE
@@ -75,6 +89,52 @@ target_include_directories(nrf5_drv_clock PUBLIC
 )
 target_link_libraries(nrf5_drv_clock PUBLIC
   nrf5_nrfx_clock
+)
+
+# SysTick nrfx driver
+add_library(nrf5_nrfx_systick OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_systick.c"
+)
+target_include_directories(nrf5_nrfx_systick PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_systick PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# SysTick legacy driver
+add_library(nrf5_drv_systick INTERFACE)
+target_include_directories(nrf5_drv_systick INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_systick INTERFACE
+  nrf5_nrfx_systick
+)
+
+# POWER nrfx driver
+add_library(nrf5_nrfx_power OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_power.c"
+)
+target_include_directories(nrf5_nrfx_power PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_power PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# POWER legacy driver
+add_library(nrf5_drv_power OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_power.c"
+)
+target_include_directories(nrf5_drv_power PUBLIC
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_power PUBLIC
+  nrf5_nrfx_power
 )
 
 # GPIOTE nrfx driver
@@ -285,4 +345,26 @@ target_include_directories(nrf5_drv_spis PUBLIC
 )
 target_link_libraries(nrf5_drv_spis PUBLIC
   nrf5_nrfx_spis
+)
+
+# USBD nrfx driver
+add_library(nrf5_nrfx_usbd OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_usbd.c"
+)
+target_include_directories(nrf5_nrfx_usbd PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_usbd PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# USBD legacy driver
+add_library(nrf5_drv_usbd INTERFACE)
+target_include_directories(nrf5_drv_usbd INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_usbd INTERFACE
+  nrf5_nrfx_usbd
 )

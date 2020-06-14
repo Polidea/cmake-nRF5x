@@ -58,3 +58,14 @@ target_include_directories(nrf5_bsp_btn_ble PUBLIC
 target_link_libraries(nrf5_bsp_btn_ble PUBLIC
   nrf5_bsp
 )
+
+# BSP over CLI Module
+add_library(nrf5_bsp_cli OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bsp/bsp_cli.c"
+)
+target_include_directories(nrf5_bsp_cli PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bsp"
+)
+target_link_libraries(nrf5_bsp_cli PUBLIC
+  nrf5_bsp
+)
