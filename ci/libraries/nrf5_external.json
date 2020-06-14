@@ -185,5 +185,17 @@
         "external/thedotfactory_fonts"
       ]
     }
+  },
+  "nrf5_ext_fnmatch": {
+    "documentation": "fnmatch",
+    "variant": "object",
+    "sources": [
+      "external/fnmatch/fnmatch.c"
+    ],
+    "includes": {
+      "public": [
+        "external/fnmatch"
+      ]
+    }
   }
 }

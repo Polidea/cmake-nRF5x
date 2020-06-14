@@ -108,6 +108,16 @@ target_link_libraries(nrf5_log_backend_uart PUBLIC
   nrf5_log
 )
 
+# Logger Flash backend
+add_library(nrf5_log_backend_flash OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_flash.c"
+)
+target_link_libraries(nrf5_log_backend_flash PUBLIC
+  nrf5_fstorage
+  nrf5_fstorage_nvmc
+  nrf5_log
+)
+
 # Logger RTT backend
 add_library(nrf5_log_backend_rtt OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_rtt.c"

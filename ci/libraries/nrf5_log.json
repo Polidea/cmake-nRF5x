@@ -117,6 +117,20 @@
       ]
     }
   },
+  "nrf5_log_backend_flash": {
+    "documentation": "Logger Flash backend",
+    "variant": "object",
+    "sources": [
+      "components/libraries/log/src/nrf_log_backend_flash.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_fstorage",
+        "nrf5_fstorage_nvmc"
+      ]
+    }
+  },
   "nrf5_log_backend_rtt": {
     "documentation": "Logger RTT backend",
     "variant": "object",

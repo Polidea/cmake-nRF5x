@@ -154,3 +154,11 @@ add_library(nrf5_ext_thedotfactory_fonts OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ext_thedotfactory_fonts PUBLIC
   "${NRF5_SDK_PATH}/external/thedotfactory_fonts"
 )
+
+# fnmatch
+add_library(nrf5_ext_fnmatch OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/fnmatch/fnmatch.c"
+)
+target_include_directories(nrf5_ext_fnmatch PUBLIC
+  "${NRF5_SDK_PATH}/external/fnmatch"
+)
