@@ -51,7 +51,7 @@ function build_all_configs() {
             local start_ts=`date +%s%N`
 
             local build_status
-            build_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$config_dir" "$build_dir" "$log_level"
+            build_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$config_dir" "$build_dir" "$log_level" || exit 1
             [[ $? -eq 0 ]] && build_status="success" || build_status="failure" 
 
             local end_ts=`date +%s%N`
