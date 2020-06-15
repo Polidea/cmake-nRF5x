@@ -170,7 +170,7 @@
     "dependencies": {
       "public": [
         "nrf5_block_dev",
-        "nrf5_soc"
+        "nrf5_drv_qspi"
       ]
     },
     "includes": {
@@ -188,7 +188,7 @@
     "dependencies": {
       "public": [
         "nrf5_block_dev",
-        "nrf5_soc"
+        "nrf5_log"
       ]
     },
     "includes": {

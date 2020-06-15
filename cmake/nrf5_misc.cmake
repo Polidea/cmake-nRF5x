@@ -142,7 +142,7 @@ target_include_directories(nrf5_block_dev_qspi PUBLIC
 )
 target_link_libraries(nrf5_block_dev_qspi PUBLIC
   nrf5_block_dev
-  nrf5_soc
+  nrf5_drv_qspi
 )
 
 # Block device RAM implementation
@@ -154,7 +154,7 @@ target_include_directories(nrf5_block_dev_ram PUBLIC
 )
 target_link_libraries(nrf5_block_dev_ram PUBLIC
   nrf5_block_dev
-  nrf5_soc
+  nrf5_log
 )
 
 # Block device SDC implementation
