@@ -107,5 +107,75 @@
         "components/libraries/util"
       ]
     }
+  },
+  "nrf5_block_dev": {
+    "documentation": "Block device",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_config"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "components/libraries/block_dev",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_block_dev_empty": {
+    "documentation": "Block device empty implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/block_dev/empty/nrf_block_dev_empty.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_block_dev",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/block_dev/empty"
+      ]
+    }
+  },
+  "nrf5_block_dev_qspi": {
+    "documentation": "Block device QSPI implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/block_dev/qspi/nrf_block_dev_qspi.c",
+      "components/libraries/block_dev/qspi/nrf_serial_flash_params.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_block_dev",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/block_dev/qspi"
+      ]
+    }
+  },
+  "nrf5_block_dev_ram": {
+    "documentation": "Block device RAM implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/block_dev/ram/nrf_block_dev_ram.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_block_dev",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/block_dev/ram"
+      ]
+    }
   }
 }

@@ -96,3 +96,50 @@ target_include_directories(nrf5_stack_guard PUBLIC
 target_link_libraries(nrf5_stack_guard PUBLIC
   nrf5_mpu
 )
+
+# Block device
+add_library(nrf5_block_dev INTERFACE)
+target_include_directories(nrf5_block_dev INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/block_dev"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_block_dev INTERFACE
+  nrf5_config
+)
+
+# Block device empty implementation
+add_library(nrf5_block_dev_empty OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/block_dev/empty/nrf_block_dev_empty.c"
+)
+target_include_directories(nrf5_block_dev_empty PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/block_dev/empty"
+)
+target_link_libraries(nrf5_block_dev_empty PUBLIC
+  nrf5_block_dev
+  nrf5_soc
+)
+
+# Block device QSPI implementation
+add_library(nrf5_block_dev_qspi OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/block_dev/qspi/nrf_block_dev_qspi.c"
+  "${NRF5_SDK_PATH}/components/libraries/block_dev/qspi/nrf_serial_flash_params.c"
+)
+target_include_directories(nrf5_block_dev_qspi PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/block_dev/qspi"
+)
+target_link_libraries(nrf5_block_dev_qspi PUBLIC
+  nrf5_block_dev
+  nrf5_soc
+)
+
+# Block device RAM implementation
+add_library(nrf5_block_dev_ram OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/block_dev/ram/nrf_block_dev_ram.c"
+)
+target_include_directories(nrf5_block_dev_ram PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/block_dev/ram"
+)
+target_link_libraries(nrf5_block_dev_ram PUBLIC
+  nrf5_block_dev
+  nrf5_soc
+)
