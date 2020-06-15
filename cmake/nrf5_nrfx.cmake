@@ -347,6 +347,28 @@ target_link_libraries(nrf5_drv_spis PUBLIC
   nrf5_nrfx_spis
 )
 
+# QSPI nrfx driver
+add_library(nrf5_nrfx_qspi OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_qspi.c"
+)
+target_include_directories(nrf5_nrfx_qspi PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_qspi PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# QSPI legacy driver
+add_library(nrf5_drv_qspi INTERFACE)
+target_include_directories(nrf5_drv_qspi INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_qspi INTERFACE
+  nrf5_nrfx_qspi
+)
+
 # USBD nrfx driver
 add_library(nrf5_nrfx_usbd OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_usbd.c"

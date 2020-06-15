@@ -480,6 +480,39 @@
       ]
     }
   },
+  "nrf5_nrfx_qspi": {
+    "documentation": "QSPI nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_qspi.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_drv_qspi": {
+    "documentation": "QSPI legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_qspi"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
   "nrf5_nrfx_usbd": {
     "documentation": "USBD nrfx driver",
     "variant": "object",
