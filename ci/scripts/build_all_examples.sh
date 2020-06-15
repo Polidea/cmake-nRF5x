@@ -11,6 +11,7 @@ function build_all_configs() {
     local toolchain=$3
     local config_dir=$4
     local build_dir=$5
+    local log_level=$6
 
     if [[ ! -d $config_dir ]]; then
         echo "\"$config_dir\" is not a valid configuration directory"
@@ -38,24 +39,82 @@ function build_all_configs() {
                 continue
             fi
             
-            build_example $example $sdk_version $board $sd_variant $toolchain $config_dir $build_dir || exit 1
+            build_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$config_dir" "$build_dir" "$log_level" || exit 1
         done
     done
 
     return 0
 }
 
-sdk_versions=()
+function print_help() {
+    echo "
+    Usage:
+    --------------------------------------------------------------------------------
 
-if [[ $# -gt 0 ]]; then
+    [Optional]
+
+        --sdk_versions={<version>}  nRF5 SDK version used for building examples, multiple
+                                    SDK versions can be passed, e.g. \"15.3.0 16.0.0\".
+                                    By default, the examples will be built for all SDK
+                                    versions downloaded during the prepare step.
+
+        --log_level=<log_level>     CMake log level. Will be passed as '--log-level' option
+                                    when invoking CMake. Available log levels: TRACE, DEBUG,
+                                    VERBOSE, STATUS, NOTICE, WARNING, ERROR.
+    "
+    exit 0
+}
+
+sdk_version_list=""
+log_level="NOTICE"
+
+while getopts ":h-:" opt; do
+    case $opt in
+        -) {
+            # Handle long options ("--option=<arg>")
+            case $OPTARG in
+                sdk_versions=*)
+                    sdk_version_list=${OPTARG#*=} ;;
+                log_level=*) {
+                    log_level=${OPTARG#*=} 
+                    if [[ ! $log_level =~ $CMAKE_LOG_LEVEL_REGEXP ]]; then
+                        echo "Invalid log level \"$log_level\" (available log levels: TRACE, DEBUG, VERBOSE, STATUS, NOTICE, WARNING, ERROR)"
+                        exit 1
+                    fi
+                };;
+                help)
+                    print_help ;;
+                *) {
+                    if [[ $OPTERR -eq 1 ]]; then
+                        echo "Unknown option \"--$OPTARG\" or missing argument (use \"--option=<arg>\" syntax), use \"--help\""
+                        exit 1
+                    fi
+                };;
+            esac
+        };;
+        h) {
+            print_help
+        };;
+        \?) {
+            unknown_optind=$(($OPTIND - 1))
+            unknown_opt=${!unknown_optind}
+            echo "Uknown option \"$unknown_opt\""
+            exit 1
+        };;
+    esac
+done
+
+
+sdk_versions=($sdk_version_list)
+
+if [[ ${#sdk_versions[@]} -gt 0 ]]; then
     # Build examples for the passed SDK versions
-    for sdk_ver in "$@"; do
+    for sdk_ver in ${sdk_versions[@]}; do
         # Check if passed SDK versions are correct and present
         if [[ ! -d "$SDKS_DIR/$sdk_ver" ]]; then
-            echo "nRF SDK $sdk_ver not found in $SDKS_DIR"
+            echo "nRF5 SDK $sdk_ver not found in $SDKS_DIR"
             exit 1
         fi
-        sdk_versions+=( $sdk_ver )
     done
 else
     # With no arguments passed, build examples for all SDK version present
@@ -65,7 +124,7 @@ else
 fi
 
 if [[ ${#sdk_versions[@]} -eq 0 ]]; then
-    echo "No nRF SDK found in $SDKS_DIR. Build terminated."
+    echo "No nRF5 SDK found in $SDKS_DIR. Build terminated."
     exit 1
 fi
 
@@ -87,10 +146,10 @@ for sdk_ver in "${sdk_versions[@]}"; do
     for example in "${example_local_dirs[@]}"; do
         # Build all custom configs in the local example directory
         if [[ -d "$EXAMPLES_DIR/$example/config" ]]; then
-            build_all_configs $example $sdk_ver "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local"
+            build_all_configs "$example" "$sdk_ver" "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local" "$log_level"
         fi
 
         # Build all configs in the SDK example directory
-        build_all_configs $example $sdk_ver "gcc" "$SDKS_DIR/$sdk_ver/examples/$example"
+        build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "" "$log_level"
     done
 done

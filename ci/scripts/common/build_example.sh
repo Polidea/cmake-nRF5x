@@ -31,6 +31,7 @@ function build_example() {
         echo "5) toolchain (optional), e.g.: gcc [default]"
         echo "6) configuration directory (optional)"
         echo "7) build directory (optional)"
+        echo "8) CMake log level (optional), e.g.: STATUS, WARNING, FATAL_ERROR"
         return 1
     fi
 
@@ -41,6 +42,7 @@ function build_example() {
     local toolchain=${5:-gcc}
     local config_dir=$6
     local build_dir=$7
+    local log_level=$8
 
     local repo_example_dir="$EXAMPLES_DIR/$example_local_dir"
     local sdk_example_dir="$SDKS_DIR/$sdk_version/examples/$example_local_dir"
@@ -111,6 +113,12 @@ function build_example() {
         return 1
     }
 
+    # Verify log level
+    if [[ -z $log_level ]]; then
+        # Use default if not specified
+        log_level="STATUS"
+    fi
+
     echo -e "\n${HEADER_START} ######## Building $cmake_build_path ######## ${HEADER_END}\n"
 
     # Get path to tools
@@ -142,7 +150,8 @@ function build_example() {
         -DNRF5_SOFTDEVICE_VARIANT="$sd_variant" \
         -DNRF5_LINKER_SCRIPT="$(adapt_cmake_path $linker_file)" \
         -DNRF5_SDKCONFIG_PATH="$(adapt_cmake_path $sd_variant_dir/config)" \
-        -G "$build_type" || {
+        -G "$build_type" \
+        --loglevel="$log_level" || {
             echo "Failed to configure project with CMake"
             return 1
         }
