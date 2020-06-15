@@ -153,7 +153,7 @@ function build_example() {
         -DNRF5_LINKER_SCRIPT="$(adapt_cmake_path $linker_file)" \
         -DNRF5_SDKCONFIG_PATH="$(adapt_cmake_path $sd_variant_dir/config)" \
         -G "$build_type" \
-        --log-level="$log_level" || {
+        --loglevel="$log_level" || {
             echo "Failed to configure project with CMake"
             return 1
         }
