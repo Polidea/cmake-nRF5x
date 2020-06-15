@@ -129,7 +129,7 @@ target_include_directories(nrf5_block_dev_empty PUBLIC
 )
 target_link_libraries(nrf5_block_dev_empty PUBLIC
   nrf5_block_dev
-  nrf5_soc
+  nrf5_log
 )
 
 # Block device QSPI implementation
