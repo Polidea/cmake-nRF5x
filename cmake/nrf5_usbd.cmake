@@ -123,6 +123,7 @@ target_include_directories(nrf5_app_usbd_msc PUBLIC
 )
 target_link_libraries(nrf5_app_usbd_msc PUBLIC
   nrf5_app_usbd
+  nrf5_block_dev
 )
 
 # USB AUDIO class

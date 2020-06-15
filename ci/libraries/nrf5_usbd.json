@@ -147,7 +147,8 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_app_usbd"
+        "nrf5_app_usbd",
+        "nrf5_block_dev"
       ]
     },
     "includes": {
