@@ -177,3 +177,25 @@ target_include_directories(nrf5_ext_protothreads INTERFACE
   "${NRF5_SDK_PATH}/external/protothreads"
   "${NRF5_SDK_PATH}/external/protothreads/pt-1.4"
 )
+
+# FatFs - Generic FAT file system module
+add_library(nrf5_ext_fatfs OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}//external/fatfs/src/ff.c"
+)
+target_include_directories(nrf5_ext_fatfs PUBLIC
+  "${NRF5_SDK_PATH}//external/fatfs/src"
+)
+
+# FatFS disk I/O interface based on block device
+add_library(nrf5_ext_fatfs_port_diskio_blkdev OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}//external/fatfs/port/diskio_blkdev.c"
+)
+target_include_directories(nrf5_ext_fatfs_port_diskio_blkdev PUBLIC
+  "${NRF5_SDK_PATH}//external/fatfs/port"
+)
+target_link_libraries(nrf5_ext_fatfs_port_diskio_blkdev PUBLIC
+  nrf5_block_dev
+  nrf5_ext_fatfs
+  nrf5_mdk
+  nrf5_soc
+)
