@@ -144,8 +144,7 @@
     "dependencies": {
       "public": [
         "nrf5_log",
-        "nrf5_fstorage",
-        "nrf5_fstorage_nvmc"
+        "nrf5_fstorage"
       ]
     }
   },

@@ -126,7 +126,6 @@ add_library(nrf5_log_backend_flash OBJECT EXCLUDE_FROM_ALL
 )
 target_link_libraries(nrf5_log_backend_flash PUBLIC
   nrf5_fstorage
-  nrf5_fstorage_nvmc
   nrf5_log
 )
 
