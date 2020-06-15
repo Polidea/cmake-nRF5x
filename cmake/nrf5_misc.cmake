@@ -97,6 +97,19 @@ target_link_libraries(nrf5_stack_guard PUBLIC
   nrf5_mpu
 )
 
+# SD card library
+add_library(nrf5_app_sdcard OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/sdcard/app_sdcard.c"
+)
+target_include_directories(nrf5_app_sdcard PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/sdcard"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_app_sdcard PUBLIC
+  nrf5_drv_spi
+  nrf5_ext_protothreads
+)
+
 # Block device
 add_library(nrf5_block_dev INTERFACE)
 target_include_directories(nrf5_block_dev INTERFACE
@@ -142,4 +155,16 @@ target_include_directories(nrf5_block_dev_ram PUBLIC
 target_link_libraries(nrf5_block_dev_ram PUBLIC
   nrf5_block_dev
   nrf5_soc
+)
+
+# Block device SDC implementation
+add_library(nrf5_block_dev_sdc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/block_dev/sdc/nrf_block_dev_sdc.c"
+)
+target_include_directories(nrf5_block_dev_sdc PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/block_dev/sdc"
+)
+target_link_libraries(nrf5_block_dev_sdc PUBLIC
+  nrf5_app_sdcard
+  nrf5_block_dev
 )

@@ -108,6 +108,25 @@
       ]
     }
   },
+  "nrf5_app_sdcard": {
+    "documentation": "SD card library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/sdcard/app_sdcard.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_drv_spi",
+        "nrf5_ext_protothreads"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/sdcard",
+        "components/libraries/util"
+      ]
+    }
+  },
   "nrf5_block_dev": {
     "documentation": "Block device",
     "variant": "interface",
@@ -132,7 +151,7 @@
     "dependencies": {
       "public": [
         "nrf5_block_dev",
-        "nrf5_soc"
+        "nrf5_log"
       ]
     },
     "includes": {
@@ -175,6 +194,24 @@
     "includes": {
       "public": [
         "components/libraries/block_dev/ram"
+      ]
+    }
+  },
+  "nrf5_block_dev_sdc": {
+    "documentation": "Block device SDC implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/block_dev/sdc/nrf_block_dev_sdc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_block_dev",
+        "nrf5_app_sdcard"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/block_dev/sdc"
       ]
     }
   }

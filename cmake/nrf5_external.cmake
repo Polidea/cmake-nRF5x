@@ -170,3 +170,10 @@ add_library(nrf5_ext_utf_converter OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ext_utf_converter PUBLIC
   "${NRF5_SDK_PATH}/external/utf_converter"
 )
+
+# Protothreads
+add_library(nrf5_ext_protothreads INTERFACE)
+target_include_directories(nrf5_ext_protothreads INTERFACE
+  "${NRF5_SDK_PATH}/external/protothreads"
+  "${NRF5_SDK_PATH}/external/protothreads/pt-1.4"
+)
