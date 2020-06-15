@@ -145,6 +145,7 @@ target_include_directories(nrf5_app_usbd_dummy PUBLIC
 )
 target_link_libraries(nrf5_app_usbd_dummy PUBLIC
   nrf5_app_usbd
+  nrf5_block_dev
 )
 
 # USB Nordic DFU Trigger class
