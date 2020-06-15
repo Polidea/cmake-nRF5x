@@ -193,3 +193,15 @@ of `peripheral/blinky` you may test it with the following call:
     --board=pca10056 \
     --sd_variant=blank
 ```
+
+Before submitting your example you must build it for all SDK versions we
+currently support and also, for all boards and SoftDevice variants available
+for this example. You can easily achieve this by using the
+`ci/scripts/build_all_examples.sh` script like this:
+
+```bash
+./ci/script/build_all_examples --example=ble_central/ble_app_blinky_c
+```
+
+The `build_all_examples.sh` allows you to select which examples and
+configurations shall be built. Use `--help` option for details.
