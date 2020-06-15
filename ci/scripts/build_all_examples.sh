@@ -23,6 +23,7 @@ function build_all_configs() {
     local build_summary_file=$7
     local board_filter=$8
     local sd_variant_filter=$9
+    local flags="${10}"
 
     if [[ ! -d $config_dir ]]; then
         echo "\"$config_dir\" is not a valid configuration directory"
@@ -63,7 +64,7 @@ function build_all_configs() {
             local start_ts=`date +%s%N`
 
             local build_status
-            build_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$config_dir" "$build_dir" "$log_level" || exit 1
+            build_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$config_dir" "$build_dir" "$log_level" "${flags[*]}" || exit 1
             [[ $? -eq 0 ]] && build_status="success" || build_status="failure" 
 
             local end_ts=`date +%s%N`
@@ -101,6 +102,10 @@ function print_help() {
         --log_level=<log_level>     CMake log level. Will be passed as '--log-level' option
                                     when invoking CMake. Available log levels: TRACE, DEBUG,
                                     VERBOSE, STATUS, NOTICE, WARNING, ERROR.
+
+        --clean                     Invoke build system 'Clean' command before building
+                                    each example.
+
     "
     exit 0
 }
@@ -110,6 +115,7 @@ board_filter=""
 sd_variant_filter=""
 sdk_version_list=""
 log_level="NOTICE"
+flags=()
 
 while getopts ":h-:" opt; do
     case $opt in
@@ -131,6 +137,8 @@ while getopts ":h-:" opt; do
                         exit 1
                     fi
                 };;
+                clean)
+                    flags+=('clean') ;;
                 help)
                     print_help ;;
                 *) {
@@ -212,11 +220,11 @@ for sdk_ver in "${sdk_versions[@]}"; do
     for example in "${example_local_dirs[@]}"; do
         # Build all custom configs in the local example directory
         if [[ -d "$EXAMPLES_DIR/$example/config" ]]; then
-            build_all_configs "$example" "$sdk_ver" "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter"
+            build_all_configs "$example" "$sdk_ver" "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter" "${flags[*]}"
         fi
 
         # Build all configs in the SDK example directory
-        build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "$BUILD_DIR" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter"
+        build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "$BUILD_DIR" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter" "${flags[*]}"
     done
 done
 
