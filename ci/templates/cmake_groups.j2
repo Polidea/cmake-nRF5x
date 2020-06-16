@@ -1,0 +1,42 @@
+{%- import 'cmake_common.j2' as cmake -%}
+{%- include 'license_header.j2' %}
+#
+# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake.sh SCRIPT.
+{%- for group in groups %}
+
+# {{group["name"]}}
+function(nrf5_add_group_{{group["name"]}} exec_target)
+
+{%- if group["base"] | length != 0 %}
+  target_link_libraries(${exec_target} PRIVATE
+    {%- for base_dep in group["base"] %}
+    {{ base_dep }}
+    {%- endfor %}
+  )
+{%- endif -%}
+
+{%- for patch in group["patches"] -%}
+{%- if group["patches"][patch] | length != 0 %}
+  if(NRF5_SDK_VERSION VERSION_EQUAL {{ patch }})
+    target_link_libraries(${exec_target} PRIVATE
+  {%- for patch_dep in group["patches"][patch] %}
+      {{ patch_dep }}
+  {%- endfor %}
+    )
+  endif()
+{%- endif -%}
+{%- endfor %}
+endfunction()
+{%- endfor -%}
+
+{# {%- if base_dep | length != 0 %}
+if(NRF5_SDK_VERSION VERSION_EQUAL {{ version }})
+  {{ print_patch(patch) | indent(2) }}
+endif()
+{%- endif -%}
+
+    target_link_libraries(${exec_target} PRIVATE
+        xxx
+    )
+endfunction()
+{%- endfor -%} #}
