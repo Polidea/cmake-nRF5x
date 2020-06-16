@@ -35,6 +35,14 @@ target_link_libraries(nrf5_boards PUBLIC
   nrf5_nrfx_hal
   nrf5_soc
 )
+list(APPEND NRF5_LIBRARY_NRF5_BOARDS_DEPENDENCIES
+  nrf5_boards
+  nrf5_config
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_soc
+)
 
 # Board Support Package
 add_library(nrf5_bsp OBJECT EXCLUDE_FROM_ALL
@@ -47,6 +55,38 @@ target_link_libraries(nrf5_bsp PUBLIC
   nrf5_app_button
   nrf5_boards
 )
+list(APPEND NRF5_LIBRARY_NRF5_BSP_DEPENDENCIES
+  nrf5_app_button
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_boards
+  nrf5_bsp
+  nrf5_cli
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_gpiote
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
 
 # BSP Button BLE
 add_library(nrf5_bsp_btn_ble OBJECT EXCLUDE_FROM_ALL
@@ -57,4 +97,37 @@ target_include_directories(nrf5_bsp_btn_ble PUBLIC
 )
 target_link_libraries(nrf5_bsp_btn_ble PUBLIC
   nrf5_bsp
+)
+list(APPEND NRF5_LIBRARY_NRF5_BSP_BTN_BLE_DEPENDENCIES
+  nrf5_app_button
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_boards
+  nrf5_bsp
+  nrf5_bsp_btn_ble
+  nrf5_cli
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_gpiote
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
 )

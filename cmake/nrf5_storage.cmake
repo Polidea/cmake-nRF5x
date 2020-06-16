@@ -37,6 +37,15 @@ target_link_libraries(nrf5_fstorage PUBLIC
   nrf5_soc
   nrf5_strerror
 )
+list(APPEND NRF5_LIBRARY_NRF5_FSTORAGE_DEPENDENCIES
+  nrf5_config
+  nrf5_fstorage
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
 
 # File storage (SoftDevice)
 add_library(nrf5_fstorage_sd OBJECT EXCLUDE_FROM_ALL
@@ -50,6 +59,20 @@ target_link_libraries(nrf5_fstorage_sd PUBLIC
   nrf5_sdh
   nrf5_section
 )
+list(APPEND NRF5_LIBRARY_NRF5_FSTORAGE_SD_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_config
+  nrf5_fstorage
+  nrf5_fstorage_sd
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
 
 # File storage (NVMC)
 add_library(nrf5_fstorage_nvmc OBJECT EXCLUDE_FROM_ALL
@@ -60,6 +83,20 @@ target_link_libraries(nrf5_fstorage_nvmc PUBLIC
   nrf5_fstorage
   nrf5_nrfx_hal
   nrf5_nrfx_nvmc
+)
+list(APPEND NRF5_LIBRARY_NRF5_FSTORAGE_NVMC_DEPENDENCIES
+  nrf5_atomic
+  nrf5_config
+  nrf5_fstorage
+  nrf5_fstorage_nvmc
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_nvmc
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
 )
 
 # File data storage
@@ -73,4 +110,16 @@ target_link_libraries(nrf5_fds PUBLIC
   nrf5_atfifo
   nrf5_atomic
   nrf5_fstorage
+)
+list(APPEND NRF5_LIBRARY_NRF5_FDS_DEPENDENCIES
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_config
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
 )

@@ -29,3 +29,6 @@ add_library(nrf5_sensorsim OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_sensorsim PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/sensorsim"
 )
+list(APPEND NRF5_LIBRARY_NRF5_SENSORSIM_DEPENDENCIES
+  nrf5_sensorsim
+)

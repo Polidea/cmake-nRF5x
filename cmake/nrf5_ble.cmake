@@ -42,6 +42,24 @@ target_link_libraries(nrf5_ble_common PUBLIC
   nrf5_sdh
   nrf5_soc
 )
+list(APPEND NRF5_LIBRARY_NRF5_BLE_COMMON_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
 
 # BLE advertising
 add_library(nrf5_ble_advertising OBJECT EXCLUDE_FROM_ALL
@@ -54,6 +72,37 @@ target_link_libraries(nrf5_ble_advertising PUBLIC
   nrf5_ble_common
   nrf5_log
 )
+list(APPEND NRF5_LIBRARY_NRF5_BLE_ADVERTISING_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_ble_advertising
+  nrf5_ble_common
+  nrf5_cli
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
 
 # BLE scanning
 add_library(nrf5_ble_scan OBJECT EXCLUDE_FROM_ALL
@@ -65,6 +114,37 @@ target_include_directories(nrf5_ble_scan PUBLIC
 target_link_libraries(nrf5_ble_scan PUBLIC
   nrf5_ble_common
   nrf5_log
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SCAN_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_ble_common
+  nrf5_ble_scan
+  nrf5_cli
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
 )
 
 # BLE data base discovery
@@ -84,6 +164,42 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
     nrf5_ble_gq
   )
 endif()
+list(APPEND NRF5_LIBRARY_NRF5_BLE_DB_DISCOVERY_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_ble_common
+  nrf5_ble_db_discovery
+  nrf5_cli
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  list(APPEND NRF5_LIBRARY_NRF5_BLE_DB_DISCOVERY_DEPENDENCIES
+    nrf5_ble_gq
+  )
+endif()
 
 # BLE GATT
 add_library(nrf5_ble_gatt OBJECT EXCLUDE_FROM_ALL
@@ -94,6 +210,33 @@ target_include_directories(nrf5_ble_gatt PUBLIC
 )
 target_link_libraries(nrf5_ble_gatt PUBLIC
   nrf5_log
+  nrf5_strerror
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_GATT_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_ble_gatt
+  nrf5_cli
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
   nrf5_strerror
 )
 
@@ -111,6 +254,25 @@ target_link_libraries(nrf5_ble_qwr PUBLIC
   nrf5_mdk
   nrf5_soc
 )
+list(APPEND NRF5_LIBRARY_NRF5_BLE_QWR_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_qwr
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
 
 # BLE Link Context Manager
 add_library(nrf5_ble_link_ctx_manager OBJECT EXCLUDE_FROM_ALL
@@ -121,6 +283,25 @@ target_include_directories(nrf5_ble_link_ctx_manager PUBLIC
 )
 target_link_libraries(nrf5_ble_link_ctx_manager PUBLIC
   nrf5_ble_common
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_LINK_CTX_MANAGER_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_link_ctx_manager
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
 )
 
 # BLE GATT Queue library
@@ -136,4 +317,28 @@ if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
     nrf5_memobj
     nrf5_queue
   )
+  if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+    list(APPEND NRF5_LIBRARY_NRF5_BLE_GQ_DEPENDENCIES
+      nrf5_app_scheduler
+      nrf5_app_timer
+      nrf5_app_util_platform
+      nrf5_atflags
+      nrf5_atomic
+      nrf5_balloc
+      nrf5_ble_common
+      nrf5_ble_gq
+      nrf5_config
+      nrf5_delay
+      nrf5_log_fwd
+      nrf5_mdk
+      nrf5_memobj
+      nrf5_nrfx_common
+      nrf5_nrfx_hal
+      nrf5_queue
+      nrf5_sdh
+      nrf5_section
+      nrf5_soc
+      nrf5_strerror
+    )
+  endif()
 endif()

@@ -27,3 +27,6 @@ add_library(nrf5_iot_common INTERFACE)
 target_include_directories(nrf5_iot_common INTERFACE
   "${NRF5_SDK_PATH}/components/iot/common"
 )
+list(APPEND NRF5_LIBRARY_NRF5_IOT_COMMON_DEPENDENCIES
+  nrf5_iot_common
+)
