@@ -10,5 +10,102 @@
         "components/libraries/sensorsim"
       ]
     }
+  },
+  "nrf5_gfx": {
+    "documentation": "GFX Library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/gfx/nrf_gfx.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_common",
+        "nrf5_log",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/gfx",
+        "components/libraries/util",
+        "external/thedotfactory_fonts"
+      ]
+    }
+  },
+  "nrf5_spi_mngr": {
+    "documentation": "SPI transaction manager",
+    "variant": "object",
+    "sources": [
+      "components/libraries/spi_mngr/nrf_spi_mngr.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_queue",
+        "nrf5_drv_spi",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/spi_mngr",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_twi_mngr": {
+    "documentation": "TWI transaction manager",
+    "variant": "object",
+    "sources": [
+      "components/libraries/twi_mngr/nrf_twi_mngr.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_queue",
+        "nrf5_drv_twi",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/twi_mngr",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_mpu": {
+    "documentation": "MPU (Memory Protection Unit) driver",
+    "variant": "object",
+    "sources": [
+      "components/libraries/mpu/nrf_mpu_lib.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_cli"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/mpu"
+      ]
+    }
+  },
+  "nrf5_stack_guard": {
+    "documentation": "Stack guard",
+    "variant": "object",
+    "sources": [
+      "components/libraries/stack_guard/nrf_stack_guard.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_mpu"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/stack_guard",
+        "components/libraries/util"
+      ]
+    }
   }
 }

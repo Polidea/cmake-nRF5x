@@ -118,6 +118,15 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_FWD_DEPENDENCIES
   nrf5_log_fwd
 )
 
+# CLI forwarding interface (include directories only)
+add_library(nrf5_cli_fwd INTERFACE)
+target_include_directories(nrf5_cli_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/cli"
+)
+list(APPEND NRF5_LIBRARY_NRF5_CLI_FWD_DEPENDENCIES
+  nrf5_cli_fwd
+)
+
 # SoftDevice Handler
 add_library(nrf5_sdh OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh.c"
@@ -145,6 +154,24 @@ list(APPEND NRF5_LIBRARY_NRF5_SDH_DEPENDENCIES
   nrf5_strerror
 )
 
+# Memory Object forwarding interface (include directories only)
+add_library(nrf5_memobj_fwd INTERFACE)
+target_include_directories(nrf5_memobj_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/memobj"
+)
+list(APPEND NRF5_LIBRARY_NRF5_MEMOBJ_FWD_DEPENDENCIES
+  nrf5_memobj_fwd
+)
+
+# Block Allocator forwarding interface (include directories only)
+add_library(nrf5_balloc_fwd INTERFACE)
+target_include_directories(nrf5_balloc_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/balloc"
+)
+list(APPEND NRF5_LIBRARY_NRF5_BALLOC_FWD_DEPENDENCIES
+  nrf5_balloc_fwd
+)
+
 # Block Allocator
 add_library(nrf5_balloc OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/balloc/nrf_balloc.c"
@@ -153,16 +180,25 @@ target_include_directories(nrf5_balloc PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/balloc"
 )
 target_link_libraries(nrf5_balloc PUBLIC
+  nrf5_cli_fwd
+  nrf5_ext_fprintf
   nrf5_log_fwd
+  nrf5_memobj_fwd
+  nrf5_queue
   nrf5_section
   nrf5_soc
   nrf5_strerror
 )
 list(APPEND NRF5_LIBRARY_NRF5_BALLOC_DEPENDENCIES
   nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj_fwd
+  nrf5_queue
   nrf5_section
   nrf5_soc
   nrf5_strerror
@@ -183,10 +219,15 @@ target_link_libraries(nrf5_memobj PUBLIC
 list(APPEND NRF5_LIBRARY_NRF5_MEMOBJ_DEPENDENCIES
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_queue
   nrf5_section
   nrf5_soc
   nrf5_strerror
@@ -261,14 +302,22 @@ target_include_directories(nrf5_queue PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_queue PUBLIC
+  nrf5_balloc_fwd
+  nrf5_cli_fwd
+  nrf5_ext_fprintf
   nrf5_log_fwd
+  nrf5_memobj_fwd
   nrf5_section
   nrf5_strerror
 )
 list(APPEND NRF5_LIBRARY_NRF5_QUEUE_DEPENDENCIES
+  nrf5_balloc_fwd
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj_fwd
   nrf5_queue
   nrf5_section
   nrf5_soc
@@ -295,14 +344,19 @@ list(APPEND NRF5_LIBRARY_NRF5_PWR_MGMT_DEPENDENCIES
   nrf5_app_util_platform
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
   nrf5_pwr_mgmt
+  nrf5_queue
   nrf5_sdh
   nrf5_section
   nrf5_soc
@@ -392,48 +446,4 @@ list(APPEND NRF5_LIBRARY_NRF5_SHA256_DEPENDENCIES
   nrf5_sha256
   nrf5_sha256_fwd
   nrf5_soc
-)
-
-# TWI transaction manager
-add_library(nrf5_twi_mngr OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/twi_mngr/nrf_twi_mngr.c"
-)
-target_include_directories(nrf5_twi_mngr PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/twi_mngr"
-  "${NRF5_SDK_PATH}/components/libraries/util"
-)
-target_link_libraries(nrf5_twi_mngr PUBLIC
-  nrf5_app_util_platform
-  nrf5_config
-  nrf5_drv_twi
-  nrf5_queue
-)
-list(APPEND NRF5_LIBRARY_NRF5_TWI_MNGR_DEPENDENCIES
-  nrf5_app_util_platform
-  nrf5_atfifo
-  nrf5_atomic
-  nrf5_balloc
-  nrf5_cli
-  nrf5_config
-  nrf5_delay
-  nrf5_drv_twi
-  nrf5_ext_fprintf
-  nrf5_fds
-  nrf5_fstorage
-  nrf5_log
-  nrf5_log_fwd
-  nrf5_mdk
-  nrf5_memobj
-  nrf5_mtx
-  nrf5_nrfx_common
-  nrf5_nrfx_hal
-  nrf5_nrfx_twi
-  nrf5_pwr_mgmt
-  nrf5_queue
-  nrf5_ringbuf
-  nrf5_sdh
-  nrf5_section
-  nrf5_soc
-  nrf5_strerror
-  nrf5_twi_mngr
 )

@@ -73,7 +73,9 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_delay
@@ -92,6 +94,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -137,7 +140,9 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BACKEND_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_cc310_backend
@@ -157,6 +162,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BACKEND_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -192,7 +198,9 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BL_BACKEND_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_cc310_bl_backend
@@ -212,6 +220,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BL_BACKEND_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -246,7 +255,9 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CIFRA_BACKEND_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_cifra_backend
@@ -267,6 +278,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CIFRA_BACKEND_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -308,7 +320,9 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MBEDTLS_BACKEND_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_mbedtls_backend
@@ -328,6 +342,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MBEDTLS_BACKEND_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -365,7 +380,9 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MICRO_ECC_BACKEND_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_micro_ecc_backend
@@ -385,6 +402,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MICRO_ECC_BACKEND_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -424,7 +442,9 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OBERON_BACKEND_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_oberon_backend
@@ -444,6 +464,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OBERON_BACKEND_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -480,7 +501,9 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_HW_BACKEND_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_nrf_hw_backend
@@ -501,6 +524,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_HW_BACKEND_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -536,7 +560,9 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_SW_BACKEND_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_nrf_sw_backend
@@ -556,6 +582,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_SW_BACKEND_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -600,8 +627,10 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OPTIGA_BACKEND_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_boards
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_optiga_backend
@@ -624,6 +653,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OPTIGA_BACKEND_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal

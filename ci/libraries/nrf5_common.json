@@ -93,6 +93,15 @@
       ]
     }
   },
+  "nrf5_cli_fwd": {
+    "documentation": "CLI forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/cli"
+      ]
+    }
+  },
   "nrf5_sdh": {
     "documentation": "SoftDevice Handler",
     "variant": "object",
@@ -116,6 +125,24 @@
       ]
     }
   },
+  "nrf5_memobj_fwd": {
+    "documentation": "Memory Object forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/memobj"
+      ]
+    }
+  },
+  "nrf5_balloc_fwd": {
+    "documentation": "Block Allocator forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/balloc"
+      ]
+    }
+  },
   "nrf5_balloc": {
     "documentation": "Block Allocator",
     "variant": "object",
@@ -124,10 +151,14 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_memobj_fwd",
         "nrf5_log_fwd",
+        "nrf5_cli_fwd",
         "nrf5_section",
         "nrf5_soc",
-        "nrf5_strerror"
+        "nrf5_strerror",
+        "nrf5_queue",
+        "nrf5_ext_fprintf"
       ]
     },
     "includes": {
@@ -218,9 +249,13 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_balloc_fwd",
+        "nrf5_memobj_fwd",
         "nrf5_log_fwd",
+        "nrf5_cli_fwd",
         "nrf5_section",
-        "nrf5_strerror"
+        "nrf5_strerror",
+        "nrf5_ext_fprintf"
       ]
     },
     "includes": {
@@ -327,27 +362,6 @@
     "dependencies": {
       "public": [
         "nrf5_sha256_fwd"
-      ]
-    }
-  },
-  "nrf5_twi_mngr": {
-    "documentation": "TWI transaction manager",
-    "variant": "object",
-    "sources": [
-      "components/libraries/twi_mngr/nrf_twi_mngr.c"
-    ],
-    "includes": {
-      "public": [
-        "components/libraries/twi_mngr",
-        "components/libraries/util"
-      ]
-    },
-    "dependencies": {
-      "public": [
-        "nrf5_config",
-        "nrf5_drv_twi",
-        "nrf5_app_util_platform",
-        "nrf5_queue"
       ]
     }
   }

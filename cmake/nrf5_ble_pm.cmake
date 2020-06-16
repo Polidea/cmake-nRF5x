@@ -42,8 +42,10 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_LESC_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_lesc
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_delay
@@ -62,6 +64,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_LESC_DEPENDENCIES
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -96,16 +99,21 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATABASE_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_peer_database
   nrf5_ble_pm_buffer
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_queue
   nrf5_sdh
   nrf5_section
   nrf5_soc
@@ -134,20 +142,25 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATA_STORAGE_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_peer_data_storage
   nrf5_ble_peer_database
   nrf5_ble_peer_id
   nrf5_ble_pm_buffer
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_queue
   nrf5_sdh
   nrf5_section
   nrf5_soc
@@ -172,15 +185,20 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_ID_MANAGER_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_id_manager
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_queue
   nrf5_sdh
   nrf5_section
   nrf5_soc
@@ -296,16 +314,21 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_DISPATCHER_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_auth_status_tracker
   nrf5_ble_common
   nrf5_ble_security_dispatcher
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_queue
   nrf5_sdh
   nrf5_section
   nrf5_soc
@@ -331,17 +354,22 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_MANAGER_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_auth_status_tracker
   nrf5_ble_common
   nrf5_ble_security_dispatcher
   nrf5_ble_security_manager
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_queue
   nrf5_sdh
   nrf5_section
   nrf5_soc
@@ -368,16 +396,21 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_GATT_CACHE_MANAGER_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_gatt_cache_manager
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_queue
   nrf5_sdh
   nrf5_section
   nrf5_soc
@@ -405,6 +438,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_HANDLER_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_auth_status_tracker
   nrf5_ble_common
   nrf5_ble_gatt_cache_manager
@@ -417,16 +451,20 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_HANDLER_DEPENDENCIES
   nrf5_ble_pm_buffer
   nrf5_ble_security_dispatcher
   nrf5_ble_security_manager
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_queue
   nrf5_sdh
   nrf5_section
   nrf5_soc
@@ -456,6 +494,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_auth_status_tracker
   nrf5_ble_common
   nrf5_ble_gatt_cache_manager
@@ -467,16 +506,20 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_DEPENDENCIES
   nrf5_ble_pm_buffer
   nrf5_ble_security_dispatcher
   nrf5_ble_security_manager
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_queue
   nrf5_sdh
   nrf5_section
   nrf5_soc

@@ -45,18 +45,156 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_DEPENDENCIES
   nrf5_app_util_platform
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
   nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# UART command line interface transport layer
+add_library(nrf5_cli_uart OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/cli/uart/nrf_cli_uart.c"
+)
+target_include_directories(nrf5_cli_uart PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/cli/uart"
+)
+target_link_libraries(nrf5_cli_uart PUBLIC
+  nrf5_app_timer
+  nrf5_cli
+  nrf5_drv_uart
+)
+list(APPEND NRF5_LIBRARY_NRF5_CLI_UART_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_cli_uart
+  nrf5_config
+  nrf5_delay
+  nrf5_drv_uart
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_uart
+  nrf5_nrfx_uarte
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# RTT command line interface transport layer
+add_library(nrf5_cli_rtt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/cli/rtt/nrf_cli_rtt.c"
+)
+target_include_directories(nrf5_cli_rtt PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/cli/rtt"
+)
+target_link_libraries(nrf5_cli_rtt PUBLIC
+  nrf5_app_timer
+  nrf5_cli
+  nrf5_ext_segger_rtt
+)
+list(APPEND NRF5_LIBRARY_NRF5_CLI_RTT_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_cli_rtt
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_ext_segger_rtt
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# CDC ACM command line interface transport layer
+add_library(nrf5_cli_cdc_acm OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/cli/cdc_acm/nrf_cli_cdc_acm.c"
+)
+target_include_directories(nrf5_cli_cdc_acm PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/cli/cdc_acm"
+)
+target_link_libraries(nrf5_cli_cdc_acm PUBLIC
+  nrf5_app_usbd_cdc_acm
+  nrf5_cli
+)
+list(APPEND NRF5_LIBRARY_NRF5_CLI_CDC_ACM_DEPENDENCIES
+  nrf5_app_usbd
+  nrf5_app_usbd_cdc_acm
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_cdc_acm
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_drv_usbd
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_usbd
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
@@ -90,7 +228,9 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
   nrf5_ext_fprintf
@@ -100,6 +240,7 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -124,7 +265,9 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_SERIAL_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
   nrf5_ext_fprintf
@@ -135,6 +278,7 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_SERIAL_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -160,7 +304,9 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_UART_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
   nrf5_drv_uart
@@ -172,11 +318,51 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_UART_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
   nrf5_nrfx_uart
   nrf5_nrfx_uarte
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# Logger Flash backend
+add_library(nrf5_log_backend_flash OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/log/src/nrf_log_backend_flash.c"
+)
+target_link_libraries(nrf5_log_backend_flash PUBLIC
+  nrf5_fstorage
+  nrf5_log
+)
+list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_FLASH_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_backend_flash
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf
@@ -199,7 +385,9 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_RTT_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
   nrf5_ext_fprintf
@@ -211,6 +399,7 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_RTT_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -235,7 +424,9 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_DEFAULT_BACKENDS_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
   nrf5_ext_fprintf
@@ -246,6 +437,7 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_DEFAULT_BACKENDS_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal

@@ -172,5 +172,42 @@
         }
       }
     ]
+  },
+  "nrf5_ext_thedotfactory_fonts": {
+    "documentation": "The Dot Factory fonts",
+    "variant": "object",
+    "sources": [
+      "external/thedotfactory_fonts/orkney24pts.c",
+      "external/thedotfactory_fonts/orkney8pts.c"
+    ],
+    "includes": {
+      "public": [
+        "external/thedotfactory_fonts"
+      ]
+    }
+  },
+  "nrf5_ext_fnmatch": {
+    "documentation": "fnmatch",
+    "variant": "object",
+    "sources": [
+      "external/fnmatch/fnmatch.c"
+    ],
+    "includes": {
+      "public": [
+        "external/fnmatch"
+      ]
+    }
+  },
+  "nrf5_ext_utf_converter": {
+    "documentation": "UTF converter",
+    "variant": "object",
+    "sources": [
+      "external/utf_converter/utf.c"
+    ],
+    "includes": {
+      "public": [
+        "external/utf_converter"
+      ]
+    }
   }
 }

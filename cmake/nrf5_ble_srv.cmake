@@ -74,10 +74,12 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_C_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_db_discovery
   nrf5_ble_srv_lbs_c
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
   nrf5_ext_fprintf
@@ -87,6 +89,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_C_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
@@ -155,10 +158,12 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_C_DEPENDENCIES
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_db_discovery
   nrf5_ble_srv_nus_c
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
   nrf5_ext_fprintf
@@ -168,6 +173,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_C_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
