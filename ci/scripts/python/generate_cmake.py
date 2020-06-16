@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
+import os
 import argparse
+
 from pathlib import Path
 from nrf5_cmake.library import Library
 from nrf5_cmake.version import Version
@@ -8,7 +10,7 @@ from nrf5_cmake.version import Version
 from typing import Dict, List, Optional
 from jinja2 import FileSystemLoader, Environment
 from nrf5_cmake.library_description import LibraryDescription, LibraryVariant
-from nrf5_cmake.library_operations import libraries_load_from_file
+from nrf5_cmake.library_operations import libraries_load_from_file, libraries_dependencies_per_sdk
 
 
 def is_library_description_ok(library: LibraryDescription, sdks: List[Version]) -> bool:
@@ -74,35 +76,99 @@ def process_library_description(library_name: str,
 
 # Parse arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("--input", required=True)
+parser.add_argument("--input_dir", required=True)
 parser.add_argument("--supported_sdks", required=True, nargs="+")
-parser.add_argument("--output", required=True)
-parser.add_argument("--template", required=True)
+parser.add_argument("--output_dir", required=True)
+parser.add_argument("--lib_template", required=True)
+parser.add_argument("--group_template", required=True)
 args = parser.parse_args()
 
-input_filepath: str = args.input
-output_filepath: str = args.output
-template_filepath: str = args.template
+input_dir: str = args.input_dir
+output_dir: str = args.output_dir
+lib_template: str = args.lib_template
+group_template: str = args.group_template
 supported_sdks: str = args.supported_sdks
 
 # Get list of supported SKDs for generation
 sdk_list = [Version.from_string(sdk) for sdk in supported_sdks]
 
-# Load libraries and process them. Result is a JSON file containing libraries.
-libraries = libraries_load_from_file(input_filepath)
-cmake_libraries = [
-    process_library_description(lib[0], lib[1], sdk_list) for lib in libraries.items()
-    if is_library_description_ok(lib[1], sdk_list)
-]
+# Get all libraries per file.
+libraries_per_file: Dict[str, Dict[str, LibraryDescription]] = {}
 
-# Check if there is a need to generate file.
-if len(cmake_libraries) == 0:
-    print("Skipping " + input_filepath + "... No definitions.")
-    exit(0)
+for root, dirs, files in os.walk(input_dir):
+    for file in files:
+        if not file.endswith(".json"):
+            continue
+        file_libs = libraries_load_from_file(os.path.join(root, file))
+        libraries_per_file[file] = file_libs
+
+# Generate CMake file for each file
+for (filepath, libraries) in libraries_per_file.items():
+    # Select only proper CMake libraries for generation.
+    cmake_libraries = [
+        process_library_description(lib[0], lib[1], sdk_list) for lib in libraries.items()
+        if is_library_description_ok(lib[1], sdk_list)
+    ]
+
+    # Check if there is a need to generate file.
+    if len(cmake_libraries) == 0:
+        print("Skipping " + filepath + "... No definitions.")
+        continue
+
+    # Render with provided template
+    output_filepath = os.path.join(
+        output_dir, filepath.replace('.json', '.cmake'))
+
+    with open(lib_template, 'r') as template_file, open(output_filepath, 'w') as output_file:
+        template = Environment(
+            loader=FileSystemLoader(Path(lib_template).resolve().parent)
+        ).from_string(template_file.read())
+        output_file.write(template.render(libraries=cmake_libraries))
+
+# Collect information about groups and included libraries.
+all_libraries: Dict[str, LibraryDescription] = {}
+for libraries in libraries_per_file.values():
+    all_libraries.update(libraries)
+
+groups = {}
+for (lib_name, library) in all_libraries.items():
+    if not library.groups:
+        continue
+
+    for group in library.groups:
+        if not group in groups:
+            groups[group] = set()
+        groups[group].add(lib_name)
+
+# For each group collect list of all dependencies.
+rendered_groups = []
+for (group_name, libraries) in groups.items():
+    sdk_dependencies = libraries_dependencies_per_sdk(
+        {lib_name: all_libraries[lib_name] for lib_name in libraries},
+        all_libraries,
+        sdk_list
+    )
+
+    base_dependencies = set.intersection(
+        *(x[1] for x in sdk_dependencies.items())
+    )
+
+    rendered_groups.append({
+        "name": group_name,
+        "base": sorted(base_dependencies),
+        "patches": {
+            str(x[0]): sorted(set.difference(x[1], base_dependencies)) for x in sdk_dependencies.items()
+        }
+    })
+
 
 # Render with provided template
-with open(template_filepath, 'r') as template_file, open(output_filepath, 'w') as output_file:
+output_filepath = os.path.join(
+    output_dir, "nrf5_groups.cmake"
+)
+
+with open(group_template, 'r') as template_file, open(output_filepath, 'w') as output_file:
     template = Environment(
-        loader=FileSystemLoader(Path(template_filepath).resolve().parent)
+        loader=FileSystemLoader(Path(group_template).resolve().parent)
     ).from_string(template_file.read())
-    output_file.write(template.render(libraries=cmake_libraries))
+    output_file.write(template.render(groups=rendered_groups))

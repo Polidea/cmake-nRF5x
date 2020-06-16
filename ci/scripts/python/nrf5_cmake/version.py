@@ -40,6 +40,9 @@ class Version:
     def __ge__(self, other):
         return self.__cmp__(other) >= 0
 
+    def __hash__(self) -> int:
+        return hash((self._major, self._minor, self._patch))
+
     @property
     def major(self) -> int:
         return self._major

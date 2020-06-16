@@ -36,6 +36,12 @@ class LibraryDescription:
                 "patches": {
                     "type": "array",
                     "items": LibraryPatch.json_schema
+                },
+                "groups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         }
@@ -46,12 +52,14 @@ class LibraryDescription:
                  documentation: str = "",
                  sdk_version: Optional[LibraryVersion] = None,
                  library: Optional[Library] = None,
-                 patches: Optional[List[LibraryPatch]] = None):
+                 patches: Optional[List[LibraryPatch]] = None,
+                 groups: Optional[List[str]] = None):
         self._variant = variant
         self._documentation = documentation
         self._sdk_version = sdk_version
         self._library: Library = library or Library()
         self._patches: List[LibraryPatch] = patches or []
+        self._groups: List[str] = groups or []
 
     def __str__(self):
         return str(self.to_json())
@@ -79,6 +87,9 @@ class LibraryDescription:
             for patch in json_value["patches"]:
                 library._patches.append(LibraryPatch.from_json(patch))
 
+        if "groups" in json_value:
+            library._groups = json_value["groups"]
+
         return library
 
     def to_json(self) -> dict:
@@ -92,6 +103,9 @@ class LibraryDescription:
 
         if self._variant:
             json_value["variant"] = self._variant.value
+
+        if self._groups:
+            json_value["groups"] = self._groups
 
         if len(self._patches) != 0:
             json_patches = []
@@ -146,6 +160,14 @@ class LibraryDescription:
     def patches(self, patches: List[LibraryPatch]):
         self._patches = patches
 
+    @property
+    def groups(self) -> List[str]:
+        return self._groups
+
+    @groups.setter
+    def groups(self, groups: List[str]):
+        self._groups = groups
+
     def applies_to_sdk_version(self, version: Version) -> bool:
         return not self.sdk_version or self.sdk_version.applies_to(version)
 
@@ -188,7 +210,8 @@ class LibraryTestCase(TestCase):
                     "sdk_version": {"to": "16.0.0"},
                     "sources": ["s3", "s4"]
                 }
-            ]
+            ],
+            "groups": ["group_a", "group_b"]
         }
 
         library = LibraryDescription.from_json(json_value)
@@ -201,6 +224,7 @@ class LibraryTestCase(TestCase):
         self.assertEqual(library.sdk_version, LibraryVersion(
             from_version=Version(15, 3, 0))
         )
+        self.assertEqual(library.groups, ["group_a", "group_b"])
 
         self.assertEqual(json_value, library.to_json())
 
