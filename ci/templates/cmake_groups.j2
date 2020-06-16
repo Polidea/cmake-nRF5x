@@ -5,7 +5,7 @@
 {%- for group in groups %}
 
 # {{group["name"]}}
-function(nrf5_add_group_{{group["name"]}} exec_target)
+function(nrf5_link_group_{{group["name"]}} exec_target)
 
 {%- if group["base"] | length != 0 %}
   target_link_libraries(${exec_target} PRIVATE
