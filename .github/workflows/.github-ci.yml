@@ -22,8 +22,6 @@ jobs:
         run: ./ci/scripts/run_tests.sh
       - name: Generate CMake files
         run: ./ci/scripts/generate_cmake.sh
-      - name: Generate CMake libraries tests
-        run: ./ci/scripts/generate_cmake_tests.sh
       - name: Build all libraries tests
         run: ./ci/scripts/build_all_libraries.sh
       - name: Build all examples
