@@ -182,7 +182,7 @@ target_include_directories(nrf5_mdk PUBLIC
   "${NRF5_SDK_PATH}/modules/nrfx/mdk"
 )
 
-if(${NRF5_SOFTDEVICE_VARIANT} STREQUAL "blank")
+if(${NRF5_SOFTDEVICE_VARIANT} MATCHES "^(blank|mbr)$")
   # SoC no SoftDevice variant.
   add_library(nrf5_soc OBJECT
     "${NRF5_SDK_PATH}/components/drivers_nrf/nrf_soc_nosd/nrf_nvic.c"
