@@ -5,38 +5,23 @@
 {%- for group in groups %}
 
 # {{group["name"]}}
-function(nrf5_link_group_{{group["name"]}} exec_target)
-
 {%- if group["base"] | length != 0 %}
-  target_link_libraries(${exec_target} PRIVATE
-    {%- for base_dep in group["base"] %}
-    {{ base_dep }}
-    {%- endfor %}
-  )
+list(APPEND NRF5_GROUP_{{group["name"] | upper}}_DEPENDENCIES
+  {%- for base_dep in group["base"] %}
+  {{ base_dep }}
+  {%- endfor %}
+)
 {%- endif -%}
 
 {%- for patch in group["patches"] -%}
 {%- if group["patches"][patch] | length != 0 %}
-  if(NRF5_SDK_VERSION VERSION_EQUAL {{ patch }})
-    target_link_libraries(${exec_target} PRIVATE
-  {%- for patch_dep in group["patches"][patch] %}
-      {{ patch_dep }}
-  {%- endfor %}
-    )
-  endif()
-{%- endif -%}
+if(NRF5_SDK_VERSION VERSION_EQUAL {{ patch }})
+  list(APPEND NRF5_GROUP_{{group["name"] | upper}}_DEPENDENCIES
+{%- for patch_dep in group["patches"][patch] %}
+    {{ patch_dep }}
 {%- endfor %}
-endfunction()
-{%- endfor -%}
-
-{# {%- if base_dep | length != 0 %}
-if(NRF5_SDK_VERSION VERSION_EQUAL {{ version }})
-  {{ print_patch(patch) | indent(2) }}
+  )
 endif()
 {%- endif -%}
-
-    target_link_libraries(${exec_target} PRIVATE
-        xxx
-    )
-endfunction()
-{%- endfor -%} #}
+{%- endfor %}
+{%- endfor -%}

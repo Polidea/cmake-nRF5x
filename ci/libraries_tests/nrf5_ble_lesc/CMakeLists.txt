@@ -37,8 +37,10 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_lesc
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crypto
   nrf5_crypto_cc310_backend
@@ -58,6 +60,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_mdk
   nrf5_mem_manager
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal

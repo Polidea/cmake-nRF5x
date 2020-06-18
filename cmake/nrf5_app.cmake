@@ -35,6 +35,12 @@ target_link_libraries(nrf5_app_scheduler PUBLIC
   nrf5_mdk
   nrf5_soc
 )
+list(APPEND NRF5_LIBRARY_NRF5_APP_SCHEDULER_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
 
 # Application Error
 add_library(nrf5_app_error OBJECT EXCLUDE_FROM_ALL
@@ -48,6 +54,36 @@ target_include_directories(nrf5_app_error PUBLIC
 target_link_libraries(nrf5_app_error PUBLIC
   nrf5_log
 )
+list(APPEND NRF5_LIBRARY_NRF5_APP_ERROR_DEPENDENCIES
+  nrf5_app_error
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
 
 # Application Platform Utilities
 add_library(nrf5_app_util_platform OBJECT EXCLUDE_FROM_ALL
@@ -57,6 +93,11 @@ target_include_directories(nrf5_app_util_platform PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_app_util_platform PUBLIC
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_APP_UTIL_PLATFORM_DEPENDENCIES
+  nrf5_app_util_platform
   nrf5_mdk
   nrf5_soc
 )
@@ -74,6 +115,17 @@ target_link_libraries(nrf5_app_timer PUBLIC
   nrf5_delay
   nrf5_nrfx_hal
 )
+list(APPEND NRF5_LIBRARY_NRF5_APP_TIMER_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_config
+  nrf5_delay
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_soc
+)
 
 # Application Button
 add_library(nrf5_app_button OBJECT EXCLUDE_FROM_ALL
@@ -87,6 +139,39 @@ target_link_libraries(nrf5_app_button PUBLIC
   nrf5_app_timer
   nrf5_nrfx_gpiote
 )
+list(APPEND NRF5_LIBRARY_NRF5_APP_BUTTON_DEPENDENCIES
+  nrf5_app_button
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_gpiote
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
 
 # Application FIFO
 add_library(nrf5_app_fifo OBJECT EXCLUDE_FROM_ALL
@@ -97,6 +182,12 @@ target_include_directories(nrf5_app_fifo PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_app_fifo PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_APP_FIFO_DEPENDENCIES
+  nrf5_app_fifo
   nrf5_config
   nrf5_mdk
   nrf5_soc
@@ -113,6 +204,39 @@ target_include_directories(nrf5_app_uart PUBLIC
 target_link_libraries(nrf5_app_uart PUBLIC
   nrf5_drv_uart
 )
+list(APPEND NRF5_LIBRARY_NRF5_APP_UART_DEPENDENCIES
+  nrf5_app_uart
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_drv_uart
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_uart
+  nrf5_nrfx_uarte
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
 
 # Application UART (with FIFO)
 add_library(nrf5_app_uart_fifo OBJECT EXCLUDE_FROM_ALL
@@ -125,4 +249,38 @@ target_include_directories(nrf5_app_uart_fifo PUBLIC
 target_link_libraries(nrf5_app_uart_fifo PUBLIC
   nrf5_app_fifo
   nrf5_drv_uart
+)
+list(APPEND NRF5_LIBRARY_NRF5_APP_UART_FIFO_DEPENDENCIES
+  nrf5_app_fifo
+  nrf5_app_uart_fifo
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_drv_uart
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_uart
+  nrf5_nrfx_uarte
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
 )

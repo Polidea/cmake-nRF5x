@@ -28,6 +28,7 @@ def is_library_description_ok(library: LibraryDescription, sdks: List[Version]) 
 
 def process_library_description(library_name: str,
                                 library: LibraryDescription,
+                                all_libraries: Dict[str, LibraryDescription],
                                 sdks: List[Version]):
 
     # Check if SDK version check needs to be added.
@@ -64,13 +65,27 @@ def process_library_description(library_name: str,
         # Now that library is OK, process it
         patches[str(sdk)] = sdk_library.to_json()
 
+    # Find all library dependencies
+    sdk_dependencies = libraries_dependencies_per_sdk(
+        {library_name: library},
+        all_libraries,
+        sdks
+    )
+    base_dependencies = set.intersection(
+        *(x[1] for x in sdk_dependencies.items())
+    )
+
     return {
         "name": library_name,
         "documentation": library.documentation,
         "sdk_version": sdk_version,
         "variant": library.variant.value.upper(),
         "base": base_library.to_json(),
-        "patches": patches
+        "patches": patches,
+        "dep_base": sorted(base_dependencies),
+        "dep_patches": {
+            str(x[0]): sorted(set.difference(x[1], base_dependencies)) for x in sdk_dependencies.items()
+        }
     }
 
 
@@ -102,11 +117,15 @@ for root, dirs, files in os.walk(input_dir):
         file_libs = libraries_load_from_file(os.path.join(root, file))
         libraries_per_file[file] = file_libs
 
+all_libraries: Dict[str, LibraryDescription] = {}
+for libraries in libraries_per_file.values():
+    all_libraries.update(libraries)
+
 # Generate CMake file for each file
 for (filepath, libraries) in libraries_per_file.items():
     # Select only proper CMake libraries for generation.
     cmake_libraries = [
-        process_library_description(lib[0], lib[1], sdk_list) for lib in libraries.items()
+        process_library_description(lib[0], lib[1], all_libraries, sdk_list) for lib in libraries.items()
         if is_library_description_ok(lib[1], sdk_list)
     ]
 
@@ -126,10 +145,6 @@ for (filepath, libraries) in libraries_per_file.items():
         output_file.write(template.render(libraries=cmake_libraries))
 
 # Collect information about groups and included libraries.
-all_libraries: Dict[str, LibraryDescription] = {}
-for libraries in libraries_per_file.values():
-    all_libraries.update(libraries)
-
 groups = {}
 for (lib_name, library) in all_libraries.items():
     if not library.groups:

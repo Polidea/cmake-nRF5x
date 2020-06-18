@@ -36,6 +36,12 @@ target_link_libraries(nrf5_ext_fprintf PUBLIC
   nrf5_mdk
   nrf5_soc
 )
+list(APPEND NRF5_LIBRARY_NRF5_EXT_FPRINTF_DEPENDENCIES
+  nrf5_config
+  nrf5_ext_fprintf
+  nrf5_mdk
+  nrf5_soc
+)
 
 # Segger RTT
 add_library(nrf5_ext_segger_rtt OBJECT EXCLUDE_FROM_ALL
@@ -53,11 +59,21 @@ target_link_libraries(nrf5_ext_segger_rtt PUBLIC
   nrf5_mdk
   nrf5_soc
 )
+list(APPEND NRF5_LIBRARY_NRF5_EXT_SEGGER_RTT_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_config
+  nrf5_ext_segger_rtt
+  nrf5_mdk
+  nrf5_soc
+)
 
 # CC310 library forwarding interface (include directories only)
 add_library(nrf5_ext_cc310_fwd INTERFACE)
 target_include_directories(nrf5_ext_cc310_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/nrf_cc310/include"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_CC310_FWD_DEPENDENCIES
+  nrf5_ext_cc310_fwd
 )
 
 # CC310 BL library forwarding interface (include directories only)
@@ -65,11 +81,17 @@ add_library(nrf5_ext_cc310_bl_fwd INTERFACE)
 target_include_directories(nrf5_ext_cc310_bl_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/nrf_cc310_bl/include"
 )
+list(APPEND NRF5_LIBRARY_NRF5_EXT_CC310_BL_FWD_DEPENDENCIES
+  nrf5_ext_cc310_bl_fwd
+)
 
 # Cifra AES128 EAX library (include directories only)
 add_library(nrf5_ext_cifra_aes128_eax_fwd INTERFACE)
 target_include_directories(nrf5_ext_cifra_aes128_eax_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/cifra_AES128-EAX/"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_CIFRA_AES128_EAX_FWD_DEPENDENCIES
+  nrf5_ext_cifra_aes128_eax_fwd
 )
 
 # Cifra AES128 EAX library
@@ -84,11 +106,18 @@ add_library(nrf5_ext_cifra_aes128_eax OBJECT EXCLUDE_FROM_ALL
 target_link_libraries(nrf5_ext_cifra_aes128_eax PUBLIC
   nrf5_ext_cifra_aes128_eax_fwd
 )
+list(APPEND NRF5_LIBRARY_NRF5_EXT_CIFRA_AES128_EAX_DEPENDENCIES
+  nrf5_ext_cifra_aes128_eax
+  nrf5_ext_cifra_aes128_eax_fwd
+)
 
 # mbedTLS library forwarding interface (include directories only)
 add_library(nrf5_ext_mbedtls_fwd INTERFACE)
 target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/mbedtls/include"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_MBEDTLS_FWD_DEPENDENCIES
+  nrf5_ext_mbedtls_fwd
 )
 
 # Oberon library forwarding interface (include directories only)
@@ -97,11 +126,17 @@ target_include_directories(nrf5_ext_oberon_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/nrf_oberon"
   "${NRF5_SDK_PATH}/external/nrf_oberon/include"
 )
+list(APPEND NRF5_LIBRARY_NRF5_EXT_OBERON_FWD_DEPENDENCIES
+  nrf5_ext_oberon_fwd
+)
 
 # Optiga library forwarding interface (include directories only)
 add_library(nrf5_ext_optiga_fwd INTERFACE)
 target_include_directories(nrf5_ext_optiga_fwd INTERFACE
   "${NRF5_SDK_PATH}/external/infineon/optiga/include"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_OPTIGA_FWD_DEPENDENCIES
+  nrf5_ext_optiga_fwd
 )
 
 # Optiga library
@@ -145,6 +180,43 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
     "${NRF5_SDK_PATH}/external/infineon/examples/ecdsa_utils"
   )
 endif()
+list(APPEND NRF5_LIBRARY_NRF5_EXT_OPTIGA_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_boards
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_drv_rtc
+  nrf5_drv_twi
+  nrf5_ext_fprintf
+  nrf5_ext_optiga
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_rtc
+  nrf5_nrfx_twi
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+  nrf5_twi_mngr
+)
 
 # The Dot Factory fonts
 add_library(nrf5_ext_thedotfactory_fonts OBJECT EXCLUDE_FROM_ALL
@@ -154,6 +226,9 @@ add_library(nrf5_ext_thedotfactory_fonts OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ext_thedotfactory_fonts PUBLIC
   "${NRF5_SDK_PATH}/external/thedotfactory_fonts"
 )
+list(APPEND NRF5_LIBRARY_NRF5_EXT_THEDOTFACTORY_FONTS_DEPENDENCIES
+  nrf5_ext_thedotfactory_fonts
+)
 
 # fnmatch
 add_library(nrf5_ext_fnmatch OBJECT EXCLUDE_FROM_ALL
@@ -162,6 +237,9 @@ add_library(nrf5_ext_fnmatch OBJECT EXCLUDE_FROM_ALL
 target_include_directories(nrf5_ext_fnmatch PUBLIC
   "${NRF5_SDK_PATH}/external/fnmatch"
 )
+list(APPEND NRF5_LIBRARY_NRF5_EXT_FNMATCH_DEPENDENCIES
+  nrf5_ext_fnmatch
+)
 
 # UTF converter
 add_library(nrf5_ext_utf_converter OBJECT EXCLUDE_FROM_ALL
@@ -169,4 +247,7 @@ add_library(nrf5_ext_utf_converter OBJECT EXCLUDE_FROM_ALL
 )
 target_include_directories(nrf5_ext_utf_converter PUBLIC
   "${NRF5_SDK_PATH}/external/utf_converter"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_UTF_CONVERTER_DEPENDENCIES
+  nrf5_ext_utf_converter
 )

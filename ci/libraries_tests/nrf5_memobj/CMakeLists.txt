@@ -33,10 +33,15 @@ nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_queue
   nrf5_section
   nrf5_soc
   nrf5_strerror

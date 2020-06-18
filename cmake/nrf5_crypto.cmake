@@ -68,6 +68,46 @@ target_link_libraries(nrf5_crypto PUBLIC
   nrf5_soc
   nrf5_stack_info
 )
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_delay
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
+)
 
 # Crypto CC310 backend
 add_library(nrf5_crypto_cc310_backend OBJECT EXCLUDE_FROM_ALL
@@ -95,6 +135,47 @@ target_link_libraries(nrf5_crypto_cc310_backend PUBLIC
   nrf5_mtx
   nrf5_nrfx_common
 )
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BACKEND_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_crypto_cc310_backend
+  nrf5_delay
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
+)
 
 # Crypto CC310 BL backend
 add_library(nrf5_crypto_cc310_bl_backend OBJECT EXCLUDE_FROM_ALL
@@ -112,6 +193,47 @@ target_link_libraries(nrf5_crypto_cc310_bl_backend PUBLIC
   nrf5_crypto
   nrf5_ext_cc310_bl_fwd
 )
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BL_BACKEND_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_crypto_cc310_bl_backend
+  nrf5_delay
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
+)
 
 # Crypto Cifra backend
 add_library(nrf5_crypto_cifra_backend OBJECT EXCLUDE_FROM_ALL
@@ -127,6 +249,48 @@ target_link_libraries(nrf5_crypto_cifra_backend PUBLIC
   nrf5_ext_cifra_aes128_eax
   nrf5_mdk
   nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CIFRA_BACKEND_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_crypto_cifra_backend
+  nrf5_delay
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
 )
 
 # Crypto mbedTLS backend
@@ -151,6 +315,47 @@ target_link_libraries(nrf5_crypto_mbedtls_backend PUBLIC
   nrf5_nrfx_common
   nrf5_soc
 )
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MBEDTLS_BACKEND_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_crypto_mbedtls_backend
+  nrf5_delay
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
+)
 
 # Crypto micro-ecc backend
 add_library(nrf5_crypto_micro_ecc_backend OBJECT EXCLUDE_FROM_ALL
@@ -168,6 +373,48 @@ target_link_libraries(nrf5_crypto_micro_ecc_backend PUBLIC
   nrf5_crypto
   nrf5_mdk
   nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MICRO_ECC_BACKEND_DEPENDENCIES
+  micro_ecc
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_crypto_micro_ecc_backend
+  nrf5_delay
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
 )
 
 # Crypto Oberon backend
@@ -190,6 +437,47 @@ target_link_libraries(nrf5_crypto_oberon_backend PUBLIC
   nrf5_mdk
   nrf5_soc
 )
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OBERON_BACKEND_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_crypto_oberon_backend
+  nrf5_delay
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
+)
 
 # Crypto nRF HW backend
 add_library(nrf5_crypto_nrf_hw_backend OBJECT EXCLUDE_FROM_ALL
@@ -208,6 +496,49 @@ target_link_libraries(nrf5_crypto_nrf_hw_backend PUBLIC
   nrf5_mdk
   nrf5_soc
 )
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_HW_BACKEND_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_crypto_nrf_hw_backend
+  nrf5_delay
+  nrf5_drv_rng
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_rng
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
+)
 
 # Crypto nRF SW backend
 add_library(nrf5_crypto_nrf_sw_backend OBJECT EXCLUDE_FROM_ALL
@@ -223,6 +554,48 @@ target_link_libraries(nrf5_crypto_nrf_sw_backend PUBLIC
   nrf5_mdk
   nrf5_sha256
   nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_SW_BACKEND_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_crypto_nrf_sw_backend
+  nrf5_delay
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
 )
 
 # Crypto Optiga backend
@@ -249,3 +622,51 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 15.3.0)
     "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga/optiga_backend_utils.c"
   )
 endif()
+list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OPTIGA_BACKEND_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_boards
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crypto
+  nrf5_crypto_optiga_backend
+  nrf5_delay
+  nrf5_drv_rtc
+  nrf5_drv_twi
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_rtc
+  nrf5_nrfx_twi
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
+  nrf5_twi_mngr
+)
