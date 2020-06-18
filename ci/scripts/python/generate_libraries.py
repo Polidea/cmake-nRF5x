@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import re
 import sys
 import argparse
 import pprint
@@ -145,6 +146,10 @@ def generate_libraries_dependencies(
                          str(remaining_deps).ljust(4)
                          )
         remaining_deps -= 1
+
+        # Ignore user defined libraries.
+        if not re.match(r"lib[0-9]+", lib_desc_name):
+            continue
 
         # Function which checks if all sources from the library are included
         # in the example sources
