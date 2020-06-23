@@ -61,8 +61,8 @@ is as follows:
   definitions located at `./ci/libraries`.
 
 - `generate_example.sh` - automatically generates example's template from
-  the Makefiles found in the `./ci/sdks` directory. A result in located inside
-  `./ci/examples/*/CMakeLists.txt` file. You can it as a guide for adding
+  the Makefiles found in the `./ci/sdks` directory. A result is located inside
+  `./ci/examples/*/CMakeLists.txt` file. You can use it as a guide for adding
   new examples.
 
   - `--example=` relative path to SDK example (e.g. `peripheral/blinky`).
