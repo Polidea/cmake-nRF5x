@@ -533,3 +533,25 @@ target_include_directories(nrf5_drv_saadc INTERFACE
 target_link_libraries(nrf5_drv_saadc INTERFACE
   nrf5_nrfx_saadc
 )
+
+# PWM nrfx driver
+add_library(nrf5_nrfx_pwm OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_pwm.c"
+)
+target_include_directories(nrf5_nrfx_pwm PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_pwm PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# PWM legacy driver
+add_library(nrf5_drv_pwm INTERFACE)
+target_include_directories(nrf5_drv_pwm INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_pwm INTERFACE
+  nrf5_nrfx_pwm
+)
