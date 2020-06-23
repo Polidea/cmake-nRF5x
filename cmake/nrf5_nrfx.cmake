@@ -467,3 +467,47 @@ target_include_directories(nrf5_drv_i2s INTERFACE
 target_link_libraries(nrf5_drv_i2s INTERFACE
   nrf5_nrfx_i2s
 )
+
+# COMP nrfx driver
+add_library(nrf5_nrfx_comp OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_comp.c"
+)
+target_include_directories(nrf5_nrfx_comp PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_comp PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# COMP legacy driver
+add_library(nrf5_drv_comp INTERFACE)
+target_include_directories(nrf5_drv_comp INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_comp INTERFACE
+  nrf5_nrfx_comp
+)
+
+# LPCOMP nrfx driver
+add_library(nrf5_nrfx_lpcomp OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_lpcomp.c"
+)
+target_include_directories(nrf5_nrfx_lpcomp PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_lpcomp PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# LPCOMP legacy driver
+add_library(nrf5_drv_lpcomp INTERFACE)
+target_include_directories(nrf5_drv_lpcomp INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_lpcomp INTERFACE
+  nrf5_nrfx_lpcomp
+)
