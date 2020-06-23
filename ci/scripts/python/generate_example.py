@@ -21,14 +21,14 @@ parser.add_argument("--examples", required=True)
 parser.add_argument("--libraries", required=True)
 parser.add_argument("--examples_dir", required=True)
 parser.add_argument("--example_template", required=True)
-parser.add_argument("--example_name", required=True)
+parser.add_argument("--example", required=True)
 args = parser.parse_args()
 
 examples: str = args.examples
 libraries: str = args.libraries
 examples_dir: str = args.examples_dir
 example_template: str = args.example_template
-example_name: str = args.example_name
+example_name: str = args.example
 
 # Load necessary files
 all_examples: List[Example] = examples_load_from_file(examples)
