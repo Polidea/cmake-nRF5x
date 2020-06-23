@@ -151,5 +151,27 @@
         "components/libraries/util"
       ]
     }
+  },
+  "nrf5_app_pwm": {
+    "documentation": "Application Pulse-width modulation (PWM)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/pwm/app_pwm.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_hal",
+        "nrf5_drv_ppi",
+        "nrf5_drv_gpiote",
+        "nrf5_drv_timer",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/pwm",
+        "components/libraries/util"
+      ]
+    }
   }
 }

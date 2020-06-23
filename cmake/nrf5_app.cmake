@@ -126,3 +126,19 @@ target_link_libraries(nrf5_app_uart_fifo PUBLIC
   nrf5_app_fifo
   nrf5_drv_uart
 )
+
+# Application Pulse-width modulation (PWM)
+add_library(nrf5_app_pwm OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/pwm/app_pwm.c"
+)
+target_include_directories(nrf5_app_pwm PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/pwm"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_app_pwm PUBLIC
+  nrf5_app_util_platform
+  nrf5_drv_gpiote
+  nrf5_drv_ppi
+  nrf5_drv_timer
+  nrf5_nrfx_hal
+)
