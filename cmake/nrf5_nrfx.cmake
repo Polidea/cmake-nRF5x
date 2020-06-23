@@ -257,6 +257,28 @@ target_include_directories(nrf5_drv_rtc INTERFACE
   "${NRF5_SDK_PATH}/integration/nrfx/legacy"
 )
 
+# TIMER driver
+add_library(nrf5_nrfx_timer OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_timer.c"
+)
+target_include_directories(nrf5_nrfx_timer PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_timer PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# TIMER legacy driver
+add_library(nrf5_drv_timer INTERFACE)
+target_include_directories(nrf5_drv_timer INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_timer INTERFACE
+  nrf5_nrfx_timer
+)
+
 # RTC driver
 add_library(nrf5_nrfx_rtc OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_rtc.c"
