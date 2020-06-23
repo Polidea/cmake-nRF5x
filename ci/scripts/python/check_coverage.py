@@ -30,18 +30,13 @@ examples: List[Example] = examples_load_from_file(generated_examples)
 libraries = libraries_load_from_file(generated_libraries)
 
 
-def get_relative_path(path: str) -> str:
-    return str(Path(path).parent.parent.parent.parent)
-
-
 def is_generated_library(name: str) -> bool:
     return re.match(r"lib[0-9]+", name) != None
 
 
 unique_examples: Dict[str, Example] = {}
 for example in examples:
-    path = get_relative_path(example.local_path)
-    unique_examples[path] = example
+    unique_examples[example.local_path] = example
 
 # Collect information about each example (how many sources are not covered yet)
 remaining_example_libraries: Dict[str, Library] = {}

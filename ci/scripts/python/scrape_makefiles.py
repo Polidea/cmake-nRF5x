@@ -1,22 +1,39 @@
 #!/usr/bin/env python3
 
+from pathlib import Path
 from nrf5_cmake.version import Version
 import sys
 import re
 import argparse
 
-from typing import List
+from typing import List, Optional
 from nrf5_cmake.example import Example
 from nrf5_cmake.example_operations import examples_save_to_file
 
 
+def find_main_c_file(path: str) -> Optional[str]:
+    root = Path(path)
+    while not root.is_dir() or not root.joinpath("main.c").exists():
+        root = root.parent
+        if root == Path("/"):
+            return None
+    return str(root)
+
+
 def process_example(file_path: str, examples: List[Example]):
     with open(file_path, 'r') as file:
+
+        # Make sure that main.c file exists for an example.
+        main_c_file_dir = find_main_c_file(file_path)
+        if main_c_file_dir == None:
+            return
+
+        # Load file content
         content = file.read()
 
         # File data
         file_local_path = \
-            re.sub(r"\S+\/[0-9]+\.[0-9]\.[0-9]\/", "", file_path)
+            re.sub(r"\S+\/[0-9]+\.[0-9]\.[0-9]\/", "", main_c_file_dir)
         file_sdk_version = \
             re.findall(r"\/([0-9]+\.[0-9]\.[0-9])\/", file_path)[0]
         file_sources = set()
