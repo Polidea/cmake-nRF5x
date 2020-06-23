@@ -137,6 +137,30 @@ target_link_libraries(nrf5_drv_power PUBLIC
   nrf5_nrfx_power
 )
 
+# PPI nrfx driver
+add_library(nrf5_nrfx_ppi OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_ppi.c"
+)
+target_include_directories(nrf5_nrfx_ppi PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_ppi PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# PPI legacy driver
+add_library(nrf5_drv_ppi OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_ppi.c"
+)
+target_include_directories(nrf5_drv_ppi PUBLIC
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_ppi PUBLIC
+  nrf5_nrfx_ppi
+)
+
 # GPIOTE nrfx driver
 add_library(nrf5_nrfx_gpiote OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_gpiote.c"
@@ -149,6 +173,15 @@ target_include_directories(nrf5_nrfx_gpiote PUBLIC
 target_link_libraries(nrf5_nrfx_gpiote PUBLIC
   nrf5_log
   nrf5_nrfx_common
+)
+
+# GPIOTE legacy driver
+add_library(nrf5_drv_gpiote INTERFACE)
+target_include_directories(nrf5_drv_gpiote INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_gpiote INTERFACE
+  nrf5_nrfx_gpiote
 )
 
 # UART (EasyDMA) nrfx driver

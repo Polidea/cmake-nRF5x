@@ -171,6 +171,42 @@
       ]
     }
   },
+  "nrf5_nrfx_ppi": {
+    "documentation": "PPI nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_ppi.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_drv_ppi": {
+    "documentation": "PPI legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_ppi.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_ppi"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
   "nrf5_nrfx_gpiote": {
     "documentation": "GPIOTE nrfx driver",
     "variant": "object",
@@ -188,6 +224,20 @@
         "components/libraries/util",
         "integration/nrfx/legacy",
         "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_drv_gpiote": {
+    "documentation": "GPIOTE legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_gpiote"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
       ]
     }
   },
