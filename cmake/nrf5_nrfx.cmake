@@ -445,3 +445,25 @@ target_include_directories(nrf5_drv_usbd INTERFACE
 target_link_libraries(nrf5_drv_usbd INTERFACE
   nrf5_nrfx_usbd
 )
+
+# I2S nrfx driver
+add_library(nrf5_nrfx_i2s OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_i2s.c"
+)
+target_include_directories(nrf5_nrfx_i2s PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_i2s PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# I2S legacy driver
+add_library(nrf5_drv_i2s INTERFACE)
+target_include_directories(nrf5_drv_i2s INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_i2s INTERFACE
+  nrf5_nrfx_i2s
+)
