@@ -511,3 +511,25 @@ target_include_directories(nrf5_drv_lpcomp INTERFACE
 target_link_libraries(nrf5_drv_lpcomp INTERFACE
   nrf5_nrfx_lpcomp
 )
+
+# SAADC nrfx driver
+add_library(nrf5_nrfx_saadc OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_saadc.c"
+)
+target_include_directories(nrf5_nrfx_saadc PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_saadc PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# SAADC legacy driver
+add_library(nrf5_drv_saadc INTERFACE)
+target_include_directories(nrf5_drv_saadc INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_saadc INTERFACE
+  nrf5_nrfx_saadc
+)
