@@ -25,12 +25,17 @@
 # USB Device high level library
 add_library(nrf5_app_usbd OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/usbd/app_usbd.c"
+  "${NRF5_SDK_PATH}/components/libraries/usbd/app_usbd_core.c"
+  "${NRF5_SDK_PATH}/components/libraries/usbd/app_usbd_string_desc.c"
 )
 target_include_directories(nrf5_app_usbd INTERFACE
   "${NRF5_SDK_PATH}/components/libraries/usbd"
 )
 target_link_libraries(nrf5_app_usbd PUBLIC
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
+  nrf5_ext_utf_converter
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DEPENDENCIES
   nrf5_app_usbd
@@ -43,8 +48,11 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -53,49 +61,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
-  nrf5_nrfx_usbd
-  nrf5_pwr_mgmt
-  nrf5_queue
-  nrf5_ringbuf
-  nrf5_sdh
-  nrf5_section
-  nrf5_soc
-  nrf5_strerror
-)
-
-# USB Device high level library core module
-add_library(nrf5_app_usbd_core OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/usbd/app_usbd_core.c"
-)
-target_link_libraries(nrf5_app_usbd_core PUBLIC
-  nrf5_app_usbd
-)
-list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_CORE_DEPENDENCIES
-  nrf5_app_usbd
-  nrf5_app_usbd_core
-  nrf5_app_util_platform
-  nrf5_atfifo
-  nrf5_atomic
-  nrf5_balloc
-  nrf5_balloc_fwd
-  nrf5_cli
-  nrf5_cli_fwd
-  nrf5_config
-  nrf5_delay
-  nrf5_drv_usbd
-  nrf5_ext_fprintf
-  nrf5_fds
-  nrf5_fstorage
-  nrf5_log
-  nrf5_log_fwd
-  nrf5_mdk
-  nrf5_memobj
-  nrf5_memobj_fwd
-  nrf5_mtx
-  nrf5_nrfx_common
-  nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -125,48 +96,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_SERIAL_NUM_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
-  nrf5_drv_usbd
-  nrf5_ext_fprintf
-  nrf5_fds
-  nrf5_fstorage
-  nrf5_log
-  nrf5_log_fwd
-  nrf5_mdk
-  nrf5_memobj
-  nrf5_memobj_fwd
-  nrf5_mtx
-  nrf5_nrfx_common
-  nrf5_nrfx_hal
-  nrf5_nrfx_usbd
-  nrf5_pwr_mgmt
-  nrf5_queue
-  nrf5_ringbuf
-  nrf5_sdh
-  nrf5_section
-  nrf5_soc
-  nrf5_strerror
-)
-
-# USBD string descriptors
-add_library(nrf5_app_usbd_string_desc OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/usbd/app_usbd_string_desc.c"
-)
-target_link_libraries(nrf5_app_usbd_string_desc PUBLIC
-  nrf5_app_usbd
-  nrf5_ext_utf_converter
-)
-list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_STRING_DESC_DEPENDENCIES
-  nrf5_app_usbd
-  nrf5_app_usbd_string_desc
-  nrf5_app_util_platform
-  nrf5_atfifo
-  nrf5_atomic
-  nrf5_balloc
-  nrf5_balloc_fwd
-  nrf5_cli
-  nrf5_cli_fwd
-  nrf5_config
-  nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
   nrf5_ext_utf_converter
@@ -178,8 +109,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_STRING_DESC_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -213,8 +148,11 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_CDC_ACM_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -223,8 +161,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_CDC_ACM_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -257,8 +199,11 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -267,8 +212,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -302,8 +251,11 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_GENERIC_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -312,8 +264,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_GENERIC_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -347,8 +303,11 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_KBD_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -357,8 +316,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_KBD_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -392,8 +355,11 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_MOUSE_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -402,8 +368,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_MOUSE_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -423,6 +393,7 @@ target_include_directories(nrf5_app_usbd_msc PUBLIC
 )
 target_link_libraries(nrf5_app_usbd_msc PUBLIC
   nrf5_app_usbd
+  nrf5_block_dev
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_MSC_DEPENDENCIES
   nrf5_app_usbd
@@ -432,12 +403,16 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_MSC_DEPENDENCIES
   nrf5_atomic
   nrf5_balloc
   nrf5_balloc_fwd
+  nrf5_block_dev
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -446,8 +421,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_MSC_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -480,8 +459,11 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_AUDIO_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -490,8 +472,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_AUDIO_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -511,6 +497,7 @@ target_include_directories(nrf5_app_usbd_dummy PUBLIC
 )
 target_link_libraries(nrf5_app_usbd_dummy PUBLIC
   nrf5_app_usbd
+  nrf5_block_dev
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DUMMY_DEPENDENCIES
   nrf5_app_usbd
@@ -520,12 +507,16 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DUMMY_DEPENDENCIES
   nrf5_atomic
   nrf5_balloc
   nrf5_balloc_fwd
+  nrf5_block_dev
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -534,8 +525,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DUMMY_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -555,6 +550,7 @@ target_include_directories(nrf5_app_usbd_nrf_dfu_trigger PUBLIC
 )
 target_link_libraries(nrf5_app_usbd_nrf_dfu_trigger PUBLIC
   nrf5_app_usbd
+  nrf5_block_dev
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_NRF_DFU_TRIGGER_DEPENDENCIES
   nrf5_app_usbd
@@ -564,12 +560,16 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_NRF_DFU_TRIGGER_DEPENDENCIES
   nrf5_atomic
   nrf5_balloc
   nrf5_balloc_fwd
+  nrf5_block_dev
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -578,8 +578,12 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_NRF_DFU_TRIGGER_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue

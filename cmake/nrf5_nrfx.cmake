@@ -966,6 +966,7 @@ target_include_directories(nrf5_drv_spi PUBLIC
   "${NRF5_SDK_PATH}/integration/nrfx/legacy"
 )
 target_link_libraries(nrf5_drv_spi PUBLIC
+  nrf5_nrfx_spi
   nrf5_nrfx_spim
 )
 list(APPEND NRF5_LIBRARY_NRF5_DRV_SPI_DEPENDENCIES
@@ -990,6 +991,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_SPI_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_spi
   nrf5_nrfx_spim
   nrf5_pwr_mgmt
   nrf5_queue
@@ -1053,6 +1055,8 @@ target_include_directories(nrf5_nrfx_usbd PUBLIC
 target_link_libraries(nrf5_nrfx_usbd PUBLIC
   nrf5_log
   nrf5_nrfx_common
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
 )
 list(APPEND NRF5_LIBRARY_NRF5_NRFX_USBD_DEPENDENCIES
   nrf5_app_util_platform
@@ -1075,6 +1079,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_USBD_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue
@@ -1115,6 +1121,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_USBD_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue

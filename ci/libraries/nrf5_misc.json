@@ -107,5 +107,14 @@
         "components/libraries/util"
       ]
     }
+  },
+  "nrf5_block_dev": {
+    "documentation": "Block device library (API layer)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/block_dev"
+      ]
+    }
   }
 }
