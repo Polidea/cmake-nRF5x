@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import argparse
 from pathlib import Path
 
@@ -73,8 +74,10 @@ while len(union_example.sources) > 0:
     union_example.sources.difference_update(library[1])
     found_libraries[library[0]] = all_libraries[library[0]]
 
-output_file = str(Path(examples_dir).joinpath(
-    example_name).joinpath("CMakeLists.txt"))
+output_file = Path(examples_dir).joinpath(
+    example_name).joinpath("CMakeLists.txt")
+
+os.makedirs(output_file.parent)
 
 with open(example_template, 'r') as template_file, open(output_file, 'w') as output_file:
     template = Environment(
