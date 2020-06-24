@@ -17,6 +17,7 @@ function check_binary() {
 }
 
 echo "Checking binary dependencies:"
+check_binary patch
 check_binary git
 check_binary chmod
 check_binary curl

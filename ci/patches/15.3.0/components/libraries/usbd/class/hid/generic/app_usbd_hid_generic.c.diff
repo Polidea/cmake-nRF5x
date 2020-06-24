@@ -1,0 +1,19 @@
+--- ci/sdks/15.3.0/components/libraries/usbd/class/hid/generic/app_usbd_hid_generic2.c	2020-06-23 11:13:27.000000000 +0200
++++ ci/sdks/15.3.0/components/libraries/usbd/class/hid/generic/app_usbd_hid_generic.c	2020-06-23 11:53:34.000000000 +0200
+@@ -235,6 +235,7 @@
+                                                 const void                   * p_buff,
+                                                 size_t                         size)
+ {
++    ret_code_t ret;
+     app_usbd_class_inst_t const  * p_inst        = (app_usbd_class_inst_t const *)p_generic;
+     app_usbd_hid_generic_ctx_t   * p_generic_ctx = hid_generic_ctx_get(p_generic);
+ 
+@@ -246,7 +247,7 @@
+     NRF_DRV_USBD_TRANSFER_IN(transfer, p_buff, size);
+ 
+     CRITICAL_REGION_ENTER();
+-    ret_code_t ret = app_usbd_ep_transfer(ep_addr, &transfer);
++    ret = app_usbd_ep_transfer(ep_addr, &transfer);
+     if (ret == NRF_SUCCESS)
+     {
+         app_usbd_hid_state_flag_set(&p_generic_ctx->hid_ctx,

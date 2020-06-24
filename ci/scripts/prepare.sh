@@ -27,6 +27,18 @@ for sdk in "${sdks[@]}"; do
             git clone "https://github.com/kmackay/micro-ecc.git"
         popd
     fi
+
+    # Apply patches if needed
+    if [[ -d "$PATCHES_DIR/$sdk" ]]; then
+        sdk_patches=$(find $PATCHES_DIR/$sdk -name "*.diff")
+        for patch in ${sdk_patches[@]}; do
+            patch_dir=$(dirname $patch)
+            sdk_dir="${patch_dir/$PATCHES_DIR/$SDKS_DIR}"
+            patch_name=$(basename $patch)
+            patch_file="${patch_name%.diff}"
+            patch "$sdk_dir/$patch_file" "$patch"
+        done
+    fi
 done
 
 # Download toolchains

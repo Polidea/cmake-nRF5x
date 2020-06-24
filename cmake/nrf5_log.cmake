@@ -179,8 +179,11 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_CDC_ACM_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_config
   nrf5_delay
+  nrf5_drv_clock
+  nrf5_drv_power
   nrf5_drv_usbd
   nrf5_ext_fprintf
+  nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
   nrf5_log
@@ -189,8 +192,12 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_CDC_ACM_DEPENDENCIES
   nrf5_memobj
   nrf5_memobj_fwd
   nrf5_mtx
+  nrf5_nrfx_clock
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
   nrf5_nrfx_usbd
   nrf5_pwr_mgmt
   nrf5_queue

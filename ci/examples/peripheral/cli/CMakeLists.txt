@@ -72,9 +72,7 @@ if(NRF5_TARGET STREQUAL "nrf52840_xxaa")
     nrf5_cli_cdc_acm
     # USB
     nrf5_app_usbd
-    nrf5_app_usbd_core
     nrf5_app_usbd_serial_num
-    nrf5_app_usbd_string_desc
     nrf5_app_usbd_cdc_acm
   )
 endif()

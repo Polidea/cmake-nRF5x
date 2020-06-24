@@ -113,6 +113,7 @@ list(APPEND NRF5_LIBRARY_NRF5_SPI_MNGR_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_spi
   nrf5_nrfx_spim
   nrf5_pwr_mgmt
   nrf5_queue
@@ -253,4 +254,13 @@ list(APPEND NRF5_LIBRARY_NRF5_STACK_GUARD_DEPENDENCIES
   nrf5_soc
   nrf5_stack_guard
   nrf5_strerror
+)
+
+# Block device library (API layer)
+add_library(nrf5_block_dev INTERFACE)
+target_include_directories(nrf5_block_dev INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/block_dev"
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLOCK_DEV_DEPENDENCIES
+  nrf5_block_dev
 )
