@@ -214,5 +214,39 @@
         "components/libraries/block_dev/sdc"
       ]
     }
+  },
+  "nrf5_low_power_pwm": {
+    "documentation": "Low-power PWM",
+    "variant": "object",
+    "sources": [
+      "components/libraries/low_power_pwm/low_power_pwm.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_timer"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/low_power_pwm"
+      ]
+    }
+  },
+  "nrf5_led_softblink": {
+    "documentation": "LED softblink",
+    "variant": "object",
+    "sources": [
+      "components/libraries/led_softblink/led_softblink.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_low_power_pwm"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/led_softblink"
+      ]
+    }
   }
 }

@@ -168,3 +168,25 @@ target_link_libraries(nrf5_block_dev_sdc PUBLIC
   nrf5_app_sdcard
   nrf5_block_dev
 )
+
+# Low-power PWM
+add_library(nrf5_low_power_pwm OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/low_power_pwm/low_power_pwm.c"
+)
+target_include_directories(nrf5_low_power_pwm PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/low_power_pwm"
+)
+target_link_libraries(nrf5_low_power_pwm PUBLIC
+  nrf5_app_timer
+)
+
+# LED softblink
+add_library(nrf5_led_softblink OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/led_softblink/led_softblink.c"
+)
+target_include_directories(nrf5_led_softblink PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/led_softblink"
+)
+target_link_libraries(nrf5_led_softblink PUBLIC
+  nrf5_low_power_pwm
+)
