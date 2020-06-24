@@ -127,5 +127,23 @@
         "components/libraries/util"
       ]
     }
+  },
+  "nrf5_ble_srv_lls": {
+    "documentation": "BLE Link Loss Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_lls/ble_lls.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "components/ble/ble_services/ble_lls"
+      ]
+    }
   }
 }
