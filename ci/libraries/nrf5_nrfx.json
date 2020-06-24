@@ -826,5 +826,38 @@
         "integration/nrfx/legacy"
       ]
     }
+  },
+  "nrf5_nrfx_qdec": {
+    "documentation": "QDEC nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_qdec.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_drv_qdec": {
+    "documentation": "QDEC legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_qdec"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
   }
 }

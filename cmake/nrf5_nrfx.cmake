@@ -577,3 +577,25 @@ target_include_directories(nrf5_drv_wdt INTERFACE
 target_link_libraries(nrf5_drv_wdt INTERFACE
   nrf5_nrfx_wdt
 )
+
+# QDEC nrfx driver
+add_library(nrf5_nrfx_qdec OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_qdec.c"
+)
+target_include_directories(nrf5_nrfx_qdec PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_qdec PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# QDEC legacy driver
+add_library(nrf5_drv_qdec INTERFACE)
+target_include_directories(nrf5_drv_qdec INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_qdec INTERFACE
+  nrf5_nrfx_qdec
+)
