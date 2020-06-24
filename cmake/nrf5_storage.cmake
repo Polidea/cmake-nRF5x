@@ -72,5 +72,6 @@ target_include_directories(nrf5_fds PUBLIC
 target_link_libraries(nrf5_fds PUBLIC
   nrf5_atfifo
   nrf5_atomic
+  nrf5_crc16
   nrf5_fstorage
 )
