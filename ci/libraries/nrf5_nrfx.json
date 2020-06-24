@@ -793,5 +793,38 @@
         "integration/nrfx/legacy"
       ]
     }
+  },
+  "nrf5_nrfx_wdt": {
+    "documentation": "WDT nrfx driver",
+    "variant": "object",
+    "sources": [
+      "modules/nrfx/drivers/src/nrfx_wdt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_nrfx_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "modules/nrfx/drivers/include"
+      ]
+    }
+  },
+  "nrf5_drv_wdt": {
+    "documentation": "WDT legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_wdt"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
   }
 }

@@ -555,3 +555,25 @@ target_include_directories(nrf5_drv_pwm INTERFACE
 target_link_libraries(nrf5_drv_pwm INTERFACE
   nrf5_nrfx_pwm
 )
+
+# WDT nrfx driver
+add_library(nrf5_nrfx_wdt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/src/nrfx_wdt.c"
+)
+target_include_directories(nrf5_nrfx_wdt PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+  "${NRF5_SDK_PATH}/modules/nrfx/drivers/include"
+)
+target_link_libraries(nrf5_nrfx_wdt PUBLIC
+  nrf5_log
+  nrf5_nrfx_common
+)
+
+# WDT legacy driver
+add_library(nrf5_drv_wdt INTERFACE)
+target_include_directories(nrf5_drv_wdt INTERFACE
+  "${NRF5_SDK_PATH}/integration/nrfx/legacy"
+)
+target_link_libraries(nrf5_drv_wdt INTERFACE
+  nrf5_nrfx_wdt
+)
