@@ -81,6 +81,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_ERROR_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -169,6 +170,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_BUTTON_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -234,6 +236,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_UART_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -281,6 +284,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_UART_FIFO_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )

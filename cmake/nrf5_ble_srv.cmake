@@ -51,6 +51,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -98,6 +99,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_C_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -135,6 +137,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -182,6 +185,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_C_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -218,6 +222,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_DIS_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -251,6 +256,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_BMS_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -282,6 +288,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IPSP_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )

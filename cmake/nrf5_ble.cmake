@@ -57,6 +57,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_COMMON_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -103,6 +104,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_ADVERTISING_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -149,6 +151,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SCAN_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -201,6 +204,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_DB_DISCOVERY_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -248,6 +252,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_GATT_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -282,6 +287,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_QWR_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -312,6 +318,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_LINK_CTX_MANAGER_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -353,6 +360,7 @@ if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
       nrf5_queue
       nrf5_sdh
       nrf5_section
+      nrf5_section_fwd
       nrf5_soc
       nrf5_strerror
     )

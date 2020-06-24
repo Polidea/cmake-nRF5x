@@ -50,8 +50,6 @@ target_include_directories(nrf5_crypto PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/crypto/backend/nrf_sw"
   "${NRF5_SDK_PATH}/components/libraries/crypto/backend/oberon"
   "${NRF5_SDK_PATH}/components/libraries/crypto/backend/optiga"
-  "${NRF5_SDK_PATH}/components/libraries/experimental_section_vars"
-  "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_crypto PUBLIC
   nrf5_config
@@ -103,6 +101,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
@@ -171,6 +170,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BACKEND_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
@@ -229,6 +229,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BL_BACKEND_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
@@ -287,6 +288,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CIFRA_BACKEND_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
@@ -351,6 +353,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MBEDTLS_BACKEND_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
@@ -411,6 +414,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MICRO_ECC_BACKEND_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
@@ -473,6 +477,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OBERON_BACKEND_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
@@ -534,6 +539,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_HW_BACKEND_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
@@ -591,6 +597,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_SW_BACKEND_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256
   nrf5_sha256_fwd
   nrf5_soc
@@ -664,6 +671,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OPTIGA_BACKEND_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info

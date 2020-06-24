@@ -28,6 +28,16 @@
       ]
     }
   },
+  "nrf5_section_fwd": {
+    "documentation": "Section variables forward declaration (experimental)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/experimental_section_vars",
+        "components/libraries/util"
+      ]
+    }
+  },
   "nrf5_section": {
     "documentation": "Section variables (experimental)",
     "variant": "object",
@@ -36,15 +46,10 @@
     ],
     "dependencies": {
       "public": [
+        "nrf5_section_fwd",
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc"
-      ]
-    },
-    "includes": {
-      "public": [
-        "components/libraries/experimental_section_vars",
-        "components/libraries/util"
       ]
     }
   },
@@ -90,6 +95,11 @@
       "interface": [
         "components/libraries/log",
         "components/libraries/log/src"
+      ]
+    },
+    "dependencies": {
+      "interface": [
+        "nrf5_section_fwd"
       ]
     }
   },
@@ -362,6 +372,87 @@
     "dependencies": {
       "public": [
         "nrf5_sha256_fwd"
+      ]
+    }
+  },
+  "nrf5_sortlist": {
+    "documentation": "Sorted list library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/sortlist/nrf_sortlist.c"
+    ],
+    "includes": {
+      "public": [
+        "components/libraries/sortlist",
+        "components/libraries/util"
+      ]
+    },
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc",
+        "nrf5_log_fwd"
+      ]
+    }
+  },
+  "nrf5_assert": {
+    "documentation": "Default assert implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/util/nrf_assert.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_hardfault_handler": {
+    "documentation": "Hardfault handler implementation",
+    "variant": "builtin",
+    "sources": [
+      "components/libraries/hardfault/nrf52/handler/hardfault_handler_gcc.c",
+      "components/libraries/hardfault/nrf51/handler/hardfault_handler_gcc.c"
+    ],
+    "includes": {
+      "public": [
+        "components/libraries/util"
+      ]
+    },
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    }
+  },
+  "nrf5_hardfault": {
+    "documentation": "Hardfault implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/hardfault/hardfault_implementation.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc",
+        "nrf5_log_fwd",
+        "nrf5_hardfault_handler"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/hardfault",
+        "components/libraries/util"
       ]
     }
   }

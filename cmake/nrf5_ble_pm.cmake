@@ -73,6 +73,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_LESC_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_sha256_fwd
   nrf5_soc
   nrf5_stack_info
@@ -116,6 +117,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATABASE_DEPENDENCIES
   nrf5_queue
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -163,6 +165,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATA_STORAGE_DEPENDENCIES
   nrf5_queue
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -201,6 +204,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_ID_MANAGER_DEPENDENCIES
   nrf5_queue
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -231,6 +235,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_ID_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -261,6 +266,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PM_BUFFER_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -291,6 +297,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_AUTH_STATUS_TRACKER_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -331,6 +338,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_DISPATCHER_DEPENDENCIES
   nrf5_queue
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -372,6 +380,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_MANAGER_DEPENDENCIES
   nrf5_queue
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -413,6 +422,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_GATT_CACHE_MANAGER_DEPENDENCIES
   nrf5_queue
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -467,6 +477,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_HANDLER_DEPENDENCIES
   nrf5_queue
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
@@ -522,6 +533,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_DEPENDENCIES
   nrf5_queue
   nrf5_sdh
   nrf5_section
+  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
 )
