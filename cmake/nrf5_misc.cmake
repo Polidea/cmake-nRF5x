@@ -203,3 +203,31 @@ target_link_libraries(nrf5_serial PUBLIC
   nrf5_drv_uart
   nrf5_queue
 )
+
+# CRC16 compute
+add_library(nrf5_crc16 OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crc16/crc16.c"
+)
+target_include_directories(nrf5_crc16 PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/crc16"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_crc16 PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
+
+# CRC32 compute
+add_library(nrf5_crc32 OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crc32/crc32.c"
+)
+target_include_directories(nrf5_crc32 PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/crc32"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_crc32 PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)

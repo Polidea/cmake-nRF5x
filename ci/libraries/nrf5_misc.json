@@ -267,5 +267,45 @@
         "components/libraries/serial"
       ]
     }
+  },
+  "nrf5_crc16": {
+    "documentation": "CRC16 compute",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crc16/crc16.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crc16",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crc32": {
+    "documentation": "CRC32 compute",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crc32/crc32.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crc32",
+        "components/libraries/util"
+      ]
+    }
   }
 }
