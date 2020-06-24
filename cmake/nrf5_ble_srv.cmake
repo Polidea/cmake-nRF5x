@@ -300,7 +300,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IPSP_DEPENDENCIES
   nrf5_strerror_fwd
 )
 
-# BLE Link Loss Service
+# BLE Link Loss Service (Peripheral)
 add_library(nrf5_ble_srv_lls OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_lls/ble_lls.c"
 )
@@ -332,3 +332,56 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LLS_DEPENDENCIES
   nrf5_strerror
   nrf5_strerror_fwd
 )
+
+# BLE Immediate Alert Service Client (Central)
+add_library(nrf5_ble_srv_ias_c OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ias_c/ble_ias_c.c"
+)
+target_include_directories(nrf5_ble_srv_ias_c PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ias_c"
+)
+target_link_libraries(nrf5_ble_srv_ias_c PUBLIC
+  nrf5_ble_db_discovery
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IAS_C_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_ble_common
+  nrf5_ble_db_discovery
+  nrf5_ble_srv_ias_c
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_section_fwd
+  nrf5_soc
+  nrf5_strerror
+  nrf5_strerror_fwd
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IAS_C_DEPENDENCIES
+    nrf5_ble_gq
+  )
+endif()

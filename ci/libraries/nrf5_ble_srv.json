@@ -129,7 +129,7 @@
     }
   },
   "nrf5_ble_srv_lls": {
-    "documentation": "BLE Link Loss Service",
+    "documentation": "BLE Link Loss Service (Peripheral)",
     "variant": "object",
     "sources": [
       "components/ble/ble_services/ble_lls/ble_lls.c"
@@ -143,6 +143,23 @@
       "public": [
         "components/libraries/util",
         "components/ble/ble_services/ble_lls"
+      ]
+    }
+  },
+  "nrf5_ble_srv_ias_c": {
+    "documentation": "BLE Immediate Alert Service Client (Central)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_ias_c/ble_ias_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_ias_c"
       ]
     }
   }
