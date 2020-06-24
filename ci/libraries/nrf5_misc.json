@@ -248,5 +248,24 @@
         "components/libraries/led_softblink"
       ]
     }
+  },
+  "nrf5_serial": {
+    "documentation": "Serial port abstraction layer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/serial/nrf_serial.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_queue",
+        "nrf5_drv_uart",
+        "nrf5_app_timer"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/serial"
+      ]
+    }
   }
 }

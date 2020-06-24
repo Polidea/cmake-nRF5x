@@ -190,3 +190,16 @@ target_include_directories(nrf5_led_softblink PUBLIC
 target_link_libraries(nrf5_led_softblink PUBLIC
   nrf5_low_power_pwm
 )
+
+# Serial port abstraction layer
+add_library(nrf5_serial OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/serial/nrf_serial.c"
+)
+target_include_directories(nrf5_serial PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/serial"
+)
+target_link_libraries(nrf5_serial PUBLIC
+  nrf5_app_timer
+  nrf5_drv_uart
+  nrf5_queue
+)
