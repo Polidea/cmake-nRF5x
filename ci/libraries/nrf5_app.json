@@ -173,5 +173,25 @@
         "components/libraries/util"
       ]
     }
+  },
+  "nrf5_app_simple_timer": {
+    "documentation": "Application Simple Timer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/simple_timer/app_simple_timer.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_hal",
+        "nrf5_drv_timer",
+        "nrf5_app_error",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/simple_timer"
+      ]
+    }
   }
 }

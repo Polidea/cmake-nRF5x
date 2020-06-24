@@ -142,3 +142,17 @@ target_link_libraries(nrf5_app_pwm PUBLIC
   nrf5_drv_timer
   nrf5_nrfx_hal
 )
+
+# Application Simple Timer
+add_library(nrf5_app_simple_timer OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/simple_timer/app_simple_timer.c"
+)
+target_include_directories(nrf5_app_simple_timer PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/simple_timer"
+)
+target_link_libraries(nrf5_app_simple_timer PUBLIC
+  nrf5_app_error
+  nrf5_app_util_platform
+  nrf5_drv_timer
+  nrf5_nrfx_hal
+)
