@@ -179,9 +179,11 @@ a plan to do it automatically.
 In the [`./ci/examples`](./examples) directory add `CMakeLists.txt` file with
 proper content and in the path which matches one from the SDK. For example,
 `blinky` is defined in the `peripheral/blinky` folder and you should put it in
-the same relative path to the [`./ci/examples`](./examples) directory.
-All examples are using `sdk_config.h` and linker files located inside the SDKs.
-Filling `CMakeLists.txt` file is the only thing required.
+the same relative path to the [`./ci/examples`](./examples) directory. You can
+use [`./ci/scripts/generate_example.sh`](./scripts/generate_example.sh) to
+automate this process. All examples are using `sdk_config.h` and linker files
+located inside the SDKs. Filling `CMakeLists.txt` file is the only thing
+required.
 
 ### Test example locally (required)
 

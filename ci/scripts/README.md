@@ -60,6 +60,13 @@ is as follows:
 - `generate_cmake.sh` - generates CMake files into `./cmake` folder from the
   definitions located at `./ci/libraries`.
 
+- `generate_example.sh` - automatically generates example's template from
+  the Makefiles found in the `./ci/sdks` directory. A result is located inside
+  `./ci/examples/*/CMakeLists.txt` file. You can use it as a guide for adding
+  new examples.
+
+  - `--example=` relative path to SDK example (e.g. `peripheral/blinky`).
+
 - `generate_libraries.sh` - automatically generates libraries definitions from
   the SDKs downloaded inside `./ci/sdks` directory. A result in located inside
   `./ci/generated/libraries.json` file. You can use them as a guide for adding
