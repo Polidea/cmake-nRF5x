@@ -8,6 +8,16 @@
       ]
     }
   },
+  "nrf5_strerror_fwd": {
+    "documentation": "strerror forward declaration (error to string converion)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "components/libraries/strerror",
+        "components/libraries/util"
+      ]
+    }
+  },
   "nrf5_strerror": {
     "documentation": "strerror (error to string converion)",
     "variant": "object",
@@ -18,13 +28,8 @@
       "public": [
         "nrf5_config",
         "nrf5_mdk",
-        "nrf5_soc"
-      ]
-    },
-    "includes": {
-      "public": [
-        "components/libraries/strerror",
-        "components/libraries/util"
+        "nrf5_soc",
+        "nrf5_strerror_fwd"
       ]
     }
   },
@@ -99,7 +104,8 @@
     },
     "dependencies": {
       "interface": [
-        "nrf5_section_fwd"
+        "nrf5_section_fwd",
+        "nrf5_strerror_fwd"
       ]
     }
   },
@@ -453,6 +459,26 @@
       "public": [
         "components/libraries/hardfault",
         "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crc16": {
+    "documentation": "CRC16 library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crc16/crc16.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "components/libraries/crc16"
       ]
     }
   }

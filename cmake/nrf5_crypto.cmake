@@ -106,6 +106,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Crypto CC310 backend
@@ -175,6 +176,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BACKEND_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Crypto CC310 BL backend
@@ -234,6 +236,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BL_BACKEND_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Crypto Cifra backend
@@ -293,6 +296,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CIFRA_BACKEND_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Crypto mbedTLS backend
@@ -358,6 +362,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MBEDTLS_BACKEND_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Crypto micro-ecc backend
@@ -419,6 +424,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MICRO_ECC_BACKEND_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Crypto Oberon backend
@@ -482,6 +488,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OBERON_BACKEND_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Crypto nRF HW backend
@@ -544,6 +551,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_HW_BACKEND_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Crypto nRF SW backend
@@ -603,6 +611,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_SW_BACKEND_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Crypto Optiga backend
@@ -676,5 +685,6 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OPTIGA_BACKEND_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
   nrf5_twi_mngr
 )

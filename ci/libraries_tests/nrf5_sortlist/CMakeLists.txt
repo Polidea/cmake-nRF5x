@@ -37,4 +37,5 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_section_fwd
   nrf5_soc
   nrf5_sortlist
+  nrf5_strerror_fwd
 )

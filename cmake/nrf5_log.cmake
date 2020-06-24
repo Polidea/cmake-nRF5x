@@ -65,6 +65,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # UART command line interface transport layer
@@ -114,6 +115,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_UART_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # RTT command line interface transport layer
@@ -156,6 +158,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_RTT_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # CDC ACM command line interface transport layer
@@ -210,6 +213,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_CDC_ACM_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Logger (frontend & formatter)
@@ -263,6 +267,7 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Logger Serial backend
@@ -302,6 +307,7 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_SERIAL_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Logger UART backend
@@ -345,6 +351,7 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_UART_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Logger Flash backend
@@ -385,6 +392,7 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_FLASH_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Logger RTT backend
@@ -426,6 +434,7 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_RTT_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Logger (default backends)
@@ -465,4 +474,5 @@ list(APPEND NRF5_LIBRARY_NRF5_LOG_DEFAULT_BACKENDS_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )

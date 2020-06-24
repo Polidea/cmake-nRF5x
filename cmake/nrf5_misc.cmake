@@ -77,6 +77,7 @@ list(APPEND NRF5_LIBRARY_NRF5_GFX_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # SPI transaction manager
@@ -125,6 +126,7 @@ list(APPEND NRF5_LIBRARY_NRF5_SPI_MNGR_DEPENDENCIES
   nrf5_soc
   nrf5_spi_mngr
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # TWI transaction manager
@@ -171,6 +173,7 @@ list(APPEND NRF5_LIBRARY_NRF5_TWI_MNGR_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
   nrf5_twi_mngr
 )
 
@@ -215,6 +218,7 @@ list(APPEND NRF5_LIBRARY_NRF5_MPU_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Stack guard
@@ -259,6 +263,7 @@ list(APPEND NRF5_LIBRARY_NRF5_STACK_GUARD_DEPENDENCIES
   nrf5_soc
   nrf5_stack_guard
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Block device library (API layer)

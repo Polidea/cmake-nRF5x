@@ -90,6 +90,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BSP_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # BSP Button BLE
@@ -138,6 +139,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BSP_BTN_BLE_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # BSP over CLI Module
@@ -186,4 +188,5 @@ list(APPEND NRF5_LIBRARY_NRF5_BSP_CLI_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )

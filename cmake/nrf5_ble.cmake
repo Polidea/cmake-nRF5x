@@ -60,6 +60,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_COMMON_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # BLE advertising
@@ -107,6 +108,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_ADVERTISING_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # BLE scanning
@@ -154,6 +156,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SCAN_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # BLE data base discovery
@@ -207,6 +210,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_DB_DISCOVERY_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_DB_DISCOVERY_DEPENDENCIES
@@ -255,6 +259,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_GATT_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # BLE Queued Writes
@@ -290,6 +295,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_QWR_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # BLE Link Context Manager
@@ -321,6 +327,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_LINK_CTX_MANAGER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # BLE GATT Queue library
@@ -363,6 +370,7 @@ if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
       nrf5_section_fwd
       nrf5_soc
       nrf5_strerror
+      nrf5_strerror_fwd
     )
   endif()
 endif()

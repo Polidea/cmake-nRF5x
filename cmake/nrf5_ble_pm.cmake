@@ -78,6 +78,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_LESC_DEPENDENCIES
   nrf5_soc
   nrf5_stack_info
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Peer Database
@@ -120,6 +121,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATABASE_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Peer Data Storage
@@ -168,6 +170,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATA_STORAGE_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # ID Manager
@@ -207,6 +210,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_ID_MANAGER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Peer ID
@@ -238,6 +242,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_ID_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Peer Manager Buffer
@@ -269,6 +274,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PM_BUFFER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Authorization Status Tracker
@@ -300,6 +306,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_AUTH_STATUS_TRACKER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Security Dispatcher
@@ -341,6 +348,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_DISPATCHER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Security Manager
@@ -383,6 +391,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_MANAGER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # GATT Cache Manager
@@ -425,6 +434,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_GATT_CACHE_MANAGER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Peer Manager Handler
@@ -480,6 +490,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_HANDLER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Peer Manager
@@ -536,4 +547,5 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )

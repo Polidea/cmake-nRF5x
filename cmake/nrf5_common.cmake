@@ -31,24 +31,32 @@ list(APPEND NRF5_LIBRARY_NRF5_DELAY_DEPENDENCIES
   nrf5_delay
 )
 
+# strerror forward declaration (error to string converion)
+add_library(nrf5_strerror_fwd INTERFACE)
+target_include_directories(nrf5_strerror_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/strerror"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+list(APPEND NRF5_LIBRARY_NRF5_STRERROR_FWD_DEPENDENCIES
+  nrf5_strerror_fwd
+)
+
 # strerror (error to string converion)
 add_library(nrf5_strerror OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/strerror/nrf_strerror.c"
-)
-target_include_directories(nrf5_strerror PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/strerror"
-  "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_strerror PUBLIC
   nrf5_config
   nrf5_mdk
   nrf5_soc
+  nrf5_strerror_fwd
 )
 list(APPEND NRF5_LIBRARY_NRF5_STRERROR_DEPENDENCIES
   nrf5_config
   nrf5_mdk
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Section variables forward declaration (experimental)
@@ -124,10 +132,12 @@ target_include_directories(nrf5_log_fwd INTERFACE
 )
 target_link_libraries(nrf5_log_fwd INTERFACE
   nrf5_section_fwd
+  nrf5_strerror_fwd
 )
 list(APPEND NRF5_LIBRARY_NRF5_LOG_FWD_DEPENDENCIES
   nrf5_log_fwd
   nrf5_section_fwd
+  nrf5_strerror_fwd
 )
 
 # CLI forwarding interface (include directories only)
@@ -165,6 +175,7 @@ list(APPEND NRF5_LIBRARY_NRF5_SDH_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Memory Object forwarding interface (include directories only)
@@ -216,6 +227,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BALLOC_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Memory Object
@@ -246,6 +258,7 @@ list(APPEND NRF5_LIBRARY_NRF5_MEMOBJ_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Ring Buffer
@@ -289,6 +302,7 @@ list(APPEND NRF5_LIBRARY_NRF5_ATFIFO_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Atomic Flags
@@ -339,6 +353,7 @@ list(APPEND NRF5_LIBRARY_NRF5_QUEUE_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Power management
@@ -379,6 +394,7 @@ list(APPEND NRF5_LIBRARY_NRF5_PWR_MGMT_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # Stack Info
@@ -434,6 +450,7 @@ list(APPEND NRF5_LIBRARY_NRF5_MEM_MANAGER_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
+  nrf5_strerror_fwd
 )
 
 # SHA256 library (includes only)
@@ -489,6 +506,7 @@ list(APPEND NRF5_LIBRARY_NRF5_SORTLIST_DEPENDENCIES
   nrf5_section_fwd
   nrf5_soc
   nrf5_sortlist
+  nrf5_strerror_fwd
 )
 
 # Default assert implementation
@@ -530,5 +548,26 @@ list(APPEND NRF5_LIBRARY_NRF5_HARDFAULT_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_section_fwd
+  nrf5_soc
+  nrf5_strerror_fwd
+)
+
+# CRC16 library
+add_library(nrf5_crc16 OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crc16/crc16.c"
+)
+target_include_directories(nrf5_crc16 PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/crc16"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_crc16 PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_CRC16_DEPENDENCIES
+  nrf5_config
+  nrf5_crc16
+  nrf5_mdk
   nrf5_soc
 )
