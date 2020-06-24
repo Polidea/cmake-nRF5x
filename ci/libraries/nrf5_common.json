@@ -8,16 +8,6 @@
       ]
     }
   },
-  "nrf5_strerror_fwd": {
-    "documentation": "strerror forward declaration (error to string converion)",
-    "variant": "interface",
-    "includes": {
-      "interface": [
-        "components/libraries/strerror",
-        "components/libraries/util"
-      ]
-    }
-  },
   "nrf5_strerror": {
     "documentation": "strerror (error to string converion)",
     "variant": "object",
@@ -28,17 +18,12 @@
       "public": [
         "nrf5_config",
         "nrf5_mdk",
-        "nrf5_soc",
-        "nrf5_strerror_fwd"
+        "nrf5_soc"
       ]
-    }
-  },
-  "nrf5_section_fwd": {
-    "documentation": "Section variables forward declaration (experimental)",
-    "variant": "interface",
+    },
     "includes": {
-      "interface": [
-        "components/libraries/experimental_section_vars",
+      "public": [
+        "components/libraries/strerror",
         "components/libraries/util"
       ]
     }
@@ -51,10 +36,15 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_section_fwd",
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/experimental_section_vars",
+        "components/libraries/util"
       ]
     }
   },
@@ -100,12 +90,6 @@
       "interface": [
         "components/libraries/log",
         "components/libraries/log/src"
-      ]
-    },
-    "dependencies": {
-      "interface": [
-        "nrf5_section_fwd",
-        "nrf5_strerror_fwd"
       ]
     }
   },
@@ -398,7 +382,7 @@
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc",
-        "nrf5_log_fwd"
+        "nrf5_log"
       ]
     }
   },
@@ -451,7 +435,7 @@
         "nrf5_config",
         "nrf5_mdk",
         "nrf5_soc",
-        "nrf5_log_fwd",
+        "nrf5_log",
         "nrf5_hardfault_handler"
       ]
     },

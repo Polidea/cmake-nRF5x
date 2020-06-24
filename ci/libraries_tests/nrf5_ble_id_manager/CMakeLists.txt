@@ -53,8 +53,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_queue
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )

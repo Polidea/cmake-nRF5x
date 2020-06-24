@@ -57,10 +57,8 @@ if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
       nrf5_queue
       nrf5_sdh
       nrf5_section
-      nrf5_section_fwd
       nrf5_soc
       nrf5_strerror
-      nrf5_strerror_fwd
     )
   endif()
 endif()

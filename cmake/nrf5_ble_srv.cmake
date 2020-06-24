@@ -51,10 +51,8 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # BLE LED Button Service (Central)
@@ -100,10 +98,8 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_C_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_C_DEPENDENCIES
@@ -139,10 +135,8 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # BLE Nordic UART Service (Central)
@@ -188,10 +182,8 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_C_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_C_DEPENDENCIES
@@ -226,10 +218,8 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_DIS_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # BLE Bond Management Service
@@ -261,10 +251,8 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_BMS_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # BLE Internet Protocol Support Profile Service
@@ -294,10 +282,8 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IPSP_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # BLE Link Loss Service (Peripheral)
@@ -327,10 +313,8 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LLS_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # BLE Immediate Alert Service Client (Central)
@@ -375,10 +359,8 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IAS_C_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IAS_C_DEPENDENCIES

@@ -73,10 +73,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USBD serial number generator
@@ -123,10 +121,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_SERIAL_NUM_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USB CDC ACM class
@@ -177,10 +173,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_CDC_ACM_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USB HID class
@@ -230,10 +224,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USB HID generic
@@ -284,10 +276,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_GENERIC_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USB HID keyboard
@@ -338,10 +328,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_KBD_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USB HID mouse
@@ -392,10 +380,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_MOUSE_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USB MSC class
@@ -447,10 +433,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_MSC_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USB AUDIO class
@@ -500,10 +484,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_AUDIO_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USB Dummy class
@@ -555,10 +537,8 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DUMMY_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USB Nordic DFU Trigger class
@@ -610,8 +590,6 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_NRF_DFU_TRIGGER_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )

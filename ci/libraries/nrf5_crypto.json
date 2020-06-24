@@ -46,7 +46,9 @@
         "components/libraries/crypto/backend/micro_ecc",
         "components/libraries/crypto/backend/optiga",
         "components/libraries/crypto/backend/nrf_sw",
-        "components/libraries/crypto/backend/nrf_hw"
+        "components/libraries/crypto/backend/nrf_hw",
+        "components/libraries/util",
+        "components/libraries/experimental_section_vars"
       ]
     }
   },

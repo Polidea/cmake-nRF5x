@@ -43,10 +43,8 @@ list(APPEND NRF5_LIBRARY_NRF5_FSTORAGE_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # File storage (SoftDevice)
@@ -72,10 +70,8 @@ list(APPEND NRF5_LIBRARY_NRF5_FSTORAGE_SD_DEPENDENCIES
   nrf5_mdk
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # File storage (NVMC)
@@ -99,10 +95,8 @@ list(APPEND NRF5_LIBRARY_NRF5_FSTORAGE_NVMC_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_nrfx_nvmc
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # File data storage
@@ -126,8 +120,6 @@ list(APPEND NRF5_LIBRARY_NRF5_FDS_DEPENDENCIES
   nrf5_log_fwd
   nrf5_mdk
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )

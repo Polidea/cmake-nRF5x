@@ -109,10 +109,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_PRS_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # CLOCK nrfx driver
@@ -154,10 +152,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_CLOCK_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # CLOCK legacy driver
@@ -198,10 +194,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_CLOCK_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # SysTick nrfx driver
@@ -243,10 +237,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_SYSTICK_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # SysTick legacy driver
@@ -285,10 +277,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_SYSTICK_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # POWER nrfx driver
@@ -330,10 +320,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_POWER_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # POWER legacy driver
@@ -374,10 +362,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_POWER_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # GPIOTE nrfx driver
@@ -420,10 +406,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_GPIOTE_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # UART (EasyDMA) nrfx driver
@@ -464,10 +448,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_UARTE_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # UART (no EasyDMA) nrfx driver
@@ -508,10 +490,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_UART_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # UART legacy driver
@@ -554,10 +534,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_UART_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # RNG driver
@@ -598,10 +576,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_RNG_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # RNG legacy driver
@@ -644,10 +620,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_RNG_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # TWI legacy driver
@@ -688,10 +662,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_TWI_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # TWI driver
@@ -735,10 +707,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_TWI_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # TWIM nrfx driver
@@ -780,10 +750,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_TWIM_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # RTC legacy driver (header only)
@@ -836,10 +804,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_RTC_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # NRFX NVMC HAL library
@@ -902,10 +868,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_SPI_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # SPIM nrfx driver
@@ -947,10 +911,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_SPIM_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # SPIS nrfx driver
@@ -992,10 +954,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_SPIS_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # SPIM legacy driver
@@ -1038,10 +998,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_SPI_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # SPIS legacy driver
@@ -1082,10 +1040,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_SPIS_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USBD nrfx driver
@@ -1131,10 +1087,8 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_USBD_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
 
 # USBD legacy driver
@@ -1175,8 +1129,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_USBD_DEPENDENCIES
   nrf5_ringbuf
   nrf5_sdh
   nrf5_section
-  nrf5_section_fwd
   nrf5_soc
   nrf5_strerror
-  nrf5_strerror_fwd
 )
