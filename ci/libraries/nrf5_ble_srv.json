@@ -325,5 +325,23 @@
         }
       }
     ]
+  },
+  "nrf5_ble_srv_cscs": {
+    "documentation": "BLE Cycling Speed and Cadence Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_cscs/ble_cscs.c",
+      "components/ble/ble_services/ble_cscs/ble_sc_ctrlpt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_cscs"
+      ]
+    }
   }
 }

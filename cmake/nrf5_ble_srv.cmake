@@ -708,3 +708,34 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
     nrf5_queue
   )
 endif()
+
+# BLE Cycling Speed and Cadence Service
+add_library(nrf5_ble_srv_cscs OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_cscs/ble_cscs.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_cscs/ble_sc_ctrlpt.c"
+)
+target_include_directories(nrf5_ble_srv_cscs PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_cscs"
+)
+target_link_libraries(nrf5_ble_srv_cscs PUBLIC
+  nrf5_ble_common
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_CSCS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_srv_cscs
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
