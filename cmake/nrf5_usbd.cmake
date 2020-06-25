@@ -38,6 +38,7 @@ target_link_libraries(nrf5_app_usbd PUBLIC
   nrf5_ext_utf_converter
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_util_platform
   nrf5_atfifo
@@ -85,6 +86,7 @@ target_link_libraries(nrf5_app_usbd_serial_num PUBLIC
   nrf5_app_usbd
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_SERIAL_NUM_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_serial_num
   nrf5_app_util_platform
@@ -137,6 +139,7 @@ target_link_libraries(nrf5_app_usbd_cdc_acm PUBLIC
   nrf5_app_usbd
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_CDC_ACM_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_cdc_acm
   nrf5_app_util_platform
@@ -188,6 +191,7 @@ target_link_libraries(nrf5_app_usbd_hid PUBLIC
   nrf5_app_usbd
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_hid
   nrf5_app_util_platform
@@ -239,6 +243,7 @@ target_link_libraries(nrf5_app_usbd_hid_generic PUBLIC
   nrf5_app_usbd_hid
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_GENERIC_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_hid
   nrf5_app_usbd_hid_generic
@@ -291,6 +296,7 @@ target_link_libraries(nrf5_app_usbd_hid_kbd PUBLIC
   nrf5_app_usbd_hid
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_KBD_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_hid
   nrf5_app_usbd_hid_kbd
@@ -343,6 +349,7 @@ target_link_libraries(nrf5_app_usbd_hid_mouse PUBLIC
   nrf5_app_usbd_hid
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_MOUSE_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_hid
   nrf5_app_usbd_hid_mouse
@@ -396,6 +403,7 @@ target_link_libraries(nrf5_app_usbd_msc PUBLIC
   nrf5_block_dev
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_MSC_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_msc
   nrf5_app_util_platform
@@ -448,6 +456,7 @@ target_link_libraries(nrf5_app_usbd_audio PUBLIC
   nrf5_app_usbd
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_AUDIO_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_audio
   nrf5_app_util_platform
@@ -500,6 +509,7 @@ target_link_libraries(nrf5_app_usbd_dummy PUBLIC
   nrf5_block_dev
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DUMMY_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_dummy
   nrf5_app_util_platform
@@ -553,6 +563,7 @@ target_link_libraries(nrf5_app_usbd_nrf_dfu_trigger PUBLIC
   nrf5_block_dev
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_NRF_DFU_TRIGGER_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_nrf_dfu_trigger
   nrf5_app_util_platform

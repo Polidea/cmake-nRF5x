@@ -181,6 +181,7 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   )
 endif()
 list(APPEND NRF5_LIBRARY_NRF5_EXT_OPTIGA_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic

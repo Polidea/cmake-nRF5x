@@ -69,6 +69,7 @@ target_link_libraries(nrf5_crypto PUBLIC
   nrf5_stack_info
 )
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -136,6 +137,7 @@ target_link_libraries(nrf5_crypto_cc310_backend PUBLIC
   nrf5_nrfx_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BACKEND_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -194,6 +196,7 @@ target_link_libraries(nrf5_crypto_cc310_bl_backend PUBLIC
   nrf5_ext_cc310_bl_fwd
 )
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BL_BACKEND_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -251,6 +254,7 @@ target_link_libraries(nrf5_crypto_cifra_backend PUBLIC
   nrf5_soc
 )
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CIFRA_BACKEND_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -316,6 +320,7 @@ target_link_libraries(nrf5_crypto_mbedtls_backend PUBLIC
   nrf5_soc
 )
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MBEDTLS_BACKEND_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -376,6 +381,7 @@ target_link_libraries(nrf5_crypto_micro_ecc_backend PUBLIC
 )
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MICRO_ECC_BACKEND_DEPENDENCIES
   micro_ecc
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -438,6 +444,7 @@ target_link_libraries(nrf5_crypto_oberon_backend PUBLIC
   nrf5_soc
 )
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OBERON_BACKEND_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -497,6 +504,7 @@ target_link_libraries(nrf5_crypto_nrf_hw_backend PUBLIC
   nrf5_soc
 )
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_HW_BACKEND_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -556,6 +564,7 @@ target_link_libraries(nrf5_crypto_nrf_sw_backend PUBLIC
   nrf5_soc
 )
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_SW_BACKEND_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -623,6 +632,7 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 15.3.0)
   )
 endif()
 list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OPTIGA_BACKEND_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic

@@ -138,12 +138,14 @@ target_include_directories(nrf5_sdh PUBLIC
   "${NRF5_SDK_PATH}/components/softdevice/common"
 )
 target_link_libraries(nrf5_sdh PUBLIC
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_log_fwd
   nrf5_section
   nrf5_strerror
 )
 list(APPEND NRF5_LIBRARY_NRF5_SDH_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_config
   nrf5_log_fwd
@@ -341,6 +343,7 @@ target_link_libraries(nrf5_pwr_mgmt PUBLIC
   nrf5_section
 )
 list(APPEND NRF5_LIBRARY_NRF5_PWR_MGMT_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atomic
   nrf5_balloc
@@ -463,6 +466,7 @@ target_link_libraries(nrf5_sortlist PUBLIC
   nrf5_soc
 )
 list(APPEND NRF5_LIBRARY_NRF5_SORTLIST_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -526,6 +530,7 @@ target_link_libraries(nrf5_hardfault PUBLIC
   nrf5_soc
 )
 list(APPEND NRF5_LIBRARY_NRF5_HARDFAULT_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic

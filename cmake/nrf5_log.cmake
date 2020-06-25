@@ -42,6 +42,7 @@ target_link_libraries(nrf5_cli PUBLIC
   nrf5_section
 )
 list(APPEND NRF5_LIBRARY_NRF5_CLI_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atomic
   nrf5_balloc
@@ -167,6 +168,7 @@ target_link_libraries(nrf5_cli_cdc_acm PUBLIC
   nrf5_cli
 )
 list(APPEND NRF5_LIBRARY_NRF5_CLI_CDC_ACM_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_cdc_acm
   nrf5_app_util_platform
@@ -231,6 +233,7 @@ target_link_libraries(nrf5_log PUBLIC
   nrf5_strerror
 )
 list(APPEND NRF5_LIBRARY_NRF5_LOG_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -268,6 +271,7 @@ target_link_libraries(nrf5_log_backend_serial PUBLIC
   nrf5_log
 )
 list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_SERIAL_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -307,6 +311,7 @@ target_link_libraries(nrf5_log_backend_uart PUBLIC
   nrf5_log
 )
 list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_UART_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -349,6 +354,7 @@ target_link_libraries(nrf5_log_backend_flash PUBLIC
   nrf5_log
 )
 list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_FLASH_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -388,6 +394,7 @@ target_link_libraries(nrf5_log_backend_rtt PUBLIC
   nrf5_log
 )
 list(APPEND NRF5_LIBRARY_NRF5_LOG_BACKEND_RTT_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -427,6 +434,7 @@ target_link_libraries(nrf5_log_default_backends PUBLIC
   nrf5_log
 )
 list(APPEND NRF5_LIBRARY_NRF5_LOG_DEFAULT_BACKENDS_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
