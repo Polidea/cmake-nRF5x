@@ -115,7 +115,8 @@
         "nrf5_app_util_platform",
         "nrf5_log_fwd",
         "nrf5_section",
-        "nrf5_strerror"
+        "nrf5_strerror",
+        "nrf5_app_scheduler"
       ]
     },
     "includes": {

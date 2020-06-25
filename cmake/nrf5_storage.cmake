@@ -60,6 +60,7 @@ target_link_libraries(nrf5_fstorage_sd PUBLIC
   nrf5_section
 )
 list(APPEND NRF5_LIBRARY_NRF5_FSTORAGE_SD_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic

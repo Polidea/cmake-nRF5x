@@ -222,6 +222,7 @@ target_link_libraries(nrf5_ble_gatt PUBLIC
   nrf5_strerror
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_GATT_DEPENDENCIES
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic

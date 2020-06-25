@@ -31,6 +31,7 @@ include("nrf5")
 add_executable(${CMAKE_PROJECT_NAME} "main.c")
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+  nrf5_app_scheduler
   nrf5_app_usbd
   nrf5_app_usbd_hid
   nrf5_app_usbd_hid_mouse
