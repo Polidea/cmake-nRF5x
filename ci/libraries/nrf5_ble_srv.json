@@ -213,5 +213,57 @@
         "components/ble/ble_services/ble_ans_c"
       ]
     }
+  },
+  "nrf5_ble_srv_rscs": {
+    "documentation": "BLE Running Speed and Cadence Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_rscs/ble_rscs.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_rscs"
+      ]
+    }
+  },
+  "nrf5_ble_srv_hids": {
+    "documentation": "BLE HID Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_hids/ble_hids.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_ble_link_ctx_manager"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_hids"
+      ]
+    }
+  },
+  "nrf5_ble_srv_bas": {
+    "documentation": "BLE Battery Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_bas/ble_bas.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_bas"
+      ]
+    }
   }
 }

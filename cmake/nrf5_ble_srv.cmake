@@ -520,3 +520,95 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
     nrf5_ble_gq
   )
 endif()
+
+# BLE Running Speed and Cadence Service (Peripheral)
+add_library(nrf5_ble_srv_rscs OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_rscs/ble_rscs.c"
+)
+target_include_directories(nrf5_ble_srv_rscs PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_rscs"
+)
+target_link_libraries(nrf5_ble_srv_rscs PUBLIC
+  nrf5_ble_common
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_RSCS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_srv_rscs
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# BLE HID Service
+add_library(nrf5_ble_srv_hids OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_hids/ble_hids.c"
+)
+target_include_directories(nrf5_ble_srv_hids PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_hids"
+)
+target_link_libraries(nrf5_ble_srv_hids PUBLIC
+  nrf5_ble_common
+  nrf5_ble_link_ctx_manager
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_HIDS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_link_ctx_manager
+  nrf5_ble_srv_hids
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# BLE Battery Service (Peripheral)
+add_library(nrf5_ble_srv_bas OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_bas/ble_bas.c"
+)
+target_include_directories(nrf5_ble_srv_bas PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_bas"
+)
+target_link_libraries(nrf5_ble_srv_bas PUBLIC
+  nrf5_ble_common
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_BAS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_srv_bas
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
