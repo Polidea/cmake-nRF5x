@@ -295,5 +295,35 @@
         }
       }
     ]
+  },
+  "nrf5_ble_srv_bps": {
+    "documentation": "BLE Blood Pressure Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_bps/ble_bps.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_bps"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
   }
 }
