@@ -2,9 +2,6 @@
 
 source "${BASH_SOURCE%/*}/common/build_example.sh"
 
-# Ignored list of examples separated with semicolon.
-build_ignore_config_list="pca10100_16.0.0"
-
 function get_ns() {
     case $OSTYPE in
         darwin*) {
@@ -65,11 +62,6 @@ function build_all_configs() {
                 continue
             fi
 
-            # Check if combination is ignored 
-            if [[ $build_ignore_config_list =~ "${board}_${sdk_version}" ]]; then
-                continue
-            fi
-            
             local start_ts=$(get_ns)
 
             local build_status

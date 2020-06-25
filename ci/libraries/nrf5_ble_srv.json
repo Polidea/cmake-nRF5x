@@ -375,5 +375,23 @@
         }
       }
     ]
+  },
+  "nrf5_ble_srv_hrs": {
+    "documentation": "BLE Heart Rate Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_hrs/ble_hrs.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_ble_gatt"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_hrs"
+      ]
+    }
   }
 }

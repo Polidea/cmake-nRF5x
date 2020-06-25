@@ -111,15 +111,6 @@ list(APPEND NRF5_LIBRARY_NRF5_EXT_CIFRA_AES128_EAX_DEPENDENCIES
   nrf5_ext_cifra_aes128_eax_fwd
 )
 
-# mbedTLS library forwarding interface (include directories only)
-add_library(nrf5_ext_mbedtls_fwd INTERFACE)
-target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE
-  "${NRF5_SDK_PATH}/external/mbedtls/include"
-)
-list(APPEND NRF5_LIBRARY_NRF5_EXT_MBEDTLS_FWD_DEPENDENCIES
-  nrf5_ext_mbedtls_fwd
-)
-
 # Oberon library forwarding interface (include directories only)
 add_library(nrf5_ext_oberon_fwd INTERFACE)
 target_include_directories(nrf5_ext_oberon_fwd INTERFACE
@@ -251,4 +242,127 @@ target_include_directories(nrf5_ext_utf_converter PUBLIC
 )
 list(APPEND NRF5_LIBRARY_NRF5_EXT_UTF_CONVERTER_DEPENDENCIES
   nrf5_ext_utf_converter
+)
+
+# Mbed Crypto
+add_library(nrf5_ext_mbedcrypto OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/mbedtls/library/aes.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/aesni.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/arc4.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/asn1parse.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/asn1write.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/base64.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/bignum.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/blowfish.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/camellia.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ccm.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/cipher.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/cipher_wrap.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/cmac.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ctr_drbg.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/des.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/dhm.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ecdh.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ecdsa.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ecjpake.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ecp.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ecp_curves.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/entropy.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/entropy_poll.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/error.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/gcm.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/havege.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/hmac_drbg.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/md.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/md2.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/md4.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/md5.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/md_wrap.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/memory_buffer_alloc.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/oid.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/padlock.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/pem.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/pk.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/pk_wrap.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/pkcs12.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/pkcs5.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/pkparse.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/pkwrite.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/platform.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ripemd160.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/rsa.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/sha1.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/sha256.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/sha512.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/threading.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/timing.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/version.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/version_features.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/xtea.c"
+)
+target_include_directories(nrf5_ext_mbedcrypto PUBLIC
+  "${NRF5_SDK_PATH}/external/mbedtls/include"
+  "${NRF5_SDK_PATH}/external/nrf_tls/mbedtls/nrf_crypto/config"
+)
+target_link_libraries(nrf5_ext_mbedcrypto PUBLIC
+  nrf5_config
+)
+target_compile_options(nrf5_ext_mbedcrypto PUBLIC
+  "$<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:-DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\">"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_MBEDCRYPTO_DEPENDENCIES
+  nrf5_config
+  nrf5_ext_mbedcrypto
+)
+
+# Mbed x509
+add_library(nrf5_ext_mbedx509 OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/mbedtls/library/certs.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/pkcs11.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/x509.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/x509_create.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/x509_crl.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/x509_crt.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/x509_csr.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/x509write_crt.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/x509write_csr.c"
+)
+target_link_libraries(nrf5_ext_mbedx509 PUBLIC
+  nrf5_ext_mbedcrypto
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_MBEDX509_DEPENDENCIES
+  nrf5_config
+  nrf5_ext_mbedcrypto
+  nrf5_ext_mbedx509
+)
+
+# Mbed TLS
+add_library(nrf5_ext_mbedtls OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/mbedtls/library/debug.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/net_sockets.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ssl_cache.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ssl_ciphersuites.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ssl_cli.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ssl_cookie.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ssl_srv.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ssl_ticket.c"
+  "${NRF5_SDK_PATH}/external/mbedtls/library/ssl_tls.c"
+)
+target_link_libraries(nrf5_ext_mbedtls PUBLIC
+  nrf5_ext_mbedx509
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_MBEDTLS_DEPENDENCIES
+  nrf5_config
+  nrf5_ext_mbedcrypto
+  nrf5_ext_mbedtls
+  nrf5_ext_mbedx509
+)
+
+# mbedTLS library forwarding interface (include directories only)
+add_library(nrf5_ext_mbedtls_fwd INTERFACE)
+target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE
+  "${NRF5_SDK_PATH}/external/mbedtls/include"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_MBEDTLS_FWD_DEPENDENCIES
+  nrf5_ext_mbedtls_fwd
 )

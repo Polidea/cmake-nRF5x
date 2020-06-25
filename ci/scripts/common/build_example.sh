@@ -16,6 +16,10 @@ else
     check_binary mergehex
 fi
 
+# Ignored list of examples separated with semicolon.
+board_sdk_ignore_config_list="pca10100_16.0.0"
+board_sd_ignore_config_list="pca10040_s312;pca10040_s332;pca10056_s340"
+
 # Builds an example, following arguments are required:
 # 1) local path to the example
 # 2) nRF SDK version
@@ -49,6 +53,22 @@ function build_example() {
     local repo_example_dir="$EXAMPLES_DIR/$example_local_dir"
     local sdk_example_dir="$SDKS_DIR/$sdk_version/examples/$example_local_dir"
     local toolchain_dir="$TOOLCHAINS_DIR/$toolchain"
+
+    # Try to extract sd_variant
+    local real_sd_variant=$sd_variant
+    if [[ $sd_variant =~ $SD_REGEXP ]]; then
+        real_sd_variant=${BASH_REMATCH[0]}
+    fi
+
+    # Check if combination is ignored 
+    if [[ $board_sdk_ignore_config_list =~ "${board}_${sdk_version}" ]]; then
+        echo "Skipping example..."
+        return 0
+    fi
+    if [[ $board_sd_ignore_config_list =~ "${board}_${real_sd_variant}" ]]; then
+        echo "Skipping example..."
+        return 0
+    fi
 
     # Verify config directory
     if [[ -z $config_dir ]]; then
@@ -149,7 +169,7 @@ function build_example() {
         -DTOOLCHAIN_PREFIX="$(adapt_cmake_path $toolchain_dir)" \
         -DNRF5_SDK_PATH="$(adapt_cmake_path $SDKS_DIR/$sdk_version)" \
         -DNRF5_BOARD="$board_symbol" \
-        -DNRF5_SOFTDEVICE_VARIANT="$sd_variant" \
+        -DNRF5_SOFTDEVICE_VARIANT="$real_sd_variant" \
         -DNRF5_LINKER_SCRIPT="$(adapt_cmake_path $linker_file)" \
         -DNRF5_SDKCONFIG_PATH="$(adapt_cmake_path $sd_variant_dir/config)" \
         -G "$build_type" \
