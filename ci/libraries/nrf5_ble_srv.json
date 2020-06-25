@@ -162,5 +162,22 @@
         "components/ble/ble_services/ble_ias_c"
       ]
     }
+  },
+  "nrf5_ble_srv_gatts_c": {
+    "documentation": "BLE GATT Service Server (Central)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/experimental_gatts_c/nrf_ble_gatts_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/experimental_gatts_c"
+      ]
+    }
   }
 }
