@@ -447,3 +447,132 @@ list(APPEND NRF5_LIBRARY_NRF5_SHA256_DEPENDENCIES
   nrf5_sha256_fwd
   nrf5_soc
 )
+
+# Sorted list library
+add_library(nrf5_sortlist OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/sortlist/nrf_sortlist.c"
+)
+target_include_directories(nrf5_sortlist PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/sortlist"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_sortlist PUBLIC
+  nrf5_config
+  nrf5_log
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_SORTLIST_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_sortlist
+  nrf5_strerror
+)
+
+# Default assert implementation
+add_library(nrf5_assert OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/util/nrf_assert.c"
+)
+target_include_directories(nrf5_assert PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_assert PUBLIC
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_ASSERT_DEPENDENCIES
+  nrf5_assert
+  nrf5_mdk
+  nrf5_soc
+)
+
+# Hardfault implementation
+add_library(nrf5_hardfault OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/hardfault/hardfault_implementation.c"
+)
+target_include_directories(nrf5_hardfault PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/hardfault"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_hardfault PUBLIC
+  nrf5_config
+  nrf5_hardfault_handler
+  nrf5_log
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_HARDFAULT_DEPENDENCIES
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_hardfault
+  nrf5_hardfault_handler
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# CRC16 library
+add_library(nrf5_crc16 OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/crc16/crc16.c"
+)
+target_include_directories(nrf5_crc16 PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/crc16"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_crc16 PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_CRC16_DEPENDENCIES
+  nrf5_config
+  nrf5_crc16
+  nrf5_mdk
+  nrf5_soc
+)

@@ -10,4 +10,5 @@ python3 "${PYTHON_DIR}/check_coverage.py" \
     --generated_examples "${GENERATED_EXAMPLES}" \
     --generated_libraries "${GENERATED_LIBRARIES}" \
     --examples_dir "${EXAMPLES_DIR}" \
-    --libraries_tests_dir "${LIBRARIES_TESTS_DIR}"
+    --libraries_tests_dir "${LIBRARIES_TESTS_DIR}" \
+    $@

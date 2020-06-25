@@ -70,6 +70,7 @@ if(NRF5_TARGET)
   if(NRF5_BOARD_DEFINE)
     add_compile_options("-D${NRF5_BOARD_DEFINE}")
   endif()
+  nrf5_split_target(${NRF5_TARGET} NRF5_TARGET_FAMILY NRF5_TARGET_VARIANT NRF5_TARGET_GROUP)
 else()
   message(FATAL_ERROR "NRF5_TARGET not specified")
 endif()
@@ -184,7 +185,7 @@ target_include_directories(nrf5_mdk PUBLIC
 
 if(${NRF5_SOFTDEVICE_VARIANT} MATCHES "^(blank|mbr)$")
   # SoC no SoftDevice variant.
-  add_library(nrf5_soc OBJECT
+  add_library(nrf5_soc OBJECT EXCLUDE_FROM_ALL
     "${NRF5_SDK_PATH}/components/drivers_nrf/nrf_soc_nosd/nrf_nvic.c"
     "${NRF5_SDK_PATH}/components/drivers_nrf/nrf_soc_nosd/nrf_soc.c"
   )
@@ -201,6 +202,20 @@ else()
   )
   target_link_libraries(nrf5_soc INTERFACE nrf5_mdk)
 endif()
+
+# nRF hardfault handler
+add_library(nrf5_hardfault_handler OBJECT EXCLUDE_FROM_ALL)
+target_include_directories(nrf5_hardfault_handler PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_sources(nrf5_hardfault_handler PRIVATE
+  "${NRF5_SDK_PATH}/components/libraries/hardfault/${NRF5_TARGET_FAMILY}/handler/hardfault_handler_gcc.c"
+)
+target_link_libraries(nrf5_hardfault_handler PUBLIC
+  "nrf5_config"
+  "nrf5_mdk"
+  "nrf5_soc"
+)
 
 # Target definitions
 include("nrf5_common")
