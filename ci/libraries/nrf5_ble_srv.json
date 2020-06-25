@@ -343,5 +343,37 @@
         "components/ble/ble_services/ble_cscs"
       ]
     }
+  },
+  "nrf5_ble_srv_lns": {
+    "documentation": "BLE Location and Navigation Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/experimental_ble_lns/ble_ln_cp.c",
+      "components/ble/ble_services/experimental_ble_lns/ble_ln_db.c",
+      "components/ble/ble_services/experimental_ble_lns/ble_lns.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/experimental_ble_lns"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
   }
 }

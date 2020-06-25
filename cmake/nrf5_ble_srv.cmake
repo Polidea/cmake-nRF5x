@@ -739,3 +739,53 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_CSCS_DEPENDENCIES
   nrf5_soc
   nrf5_strerror
 )
+
+# BLE Location and Navigation Service
+add_library(nrf5_ble_srv_lns OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_lns/ble_ln_cp.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_lns/ble_ln_db.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_lns/ble_lns.c"
+)
+target_include_directories(nrf5_ble_srv_lns PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_lns"
+)
+target_link_libraries(nrf5_ble_srv_lns PUBLIC
+  nrf5_ble_common
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  
+  target_link_libraries(nrf5_ble_srv_lns PUBLIC
+    nrf5_ble_gq
+  )
+endif()
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LNS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_srv_lns
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LNS_DEPENDENCIES
+    nrf5_balloc
+    nrf5_balloc_fwd
+    nrf5_ble_gq
+    nrf5_cli_fwd
+    nrf5_ext_fprintf
+    nrf5_memobj
+    nrf5_memobj_fwd
+    nrf5_queue
+  )
+endif()
