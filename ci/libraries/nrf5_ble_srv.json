@@ -179,5 +179,22 @@
         "components/ble/ble_services/experimental_gatts_c"
       ]
     }
+  },
+  "nrf5_ble_srv_cts_c": {
+    "documentation": "BLE Current Time Service Client (Central)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_cts_c/ble_cts_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_cts_c"
+      ]
+    }
   }
 }
