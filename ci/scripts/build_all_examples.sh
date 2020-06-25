@@ -16,6 +16,10 @@ function get_ns() {
     echo "$time_ns"
 }
 
+# Ignored list of examples separated with semicolon.
+board_sdk_ignore_config_list="pca10100_16.0.0"
+board_sd_ignore_config_list="pca10040_s312;pca10040_s332;pca10056_s340"
+
 function build_all_configs() {
     local example=$1
     local sdk_version=$2
@@ -57,8 +61,21 @@ function build_all_configs() {
         for sd_variant_dir in ${supported_sd_variant_dirs[@]}; do
             sd_variant=`basename $sd_variant_dir`
 
+            # Skip SD which does not match a pattern
+            if [[ ! $sd_variant =~ $SD_REGEXP ]]; then
+                continue
+            fi
+
             # Skip SD variant that does not match the filter
             if [[ -n "$sd_variant_filter" ]] && [[ "$sd_variant" != "$sd_variant_filter" ]]; then
+                continue
+            fi
+
+            # Check if combination is ignored 
+            if [[ $board_sdk_ignore_config_list =~ "${board}_${sdk_version}" ]]; then
+                continue
+            fi
+            if [[ $board_sd_ignore_config_list =~ "${board}_${real_sd_variant}" ]]; then
                 continue
             fi
 

@@ -24,7 +24,7 @@ MERGEHEX_DIR="$TOOLS_DIR/nrf/mergehex/"
 SDKS_DIR="$CI_DIR/sdks"
 
 # Regexp
-SD_REGEXP="s[1-9][0-9][0-9]"
+SD_REGEXP="^(s[1-9][0-9][0-9]|blank|mbr)$"
 VARIANT_REGEXP="(pca[0-9]{5})_(s[0-9]{3})"
 CMAKE_LOG_LEVEL_REGEXP="^(TRACE|DEBUG|VERBOSE|STATUS|NOTICE|WARNING|ERROR)$"
 

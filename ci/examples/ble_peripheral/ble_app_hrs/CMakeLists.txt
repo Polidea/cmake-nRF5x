@@ -35,22 +35,6 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
-  # lib0
-  # lib127
-  # lib134
-  # lib135
-  # lib26
-  # lib29
-  # lib3
-  # lib4
-  # lib44
-  # lib5
-  # lib51
-  # lib54
-  # lib59
-  # lib60
-  # lib7
-  # lib88
   nrf5_app_button
   nrf5_app_error
   nrf5_app_scheduler
