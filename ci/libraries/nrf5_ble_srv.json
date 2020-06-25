@@ -265,5 +265,35 @@
         "components/ble/ble_services/ble_bas"
       ]
     }
+  },
+  "nrf5_ble_srv_hts": {
+    "documentation": "BLE Health Thermometer Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_hts/ble_hts.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_hts"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
   }
 }
