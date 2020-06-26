@@ -31,16 +31,20 @@ include("nrf5")
 add_executable(${CMAKE_PROJECT_NAME} "main.c")
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atomic
   nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
+  nrf5_memobj_fwd
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal

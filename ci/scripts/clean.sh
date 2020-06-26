@@ -18,3 +18,7 @@ rm -rf "$TOOLCHAINS_DIR"
 # Remove Tools
 echo "Removing: $TOOLS_DIR"
 rm -rf "$TOOLS_DIR"
+
+# Remove Generated
+echo "Removing: $GENERATED_DIR"
+rm -rf "$GENERATED_DIR"

@@ -10,7 +10,7 @@ from nrf5_cmake.version import Version
 from typing import Dict, List, Optional, Set
 from jinja2 import FileSystemLoader, Environment
 from nrf5_cmake.library_description import LibraryDescription, LibraryVariant
-from nrf5_cmake.library_operations import libraries_load_from_file
+from nrf5_cmake.library_operations import libraries_load_from_file, libraries_dependencies_per_sdk
 
 
 def generate_library_test(library_name: str, library: LibraryDescription, libraries: Dict[str, LibraryDescription], supported_sdks: List[str]):
@@ -18,72 +18,31 @@ def generate_library_test(library_name: str, library: LibraryDescription, librar
     custom_patch: bool = False
 
     # Collect a list of dependencies for each SDK version.
-    sdk_dependencies: Dict[str, Set[str]] = {}
-    for sdk_version in supported_sdks:
+    selected_libraries: Dict[str, LibraryDescription] = {
+        library_name: library
+    }
 
-        # Get list of all dependencies
-        version = Version.from_string(sdk_version)
-        library_for_sdk = library.library_for_sdk_version(version)
-        if library_for_sdk == None:
-            sdk_dependencies[sdk_version] = set()
-            continue
-
-        # Get all dependencies (merge interface & private)
-        dependencies = library_for_sdk.get_prop(
-            LibraryProperty.DEPENDENCIES
-        ).get_all_items()
-        dependencies.add(library_name)
-
-        # Custom patches to make tests buildable with optional deps.
-        custom_patches = {
-            "nrf5_ble_lesc": {"nrf5_crypto_cc310_backend"},
-            "nrf5_fds": {"nrf5_fstorage_sd"},
-            "nrf5_ble_peer_data_storage": {"nrf5_ble_peer_manager"},
-            "nrf5_ble_peer_manager": {"nrf5_fstorage_sd"},
-            "nrf5_log_default_backends": {
-                "nrf5_log_backend_uart",
-                "nrf5_log_backend_serial"
-            }
+    custom_patches = {
+        "nrf5_ble_lesc": {"nrf5_crypto_cc310_backend"},
+        "nrf5_fds": {"nrf5_fstorage_sd"},
+        "nrf5_ble_peer_data_storage": {"nrf5_ble_peer_manager"},
+        "nrf5_ble_peer_manager": {"nrf5_fstorage_sd"},
+        "nrf5_log_default_backends": {
+            "nrf5_log_backend_uart",
+            "nrf5_log_backend_serial"
         }
+    }
 
-        if library_name in custom_patches:
-            custom_patch = True
-            dependencies.update(custom_patches[library_name])
+    if library_name in custom_patches:
+        custom_patch = True
+        for library_patch_name in custom_patches[library_name]:
+            selected_libraries[library_patch_name] = all_libraries[library_patch_name]
 
-        # Iterate over all existing dependencies and collect new ones.
-        # If expanded list of dependencies is bigger than original ones
-        # continue.
-        while True:
-            new_dependencies = dependencies.copy()
-            for dependency in dependencies:
-                # Check if dependecy exists...
-                if not dependency in all_libraries:
-                    print(f"WARNING: dependency {dependency} doesn't exist")
-                    continue
-                library_dep_desc = all_libraries[dependency]
-
-                # Check if dependency exists for this SDK version.
-                library_dep = library_dep_desc.library_for_sdk_version(version)
-                if library_dep == None:
-                    print(
-                        f"WARNING: dependency {dependency} should exist for SDK {version} inside {library_name}")
-                    continue
-
-                # Get all dependencies and apply them.
-                library_dep_dep_list = library_dep.get_prop(
-                    LibraryProperty.DEPENDENCIES
-                ).get_all_items()
-                new_dependencies.update(library_dep_dep_list)
-
-            # Check if two sets are the same
-            if new_dependencies == dependencies:
-                break
-
-            # Use new extended list of dependencies.
-            dependencies = new_dependencies
-
-        # Add generated dependencies to version
-        sdk_dependencies[sdk_version] = dependencies
+    sdk_dependencies: Dict[Version, Set[str]] = libraries_dependencies_per_sdk(
+        selected_libraries,
+        libraries,
+        [Version.from_string(x) for x in supported_sdks]
+    )
 
     # Generate base dependencies.
     base_dependencies = set.intersection(
@@ -102,7 +61,7 @@ def generate_library_test(library_name: str, library: LibraryDescription, librar
         "sdk_version": sdk_version,
         "base": sorted(base_dependencies),
         "patches": {
-            x[0]: sorted(set.difference(x[1], base_dependencies)) for x in sdk_dependencies.items()
+            str(x[0]): sorted(set.difference(x[1], base_dependencies)) for x in sdk_dependencies.items()
         }
     }
 

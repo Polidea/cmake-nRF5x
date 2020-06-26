@@ -1,0 +1,10 @@
+--- ci/sdks/15.3.0/examples/ble_peripheral/ble_app_gatts_c/app_bsp.c	2019-02-14 17:25:00.000000000 +0100
++++ ci/sdks/15.3.0/examples/ble_peripheral/ble_app_gatts_c/app_bsp2.c	2020-06-25 09:24:39.000000000 +0200
+@@ -109,6 +109,7 @@
+     APP_ERROR_CHECK(err_code);
+ }
+ 
++uint16_t m_conn_handle;
+ 
+ /**@brief Function for handling events from the BSP module.
+  *

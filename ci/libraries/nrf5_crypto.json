@@ -146,7 +146,7 @@
     "dependencies": {
       "public": [
         "nrf5_crypto",
-        "nrf5_ext_mbedtls_fwd",
+        "nrf5_ext_mbedtls",
         "nrf5_mdk",
         "nrf5_nrfx_common",
         "nrf5_soc"

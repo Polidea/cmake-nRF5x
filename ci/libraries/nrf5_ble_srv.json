@@ -127,5 +127,271 @@
         "components/libraries/util"
       ]
     }
+  },
+  "nrf5_ble_srv_lls": {
+    "documentation": "BLE Link Loss Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_lls/ble_lls.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "components/ble/ble_services/ble_lls"
+      ]
+    }
+  },
+  "nrf5_ble_srv_ias_c": {
+    "documentation": "BLE Immediate Alert Service Client (Central)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_ias_c/ble_ias_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_ias_c"
+      ]
+    }
+  },
+  "nrf5_ble_srv_gatts_c": {
+    "documentation": "BLE GATT Service Server (Central)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/experimental_gatts_c/nrf_ble_gatts_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/experimental_gatts_c"
+      ]
+    }
+  },
+  "nrf5_ble_srv_cts_c": {
+    "documentation": "BLE Current Time Service Client (Central)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_cts_c/ble_cts_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_cts_c"
+      ]
+    }
+  },
+  "nrf5_ble_srv_ans_c": {
+    "documentation": "BLE Alert Notification Client (Central)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_ans_c/ble_ans_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_ans_c"
+      ]
+    }
+  },
+  "nrf5_ble_srv_rscs": {
+    "documentation": "BLE Running Speed and Cadence Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_rscs/ble_rscs.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_rscs"
+      ]
+    }
+  },
+  "nrf5_ble_srv_hids": {
+    "documentation": "BLE HID Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_hids/ble_hids.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_ble_link_ctx_manager"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_hids"
+      ]
+    }
+  },
+  "nrf5_ble_srv_bas": {
+    "documentation": "BLE Battery Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_bas/ble_bas.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_bas"
+      ]
+    }
+  },
+  "nrf5_ble_srv_hts": {
+    "documentation": "BLE Health Thermometer Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_hts/ble_hts.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_hts"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
+  },
+  "nrf5_ble_srv_bps": {
+    "documentation": "BLE Blood Pressure Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_bps/ble_bps.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_bps"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
+  },
+  "nrf5_ble_srv_cscs": {
+    "documentation": "BLE Cycling Speed and Cadence Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_cscs/ble_cscs.c",
+      "components/ble/ble_services/ble_cscs/ble_sc_ctrlpt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_cscs"
+      ]
+    }
+  },
+  "nrf5_ble_srv_lns": {
+    "documentation": "BLE Location and Navigation Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/experimental_ble_lns/ble_ln_cp.c",
+      "components/ble/ble_services/experimental_ble_lns/ble_ln_db.c",
+      "components/ble/ble_services/experimental_ble_lns/ble_lns.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/experimental_ble_lns"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
+  },
+  "nrf5_ble_srv_hrs": {
+    "documentation": "BLE Heart Rate Service (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_hrs/ble_hrs.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_ble_gatt"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_hrs"
+      ]
+    }
   }
 }

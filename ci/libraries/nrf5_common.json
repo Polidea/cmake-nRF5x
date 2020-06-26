@@ -115,7 +115,8 @@
         "nrf5_app_util_platform",
         "nrf5_log_fwd",
         "nrf5_section",
-        "nrf5_strerror"
+        "nrf5_strerror",
+        "nrf5_app_scheduler"
       ]
     },
     "includes": {
@@ -362,6 +363,107 @@
     "dependencies": {
       "public": [
         "nrf5_sha256_fwd"
+      ]
+    }
+  },
+  "nrf5_sortlist": {
+    "documentation": "Sorted list library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/sortlist/nrf_sortlist.c"
+    ],
+    "includes": {
+      "public": [
+        "components/libraries/sortlist",
+        "components/libraries/util"
+      ]
+    },
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc",
+        "nrf5_log"
+      ]
+    }
+  },
+  "nrf5_assert": {
+    "documentation": "Default assert implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/util/nrf_assert.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_hardfault_handler": {
+    "documentation": "Hardfault handler implementation",
+    "variant": "builtin",
+    "sources": [
+      "components/libraries/hardfault/nrf52/handler/hardfault_handler_gcc.c",
+      "components/libraries/hardfault/nrf51/handler/hardfault_handler_gcc.c"
+    ],
+    "includes": {
+      "public": [
+        "components/libraries/util"
+      ]
+    },
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    }
+  },
+  "nrf5_hardfault": {
+    "documentation": "Hardfault implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/hardfault/hardfault_implementation.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc",
+        "nrf5_log",
+        "nrf5_hardfault_handler"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/hardfault",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crc16": {
+    "documentation": "CRC16 library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crc16/crc16.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "components/libraries/crc16"
       ]
     }
   }

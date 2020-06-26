@@ -40,6 +40,26 @@ if(NRF5_SDK_VERSION VERSION_EQUAL {{ sdk }})
   {{ print_patch(lib["name"], lib["patches"][sdk]) | indent(2) }}
 endif()
 {%- endfor -%}
+
+{%- if lib["dep_base"] | length != 0 %}
+list(APPEND NRF5_LIBRARY_{{lib["name"] | upper}}_DEPENDENCIES
+  {%- for base_dep in lib["dep_base"] %}
+  {{ base_dep }}
+  {%- endfor %}
+)
+{%- endif -%}
+
+{%- for patch in lib["dep_patches"] -%}
+{%- if lib["dep_patches"][patch] | length != 0 %}
+if(NRF5_SDK_VERSION VERSION_EQUAL {{ patch }})
+  list(APPEND NRF5_LIBRARY_{{lib["name"] | upper}}_DEPENDENCIES
+{%- for patch_dep in lib["dep_patches"][patch] %}
+    {{ patch_dep }}
+{%- endfor %}
+  )
+endif()
+{%- endif -%}
+{%- endfor %}
 {%- endmacro -%}
 
 {#- Library may require specific SDK version... #}

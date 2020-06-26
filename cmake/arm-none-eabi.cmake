@@ -60,10 +60,20 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Og -g3 -DDEBUG" CACHE INTERNAL "C++ Compiler options
 set(CMAKE_ASM_FLAGS_DEBUG "" CACHE INTERNAL "ASM Compiler options for debug build type")
 set(CMAKE_EXE_LINKER_FLAGS_DEBUG "" CACHE INTERNAL "Linker options for debug build type")
 
-set(CMAKE_C_FLAGS_RELEASE "-O3 -flto" CACHE INTERNAL "C Compiler options for release build type")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -flto" CACHE INTERNAL "C++ Compiler options for release build type")
+set(CMAKE_C_FLAGS_RELEASE "-O2 -flto" CACHE INTERNAL "C Compiler options for release build type")
+set(CMAKE_CXX_FLAGS_RELEASE "-O2 -flto" CACHE INTERNAL "C++ Compiler options for release build type")
 set(CMAKE_ASM_FLAGS_RELEASE "" CACHE INTERNAL "ASM Compiler options for release build type")
 set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto" CACHE INTERNAL "Linker options for release build type")
+
+set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g3 -flto" CACHE INTERNAL "C Compiler options for release + dbg info build type")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g3 -flto" CACHE INTERNAL "C++ Compiler options for release + dbg info build type")
+set(CMAKE_ASM_FLAGS_RELWITHDEBINFO "" CACHE INTERNAL "ASM Compiler options for release + dbg info build type")
+set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "-flto" CACHE INTERNAL "Linker options for release + dbg info build type")
+
+set(CMAKE_C_FLAGS_MINSIZEREL "-Os -flto" CACHE INTERNAL "C Compiler options for minsize release build type")
+set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -flto" CACHE INTERNAL "C++ Compiler options for minsize release build type")
+set(CMAKE_ASM_FLAGS_MINSIZEREL "" CACHE INTERNAL "ASM Compiler options for minsize release build type")
+set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "-flto" CACHE INTERNAL "Linker options for minsize release build type")
 
 # Setup compilers
 set(CMAKE_C_COMPILER ${TOOLCHAIN_BIN_DIR}/${TOOLCHAIN}-gcc${TOOLCHAIN_EXT} CACHE INTERNAL "C Compiler")

@@ -136,6 +136,18 @@ matching file from the SDK.
 Path to the `nrfjprog` executable used by targets flashing programs. If not
 specified, globally installed binary is used.
 
+### `NRF5_STACK_SIZE` (size in bytes, optional)
+
+Defines `__STACK_SIZE` compile definition accordingly. If not passed, the
+startup file (.S) will take care of setting up default stack boundaries for
+the specified target.
+
+### `NRF5_HEAP_SIZE` (size in bytes, optional)
+
+Defines `__HEAP_SIZE` compile definition accordingly. If not passed, the
+startup file (.S) will take care of setting up default heap boundaries for
+the specified target.
+
 ## Contributing
 
 The project is developed in a semi-automated way and thoroughly tested with CI

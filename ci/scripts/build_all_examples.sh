@@ -2,16 +2,23 @@
 
 source "${BASH_SOURCE%/*}/common/build_example.sh"
 
-# Ignored list of examples separated with semicolon.
-build_ignore_config_list="pca10100_16.0.0"
-
-function ns_to_ms() {
-    if [[ ${#1} -lt 7 ]]; then
-        echo 0
-    fi
-
-    echo ${1::-6}
+function get_ns() {
+    case $OSTYPE in
+        darwin*) {
+            set -f
+            local time_ns=$(invoke_py3 -c '"from time import time; print(int(time() * 1000000000))"')
+            set +f
+        };;
+        *) {
+            local time_ns=`date +%s%N`
+        };;
+    esac
+    echo "$time_ns"
 }
+
+# Ignored list of examples separated with semicolon.
+board_sdk_ignore_config_list="pca10100_16.0.0"
+board_sd_ignore_config_list="pca10040_s312;pca10040_s332;pca10056_s340"
 
 function build_all_configs() {
     local example=$1
@@ -24,6 +31,7 @@ function build_all_configs() {
     local board_filter=$8
     local sd_variant_filter=$9
     local flags="${10}"
+    local result=0
 
     if [[ ! -d $config_dir ]]; then
         echo "\"$config_dir\" is not a valid configuration directory"
@@ -53,24 +61,37 @@ function build_all_configs() {
         for sd_variant_dir in ${supported_sd_variant_dirs[@]}; do
             sd_variant=`basename $sd_variant_dir`
 
+            # Skip SD which does not match a pattern
+            if [[ ! $sd_variant =~ $SD_REGEXP ]]; then
+                continue
+            fi
+
             # Skip SD variant that does not match the filter
             if [[ -n "$sd_variant_filter" ]] && [[ "$sd_variant" != "$sd_variant_filter" ]]; then
                 continue
             fi
 
             # Check if combination is ignored 
-            if [[ $build_ignore_config_list =~ "${board}_${sdk_version}" ]]; then
+            if [[ $board_sdk_ignore_config_list =~ "${board}_${sdk_version}" ]]; then
                 continue
             fi
-            
-            local start_ts=`date +%s%N`
+            if [[ $board_sd_ignore_config_list =~ "${board}_${real_sd_variant}" ]]; then
+                continue
+            fi
+
+            local start_ts=$(get_ns)
 
             local build_status
             build_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$config_dir" "$build_dir" "$log_level" "${flags[*]}"
-            [[ $? -eq 0 ]] && build_status="success" || build_status="failure" 
+            if [[ $? -eq 0 ]]; then 
+                build_status="success"
+            else
+                build_status="failure"
+                result=1
+            fi
 
-            local end_ts=`date +%s%N`
-            local build_time_ms=$(ns_to_ms `expr $end_ts - $start_ts`)
+            local end_ts=$(get_ns)
+            local build_time_ms=$(expr \( $end_ts - $start_ts \) / 1000000)
             
             if [[ -f $build_summary_file ]]; then
                 printf "$BUILD_SUMMARY_ENTRY_FORMAT" "$example" "$board" "$sd_variant" "$sdk_version" "$build_time_ms ms" "$build_status" >> "$build_summary_file"
@@ -78,7 +99,7 @@ function build_all_configs() {
         done
     done
 
-    return 0
+    return $result
 }
 
 function print_help() {
@@ -217,18 +238,24 @@ done
 printf "\n" >> "$build_summary_file"
 
 # Applying examples to included SDKs
+built_result=0
 for sdk_ver in "${sdk_versions[@]}"; do
     # For each SDK, try to apply examples
     for example in "${example_local_dirs[@]}"; do
         # Build all custom configs in the local example directory
         if [[ -d "$EXAMPLES_DIR/$example/config" ]]; then
-            build_all_configs "$example" "$sdk_ver" "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter" "${flags[*]}"
+            build_all_configs "$example" "$sdk_ver" "gcc" "$EXAMPLES_DIR/$example/config" "$BUILD_DIR/local" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter" "${flags[*]}" || {
+                build_result=1
+            }
         fi
 
         # Build all configs in the SDK example directory
-        build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "$BUILD_DIR" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter" "${flags[*]}"
+        build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "$BUILD_DIR" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter" "${flags[*]}" || {
+            build_result=1
+        }
     done
 done
 
 echo ""
 cat "$build_summary_file"
+exit $build_result

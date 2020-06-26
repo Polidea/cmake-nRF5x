@@ -87,15 +87,6 @@
       ]
     }
   },
-  "nrf5_ext_mbedtls_fwd": {
-    "documentation": "mbedTLS library forwarding interface (include directories only)",
-    "variant": "interface",
-    "includes": {
-      "interface": [
-        "external/mbedtls/include"
-      ]
-    }
-  },
   "nrf5_ext_oberon_fwd": {
     "documentation": "Oberon library forwarding interface (include directories only)",
     "variant": "interface",
@@ -207,6 +198,130 @@
     "includes": {
       "public": [
         "external/utf_converter"
+      ]
+    }
+  },
+  "nrf5_ext_mbedcrypto": {
+    "documentation": "Mbed Crypto",
+    "variant": "object",
+    "sources": [
+      "external/mbedtls/library/aes.c",
+      "external/mbedtls/library/aesni.c",
+      "external/mbedtls/library/arc4.c",
+      "external/mbedtls/library/asn1parse.c",
+      "external/mbedtls/library/asn1write.c",
+      "external/mbedtls/library/base64.c",
+      "external/mbedtls/library/bignum.c",
+      "external/mbedtls/library/blowfish.c",
+      "external/mbedtls/library/camellia.c",
+      "external/mbedtls/library/ccm.c",
+      "external/mbedtls/library/cipher.c",
+      "external/mbedtls/library/cipher_wrap.c",
+      "external/mbedtls/library/cmac.c",
+      "external/mbedtls/library/ctr_drbg.c",
+      "external/mbedtls/library/des.c",
+      "external/mbedtls/library/dhm.c",
+      "external/mbedtls/library/ecdh.c",
+      "external/mbedtls/library/ecdsa.c",
+      "external/mbedtls/library/ecjpake.c",
+      "external/mbedtls/library/ecp.c",
+      "external/mbedtls/library/ecp_curves.c",
+      "external/mbedtls/library/entropy.c",
+      "external/mbedtls/library/entropy_poll.c",
+      "external/mbedtls/library/error.c",
+      "external/mbedtls/library/gcm.c",
+      "external/mbedtls/library/havege.c",
+      "external/mbedtls/library/hmac_drbg.c",
+      "external/mbedtls/library/md.c",
+      "external/mbedtls/library/md2.c",
+      "external/mbedtls/library/md4.c",
+      "external/mbedtls/library/md5.c",
+      "external/mbedtls/library/md_wrap.c",
+      "external/mbedtls/library/memory_buffer_alloc.c",
+      "external/mbedtls/library/oid.c",
+      "external/mbedtls/library/padlock.c",
+      "external/mbedtls/library/pem.c",
+      "external/mbedtls/library/pk.c",
+      "external/mbedtls/library/pk_wrap.c",
+      "external/mbedtls/library/pkcs12.c",
+      "external/mbedtls/library/pkcs5.c",
+      "external/mbedtls/library/pkparse.c",
+      "external/mbedtls/library/pkwrite.c",
+      "external/mbedtls/library/platform.c",
+      "external/mbedtls/library/ripemd160.c",
+      "external/mbedtls/library/rsa.c",
+      "external/mbedtls/library/sha1.c",
+      "external/mbedtls/library/sha256.c",
+      "external/mbedtls/library/sha512.c",
+      "external/mbedtls/library/threading.c",
+      "external/mbedtls/library/timing.c",
+      "external/mbedtls/library/version.c",
+      "external/mbedtls/library/version_features.c",
+      "external/mbedtls/library/xtea.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config"
+      ]
+    },
+    "includes": {
+      "public": [
+        "external/mbedtls/include",
+        "external/nrf_tls/mbedtls/nrf_crypto/config"
+      ]
+    },
+    "cflags": {
+      "public": [
+        "-DMBEDTLS_CONFIG_FILE=\\\"nrf_crypto_mbedtls_config.h\\\""
+      ]
+    }
+  },
+  "nrf5_ext_mbedx509": {
+    "documentation": "Mbed x509",
+    "variant": "object",
+    "sources": [
+      "external/mbedtls/library/certs.c",
+      "external/mbedtls/library/pkcs11.c",
+      "external/mbedtls/library/x509.c",
+      "external/mbedtls/library/x509_create.c",
+      "external/mbedtls/library/x509_crl.c",
+      "external/mbedtls/library/x509_crt.c",
+      "external/mbedtls/library/x509_csr.c",
+      "external/mbedtls/library/x509write_crt.c",
+      "external/mbedtls/library/x509write_csr.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ext_mbedcrypto"
+      ]
+    }
+  },
+  "nrf5_ext_mbedtls": {
+    "documentation": "Mbed TLS",
+    "variant": "object",
+    "sources": [
+      "external/mbedtls/library/debug.c",
+      "external/mbedtls/library/net_sockets.c",
+      "external/mbedtls/library/ssl_cache.c",
+      "external/mbedtls/library/ssl_ciphersuites.c",
+      "external/mbedtls/library/ssl_cli.c",
+      "external/mbedtls/library/ssl_cookie.c",
+      "external/mbedtls/library/ssl_srv.c",
+      "external/mbedtls/library/ssl_ticket.c",
+      "external/mbedtls/library/ssl_tls.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ext_mbedx509"
+      ]
+    }
+  },
+  "nrf5_ext_mbedtls_fwd": {
+    "documentation": "mbedTLS library forwarding interface (include directories only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "external/mbedtls/include"
       ]
     }
   }
