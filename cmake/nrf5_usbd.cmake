@@ -48,6 +48,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -97,6 +98,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_SERIAL_NUM_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -150,6 +152,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_CDC_ACM_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -202,6 +205,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -255,6 +259,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_GENERIC_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -308,6 +313,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_KBD_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -361,6 +367,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_HID_MOUSE_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -415,6 +422,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_MSC_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -467,6 +475,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_AUDIO_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -521,6 +530,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_DUMMY_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power
@@ -575,6 +585,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_USBD_NRF_DFU_TRIGGER_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_clock
   nrf5_drv_power

@@ -446,25 +446,5 @@
         "components/libraries/util"
       ]
     }
-  },
-  "nrf5_crc16": {
-    "documentation": "CRC16 library",
-    "variant": "object",
-    "sources": [
-      "components/libraries/crc16/crc16.c"
-    ],
-    "dependencies": {
-      "public": [
-        "nrf5_config",
-        "nrf5_mdk",
-        "nrf5_soc"
-      ]
-    },
-    "includes": {
-      "public": [
-        "components/libraries/util",
-        "components/libraries/crc16"
-      ]
-    }
   }
 }

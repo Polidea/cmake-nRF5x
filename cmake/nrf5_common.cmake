@@ -475,6 +475,7 @@ list(APPEND NRF5_LIBRARY_NRF5_SORTLIST_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_fds
@@ -539,6 +540,7 @@ list(APPEND NRF5_LIBRARY_NRF5_HARDFAULT_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_fds
@@ -560,24 +562,4 @@ list(APPEND NRF5_LIBRARY_NRF5_HARDFAULT_DEPENDENCIES
   nrf5_section
   nrf5_soc
   nrf5_strerror
-)
-
-# CRC16 library
-add_library(nrf5_crc16 OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/crc16/crc16.c"
-)
-target_include_directories(nrf5_crc16 PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/crc16"
-  "${NRF5_SDK_PATH}/components/libraries/util"
-)
-target_link_libraries(nrf5_crc16 PUBLIC
-  nrf5_config
-  nrf5_mdk
-  nrf5_soc
-)
-list(APPEND NRF5_LIBRARY_NRF5_CRC16_DEPENDENCIES
-  nrf5_config
-  nrf5_crc16
-  nrf5_mdk
-  nrf5_soc
 )

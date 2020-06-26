@@ -48,6 +48,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_LESC_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_delay
   nrf5_ext_cc310_bl_fwd
@@ -151,6 +152,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATA_STORAGE_DEPENDENCIES
   nrf5_ble_pm_buffer
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_fds
@@ -454,6 +456,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_HANDLER_DEPENDENCIES
   nrf5_ble_security_manager
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_fds
@@ -509,6 +512,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_DEPENDENCIES
   nrf5_ble_security_manager
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_fds

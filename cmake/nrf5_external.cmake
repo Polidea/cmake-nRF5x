@@ -182,6 +182,7 @@ list(APPEND NRF5_LIBRARY_NRF5_EXT_OPTIGA_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_rtc
   nrf5_drv_twi
@@ -365,4 +366,47 @@ target_include_directories(nrf5_ext_mbedtls_fwd INTERFACE
 )
 list(APPEND NRF5_LIBRARY_NRF5_EXT_MBEDTLS_FWD_DEPENDENCIES
   nrf5_ext_mbedtls_fwd
+)
+
+# Protothreads
+add_library(nrf5_ext_protothreads INTERFACE)
+target_include_directories(nrf5_ext_protothreads INTERFACE
+  "${NRF5_SDK_PATH}/external/protothreads"
+  "${NRF5_SDK_PATH}/external/protothreads/pt-1.4"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_PROTOTHREADS_DEPENDENCIES
+  nrf5_ext_protothreads
+)
+
+# FatFs - Generic FAT file system module
+add_library(nrf5_ext_fatfs OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}//external/fatfs/src/ff.c"
+)
+target_include_directories(nrf5_ext_fatfs PUBLIC
+  "${NRF5_SDK_PATH}//external/fatfs/src"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_FATFS_DEPENDENCIES
+  nrf5_ext_fatfs
+)
+
+# FatFS disk I/O interface based on block device
+add_library(nrf5_ext_fatfs_port_diskio_blkdev OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}//external/fatfs/port/diskio_blkdev.c"
+)
+target_include_directories(nrf5_ext_fatfs_port_diskio_blkdev PUBLIC
+  "${NRF5_SDK_PATH}//external/fatfs/port"
+)
+target_link_libraries(nrf5_ext_fatfs_port_diskio_blkdev PUBLIC
+  nrf5_block_dev
+  nrf5_ext_fatfs
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_FATFS_PORT_DISKIO_BLKDEV_DEPENDENCIES
+  nrf5_block_dev
+  nrf5_config
+  nrf5_ext_fatfs
+  nrf5_ext_fatfs_port_diskio_blkdev
+  nrf5_mdk
+  nrf5_soc
 )

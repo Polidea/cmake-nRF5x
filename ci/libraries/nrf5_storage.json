@@ -63,7 +63,8 @@
       "public": [
         "nrf5_fstorage",
         "nrf5_atomic",
-        "nrf5_atfifo"
+        "nrf5_atfifo",
+        "nrf5_crc16"
       ]
     },
     "includes": {

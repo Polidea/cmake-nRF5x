@@ -324,5 +324,47 @@
         "external/mbedtls/include"
       ]
     }
+  },
+  "nrf5_ext_protothreads": {
+    "documentation": "Protothreads",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "external/protothreads",
+        "external/protothreads/pt-1.4"
+      ]
+    }
+  },
+  "nrf5_ext_fatfs": {
+    "documentation": "FatFs - Generic FAT file system module",
+    "variant": "object",
+    "sources": [
+      "/external/fatfs/src/ff.c"
+    ],
+    "includes": {
+      "public": [
+        "/external/fatfs/src"
+      ]
+    }
+  },
+  "nrf5_ext_fatfs_port_diskio_blkdev": {
+    "documentation": "FatFS disk I/O interface based on block device",
+    "variant": "object",
+    "sources": [
+      "/external/fatfs/port/diskio_blkdev.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ext_fatfs",
+        "nrf5_block_dev",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "/external/fatfs/port"
+      ]
+    }
   }
 }
