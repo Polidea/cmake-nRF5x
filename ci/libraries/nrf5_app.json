@@ -193,5 +193,24 @@
         "components/libraries/simple_timer"
       ]
     }
+  },
+  "nrf5_app_sdcard": {
+    "documentation": "SD card library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/sdcard/app_sdcard.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_drv_spi",
+        "nrf5_ext_protothreads"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/sdcard",
+        "components/libraries/util"
+      ]
+    }
   }
 }

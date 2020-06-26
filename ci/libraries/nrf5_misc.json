@@ -108,25 +108,6 @@
       ]
     }
   },
-  "nrf5_app_sdcard": {
-    "documentation": "SD card library",
-    "variant": "object",
-    "sources": [
-      "components/libraries/sdcard/app_sdcard.c"
-    ],
-    "dependencies": {
-      "public": [
-        "nrf5_drv_spi",
-        "nrf5_ext_protothreads"
-      ]
-    },
-    "includes": {
-      "public": [
-        "components/libraries/sdcard",
-        "components/libraries/util"
-      ]
-    }
-  },
   "nrf5_block_dev": {
     "documentation": "Block device",
     "variant": "interface",
