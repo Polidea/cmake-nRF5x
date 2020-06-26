@@ -314,7 +314,7 @@ target_include_directories(nrf5_crypto_mbedtls_backend PUBLIC
 )
 target_link_libraries(nrf5_crypto_mbedtls_backend PUBLIC
   nrf5_crypto
-  nrf5_ext_mbedtls_fwd
+  nrf5_ext_mbedtls
   nrf5_mdk
   nrf5_nrfx_common
   nrf5_soc
@@ -336,7 +336,10 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MBEDTLS_BACKEND_DEPENDENCIES
   nrf5_ext_cc310_fwd
   nrf5_ext_cifra_aes128_eax_fwd
   nrf5_ext_fprintf
+  nrf5_ext_mbedcrypto
+  nrf5_ext_mbedtls
   nrf5_ext_mbedtls_fwd
+  nrf5_ext_mbedx509
   nrf5_ext_micro_ecc_fwd
   nrf5_ext_oberon_fwd
   nrf5_ext_optiga_fwd

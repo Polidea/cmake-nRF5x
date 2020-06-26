@@ -99,15 +99,6 @@ else()
   message(WARNING "CC310 BL library not found: ${cc310_bl_lib_path}")
 endif()
 
-# mbedtls library
-add_subdirectory("${NRF5_SDK_PATH}/external/mbedtls/library" "external/mbedtls" EXCLUDE_FROM_ALL)
-target_include_directories(mbedcrypto PUBLIC "${NRF5_SDK_PATH}/external/mbedtls/include")
-target_include_directories(mbedcrypto PUBLIC "${NRF5_SDK_PATH}/external/nrf_tls/mbedtls/nrf_crypto/config")
-target_compile_definitions(mbedcrypto PUBLIC "MBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"")
-target_link_libraries(mbedcrypto PUBLIC nrf5_config)
-
-target_link_libraries(nrf5_crypto_mbedtls_backend PUBLIC mbedtls)
-
 # Micro ECC
 function(add_micro_ecc_target micro_ecc_source)
   add_library(nrf5_ext_micro_ecc_fwd INTERFACE)
