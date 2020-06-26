@@ -1,1 +1,0 @@
-/* This file seems to be missing in the SDK. */
