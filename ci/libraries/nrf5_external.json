@@ -339,11 +339,11 @@
     "documentation": "FatFs - Generic FAT file system module",
     "variant": "object",
     "sources": [
-      "/external/fatfs/src/ff.c"
+      "external/fatfs/src/ff.c"
     ],
     "includes": {
       "public": [
-        "/external/fatfs/src"
+        "external/fatfs/src"
       ]
     }
   },
@@ -351,7 +351,7 @@
     "documentation": "FatFS disk I/O interface based on block device",
     "variant": "object",
     "sources": [
-      "/external/fatfs/port/diskio_blkdev.c"
+      "external/fatfs/port/diskio_blkdev.c"
     ],
     "dependencies": {
       "public": [
@@ -363,7 +363,7 @@
     },
     "includes": {
       "public": [
-        "/external/fatfs/port"
+        "external/fatfs/port"
       ]
     }
   }
