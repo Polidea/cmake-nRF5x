@@ -75,7 +75,7 @@ function build_all_configs() {
             if [[ $board_sdk_ignore_config_list =~ "${board}_${sdk_version}" ]]; then
                 continue
             fi
-            if [[ $board_sd_ignore_config_list =~ "${board}_${real_sd_variant}" ]]; then
+            if [[ $board_sd_ignore_config_list =~ "${board}_${sd_variant}" ]]; then
                 continue
             fi
 
