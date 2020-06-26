@@ -55,9 +55,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_bsp
   # USB
   nrf5_app_usbd
-  nrf5_app_usbd_core
   nrf5_app_usbd_serial_num
-  nrf5_app_usbd_string_desc
   nrf5_app_usbd_msc
   nrf5_app_sdcard
   # Misc
