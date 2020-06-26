@@ -380,10 +380,10 @@ list(APPEND NRF5_LIBRARY_NRF5_EXT_PROTOTHREADS_DEPENDENCIES
 
 # FatFs - Generic FAT file system module
 add_library(nrf5_ext_fatfs OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}//external/fatfs/src/ff.c"
+  "${NRF5_SDK_PATH}/external/fatfs/src/ff.c"
 )
 target_include_directories(nrf5_ext_fatfs PUBLIC
-  "${NRF5_SDK_PATH}//external/fatfs/src"
+  "${NRF5_SDK_PATH}/external/fatfs/src"
 )
 list(APPEND NRF5_LIBRARY_NRF5_EXT_FATFS_DEPENDENCIES
   nrf5_ext_fatfs
@@ -391,10 +391,10 @@ list(APPEND NRF5_LIBRARY_NRF5_EXT_FATFS_DEPENDENCIES
 
 # FatFS disk I/O interface based on block device
 add_library(nrf5_ext_fatfs_port_diskio_blkdev OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}//external/fatfs/port/diskio_blkdev.c"
+  "${NRF5_SDK_PATH}/external/fatfs/port/diskio_blkdev.c"
 )
 target_include_directories(nrf5_ext_fatfs_port_diskio_blkdev PUBLIC
-  "${NRF5_SDK_PATH}//external/fatfs/port"
+  "${NRF5_SDK_PATH}/external/fatfs/port"
 )
 target_link_libraries(nrf5_ext_fatfs_port_diskio_blkdev PUBLIC
   nrf5_block_dev
