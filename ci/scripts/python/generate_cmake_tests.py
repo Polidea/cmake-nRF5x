@@ -25,8 +25,11 @@ def generate_library_test(library_name: str, library: LibraryDescription, librar
     custom_patches = {
         "nrf5_ble_lesc": {"nrf5_crypto_cc310_backend"},
         "nrf5_fds": {"nrf5_fstorage_sd"},
+        "nrf5_ext_fatfs": {"nrf5_ext_fatfs_port_diskio_blkdev"},
         "nrf5_ble_peer_data_storage": {"nrf5_ble_peer_manager"},
         "nrf5_ble_peer_manager": {"nrf5_fstorage_sd"},
+        "nrf5_ble_srv_ots": {"nrf5_fstorage_sd"},
+        "nrf5_ble_srv_eddystone": {"nrf5_fstorage_sd"},
         "nrf5_log_default_backends": {
             "nrf5_log_backend_uart",
             "nrf5_log_backend_serial"

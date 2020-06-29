@@ -31,6 +31,7 @@ include("nrf5")
 add_executable(${CMAKE_PROJECT_NAME} "main.c")
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+  nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -53,6 +54,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_nrfx_common
   nrf5_nrfx_hal
   nrf5_nrfx_lpcomp
+  nrf5_nrfx_prs
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf
@@ -60,5 +62,4 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_section
   nrf5_soc
   nrf5_strerror
-  nrf5_nrfx_prs
 )

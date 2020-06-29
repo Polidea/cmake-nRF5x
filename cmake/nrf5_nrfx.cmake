@@ -567,6 +567,7 @@ target_include_directories(nrf5_nrfx_uarte PUBLIC
 target_link_libraries(nrf5_nrfx_uarte PUBLIC
   nrf5_log
   nrf5_nrfx_common
+  nrf5_nrfx_prs
 )
 list(APPEND NRF5_LIBRARY_NRF5_NRFX_UARTE_DEPENDENCIES
   nrf5_app_scheduler
@@ -591,6 +592,7 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_UARTE_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_uarte
   nrf5_pwr_mgmt
   nrf5_queue
@@ -611,6 +613,7 @@ target_include_directories(nrf5_nrfx_uart PUBLIC
 target_link_libraries(nrf5_nrfx_uart PUBLIC
   nrf5_log
   nrf5_nrfx_common
+  nrf5_nrfx_prs
 )
 list(APPEND NRF5_LIBRARY_NRF5_NRFX_UART_DEPENDENCIES
   nrf5_app_scheduler
@@ -635,6 +638,7 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_UART_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_uart
   nrf5_pwr_mgmt
   nrf5_queue
@@ -680,6 +684,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_UART_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_uart
   nrf5_nrfx_uarte
   nrf5_pwr_mgmt
@@ -1584,6 +1589,7 @@ target_include_directories(nrf5_nrfx_comp PUBLIC
 target_link_libraries(nrf5_nrfx_comp PUBLIC
   nrf5_log
   nrf5_nrfx_common
+  nrf5_nrfx_prs
 )
 list(APPEND NRF5_LIBRARY_NRF5_NRFX_COMP_DEPENDENCIES
   nrf5_app_scheduler
@@ -1609,6 +1615,7 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_COMP_DEPENDENCIES
   nrf5_nrfx_common
   nrf5_nrfx_comp
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf
@@ -1651,6 +1658,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_COMP_DEPENDENCIES
   nrf5_nrfx_common
   nrf5_nrfx_comp
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf
@@ -1671,6 +1679,7 @@ target_include_directories(nrf5_nrfx_lpcomp PUBLIC
 target_link_libraries(nrf5_nrfx_lpcomp PUBLIC
   nrf5_log
   nrf5_nrfx_common
+  nrf5_nrfx_prs
 )
 list(APPEND NRF5_LIBRARY_NRF5_NRFX_LPCOMP_DEPENDENCIES
   nrf5_app_scheduler
@@ -1696,6 +1705,7 @@ list(APPEND NRF5_LIBRARY_NRF5_NRFX_LPCOMP_DEPENDENCIES
   nrf5_nrfx_common
   nrf5_nrfx_hal
   nrf5_nrfx_lpcomp
+  nrf5_nrfx_prs
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf
@@ -1738,6 +1748,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DRV_LPCOMP_DEPENDENCIES
   nrf5_nrfx_common
   nrf5_nrfx_hal
   nrf5_nrfx_lpcomp
+  nrf5_nrfx_prs
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf

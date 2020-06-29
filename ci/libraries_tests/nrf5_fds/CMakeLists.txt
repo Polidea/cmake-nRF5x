@@ -38,6 +38,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_atfifo
   nrf5_atomic
   nrf5_config
+  nrf5_crc16
   nrf5_fds
   nrf5_fstorage
   nrf5_fstorage_sd

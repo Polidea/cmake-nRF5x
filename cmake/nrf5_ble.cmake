@@ -363,3 +363,23 @@ if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
     )
   endif()
 endif()
+
+# BLE Record Access Control Point library
+add_library(nrf5_ble_racp OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_racp/ble_racp.c"
+)
+target_include_directories(nrf5_ble_racp PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_racp"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_ble_racp PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_RACP_DEPENDENCIES
+  nrf5_ble_racp
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)

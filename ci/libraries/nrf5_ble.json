@@ -170,5 +170,25 @@
         "components/ble/nrf_ble_gq"
       ]
     }
+  },
+  "nrf5_ble_racp": {
+    "documentation": "BLE Record Access Control Point library",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_racp/ble_racp.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/util",
+        "components/ble/ble_racp"
+      ]
+    }
   }
 }

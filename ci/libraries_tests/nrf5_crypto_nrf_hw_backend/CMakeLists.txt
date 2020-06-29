@@ -40,6 +40,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_nrf_hw_backend
   nrf5_delay

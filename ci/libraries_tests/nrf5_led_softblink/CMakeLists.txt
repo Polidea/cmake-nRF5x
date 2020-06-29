@@ -42,5 +42,4 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_nrfx_common
   nrf5_nrfx_hal
   nrf5_soc
-  nrf5_app_error
 )

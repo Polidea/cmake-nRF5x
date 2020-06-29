@@ -40,6 +40,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_fds
@@ -52,6 +53,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_uarte
   nrf5_pwr_mgmt
   nrf5_queue

@@ -203,7 +203,8 @@
     "dependencies": {
       "public": [
         "nrf5_drv_spi",
-        "nrf5_ext_protothreads"
+        "nrf5_ext_protothreads",
+        "nrf5_nrfx_prs"
       ]
     },
     "includes": {
