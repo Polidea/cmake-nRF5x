@@ -65,6 +65,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_ERROR_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_fds
@@ -152,6 +153,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_BUTTON_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_fds
@@ -216,6 +218,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_UART_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_uart
   nrf5_ext_fprintf
@@ -264,6 +267,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_UART_FIFO_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_drv_uart
   nrf5_ext_fprintf
@@ -279,6 +283,158 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_UART_FIFO_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_nrfx_uart
   nrf5_nrfx_uarte
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# Application Pulse-width modulation (PWM)
+add_library(nrf5_app_pwm OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/pwm/app_pwm.c"
+)
+target_include_directories(nrf5_app_pwm PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/pwm"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_app_pwm PUBLIC
+  nrf5_app_util_platform
+  nrf5_drv_gpiote
+  nrf5_drv_ppi
+  nrf5_drv_timer
+  nrf5_nrfx_hal
+)
+list(APPEND NRF5_LIBRARY_NRF5_APP_PWM_DEPENDENCIES
+  nrf5_app_pwm
+  nrf5_app_scheduler
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_drv_gpiote
+  nrf5_drv_ppi
+  nrf5_drv_timer
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_gpiote
+  nrf5_nrfx_hal
+  nrf5_nrfx_ppi
+  nrf5_nrfx_timer
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# Application Simple Timer
+add_library(nrf5_app_simple_timer OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/simple_timer/app_simple_timer.c"
+)
+target_include_directories(nrf5_app_simple_timer PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/simple_timer"
+)
+target_link_libraries(nrf5_app_simple_timer PUBLIC
+  nrf5_app_error
+  nrf5_app_util_platform
+  nrf5_drv_timer
+  nrf5_nrfx_hal
+)
+list(APPEND NRF5_LIBRARY_NRF5_APP_SIMPLE_TIMER_DEPENDENCIES
+  nrf5_app_error
+  nrf5_app_scheduler
+  nrf5_app_simple_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_drv_timer
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_timer
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# SD card library
+add_library(nrf5_app_sdcard OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/sdcard/app_sdcard.c"
+)
+target_include_directories(nrf5_app_sdcard PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/sdcard"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_app_sdcard PUBLIC
+  nrf5_drv_spi
+  nrf5_ext_protothreads
+)
+list(APPEND NRF5_LIBRARY_NRF5_APP_SDCARD_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_sdcard
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_drv_spi
+  nrf5_ext_fprintf
+  nrf5_ext_protothreads
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_spi
+  nrf5_nrfx_spim
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf

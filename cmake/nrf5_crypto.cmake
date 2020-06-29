@@ -78,6 +78,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_delay
   nrf5_ext_cc310_bl_fwd
@@ -146,6 +147,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BACKEND_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_cc310_backend
   nrf5_delay
@@ -205,6 +207,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CC310_BL_BACKEND_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_cc310_bl_backend
   nrf5_delay
@@ -263,6 +266,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_CIFRA_BACKEND_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_cifra_backend
   nrf5_delay
@@ -329,6 +333,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MBEDTLS_BACKEND_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_mbedtls_backend
   nrf5_delay
@@ -393,6 +398,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_MICRO_ECC_BACKEND_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_micro_ecc_backend
   nrf5_delay
@@ -456,6 +462,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OBERON_BACKEND_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_oberon_backend
   nrf5_delay
@@ -516,6 +523,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_HW_BACKEND_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_nrf_hw_backend
   nrf5_delay
@@ -576,6 +584,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_NRF_SW_BACKEND_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_nrf_sw_backend
   nrf5_delay
@@ -645,6 +654,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CRYPTO_OPTIGA_BACKEND_DEPENDENCIES
   nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_crypto
   nrf5_crypto_optiga_backend
   nrf5_delay

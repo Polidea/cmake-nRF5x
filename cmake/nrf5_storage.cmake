@@ -110,12 +110,14 @@ target_include_directories(nrf5_fds PUBLIC
 target_link_libraries(nrf5_fds PUBLIC
   nrf5_atfifo
   nrf5_atomic
+  nrf5_crc16
   nrf5_fstorage
 )
 list(APPEND NRF5_LIBRARY_NRF5_FDS_DEPENDENCIES
   nrf5_atfifo
   nrf5_atomic
   nrf5_config
+  nrf5_crc16
   nrf5_fds
   nrf5_fstorage
   nrf5_log_fwd

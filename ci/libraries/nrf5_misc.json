@@ -109,11 +109,183 @@
     }
   },
   "nrf5_block_dev": {
-    "documentation": "Block device library (API layer)",
+    "documentation": "Block device",
     "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_config"
+      ]
+    },
     "includes": {
       "interface": [
-        "components/libraries/block_dev"
+        "components/libraries/block_dev",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_block_dev_empty": {
+    "documentation": "Block device empty implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/block_dev/empty/nrf_block_dev_empty.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_block_dev",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/block_dev/empty"
+      ]
+    }
+  },
+  "nrf5_block_dev_qspi": {
+    "documentation": "Block device QSPI implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/block_dev/qspi/nrf_block_dev_qspi.c",
+      "components/libraries/block_dev/qspi/nrf_serial_flash_params.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_block_dev",
+        "nrf5_drv_qspi"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/block_dev/qspi"
+      ]
+    }
+  },
+  "nrf5_block_dev_ram": {
+    "documentation": "Block device RAM implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/block_dev/ram/nrf_block_dev_ram.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_block_dev",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/block_dev/ram"
+      ]
+    }
+  },
+  "nrf5_block_dev_sdc": {
+    "documentation": "Block device SDC implementation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/block_dev/sdc/nrf_block_dev_sdc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_block_dev",
+        "nrf5_app_sdcard"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/block_dev/sdc"
+      ]
+    }
+  },
+  "nrf5_low_power_pwm": {
+    "documentation": "Low-power PWM",
+    "variant": "object",
+    "sources": [
+      "components/libraries/low_power_pwm/low_power_pwm.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_timer"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/low_power_pwm"
+      ]
+    }
+  },
+  "nrf5_led_softblink": {
+    "documentation": "LED softblink",
+    "variant": "object",
+    "sources": [
+      "components/libraries/led_softblink/led_softblink.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_low_power_pwm"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/led_softblink"
+      ]
+    }
+  },
+  "nrf5_serial": {
+    "documentation": "Serial port abstraction layer",
+    "variant": "object",
+    "sources": [
+      "components/libraries/serial/nrf_serial.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_queue",
+        "nrf5_drv_uart",
+        "nrf5_app_timer"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/serial"
+      ]
+    }
+  },
+  "nrf5_crc16": {
+    "documentation": "CRC16 compute",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crc16/crc16.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crc16",
+        "components/libraries/util"
+      ]
+    }
+  },
+  "nrf5_crc32": {
+    "documentation": "CRC32 compute",
+    "variant": "object",
+    "sources": [
+      "components/libraries/crc32/crc32.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_config",
+        "nrf5_mdk",
+        "nrf5_soc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/crc32",
+        "components/libraries/util"
       ]
     }
   }
