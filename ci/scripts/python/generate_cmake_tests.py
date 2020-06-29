@@ -27,6 +27,8 @@ def generate_library_test(library_name: str, library: LibraryDescription, librar
         "nrf5_fds": {"nrf5_fstorage_sd"},
         "nrf5_ble_peer_data_storage": {"nrf5_ble_peer_manager"},
         "nrf5_ble_peer_manager": {"nrf5_fstorage_sd"},
+        "nrf5_ble_srv_ots": {"nrf5_fstorage_sd"},
+        "nrf5_ble_srv_eddystone": {"nrf5_fstorage_sd"},
         "nrf5_log_default_backends": {
             "nrf5_log_backend_uart",
             "nrf5_log_backend_serial"

@@ -319,6 +319,38 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LLS_DEPENDENCIES
   nrf5_strerror
 )
 
+# BLE Immediate Alert Service Client (Peripheral)
+add_library(nrf5_ble_srv_ias OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ias/ble_ias.c"
+)
+target_include_directories(nrf5_ble_srv_ias PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ias"
+)
+target_link_libraries(nrf5_ble_srv_ias PUBLIC
+  nrf5_ble_common
+  nrf5_ble_link_ctx_manager
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IAS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_link_ctx_manager
+  nrf5_ble_srv_ias
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
 # BLE Immediate Alert Service Client (Central)
 add_library(nrf5_ble_srv_ias_c OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ias_c/ble_ias_c.c"
@@ -841,5 +873,362 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_HRS_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_strerror
+)
+
+# BLE TX Power Service
+add_library(nrf5_ble_srv_tps OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_tps/ble_tps.c"
+)
+target_include_directories(nrf5_ble_srv_tps PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_tps"
+)
+target_link_libraries(nrf5_ble_srv_tps PUBLIC
+  nrf5_ble_common
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_TPS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_srv_tps
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# BLE Glucose Service
+add_library(nrf5_ble_srv_gls OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_gls/ble_gls.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_gls/ble_gls_db.c"
+)
+target_include_directories(nrf5_ble_srv_gls PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_gls"
+)
+target_link_libraries(nrf5_ble_srv_gls PUBLIC
+  nrf5_ble_common
+  nrf5_ble_racp
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  
+  target_link_libraries(nrf5_ble_srv_gls PUBLIC
+    nrf5_ble_gq
+  )
+endif()
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_GLS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_racp
+  nrf5_ble_srv_gls
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_GLS_DEPENDENCIES
+    nrf5_balloc
+    nrf5_balloc_fwd
+    nrf5_ble_gq
+    nrf5_cli_fwd
+    nrf5_ext_fprintf
+    nrf5_memobj
+    nrf5_memobj_fwd
+    nrf5_queue
+  )
+endif()
+
+# BLE Apple Notification Center Service
+add_library(nrf5_ble_srv_ancs_c OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ancs_c/ancs_app_attr_get.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ancs_c/ancs_attr_parser.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ancs_c/nrf_ble_ancs_c.c"
+)
+target_include_directories(nrf5_ble_srv_ancs_c PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ancs_c"
+)
+target_link_libraries(nrf5_ble_srv_ancs_c PUBLIC
+  nrf5_ble_db_discovery
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 15.3.0)
+  target_sources(nrf5_ble_srv_ancs_c PRIVATE
+    "${NRF5_SDK_PATH}/components/ble/ble_services/ble_ancs_c/ancs_tx_buffer.c"
+  )
+endif()
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  
+  target_link_libraries(nrf5_ble_srv_ancs_c PUBLIC
+    nrf5_ble_gq
+  )
+endif()
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_ANCS_C_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_ble_common
+  nrf5_ble_db_discovery
+  nrf5_ble_srv_ancs_c
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_ANCS_C_DEPENDENCIES
+    nrf5_ble_gq
+  )
+endif()
+
+# BLE Object Transfer Service
+add_library(nrf5_ble_srv_ots OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_ots/ble_ots.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_ots/ble_ots_l2cap.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_ots/ble_ots_oacp.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_ots/ble_ots_object.c"
+)
+target_include_directories(nrf5_ble_srv_ots PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_ots"
+)
+target_link_libraries(nrf5_ble_srv_ots PUBLIC
+  nrf5_ble_common
+  nrf5_crc32
+  nrf5_fds
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 15.3.0)
+  target_sources(nrf5_ble_srv_ots PRIVATE
+    "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_ble_ots/ble_hvx_buffering.c"
+  )
+endif()
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  
+  target_link_libraries(nrf5_ble_srv_ots PUBLIC
+    nrf5_ble_gq
+  )
+endif()
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_OTS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_srv_ots
+  nrf5_config
+  nrf5_crc16
+  nrf5_crc32
+  nrf5_delay
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_OTS_DEPENDENCIES
+    nrf5_balloc
+    nrf5_balloc_fwd
+    nrf5_ble_gq
+    nrf5_cli_fwd
+    nrf5_ext_fprintf
+    nrf5_memobj
+    nrf5_memobj_fwd
+    nrf5_queue
+  )
+endif()
+
+# BLE Continuous Glucose Monitoring Service
+add_library(nrf5_ble_srv_cgms OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_nrf_ble_cgms/cgms_db.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_nrf_ble_cgms/cgms_meas.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_nrf_ble_cgms/cgms_racp.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_nrf_ble_cgms/cgms_socp.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_nrf_ble_cgms/cgms_sst.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_nrf_ble_cgms/nrf_ble_cgms.c"
+)
+target_include_directories(nrf5_ble_srv_cgms PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/experimental_nrf_ble_cgms"
+)
+target_link_libraries(nrf5_ble_srv_cgms PUBLIC
+  nrf5_ble_common
+  nrf5_ble_racp
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  
+  target_link_libraries(nrf5_ble_srv_cgms PUBLIC
+    nrf5_ble_gq
+  )
+endif()
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_CGMS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_ble_common
+  nrf5_ble_racp
+  nrf5_ble_srv_cgms
+  nrf5_config
+  nrf5_delay
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_CGMS_DEPENDENCIES
+    nrf5_balloc
+    nrf5_balloc_fwd
+    nrf5_ble_gq
+    nrf5_cli_fwd
+    nrf5_ext_fprintf
+    nrf5_memobj
+    nrf5_memobj_fwd
+    nrf5_queue
+  )
+endif()
+
+# BLE Eddystone library
+add_library(nrf5_ble_srv_eddystone OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_escs/nrf_ble_escs.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_adv.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_adv_frame.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_adv_timing.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_adv_timing_resolver.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_battery_voltage_saadc.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_flash.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_gatts.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_gatts_read.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_gatts_write.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_security.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_slot.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_slot_reg.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_stopwatch.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/es_tlm.c"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone/nrf_ble_es.c"
+)
+target_include_directories(nrf5_ble_srv_eddystone PUBLIC
+  "${NRF5_SDK_PATH}/components/ble/ble_services/ble_escs"
+  "${NRF5_SDK_PATH}/components/ble/ble_services/eddystone"
+)
+target_link_libraries(nrf5_ble_srv_eddystone PUBLIC
+  nrf5_app_scheduler
+  nrf5_ble_common
+  nrf5_crypto
+  nrf5_crypto_cifra_backend
+  nrf5_crypto_mbedtls_backend
+  nrf5_crypto_nrf_hw_backend
+  nrf5_crypto_oberon_backend
+  nrf5_drv_saadc
+  nrf5_fds
+)
+list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_EDDYSTONE_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_timer
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atflags
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_ble_common
+  nrf5_ble_srv_eddystone
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_crypto
+  nrf5_crypto_cifra_backend
+  nrf5_crypto_mbedtls_backend
+  nrf5_crypto_nrf_hw_backend
+  nrf5_crypto_oberon_backend
+  nrf5_delay
+  nrf5_drv_rng
+  nrf5_drv_saadc
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedcrypto
+  nrf5_ext_mbedtls
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_mbedx509
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_rng
+  nrf5_nrfx_saadc
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_soc
+  nrf5_stack_info
   nrf5_strerror
 )

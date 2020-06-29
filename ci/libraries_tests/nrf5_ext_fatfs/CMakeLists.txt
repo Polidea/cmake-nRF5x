@@ -32,5 +32,4 @@ add_executable(${CMAKE_PROJECT_NAME} "main.c")
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_ext_fatfs
-  nrf5_ext_fatfs_port_diskio_blkdev
 )

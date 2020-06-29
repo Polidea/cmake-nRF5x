@@ -146,6 +146,24 @@
       ]
     }
   },
+  "nrf5_ble_srv_ias": {
+    "documentation": "BLE Immediate Alert Service Client (Peripheral)",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_ias/ble_ias.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_ble_link_ctx_manager"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_ias"
+      ]
+    }
+  },
   "nrf5_ble_srv_ias_c": {
     "documentation": "BLE Immediate Alert Service Client (Central)",
     "variant": "object",
@@ -391,6 +409,219 @@
     "includes": {
       "public": [
         "components/ble/ble_services/ble_hrs"
+      ]
+    }
+  },
+  "nrf5_ble_srv_tps": {
+    "documentation": "BLE TX Power Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_tps/ble_tps.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_tps"
+      ]
+    }
+  },
+  "nrf5_ble_srv_gls": {
+    "documentation": "BLE Glucose Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_gls/ble_gls.c",
+      "components/ble/ble_services/ble_gls/ble_gls_db.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_ble_racp"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_gls"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
+  },
+  "nrf5_ble_srv_ancs_c": {
+    "documentation": "BLE Apple Notification Center Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_ancs_c/ancs_app_attr_get.c",
+      "components/ble/ble_services/ble_ancs_c/ancs_attr_parser.c",
+      "components/ble/ble_services/ble_ancs_c/ancs_tx_buffer.c",
+      "components/ble/ble_services/ble_ancs_c/nrf_ble_ancs_c.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_db_discovery"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/ble_ancs_c"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "remove",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "sources": [
+          "components/ble/ble_services/ble_ancs_c/ancs_tx_buffer.c"
+        ]
+      },
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ] 
+  },
+  "nrf5_ble_srv_ots": {
+    "documentation": "BLE Object Transfer Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/experimental_ble_ots/ble_ots.c",
+      "components/ble/ble_services/experimental_ble_ots/ble_ots_l2cap.c",
+      "components/ble/ble_services/experimental_ble_ots/ble_ots_oacp.c",
+      "components/ble/ble_services/experimental_ble_ots/ble_ots_object.c",
+      "components/ble/ble_services/experimental_ble_ots/ble_hvx_buffering.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_fds",
+        "nrf5_crc32"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/experimental_ble_ots"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "remove",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "sources": [
+          "components/ble/ble_services/experimental_ble_ots/ble_hvx_buffering.c"
+        ]
+      },
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
+  },
+  "nrf5_ble_srv_cgms": {
+    "documentation": "BLE Continuous Glucose Monitoring Service",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/experimental_nrf_ble_cgms/cgms_db.c",
+      "components/ble/ble_services/experimental_nrf_ble_cgms/cgms_meas.c",
+      "components/ble/ble_services/experimental_nrf_ble_cgms/cgms_racp.c",
+      "components/ble/ble_services/experimental_nrf_ble_cgms/cgms_socp.c",
+      "components/ble/ble_services/experimental_nrf_ble_cgms/cgms_sst.c",
+      "components/ble/ble_services/experimental_nrf_ble_cgms/nrf_ble_cgms.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ble_common",
+        "nrf5_ble_racp"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/experimental_nrf_ble_cgms"
+      ]
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "dependencies": {
+          "public": [
+            "nrf5_ble_gq"
+          ]
+        }
+      }
+    ]
+  },
+  "nrf5_ble_srv_eddystone": {
+    "documentation": "BLE Eddystone library",
+    "variant": "object",
+    "sources": [
+      "components/ble/ble_services/ble_escs/nrf_ble_escs.c",
+      "components/ble/ble_services/eddystone/es_adv.c",
+      "components/ble/ble_services/eddystone/es_adv_frame.c",
+      "components/ble/ble_services/eddystone/es_adv_timing.c",
+      "components/ble/ble_services/eddystone/es_adv_timing_resolver.c",
+      "components/ble/ble_services/eddystone/es_battery_voltage_saadc.c",
+      "components/ble/ble_services/eddystone/es_flash.c",
+      "components/ble/ble_services/eddystone/es_gatts.c",
+      "components/ble/ble_services/eddystone/es_gatts_read.c",
+      "components/ble/ble_services/eddystone/es_gatts_write.c",
+      "components/ble/ble_services/eddystone/es_security.c",
+      "components/ble/ble_services/eddystone/es_slot.c",
+      "components/ble/ble_services/eddystone/es_slot_reg.c",
+      "components/ble/ble_services/eddystone/es_stopwatch.c",
+      "components/ble/ble_services/eddystone/es_tlm.c",
+      "components/ble/ble_services/eddystone/nrf_ble_es.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_scheduler",
+        "nrf5_ble_common",
+        "nrf5_drv_saadc",
+        "nrf5_fds",
+        "nrf5_crypto",
+        "nrf5_crypto_cifra_backend",
+        "nrf5_crypto_mbedtls_backend",
+        "nrf5_crypto_nrf_hw_backend",
+        "nrf5_crypto_oberon_backend"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/ble/ble_services/eddystone",
+        "components/ble/ble_services/ble_escs"
       ]
     }
   }
