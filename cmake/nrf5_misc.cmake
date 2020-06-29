@@ -457,6 +457,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLOCK_DEV_SDC_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_spi
   nrf5_nrfx_spim
   nrf5_pwr_mgmt
@@ -552,6 +553,7 @@ list(APPEND NRF5_LIBRARY_NRF5_SERIAL_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_uart
   nrf5_nrfx_uarte
   nrf5_pwr_mgmt

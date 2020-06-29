@@ -55,6 +55,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_uart
   nrf5_nrfx_uarte
   nrf5_pwr_mgmt

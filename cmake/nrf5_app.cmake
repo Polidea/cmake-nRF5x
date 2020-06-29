@@ -232,6 +232,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_UART_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_uart
   nrf5_nrfx_uarte
   nrf5_pwr_mgmt
@@ -281,6 +282,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_UART_FIFO_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_uart
   nrf5_nrfx_uarte
   nrf5_pwr_mgmt
@@ -406,6 +408,7 @@ target_include_directories(nrf5_app_sdcard PUBLIC
 target_link_libraries(nrf5_app_sdcard PUBLIC
   nrf5_drv_spi
   nrf5_ext_protothreads
+  nrf5_nrfx_prs
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_SDCARD_DEPENDENCIES
   nrf5_app_scheduler
@@ -433,6 +436,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_SDCARD_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_prs
   nrf5_nrfx_spi
   nrf5_nrfx_spim
   nrf5_pwr_mgmt

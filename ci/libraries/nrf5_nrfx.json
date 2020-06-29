@@ -250,7 +250,8 @@
     "dependencies": {
       "public": [
         "nrf5_log",
-        "nrf5_nrfx_common"
+        "nrf5_nrfx_common",
+        "nrf5_nrfx_prs"
       ]
     },
     "includes": {
@@ -268,7 +269,8 @@
     "dependencies": {
       "public": [
         "nrf5_log",
-        "nrf5_nrfx_common"
+        "nrf5_nrfx_common",
+        "nrf5_nrfx_prs"
       ]
     },
     "includes": {
@@ -674,7 +676,8 @@
     "dependencies": {
       "public": [
         "nrf5_log",
-        "nrf5_nrfx_common"
+        "nrf5_nrfx_common",
+        "nrf5_nrfx_prs"
       ]
     },
     "includes": {
@@ -707,7 +710,8 @@
     "dependencies": {
       "public": [
         "nrf5_log",
-        "nrf5_nrfx_common"
+        "nrf5_nrfx_common",
+        "nrf5_nrfx_prs"
       ]
     },
     "includes": {
