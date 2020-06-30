@@ -1,0 +1,319 @@
+{
+  "nrf5_drv_clock": {
+    "documentation": "CLOCK legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_clock.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_clock"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_systick": {
+    "documentation": "SysTick legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_systick"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_power": {
+    "documentation": "POWER legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_power.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_power"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_ppi": {
+    "documentation": "PPI legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_ppi.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_ppi"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_gpiote": {
+    "documentation": "GPIOTE legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_gpiote"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_uart": {
+    "documentation": "UART legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_uart.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_uart",
+        "nrf5_nrfx_uarte"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_rng": {
+    "documentation": "RNG legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_rng.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_soc",
+        "nrf5_nrfx_rng",
+        "nrf5_app_util_platform"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_twi": {
+    "documentation": "TWI legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_twi.c"
+    ],
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    },
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_twi"
+      ]
+    }
+  },
+  "nrf5_drv_rtc": {
+    "documentation": "RTC legacy driver (header only)",
+    "variant": "interface",
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_timer": {
+    "documentation": "TIMER legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_timer"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_spi": {
+    "documentation": "SPIM legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_spi.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_spi",
+        "nrf5_nrfx_spim"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_spis": {
+    "documentation": "SPIS legacy driver",
+    "variant": "object",
+    "sources": [
+      "integration/nrfx/legacy/nrf_drv_spis.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_spis"
+      ]
+    },
+    "includes": {
+      "public": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_qspi": {
+    "documentation": "QSPI legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_qspi"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_usbd": {
+    "documentation": "USBD legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_usbd"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_i2s": {
+    "documentation": "I2S legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_i2s"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_comp": {
+    "documentation": "COMP legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_comp"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_lpcomp": {
+    "documentation": "LPCOMP legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_lpcomp"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_saadc": {
+    "documentation": "SAADC legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_saadc"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_pwm": {
+    "documentation": "PWM legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_pwm"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_wdt": {
+    "documentation": "WDT legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_wdt"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  },
+  "nrf5_drv_qdec": {
+    "documentation": "QDEC legacy driver",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_nrfx_qdec"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "integration/nrfx/legacy"
+      ]
+    }
+  }
+}
