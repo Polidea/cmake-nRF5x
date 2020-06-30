@@ -148,6 +148,15 @@ Defines `__HEAP_SIZE` compile definition accordingly. If not passed, the
 startup file (.S) will take care of setting up default heap boundaries for
 the specified target.
 
+### `NRF_JLINK_SN` (SEGGER J-Link serial number, optional)
+
+Tells `nrfjprog` utility which SEGGER J-Link debugger to use based on its serial
+number. Particularily useful when working with multiple J-Links connected to the
+PC at the same time. If not specified, user may be prompted which J-Link to use
+when running commands like flashing and erasing.
+
+**Important:** You must clear CMake cache and re-run CMake in order to change it.
+
 ## Contributing
 
 The project is developed in a semi-automated way and thoroughly tested with CI

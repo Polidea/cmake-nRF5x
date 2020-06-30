@@ -167,6 +167,17 @@ else()
   message(STATUS "Using nrfjprog utility: ${NRF5_NRFJPROG}")
 endif()
 
+# Serial number of SEGGER J-LINK used by NRFJPROG
+set(NRF5_JLINK_SN "" CACHE STRING "Serial number of the SEGGER J-LINK debugger to use when executing nrfjprog commands. If not specified, user will be prompted which connected J-Link to use for each command.")
+if(NRF5_JLINK_SN)
+  if(NOT NRF5_JLINK_SN MATCHES "^[0-9]*$")
+    message(FATAL_ERROR "NRF5_JLINK_SN must contain numbers only")
+  endif()
+  message(STATUS "Using SEGGER J-Link serial number: ${NRF5_JLINK_SN}")
+  set(nrfjprog_jlink_sn_opt "--snr")
+  set(nrfjprog_jlink_sn_arg "${NRF5_JLINK_SN}")
+endif()
+
 # Config library
 add_library(nrf5_config INTERFACE)
 target_include_directories(nrf5_config INTERFACE "${NRF5_SDKCONFIG_PATH}")
@@ -256,16 +267,16 @@ function(nrf5_target exec_target)
   add_custom_target(bin DEPENDS ${exec_target} COMMAND ${CMAKE_OBJCOPY_BIN} -O binary "${exec_target}" "${exec_target}.bin")
   # target for flashing SoftDevice
   add_custom_target(flash_softdevice
-    COMMAND ${NRF5_NRFJPROG} --program ${local_sd_hex_file_path} -f nrf52 --sectorerase
-    COMMAND ${NRF5_NRFJPROG} --reset -f nrf52
+    COMMAND ${NRF5_NRFJPROG} --program ${local_sd_hex_file_path} -f nrf52 --sectorerase ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
+    COMMAND ${NRF5_NRFJPROG} --reset -f nrf52 ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
   )
   # target for flashing the output executable
   add_custom_target(flash DEPENDS hex 
-    COMMAND ${NRF5_NRFJPROG} --program "${exec_target}.hex" -f nrf52 --sectorerase
-    COMMAND ${NRF5_NRFJPROG} --reset -f nrf52
+    COMMAND ${NRF5_NRFJPROG} --program "${exec_target}.hex" -f nrf52 --sectorerase ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
+    COMMAND ${NRF5_NRFJPROG} --reset -f nrf52 ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
   )
   # target for erasing Flash memory and the UICR page
   add_custom_target(erase_all
-    COMMAND ${NRF5_NRFJPROG} --eraseall -f nrf52
+    COMMAND ${NRF5_NRFJPROG} --eraseall -f nrf52 ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
   )
 endfunction()
