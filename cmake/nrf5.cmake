@@ -104,6 +104,10 @@ else()
     message(FATAL_ERROR "Cannot find generic linker script, please specify it via NRF5_LINKER_SCRIPT variable")
   endif()
   set(NRF5_LINKER_SCRIPT "${local_linker_script}")
+  message(WARNING "NRF5_LINKER_SCRIPT not specified, using a generic linker script: ${NRF5_LINKER_SCRIPT}.\n"
+    "This is NOT recommended since such scripts may contain invalid memory regions or have some sections missing which "
+    "will result in builing an incorrect binary. Please write a custom linker script or copy the generic script "
+    "from the SDK and modify it as needed.")
 endif()
 
 message(STATUS "Using linker script: ${NRF5_LINKER_SCRIPT}")
