@@ -19,6 +19,20 @@
       ]
     }
   },
+  "nrf5_bsp_defs": {
+    "documentation": "Board Support Package (definitions only)",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_boards"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "components/libraries/bsp"
+      ]
+    }
+  },
   "nrf5_bsp": {
     "documentation": "Board Support Package",
     "variant": "object",

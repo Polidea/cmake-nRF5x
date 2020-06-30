@@ -44,6 +44,24 @@ list(APPEND NRF5_LIBRARY_NRF5_BOARDS_DEPENDENCIES
   nrf5_soc
 )
 
+# Board Support Package (definitions only)
+add_library(nrf5_bsp_defs INTERFACE)
+target_include_directories(nrf5_bsp_defs INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/bsp"
+)
+target_link_libraries(nrf5_bsp_defs INTERFACE
+  nrf5_boards
+)
+list(APPEND NRF5_LIBRARY_NRF5_BSP_DEFS_DEPENDENCIES
+  nrf5_boards
+  nrf5_bsp_defs
+  nrf5_config
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_soc
+)
+
 # Board Support Package
 add_library(nrf5_bsp OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/bsp/bsp.c"

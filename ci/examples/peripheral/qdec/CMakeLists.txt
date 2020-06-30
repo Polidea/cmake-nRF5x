@@ -7,13 +7,11 @@ add_executable(${CMAKE_PROJECT_NAME}
   "${NRF5_SDK_PATH}/examples/peripheral/qdec/main.c"
   "${NRF5_SDK_PATH}/examples/peripheral/qdec/qenc_sim.c"
 )
-# This example requires only definitions from bsp.h file. Missing configuration
-# in sdk_config.h won't allow to compile bsp.c.
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-  "${NRF5_SDK_PATH}/components/libraries/bsp"
-)
 
-add_definitions(-DBSP_DEFINES_ONLY -DCONFIG_GPIO_AS_PINRESET)
+add_compile_definitions(
+  BSP_DEFINES_ONLY
+  CONFIG_GPIO_AS_PINRESET
+)
 
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
@@ -44,4 +42,5 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_app_util_platform
   # BSP
   nrf5_boards
+  nrf5_bsp_defs
 )
