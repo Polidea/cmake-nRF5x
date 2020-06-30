@@ -31,7 +31,7 @@ if(NOT NRF5_SDK_PATH)
   message(FATAL_ERROR "Path to the nRF5 SDK not provided. Please set NRF5_SDK_PATH cache variable.")
 endif()
 
-nrf5_validate_sdk(${NRF5_SDK_PATH} local_sdk_version)
+nrf5_get_sdk_version(${NRF5_SDK_PATH} local_sdk_version)
 if(NOT NRF5_SDK_VERSION)
   message(STATUS "nRF SDK version not explicitly provided, using deduced one: ${local_sdk_version}")
   set(NRF5_SDK_VERSION ${local_sdk_version})
@@ -46,7 +46,7 @@ set(NRF5_TARGET "" CACHE STRING "nRF5 target name e.g. nrf52810, nrf52832, nrf52
 
 if(NRF5_BOARD)
   string(TOLOWER ${NRF5_BOARD} NRF5_BOARD)
-  nrf5_validate_board(${NRF5_SDK_VERSION} ${NRF5_BOARD} local_board_target local_board_define)
+  nrf5_get_board_target(${NRF5_SDK_VERSION} ${NRF5_BOARD} local_board_target local_board_define)
   set(NRF5_BOARD_DEFINE ${local_board_define})
   if(NOT NRF5_TARGET)
     set(NRF5_TARGET ${local_board_target})
@@ -63,7 +63,7 @@ endif()
 
 # Check supported target based on the provided SDK version.
 if(NRF5_TARGET)
-  nrf5_validate_target(${NRF5_SDK_VERSION} ${NRF5_TARGET} local_target local_target_flags)
+  nrf5_get_target_flags(${NRF5_SDK_VERSION} ${NRF5_TARGET} local_target local_target_flags)
   set(NRF5_TARGET ${local_target})
   add_compile_options(${local_target_flags})
   add_link_options(${local_target_flags})
@@ -82,7 +82,7 @@ set(NRF5_SOFTDEVICE_VARIANT "" CACHE STRING "SoftDevice variant. Set to 'blank' 
 
 if(NRF5_SOFTDEVICE_VARIANT)
   string(TOLOWER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT)
-  nrf5_validate_softdevice_variant(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} ${NRF5_SOFTDEVICE_VARIANT} local_sd_hex_file_path local_sd_flags)
+  nrf5_get_softdevice_data(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} ${NRF5_SOFTDEVICE_VARIANT} local_sd_hex_file_path local_sd_flags)
   add_compile_options(${local_sd_flags})
   add_link_options(${local_sd_flags})
 else()

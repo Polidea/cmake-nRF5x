@@ -22,7 +22,7 @@
 
 include("nrf5_utils")
 
-function(nrf5_validate_sdk sdk_path out_sdk_version)
+function(nrf5_get_sdk_version sdk_path out_sdk_version)
   if(NOT EXISTS ${sdk_path})
     message(FATAL_ERROR "Specified nRF SDK doesn't exist: ${sdk_path}")
   endif()
@@ -43,7 +43,7 @@ function(nrf5_validate_sdk_version sdk_version)
   endif()
 endfunction()
 
-function(nrf5_validate_board sdk_version board out_target out_define)
+function(nrf5_get_board_target sdk_version board out_target out_define)
   # Information about the board. In order:
   # * Board target
   # * Board define
@@ -94,7 +94,7 @@ function(nrf5_validate_board sdk_version board out_target out_define)
   set(${out_define} ${board_define} PARENT_SCOPE)
 endfunction()
 
-function(nrf5_validate_target sdk_version target out_target out_target_flags)
+function(nrf5_get_target_flags sdk_version target out_target out_target_flags)
   # Handle aliases
   set(target_alias_nrf51801 nrf51801_xxab)
   set(target_alias_nrf51802 nrf51802_xxaa)
@@ -224,7 +224,7 @@ function(nrf5_get_startup_file sdk_path target out_startup_file out_system_file)
   set(${out_system_file} "${system_file}" PARENT_SCOPE)
 endfunction()
 
-function(nrf5_validate_softdevice_variant sdk_path sdk_version target sd_variant out_sd_hex_file_path out_sd_flags)
+function(nrf5_get_softdevice_data sdk_path sdk_version target sd_variant out_sd_hex_file_path out_sd_flags)
   # If we have blank or mbr sd_variant then continue...
   if(sd_variant MATCHES "^(blank|mbr)$")
     return()
