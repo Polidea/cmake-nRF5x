@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 include("nrf5_utils")
-include("nrf5_validate")
+include("nrf5_helpers")
 
 # Check nRF SDK
 set(NRF5_SDK_PATH "" CACHE PATH "Path to the nRF5 SDK")
