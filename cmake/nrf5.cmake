@@ -89,8 +89,11 @@ else()
   message(FATAL_ERROR "You must specify NRF5_SOFTDEVICE_VARIANT, e.g: blank, s130")
 endif()
 
-message(STATUS "Using SoftDevice HEX file: ${local_sd_hex_file_path}")
 message(STATUS "Using SoftDevice variant: ${NRF5_SOFTDEVICE_VARIANT}")
+
+if(local_sd_hex_file_path)
+  message(STATUS "Using SoftDevice HEX file: ${local_sd_hex_file_path}")
+endif()
 
 # Get linker script.
 set(NRF5_LINKER_SCRIPT "" CACHE FILEPATH "Linker script file. If not specified, a generic script for a selected target will be used.")
@@ -258,24 +261,28 @@ function(nrf5_target exec_target)
     "-L${NRF5_SDK_PATH}/modules/nrfx/mdk"
     "-T${NRF5_LINKER_SCRIPT}"
   )
-  # print size information after build
+  # Print size information after build
   add_custom_command(TARGET ${exec_target} POST_BUILD
     COMMAND ${CMAKE_SIZE_BIN} "${exec_target}"
   )
-  # targets for creating Intel HEX and binary executable forms
+  # Targets for creating Intel HEX and binary executable forms
   add_custom_target(hex DEPENDS ${exec_target} COMMAND ${CMAKE_OBJCOPY_BIN} -O ihex "${exec_target}" "${exec_target}.hex")
   add_custom_target(bin DEPENDS ${exec_target} COMMAND ${CMAKE_OBJCOPY_BIN} -O binary "${exec_target}" "${exec_target}.bin")
-  # target for flashing SoftDevice
-  add_custom_target(flash_softdevice
-    COMMAND ${NRF5_NRFJPROG} --program ${local_sd_hex_file_path} -f nrf52 --sectorerase ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
-    COMMAND ${NRF5_NRFJPROG} --reset -f nrf52 ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
-  )
-  # target for flashing the output executable
+  # Target for flashing SoftDevice
+  if(local_sd_hex_file_path)
+    add_custom_target(flash_softdevice
+      COMMAND ${NRF5_NRFJPROG} --program ${local_sd_hex_file_path} -f nrf52 --sectorerase ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
+      COMMAND ${NRF5_NRFJPROG} --reset -f nrf52 ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
+    )
+  else()
+    add_custom_target(flash_softdevice COMMAND true COMMENT "Using a non-SoftDevice configuration (${NRF5_SOFTDEVICE_VARIANT}). Nothing to flash.")
+  endif()
+  # Target for flashing the output executable
   add_custom_target(flash DEPENDS hex 
     COMMAND ${NRF5_NRFJPROG} --program "${exec_target}.hex" -f nrf52 --sectorerase ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
     COMMAND ${NRF5_NRFJPROG} --reset -f nrf52 ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
   )
-  # target for erasing Flash memory and the UICR page
+  # Target for erasing Flash memory and the UICR page
   add_custom_target(erase_all
     COMMAND ${NRF5_NRFJPROG} --eraseall -f nrf52 ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
   )
