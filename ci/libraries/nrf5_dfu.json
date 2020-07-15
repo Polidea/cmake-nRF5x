@@ -77,5 +77,27 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+    "nrf5_dfu_ver_validation": {
+    "documentation": "DFU version validation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_ver_validation.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_settings",
+        "nrf5_dfu_cc_pb",
+        "nrf5_crypto",
+        "nrf5_log",
+        "nrf5_assert"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
   }
 }
