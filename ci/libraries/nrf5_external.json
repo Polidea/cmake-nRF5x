@@ -366,5 +366,19 @@
         "external/fatfs/port"
       ]
     }
+  },
+  "nrf5_ext_nanopb": {
+    "documentation": "Nanopb - Protocol Buffers for Embedded Systems",
+    "variant": "object",
+    "sources": [
+      "external/nano-pb/pb_common.c",
+      "external/nano-pb/pb_encode.c",
+      "external/nano-pb/pb_decode.c"
+    ],
+    "includes": {
+      "public": [
+        "external/nano-pb"
+      ]
+    }
   }
 }
