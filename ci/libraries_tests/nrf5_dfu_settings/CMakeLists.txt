@@ -30,6 +30,7 @@ include("nrf5")
 
 add_compile_definitions(
   BLE_STACK_SUPPORT_REQD
+  NRF_DFU_BLE_REQUIRES_BONDS=1
   NRF_DFU_SETTINGS_VERSION=2
   NRF_DFU_SVCI_ENABLED
 )

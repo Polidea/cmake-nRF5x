@@ -84,6 +84,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
 # DFU global settings
 add_library(nrf5_dfu_settings OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu/nrf_dfu_settings.c"
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c"
 )
 target_include_directories(nrf5_dfu_settings PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu"

@@ -38,7 +38,8 @@
     "documentation": "DFU global settings",
     "variant": "object",
     "sources": [
-      "components/libraries/bootloader/dfu/nrf_dfu_settings.c"
+      "components/libraries/bootloader/dfu/nrf_dfu_settings.c",
+      "components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c"
     ],
     "dependencies": {
       "public": [
