@@ -33,5 +33,24 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+  "nrf5_dfu_settings": {
+    "documentation": "DFU global settings",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_settings.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_flash",
+        "nrf5_nrfx_nvmc",
+        "nrf5_crc32"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
   }
 }

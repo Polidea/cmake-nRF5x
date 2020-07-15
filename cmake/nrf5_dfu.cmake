@@ -80,3 +80,51 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
   nrf5_soc
   nrf5_strerror
 )
+
+# DFU global settings
+add_library(nrf5_dfu_settings OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu/nrf_dfu_settings.c"
+)
+target_include_directories(nrf5_dfu_settings PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu"
+)
+target_link_libraries(nrf5_dfu_settings PUBLIC
+  nrf5_crc32
+  nrf5_dfu_flash
+  nrf5_nrfx_nvmc
+)
+list(APPEND NRF5_LIBRARY_NRF5_DFU_SETTINGS_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_crc32
+  nrf5_delay
+  nrf5_dfu_flash
+  nrf5_dfu_settings
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_nvmc
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
