@@ -25,7 +25,9 @@
     "dependencies": {
       "public": [
         "nrf5_log",
-        "nrf5_fstorage"
+        "nrf5_fstorage",
+        "nrf5_fstorage_sd",
+        "nrf5_fstorage_nvmc"
       ]
     },
     "includes": {

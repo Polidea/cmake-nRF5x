@@ -46,6 +46,8 @@ target_include_directories(nrf5_dfu_flash PUBLIC
 )
 target_link_libraries(nrf5_dfu_flash PUBLIC
   nrf5_fstorage
+  nrf5_fstorage_nvmc
+  nrf5_fstorage_sd
   nrf5_log
 )
 list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
@@ -64,6 +66,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
+  nrf5_fstorage_nvmc
+  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -72,6 +76,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_nvmc
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf
@@ -112,6 +117,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_SETTINGS_DEPENDENCIES
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
+  nrf5_fstorage_nvmc
+  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
