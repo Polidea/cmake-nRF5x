@@ -1,0 +1,19 @@
+{
+  "nrf5_dfu_cc_pb": {
+    "documentation": "Automatically generated DFU protocol definitions for nanopb",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/dfu-cc.pb.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ext_nanopb"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  }
+}
