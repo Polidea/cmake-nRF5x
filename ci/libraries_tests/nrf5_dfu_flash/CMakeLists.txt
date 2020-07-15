@@ -20,35 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake.sh SCRIPT.
+# WARNING: FILE GENERATED FROM ./ci/scripts/generate_cmake_tests.sh SCRIPT.
 
-# Automatically generated DFU protocol definitions for nanopb
-add_library(nrf5_dfu_cc_pb OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu/dfu-cc.pb.c"
-)
-target_include_directories(nrf5_dfu_cc_pb PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu"
-)
-target_link_libraries(nrf5_dfu_cc_pb PUBLIC
-  nrf5_ext_nanopb
-)
-list(APPEND NRF5_LIBRARY_NRF5_DFU_CC_PB_DEPENDENCIES
-  nrf5_dfu_cc_pb
-  nrf5_ext_nanopb
-)
+cmake_minimum_required(VERSION 3.14)
+project(nrf5_dfu_flash_test LANGUAGES C ASM)
 
-# DFU Flash operations
-add_library(nrf5_dfu_flash OBJECT EXCLUDE_FROM_ALL
-  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu/nrf_dfu_flash.c"
-)
-target_include_directories(nrf5_dfu_flash PUBLIC
-  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu"
-)
-target_link_libraries(nrf5_dfu_flash PUBLIC
-  nrf5_fstorage
-  nrf5_log
-)
-list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../../cmake")
+include("nrf5")
+
+add_executable(${CMAKE_PROJECT_NAME} "main.c")
+nrf5_target(${CMAKE_PROJECT_NAME})
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+  nrf5_app_error
   nrf5_app_scheduler
   nrf5_app_util_platform
   nrf5_atfifo
@@ -64,6 +47,8 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
+  nrf5_fstorage_sd
+  nrf5_fstorage_nvmc
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -72,6 +57,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_nrfx_nvmc
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf
@@ -79,4 +65,5 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
   nrf5_section
   nrf5_soc
   nrf5_strerror
+  nrf5_sdh
 )
