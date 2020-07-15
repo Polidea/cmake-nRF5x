@@ -136,3 +136,65 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_SETTINGS_DEPENDENCIES
   nrf5_soc
   nrf5_strerror
 )
+
+# USB DFU trigger library
+add_library(nrf5_dfu_trigger_usb OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu/nrf_dfu_trigger_usb.c"
+)
+target_include_directories(nrf5_dfu_trigger_usb PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu"
+)
+target_link_libraries(nrf5_dfu_trigger_usb PUBLIC
+  nrf5_app_usbd
+  nrf5_app_usbd_nrf_dfu_trigger
+  nrf5_app_usbd_serial_num
+  nrf5_boards
+  nrf5_log
+  nrf5_nrfx_hal
+)
+list(APPEND NRF5_LIBRARY_NRF5_DFU_TRIGGER_USB_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_usbd
+  nrf5_app_usbd_nrf_dfu_trigger
+  nrf5_app_usbd_serial_num
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_block_dev
+  nrf5_boards
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_dfu_trigger_usb
+  nrf5_drv_clock
+  nrf5_drv_power
+  nrf5_drv_usbd
+  nrf5_ext_fprintf
+  nrf5_ext_utf_converter
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_clock
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_power
+  nrf5_nrfx_soc
+  nrf5_nrfx_systick
+  nrf5_nrfx_usbd
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)

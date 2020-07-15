@@ -55,5 +55,27 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+  "nrf5_dfu_trigger_usb": {
+    "documentation": "USB DFU trigger library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_trigger_usb.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd",
+        "nrf5_app_usbd_serial_num",
+        "nrf5_app_usbd_nrf_dfu_trigger",
+        "nrf5_log",
+        "nrf5_boards",
+        "nrf5_nrfx_hal"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
   }
 }
