@@ -165,5 +165,32 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+  "nrf5_dfu_req_handler": {
+    "documentation": "DFU request handling",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_req_handler.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_settings",
+        "nrf5_dfu_validation",
+        "nrf5_dfu_handling_error",
+        "nrf5_dfu_cc_pb",
+        "nrf5_dfu_utils",
+        "nrf5_app_scheduler",
+        "nrf5_app_util_platform",
+        "nrf5_crypto",
+        "nrf5_log",
+        "nrf5_crc32"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
   }
 }
