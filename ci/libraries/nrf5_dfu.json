@@ -121,5 +121,32 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+  "nrf5_dfu_validation": {
+    "documentation": "DFU validation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_validation.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_settings",
+        "nrf5_dfu_utils",
+        "nrf5_dfu_flash",
+        "nrf5_dfu_ver_validation",
+        "nrf5_crypto",
+        "nrf5_log",
+        "nrf5_crc32",
+        "nrf5_assert",
+        "nrf5_strerror",
+        "nrf5_ext_nanopb"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
   }
 }
