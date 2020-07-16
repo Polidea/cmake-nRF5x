@@ -148,5 +148,22 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+  "nrf5_dfu_handling_error": {
+    "documentation": "DFU result codes",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_handling_error.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
   }
 }
