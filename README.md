@@ -1,3 +1,12 @@
+<p align="center">
+  <img
+    alt="nRF5 CMake"
+    src="ci/logo.png"
+    height="250"
+    style="margin-top: 20px; margin-bottom: 20px;"
+  />
+</p>
+
 # nRF5 CMake
 
 This repository provides platform-agnostic CMake files that can be used to build
