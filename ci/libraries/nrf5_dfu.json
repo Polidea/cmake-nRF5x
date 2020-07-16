@@ -78,7 +78,7 @@
       ]
     }
   },
-    "nrf5_dfu_ver_validation": {
+  "nrf5_dfu_ver_validation": {
     "documentation": "DFU version validation",
     "variant": "object",
     "sources": [
@@ -91,6 +91,28 @@
         "nrf5_crypto",
         "nrf5_log",
         "nrf5_assert"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_utils": {
+    "documentation": "DFU utilities",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_utils.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_settings",
+        "nrf5_app_util_platform",
+        "nrf5_log",
+        "nrf5_crc32",
+        "nrf5_ext_nanopb"
       ]
     },
     "includes": {
