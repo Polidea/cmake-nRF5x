@@ -273,5 +273,23 @@
         "components/libraries/bootloader/ble_dfu"
       ]
     }
+  },
+  "nrf5_bootloader_info": {
+    "documentation": "Bootloader info",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_info.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_nvmc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
   }
 }

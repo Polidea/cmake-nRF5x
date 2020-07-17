@@ -758,3 +758,23 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_BLE_DEPENDENCIES
   nrf5_strerror
   nrf5_svc
 )
+
+# Bootloader info
+add_library(nrf5_bootloader_info OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/nrf_bootloader_info.c"
+)
+target_include_directories(nrf5_bootloader_info PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bootloader"
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu"
+)
+target_link_libraries(nrf5_bootloader_info PUBLIC
+  nrf5_nrfx_nvmc
+)
+list(APPEND NRF5_LIBRARY_NRF5_BOOTLOADER_INFO_DEPENDENCIES
+  nrf5_bootloader_info
+  nrf5_config
+  nrf5_mdk
+  nrf5_nrfx_common
+  nrf5_nrfx_nvmc
+  nrf5_soc
+)
