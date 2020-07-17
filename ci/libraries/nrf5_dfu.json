@@ -248,5 +248,30 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+  "nrf5_dfu_ble": {
+    "documentation": "DFU BLE Service",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/ble_dfu/nrf_dfu_ble.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_transport",
+        "nrf5_dfu_req_handler",
+        "nrf5_dfu_handling_error",
+        "nrf5_dfu_settings",
+        "nrf5_dfu_mbr",
+        "nrf5_ble_common",
+        "nrf5_log",
+        "nrf5_svc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/ble_dfu"
+      ]
+    }
   }
 }
