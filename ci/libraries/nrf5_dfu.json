@@ -227,5 +227,25 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+  "nrf5_dfu": {
+    "documentation": "DFU initialization",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_req_handler",
+        "nrf5_dfu_transport",
+        "nrf5_dfu_utils",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
   }
 }
