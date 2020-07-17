@@ -291,5 +291,24 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+  "nrf5_bootloader_dfu_timers": {
+    "documentation": "Timers for DFU in the bootloader",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_dfu_timers.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_hal",
+        "nrf5_delay",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
   }
 }
