@@ -232,7 +232,8 @@
     "documentation": "DFU initialization",
     "variant": "object",
     "sources": [
-      "components/libraries/bootloader/dfu/nrf_dfu.c"
+      "components/libraries/bootloader/dfu/nrf_dfu.c",
+      "components/libraries/bootloader/dfu/nrf_dfu_svci.c"
     ],
     "dependencies": {
       "public": [
