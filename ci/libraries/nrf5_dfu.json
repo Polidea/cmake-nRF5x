@@ -209,5 +209,23 @@
         "components/libraries/bootloader/dfu"
       ]
     }
+  },
+  "nrf5_dfu_mbr": {
+    "documentation": "Master Boot Record API",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_mbr.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
   }
 }
