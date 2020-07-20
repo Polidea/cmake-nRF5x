@@ -351,5 +351,27 @@
         "components/libraries/bootloader"
       ]
     }
+  },
+  "nrf5_bootloader_app_start": {
+    "documentation": "Application start",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_app_start.c",
+      "components/libraries/bootloader/nrf_bootloader_app_start_final.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_bootloader_info",
+        "nrf5_dfu_settings",
+        "nrf5_dfu_mbr",
+        "nrf5_dfu_utils",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
   }
 }

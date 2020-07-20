@@ -928,3 +928,61 @@ list(APPEND NRF5_LIBRARY_NRF5_BOOTLOADER_FW_ACTIVATION_DEPENDENCIES
   nrf5_soc
   nrf5_strerror
 )
+
+# Application start
+add_library(nrf5_bootloader_app_start OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/nrf_bootloader_app_start.c"
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/nrf_bootloader_app_start_final.c"
+)
+target_include_directories(nrf5_bootloader_app_start PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bootloader"
+)
+target_link_libraries(nrf5_bootloader_app_start PUBLIC
+  nrf5_bootloader_info
+  nrf5_dfu_mbr
+  nrf5_dfu_settings
+  nrf5_dfu_utils
+  nrf5_log
+)
+list(APPEND NRF5_LIBRARY_NRF5_BOOTLOADER_APP_START_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_bootloader_app_start
+  nrf5_bootloader_info
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_crc32
+  nrf5_delay
+  nrf5_dfu_flash
+  nrf5_dfu_mbr
+  nrf5_dfu_settings
+  nrf5_dfu_utils
+  nrf5_ext_fprintf
+  nrf5_ext_nanopb
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_fstorage_nvmc
+  nrf5_fstorage_sd
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_nvmc
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
