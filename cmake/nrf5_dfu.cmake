@@ -823,3 +823,108 @@ list(APPEND NRF5_LIBRARY_NRF5_BOOTLOADER_DFU_TIMERS_DEPENDENCIES
   nrf5_soc
   nrf5_strerror
 )
+
+# Automated feeding of the watchdog
+add_library(nrf5_bootloader_wdt OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/nrf_bootloader_wdt.c"
+)
+target_include_directories(nrf5_bootloader_wdt PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bootloader"
+)
+target_link_libraries(nrf5_bootloader_wdt PUBLIC
+  nrf5_bootloader_dfu_timers
+  nrf5_log
+  nrf5_nrfx_hal
+)
+list(APPEND NRF5_LIBRARY_NRF5_BOOTLOADER_WDT_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_bootloader_dfu_timers
+  nrf5_bootloader_wdt
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
+# Firmware activation
+add_library(nrf5_bootloader_fw_activation OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/nrf_bootloader_fw_activation.c"
+)
+target_include_directories(nrf5_bootloader_fw_activation PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bootloader"
+)
+target_link_libraries(nrf5_bootloader_fw_activation PUBLIC
+  nrf5_bootloader_wdt
+  nrf5_crc32
+  nrf5_dfu_mbr
+  nrf5_dfu_settings
+  nrf5_dfu_utils
+  nrf5_log
+)
+list(APPEND NRF5_LIBRARY_NRF5_BOOTLOADER_FW_ACTIVATION_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_bootloader_dfu_timers
+  nrf5_bootloader_fw_activation
+  nrf5_bootloader_wdt
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_crc32
+  nrf5_delay
+  nrf5_dfu_flash
+  nrf5_dfu_mbr
+  nrf5_dfu_settings
+  nrf5_dfu_utils
+  nrf5_ext_fprintf
+  nrf5_ext_nanopb
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_fstorage_nvmc
+  nrf5_fstorage_sd
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_nvmc
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)

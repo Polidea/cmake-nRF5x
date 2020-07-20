@@ -310,5 +310,46 @@
         "components/libraries/bootloader"
       ]
     }
+  },
+  "nrf5_bootloader_wdt": {
+    "documentation": "Automated feeding of the watchdog",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_wdt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_bootloader_dfu_timers",
+        "nrf5_nrfx_hal",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
+  },
+  "nrf5_bootloader_fw_activation": {
+    "documentation": "Firmware activation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_fw_activation.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_bootloader_wdt",
+        "nrf5_dfu_settings",
+        "nrf5_dfu_mbr",
+        "nrf5_dfu_utils",
+        "nrf5_log",
+        "nrf5_crc32"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
   }
 }
