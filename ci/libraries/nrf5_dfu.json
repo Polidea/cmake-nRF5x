@@ -274,6 +274,26 @@
       ]
     }
   },
+  "nrf5_dfu_serial": {
+    "documentation": "DFU Serial transports shared part",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/serial_dfu/nrf_dfu_serial.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_transport",
+        "nrf5_dfu_req_handler",
+        "nrf5_dfu_handling_error",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/serial_dfu"
+      ]
+    }
+  },
   "nrf5_bootloader_info": {
     "documentation": "Bootloader info",
     "variant": "object",
