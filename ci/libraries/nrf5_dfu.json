@@ -336,6 +336,34 @@
       ]
     }
   },
+  "nrf5_dfu_serial_usb": {
+    "documentation": "DFU Serial USB",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/serial_dfu/nrf_dfu_serial_usb.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_serial",
+        "nrf5_app_util_platform",
+        "nrf5_app_scheduler",
+        "nrf5_app_usbd",
+        "nrf5_app_usbd_serial_num",
+        "nrf5_app_usbd_cdc_acm",
+        "nrf5_slip",
+        "nrf5_boards",
+        "nrf5_drv_clock",
+        "nrf5_drv_power",
+        "nrf5_drv_usbd",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/serial_dfu"
+      ]
+    }
+  },
   "nrf5_bootloader_info": {
     "documentation": "Bootloader info",
     "variant": "object",
