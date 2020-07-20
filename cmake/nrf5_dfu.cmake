@@ -144,9 +144,7 @@ target_include_directories(nrf5_dfu_settings_svci PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu"
 )
 target_link_libraries(nrf5_dfu_settings_svci PUBLIC
-  nrf5_crc32
-  nrf5_dfu_flash
-  nrf5_nrfx_nvmc
+  nrf5_dfu_settings
 )
 list(APPEND NRF5_LIBRARY_NRF5_DFU_SETTINGS_SVCI_DEPENDENCIES
   nrf5_app_scheduler
@@ -162,6 +160,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_SETTINGS_SVCI_DEPENDENCIES
   nrf5_crc32
   nrf5_delay
   nrf5_dfu_flash
+  nrf5_dfu_settings
   nrf5_dfu_settings_svci
   nrf5_ext_fprintf
   nrf5_fds

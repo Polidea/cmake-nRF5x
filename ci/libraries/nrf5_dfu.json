@@ -63,9 +63,7 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_dfu_flash",
-        "nrf5_nrfx_nvmc",
-        "nrf5_crc32"
+        "nrf5_dfu_settings"
       ]
     },
     "includes": {
