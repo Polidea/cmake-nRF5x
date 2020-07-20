@@ -28,7 +28,14 @@ project(nrf5_bootloader_info_test LANGUAGES C ASM)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../../cmake")
 include("nrf5")
 
-add_executable(${CMAKE_PROJECT_NAME} "main.c")
+add_executable(${CMAKE_PROJECT_NAME})
+
+if(NRF5_SDK_VERSION VERSION_LESS 16.0.0)
+  target_sources(${CMAKE_PROJECT_NAME} PRIVATE "main_pre_sdk_v16.c")
+else()
+  target_sources(${CMAKE_PROJECT_NAME} PRIVATE "main.c")
+endif()
+
 nrf5_target(${CMAKE_PROJECT_NAME})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_bootloader_info
