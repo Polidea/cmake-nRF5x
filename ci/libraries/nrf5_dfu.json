@@ -373,5 +373,28 @@
         "components/libraries/bootloader"
       ]
     }
+  },
+  "nrf5_bootloader": {
+    "documentation": "Bootloader modules",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_bootloader_app_start",
+        "nrf5_bootloader_fw_activation",
+        "nrf5_dfu_validation",
+        "nrf5_app_scheduler",
+        "nrf5_log",
+        "nrf5_nrfx_hal",
+        "nrf5_boards"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
   }
 }
