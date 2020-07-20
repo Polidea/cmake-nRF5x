@@ -880,6 +880,89 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_SERIAL_DEPENDENCIES
   nrf5_strerror
 )
 
+# DFU Serial UART
+add_library(nrf5_dfu_serial_uart OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/serial_dfu/nrf_dfu_serial_uart.c"
+)
+target_include_directories(nrf5_dfu_serial_uart PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/serial_dfu"
+)
+target_link_libraries(nrf5_dfu_serial_uart PUBLIC
+  nrf5_app_util_platform
+  nrf5_boards
+  nrf5_dfu_req_handler
+  nrf5_dfu_transport
+  nrf5_drv_uart
+  nrf5_log
+  nrf5_nrfx_uart
+  nrf5_nrfx_uarte
+  nrf5_slip
+)
+list(APPEND NRF5_LIBRARY_NRF5_DFU_SERIAL_UART_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_util_platform
+  nrf5_assert
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_boards
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_crc32
+  nrf5_crypto
+  nrf5_delay
+  nrf5_dfu_cc_pb
+  nrf5_dfu_flash
+  nrf5_dfu_handling_error
+  nrf5_dfu_req_handler
+  nrf5_dfu_serial_uart
+  nrf5_dfu_settings
+  nrf5_dfu_transport
+  nrf5_dfu_utils
+  nrf5_dfu_validation
+  nrf5_dfu_ver_validation
+  nrf5_drv_uart
+  nrf5_ext_cc310_bl_fwd
+  nrf5_ext_cc310_fwd
+  nrf5_ext_cifra_aes128_eax_fwd
+  nrf5_ext_fprintf
+  nrf5_ext_mbedtls_fwd
+  nrf5_ext_micro_ecc_fwd
+  nrf5_ext_nanopb
+  nrf5_ext_oberon_fwd
+  nrf5_ext_optiga_fwd
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_fstorage_nvmc
+  nrf5_fstorage_sd
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_mem_manager
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_nrfx_nvmc
+  nrf5_nrfx_prs
+  nrf5_nrfx_uart
+  nrf5_nrfx_uarte
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_sha256_fwd
+  nrf5_slip
+  nrf5_soc
+  nrf5_stack_info
+  nrf5_strerror
+)
+
 # Bootloader info
 add_library(nrf5_bootloader_info OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/bootloader/nrf_bootloader_info.c"

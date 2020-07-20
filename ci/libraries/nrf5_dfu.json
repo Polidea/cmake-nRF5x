@@ -312,6 +312,30 @@
       ]
     }
   },
+  "nrf5_dfu_serial_uart": {
+    "documentation": "DFU Serial UART",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/serial_dfu/nrf_dfu_serial_uart.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_serial",
+        "nrf5_app_util_platform",
+        "nrf5_slip",
+        "nrf5_boards",
+        "nrf5_drv_uart",
+        "nrf5_nrfx_uart",
+        "nrf5_nrfx_uarte",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/serial_dfu"
+      ]
+    }
+  },
   "nrf5_bootloader_info": {
     "documentation": "Bootloader info",
     "variant": "object",
