@@ -67,6 +67,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
   nrf5_dfu_mbr
   nrf5_dfu_req_handler
   nrf5_dfu_settings
+  nrf5_dfu_settings_svci
   nrf5_dfu_transport
   nrf5_dfu_utils
   nrf5_dfu_validation
