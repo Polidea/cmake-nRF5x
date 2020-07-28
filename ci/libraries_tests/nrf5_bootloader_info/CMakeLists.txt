@@ -30,7 +30,7 @@ include("nrf5")
 
 add_executable(${CMAKE_PROJECT_NAME})
 
-if(NRF5_SDK_VERSION VERSION_LESS 16.0.0)
+if(NRF5_SDK_VERSION VERSION_LESS "16.0.0")
   target_sources(${CMAKE_PROJECT_NAME} PRIVATE "main_pre_sdk_v16.c")
 else()
   target_sources(${CMAKE_PROJECT_NAME} PRIVATE "main.c")
