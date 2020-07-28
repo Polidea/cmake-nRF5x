@@ -655,7 +655,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_MBR_DEPENDENCIES
 # DFU initialization
 add_library(nrf5_dfu OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu/nrf_dfu.c"
-  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu/nrf_dfu_svci.c"
 )
 target_include_directories(nrf5_dfu PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu"
