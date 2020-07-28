@@ -265,6 +265,19 @@
       ]
     }
   },
+  "nrf5_dfu_svci": {
+    "documentation": "DFU initialization (SVCI)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_svci.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_util_platform",
+        "nrf5_log"
+      ]
+    }
+  },
   "nrf5_dfu_ble": {
     "documentation": "DFU BLE Service",
     "variant": "object",
@@ -277,6 +290,7 @@
         "nrf5_dfu_req_handler",
         "nrf5_dfu_handling_error",
         "nrf5_dfu_settings",
+        "nrf5_dfu_svci",
         "nrf5_dfu_mbr",
         "nrf5_ble_common",
         "nrf5_log",

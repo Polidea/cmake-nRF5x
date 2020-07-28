@@ -725,6 +725,47 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_DEPENDENCIES
   nrf5_strerror
 )
 
+# DFU initialization (SVCI)
+add_library(nrf5_dfu_svci OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/bootloader/dfu/nrf_dfu_svci.c"
+)
+target_link_libraries(nrf5_dfu_svci PUBLIC
+  nrf5_app_util_platform
+  nrf5_log
+)
+list(APPEND NRF5_LIBRARY_NRF5_DFU_SVCI_DEPENDENCIES
+  nrf5_app_scheduler
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_dfu_svci
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_strerror
+)
+
 # DFU BLE Service
 add_library(nrf5_dfu_ble OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/bootloader/ble_dfu/nrf_dfu_ble.c"
@@ -739,6 +780,7 @@ target_link_libraries(nrf5_dfu_ble PUBLIC
   nrf5_dfu_mbr
   nrf5_dfu_req_handler
   nrf5_dfu_settings
+  nrf5_dfu_svci
   nrf5_dfu_transport
   nrf5_log
   nrf5_svc
@@ -768,6 +810,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_BLE_DEPENDENCIES
   nrf5_dfu_mbr
   nrf5_dfu_req_handler
   nrf5_dfu_settings
+  nrf5_dfu_svci
   nrf5_dfu_transport
   nrf5_dfu_utils
   nrf5_dfu_validation
