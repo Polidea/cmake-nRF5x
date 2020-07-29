@@ -56,6 +56,23 @@
       ]
     }
   },
+  "nrf5_app_timer_fwd": {
+    "documentation": "Application Timer (include directories only)",
+    "variant": "interface",
+    "dependencies": {
+      "interface": [
+        "nrf5_app_error",
+        "nrf5_app_util_platform",
+        "nrf5_log",
+        "nrf5_sortlist"
+      ]
+    },
+    "includes": {
+      "interface": [
+        "components/libraries/timer"
+      ]
+    }
+  },
   "nrf5_app_timer": {
     "documentation": "Application Timer",
     "variant": "object",
@@ -64,7 +81,7 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_app_util_platform",
+        "nrf5_app_timer_fwd",
         "nrf5_app_scheduler",
         "nrf5_delay",
         "nrf5_nrfx_hal"
@@ -84,7 +101,7 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_app_timer",
+        "nrf5_app_timer_fwd",
         "nrf5_nrfx_gpiote"
       ]
     },

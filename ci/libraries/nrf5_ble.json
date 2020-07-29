@@ -10,7 +10,7 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_app_timer",
+        "nrf5_app_timer_fwd",
         "nrf5_atflags",
         "nrf5_atomic",
         "nrf5_config",

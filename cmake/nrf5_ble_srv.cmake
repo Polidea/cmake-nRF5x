@@ -36,22 +36,40 @@ target_link_libraries(nrf5_ble_srv_lbs PUBLIC
   nrf5_sdh
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_lbs
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -67,8 +85,9 @@ target_link_libraries(nrf5_ble_srv_lbs_c PUBLIC
   nrf5_ble_db_discovery
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_C_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -100,6 +119,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LBS_C_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
@@ -120,23 +140,41 @@ target_link_libraries(nrf5_ble_srv_nus PUBLIC
   nrf5_ble_link_ctx_manager
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_link_ctx_manager
   nrf5_ble_srv_nus
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -152,8 +190,9 @@ target_link_libraries(nrf5_ble_srv_nus_c PUBLIC
   nrf5_ble_db_discovery
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_C_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -185,6 +224,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_NUS_C_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
@@ -205,22 +245,40 @@ target_link_libraries(nrf5_ble_srv_dis PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_DIS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_dis
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -237,23 +295,41 @@ target_link_libraries(nrf5_ble_srv_bms PUBLIC
   nrf5_ble_qwr
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_BMS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_qwr
   nrf5_ble_srv_bms
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -269,22 +345,40 @@ target_link_libraries(nrf5_ble_srv_ipsp PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IPSP_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_ipsp
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -300,22 +394,40 @@ target_link_libraries(nrf5_ble_srv_lls PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LLS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_lls
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -331,23 +443,41 @@ target_link_libraries(nrf5_ble_srv_ias PUBLIC
   nrf5_ble_link_ctx_manager
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IAS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_link_ctx_manager
   nrf5_ble_srv_ias
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -362,8 +492,9 @@ target_link_libraries(nrf5_ble_srv_ias_c PUBLIC
   nrf5_ble_db_discovery
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IAS_C_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -395,6 +526,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_IAS_C_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
@@ -414,8 +546,9 @@ target_link_libraries(nrf5_ble_srv_gatts_c PUBLIC
   nrf5_ble_db_discovery
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_GATTS_C_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -447,6 +580,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_GATTS_C_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
@@ -466,8 +600,9 @@ target_link_libraries(nrf5_ble_srv_cts_c PUBLIC
   nrf5_ble_db_discovery
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_CTS_C_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -499,6 +634,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_CTS_C_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
@@ -518,8 +654,9 @@ target_link_libraries(nrf5_ble_srv_ans_c PUBLIC
   nrf5_ble_db_discovery
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_ANS_C_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -551,6 +688,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_ANS_C_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
@@ -570,22 +708,40 @@ target_link_libraries(nrf5_ble_srv_rscs PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_RSCS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_rscs
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -601,23 +757,41 @@ target_link_libraries(nrf5_ble_srv_hids PUBLIC
   nrf5_ble_link_ctx_manager
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_HIDS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_link_ctx_manager
   nrf5_ble_srv_hids
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -632,22 +806,40 @@ target_link_libraries(nrf5_ble_srv_bas PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_BAS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_bas
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -668,34 +860,45 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   )
 endif()
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_HTS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_hts
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_HTS_DEPENDENCIES
-    nrf5_balloc
-    nrf5_balloc_fwd
     nrf5_ble_gq
-    nrf5_cli_fwd
-    nrf5_ext_fprintf
-    nrf5_memobj
-    nrf5_memobj_fwd
-    nrf5_queue
   )
 endif()
 
@@ -716,34 +919,45 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   )
 endif()
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_BPS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_bps
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_BPS_DEPENDENCIES
-    nrf5_balloc
-    nrf5_balloc_fwd
     nrf5_ble_gq
-    nrf5_cli_fwd
-    nrf5_ext_fprintf
-    nrf5_memobj
-    nrf5_memobj_fwd
-    nrf5_queue
   )
 endif()
 
@@ -759,22 +973,40 @@ target_link_libraries(nrf5_ble_srv_cscs PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_CSCS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_cscs
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -797,34 +1029,45 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   )
 endif()
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LNS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_lns
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_LNS_DEPENDENCIES
-    nrf5_balloc
-    nrf5_balloc_fwd
     nrf5_ble_gq
-    nrf5_cli_fwd
-    nrf5_ext_fprintf
-    nrf5_memobj
-    nrf5_memobj_fwd
-    nrf5_queue
   )
 endif()
 
@@ -840,8 +1083,9 @@ target_link_libraries(nrf5_ble_srv_hrs PUBLIC
   nrf5_ble_gatt
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_HRS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -873,6 +1117,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_HRS_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -887,22 +1132,40 @@ target_link_libraries(nrf5_ble_srv_tps PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_TPS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_tps
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -925,35 +1188,46 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   )
 endif()
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_GLS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_racp
   nrf5_ble_srv_gls
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_GLS_DEPENDENCIES
-    nrf5_balloc
-    nrf5_balloc_fwd
     nrf5_ble_gq
-    nrf5_cli_fwd
-    nrf5_ext_fprintf
-    nrf5_memobj
-    nrf5_memobj_fwd
-    nrf5_queue
   )
 endif()
 
@@ -981,8 +1255,9 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   )
 endif()
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_ANCS_C_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -1014,6 +1289,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_ANCS_C_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
@@ -1049,39 +1325,46 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   )
 endif()
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_OTS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_srv_ots
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
   nrf5_crc16
   nrf5_crc32
   nrf5_delay
+  nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_OTS_DEPENDENCIES
-    nrf5_balloc
-    nrf5_balloc_fwd
     nrf5_ble_gq
-    nrf5_cli_fwd
-    nrf5_ext_fprintf
-    nrf5_memobj
-    nrf5_memobj_fwd
-    nrf5_queue
   )
 endif()
 
@@ -1108,35 +1391,46 @@ if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   )
 endif()
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_CGMS_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_racp
   nrf5_ble_srv_cgms
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
   list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_CGMS_DEPENDENCIES
-    nrf5_balloc
-    nrf5_balloc_fwd
     nrf5_ble_gq
-    nrf5_cli_fwd
-    nrf5_ext_fprintf
-    nrf5_memobj
-    nrf5_memobj_fwd
-    nrf5_queue
   )
 endif()
 
@@ -1175,8 +1469,9 @@ target_link_libraries(nrf5_ble_srv_eddystone PUBLIC
   nrf5_fds
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_EDDYSTONE_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -1229,6 +1524,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SRV_EDDYSTONE_DEPENDENCIES
   nrf5_section
   nrf5_sha256_fwd
   nrf5_soc
+  nrf5_sortlist
   nrf5_stack_info
   nrf5_strerror
 )

@@ -204,7 +204,7 @@
     ],
     "dependencies": {
       "public": [
-        "nrf5_app_timer"
+        "nrf5_app_timer_fwd"
       ]
     },
     "includes": {
@@ -240,7 +240,7 @@
       "public": [
         "nrf5_queue",
         "nrf5_drv_uart",
-        "nrf5_app_timer"
+        "nrf5_app_timer_fwd"
       ]
     },
     "includes": {

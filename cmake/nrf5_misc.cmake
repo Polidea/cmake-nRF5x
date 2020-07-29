@@ -477,19 +477,42 @@ target_include_directories(nrf5_low_power_pwm PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/low_power_pwm"
 )
 target_link_libraries(nrf5_low_power_pwm PUBLIC
-  nrf5_app_timer
+  nrf5_app_timer_fwd
 )
 list(APPEND NRF5_LIBRARY_NRF5_LOW_POWER_PWM_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
   nrf5_low_power_pwm
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
   nrf5_soc
+  nrf5_sortlist
+  nrf5_strerror
 )
 
 # LED softblink
@@ -503,17 +526,40 @@ target_link_libraries(nrf5_led_softblink PUBLIC
   nrf5_low_power_pwm
 )
 list(APPEND NRF5_LIBRARY_NRF5_LED_SOFTBLINK_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
   nrf5_led_softblink
+  nrf5_log
+  nrf5_log_fwd
   nrf5_low_power_pwm
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
   nrf5_soc
+  nrf5_sortlist
+  nrf5_strerror
 )
 
 # Serial port abstraction layer
@@ -524,13 +570,14 @@ target_include_directories(nrf5_serial PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/serial"
 )
 target_link_libraries(nrf5_serial PUBLIC
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_drv_uart
   nrf5_queue
 )
 list(APPEND NRF5_LIBRARY_NRF5_SERIAL_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -563,6 +610,7 @@ list(APPEND NRF5_LIBRARY_NRF5_SERIAL_DEPENDENCIES
   nrf5_section
   nrf5_serial
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 

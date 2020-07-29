@@ -75,8 +75,9 @@ target_link_libraries(nrf5_bsp PUBLIC
 )
 list(APPEND NRF5_LIBRARY_NRF5_BSP_DEPENDENCIES
   nrf5_app_button
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -107,6 +108,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BSP_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -122,8 +124,9 @@ target_link_libraries(nrf5_bsp_btn_ble PUBLIC
 )
 list(APPEND NRF5_LIBRARY_NRF5_BSP_BTN_BLE_DEPENDENCIES
   nrf5_app_button
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -155,6 +158,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BSP_BTN_BLE_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -170,8 +174,9 @@ target_link_libraries(nrf5_bsp_cli PUBLIC
 )
 list(APPEND NRF5_LIBRARY_NRF5_BSP_CLI_DEPENDENCIES
   nrf5_app_button
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -203,5 +208,6 @@ list(APPEND NRF5_LIBRARY_NRF5_BSP_CLI_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )

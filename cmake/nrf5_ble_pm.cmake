@@ -95,9 +95,11 @@ target_link_libraries(nrf5_ble_peer_database PUBLIC
   nrf5_memobj
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATABASE_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
@@ -105,20 +107,29 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATABASE_DEPENDENCIES
   nrf5_ble_common
   nrf5_ble_peer_database
   nrf5_ble_pm_buffer
+  nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
   nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -137,8 +148,9 @@ target_link_libraries(nrf5_ble_peer_data_storage PUBLIC
   nrf5_memobj
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATA_STORAGE_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -150,6 +162,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATA_STORAGE_DEPENDENCIES
   nrf5_ble_peer_database
   nrf5_ble_peer_id
   nrf5_ble_pm_buffer
+  nrf5_cli
   nrf5_cli_fwd
   nrf5_config
   nrf5_crc16
@@ -157,16 +170,21 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_DATA_STORAGE_DEPENDENCIES
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
   nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -182,29 +200,40 @@ target_link_libraries(nrf5_ble_id_manager PUBLIC
   nrf5_memobj
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_ID_MANAGER_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
   nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_id_manager
+  nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
   nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -219,22 +248,40 @@ target_link_libraries(nrf5_ble_peer_id PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_ID_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_peer_id
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -249,22 +296,40 @@ target_link_libraries(nrf5_ble_pm_buffer PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_PM_BUFFER_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_pm_buffer
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -279,22 +344,40 @@ target_link_libraries(nrf5_ble_auth_status_tracker PUBLIC
   nrf5_ble_common
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_AUTH_STATUS_TRACKER_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
   nrf5_ble_auth_status_tracker
   nrf5_ble_common
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -311,9 +394,11 @@ target_link_libraries(nrf5_ble_security_dispatcher PUBLIC
   nrf5_memobj
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_DISPATCHER_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
@@ -321,20 +406,29 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_DISPATCHER_DEPENDENCIES
   nrf5_ble_auth_status_tracker
   nrf5_ble_common
   nrf5_ble_security_dispatcher
+  nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
   nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -351,9 +445,11 @@ target_link_libraries(nrf5_ble_security_manager PUBLIC
   nrf5_memobj
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_MANAGER_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
@@ -362,20 +458,29 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_SECURITY_MANAGER_DEPENDENCIES
   nrf5_ble_common
   nrf5_ble_security_dispatcher
   nrf5_ble_security_manager
+  nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
   nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -393,19 +498,26 @@ target_link_libraries(nrf5_ble_gatt_cache_manager PUBLIC
   nrf5_mtx
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_GATT_CACHE_MANAGER_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atflags
   nrf5_atomic
   nrf5_balloc
   nrf5_balloc_fwd
   nrf5_ble_common
   nrf5_ble_gatt_cache_manager
+  nrf5_cli
   nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
@@ -413,10 +525,13 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_GATT_CACHE_MANAGER_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -434,8 +549,9 @@ target_link_libraries(nrf5_ble_peer_manager_handler PUBLIC
   nrf5_memobj
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_HANDLER_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -454,6 +570,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_HANDLER_DEPENDENCIES
   nrf5_ble_pm_buffer
   nrf5_ble_security_dispatcher
   nrf5_ble_security_manager
+  nrf5_cli
   nrf5_cli_fwd
   nrf5_config
   nrf5_crc16
@@ -461,6 +578,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_HANDLER_DEPENDENCIES
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
@@ -468,10 +586,13 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_HANDLER_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -491,8 +612,9 @@ target_link_libraries(nrf5_ble_peer_manager PUBLIC
   nrf5_memobj
 )
 list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atflags
@@ -510,6 +632,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_DEPENDENCIES
   nrf5_ble_pm_buffer
   nrf5_ble_security_dispatcher
   nrf5_ble_security_manager
+  nrf5_cli
   nrf5_cli_fwd
   nrf5_config
   nrf5_crc16
@@ -517,6 +640,7 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_DEPENDENCIES
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
@@ -524,9 +648,12 @@ list(APPEND NRF5_LIBRARY_NRF5_BLE_PEER_MANAGER_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
