@@ -93,6 +93,33 @@
       ]
     }
   },
+  "nrf5_app_timer_v2": {
+    "documentation": "Application Timer V2",
+    "variant": "object",
+    "sources": [
+      "components/libraries/timer/app_timer2.c",
+      "components/libraries/timer/drv_rtc.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_timer_fwd",
+        "nrf5_app_scheduler",
+        "nrf5_atfifo",
+        "nrf5_delay",
+        "nrf5_nrfx_hal"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/timer"
+      ]
+    },
+    "cflags": {
+      "public": [
+        "-DAPP_TIMER_V2"
+      ]
+    }
+  },
   "nrf5_app_button": {
     "documentation": "Application Button",
     "variant": "object",
