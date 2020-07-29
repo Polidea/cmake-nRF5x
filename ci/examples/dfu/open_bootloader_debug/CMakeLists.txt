@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.14)
-project(open_bootloader LANGUAGES C ASM)
+project(open_bootloader_debug LANGUAGES C ASM)
 
 include("nrf5")
 
 add_compile_definitions(
   CONFIG_GPIO_AS_PINRESET
-  APP_TIMER_V2
   APP_TIMER_V2_RTC1_ENABLED
   MBR_PRESENT
   NRF_DFU_DEBUG_VERSION
@@ -49,7 +48,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   # Application
   nrf5_app_util_platform
   nrf5_app_scheduler
-  nrf5_app_timer2
+  nrf5_app_timer_v2
   # Storage
   nrf5_fstorage
   nrf5_fstorage_nvmc  
