@@ -785,8 +785,9 @@ target_link_libraries(nrf5_dfu_ble PUBLIC
   nrf5_svc
 )
 list(APPEND NRF5_LIBRARY_NRF5_DFU_BLE_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_assert
   nrf5_atfifo
@@ -844,6 +845,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_BLE_DEPENDENCIES
   nrf5_section
   nrf5_sha256_fwd
   nrf5_soc
+  nrf5_sortlist
   nrf5_stack_info
   nrf5_strerror
   nrf5_svc
