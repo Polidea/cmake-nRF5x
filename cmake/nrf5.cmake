@@ -211,6 +211,12 @@ if(${NRF5_SOFTDEVICE_VARIANT} MATCHES "^(blank|mbr)$")
     "${NRF5_SDK_PATH}/components/drivers_nrf/nrf_soc_nosd"
   )
   target_link_libraries(nrf5_soc PUBLIC nrf5_mdk)
+  # Additional include dirs. for the 'mbr' variant
+  if(${NRF5_SOFTDEVICE_VARIANT} STREQUAL "mbr")
+    target_include_directories(nrf5_soc INTERFACE
+      "${NRF5_SDK_PATH}/components/softdevice/mbr/headers"
+    )
+  endif()
 else()
   # SoC SoftDevice variant.
   add_library(nrf5_soc INTERFACE)
@@ -249,6 +255,7 @@ include("nrf5_ble_pm")
 include("nrf5_ble_srv")
 include("nrf5_iot")
 include("nrf5_usbd")
+include("nrf5_dfu")
 include("nrf5_misc")
 include("nrf5_external")
 include("nrf5_external_libs")

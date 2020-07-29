@@ -653,3 +653,23 @@ list(APPEND NRF5_LIBRARY_NRF5_CRC32_DEPENDENCIES
   nrf5_mdk
   nrf5_soc
 )
+
+# SLIP encoding and decoding
+add_library(nrf5_slip OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/components/libraries/slip/slip.c"
+)
+target_include_directories(nrf5_slip PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/slip"
+  "${NRF5_SDK_PATH}/components/libraries/util"
+)
+target_link_libraries(nrf5_slip PUBLIC
+  nrf5_config
+  nrf5_mdk
+  nrf5_soc
+)
+list(APPEND NRF5_LIBRARY_NRF5_SLIP_DEPENDENCIES
+  nrf5_config
+  nrf5_mdk
+  nrf5_slip
+  nrf5_soc
+)
