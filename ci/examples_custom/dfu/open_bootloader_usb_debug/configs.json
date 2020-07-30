@@ -1,0 +1,14 @@
+{
+  "pca10056": {
+    "mbr": {
+      "sdk_config_path": "examples/dfu/open_bootloader/pca10056_usb_debug/config",
+      "linker_script": "examples/dfu/open_bootloader/pca10056_usb_debug/armgcc"
+    }
+  },
+  "pca10059": {
+    "mbr": {
+      "sdk_config_path": "examples/dfu/open_bootloader/pca10059_usb_debug/config",
+      "linker_script": "examples/dfu/open_bootloader/pca10059_usb_debug/armgcc"
+    }
+  }
+}
