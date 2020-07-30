@@ -1,0 +1,501 @@
+{
+  "nrf5_dfu_cc_pb": {
+    "documentation": "Automatically generated DFU protocol definitions for nanopb",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/dfu-cc.pb.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_ext_nanopb"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_flash": {
+    "documentation": "DFU Flash operations",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_flash.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log",
+        "nrf5_fstorage",
+        "nrf5_fstorage_sd",
+        "nrf5_fstorage_nvmc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_settings": {
+    "documentation": "DFU global settings",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_settings.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_flash",
+        "nrf5_nrfx_nvmc",
+        "nrf5_crc32"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_settings_svci": {
+    "documentation": "DFU global settings (SVCI)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_settings"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_trigger_usb": {
+    "documentation": "USB DFU trigger library",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_trigger_usb.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_usbd",
+        "nrf5_app_usbd_serial_num",
+        "nrf5_app_usbd_nrf_dfu_trigger",
+        "nrf5_log",
+        "nrf5_boards",
+        "nrf5_nrfx_hal"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_ver_validation": {
+    "documentation": "DFU version validation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_ver_validation.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_settings",
+        "nrf5_dfu_cc_pb",
+        "nrf5_crypto",
+        "nrf5_log",
+        "nrf5_assert"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_utils": {
+    "documentation": "DFU utilities",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_utils.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_settings",
+        "nrf5_app_util_platform",
+        "nrf5_log",
+        "nrf5_crc32",
+        "nrf5_ext_nanopb"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_validation": {
+    "documentation": "DFU validation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_validation.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_settings",
+        "nrf5_dfu_utils",
+        "nrf5_dfu_flash",
+        "nrf5_dfu_ver_validation",
+        "nrf5_crypto",
+        "nrf5_log",
+        "nrf5_crc32",
+        "nrf5_assert",
+        "nrf5_strerror",
+        "nrf5_ext_nanopb"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_handling_error": {
+    "documentation": "DFU result codes",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_handling_error.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_req_handler": {
+    "documentation": "DFU request handling",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_req_handler.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_settings",
+        "nrf5_dfu_validation",
+        "nrf5_dfu_handling_error",
+        "nrf5_dfu_cc_pb",
+        "nrf5_dfu_utils",
+        "nrf5_app_scheduler",
+        "nrf5_app_util_platform",
+        "nrf5_crypto",
+        "nrf5_log",
+        "nrf5_crc32"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_transport": {
+    "documentation": "DFU transport",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_transport.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_mbr": {
+    "documentation": "Master Boot Record API",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_mbr.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu": {
+    "documentation": "DFU initialization",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_req_handler",
+        "nrf5_dfu_transport",
+        "nrf5_dfu_utils",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_svci": {
+    "documentation": "DFU initialization (SVCI)",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/dfu/nrf_dfu_svci.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_app_util_platform",
+        "nrf5_log"
+      ]
+    }
+  },
+  "nrf5_dfu_ble": {
+    "documentation": "DFU BLE Service",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/ble_dfu/nrf_dfu_ble.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_transport",
+        "nrf5_dfu_req_handler",
+        "nrf5_dfu_handling_error",
+        "nrf5_dfu_settings",
+        "nrf5_dfu_svci",
+        "nrf5_dfu_mbr",
+        "nrf5_ble_common",
+        "nrf5_log",
+        "nrf5_svc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/ble_dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_serial": {
+    "documentation": "DFU Serial transports shared part",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/serial_dfu/nrf_dfu_serial.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_transport",
+        "nrf5_dfu_req_handler",
+        "nrf5_dfu_handling_error",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/serial_dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_serial_uart": {
+    "documentation": "DFU Serial UART",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/serial_dfu/nrf_dfu_serial_uart.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_serial",
+        "nrf5_app_util_platform",
+        "nrf5_slip",
+        "nrf5_boards",
+        "nrf5_drv_uart",
+        "nrf5_nrfx_uart",
+        "nrf5_nrfx_uarte",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/serial_dfu"
+      ]
+    }
+  },
+  "nrf5_dfu_serial_usb": {
+    "documentation": "DFU Serial USB",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/serial_dfu/nrf_dfu_serial_usb.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_dfu_serial",
+        "nrf5_app_util_platform",
+        "nrf5_app_scheduler",
+        "nrf5_app_usbd",
+        "nrf5_app_usbd_serial_num",
+        "nrf5_app_usbd_cdc_acm",
+        "nrf5_slip",
+        "nrf5_boards",
+        "nrf5_drv_clock",
+        "nrf5_drv_power",
+        "nrf5_drv_usbd",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader/serial_dfu"
+      ]
+    }
+  },
+  "nrf5_bootloader_info": {
+    "documentation": "Bootloader info",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_info.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_nvmc"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader",
+        "components/libraries/bootloader/dfu"
+      ]
+    }
+  },
+  "nrf5_bootloader_dfu_timers": {
+    "documentation": "Timers for DFU in the bootloader",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_dfu_timers.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_nrfx_hal",
+        "nrf5_delay",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
+  },
+  "nrf5_bootloader_wdt": {
+    "documentation": "Automated feeding of the watchdog",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_wdt.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_bootloader_dfu_timers",
+        "nrf5_nrfx_hal",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
+  },
+  "nrf5_bootloader_fw_activation": {
+    "documentation": "Firmware activation",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_fw_activation.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_bootloader_wdt",
+        "nrf5_dfu_settings",
+        "nrf5_dfu_mbr",
+        "nrf5_dfu_utils",
+        "nrf5_log",
+        "nrf5_crc32"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
+  },
+  "nrf5_bootloader_app_start": {
+    "documentation": "Application start",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader_app_start.c",
+      "components/libraries/bootloader/nrf_bootloader_app_start_final.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_bootloader_info",
+        "nrf5_dfu_settings",
+        "nrf5_dfu_mbr",
+        "nrf5_dfu_utils",
+        "nrf5_log"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
+  },
+  "nrf5_bootloader": {
+    "documentation": "Bootloader modules",
+    "variant": "object",
+    "sources": [
+      "components/libraries/bootloader/nrf_bootloader.c"
+    ],
+    "dependencies": {
+      "public": [
+        "nrf5_bootloader_app_start",
+        "nrf5_bootloader_fw_activation",
+        "nrf5_dfu_validation",
+        "nrf5_app_scheduler",
+        "nrf5_log",
+        "nrf5_nrfx_hal",
+        "nrf5_boards"
+      ]
+    },
+    "includes": {
+      "public": [
+        "components/libraries/bootloader"
+      ]
+    }
+  }
+}

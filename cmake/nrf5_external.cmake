@@ -410,3 +410,16 @@ list(APPEND NRF5_LIBRARY_NRF5_EXT_FATFS_PORT_DISKIO_BLKDEV_DEPENDENCIES
   nrf5_mdk
   nrf5_soc
 )
+
+# Nanopb - Protocol Buffers for Embedded Systems
+add_library(nrf5_ext_nanopb OBJECT EXCLUDE_FROM_ALL
+  "${NRF5_SDK_PATH}/external/nano-pb/pb_common.c"
+  "${NRF5_SDK_PATH}/external/nano-pb/pb_decode.c"
+  "${NRF5_SDK_PATH}/external/nano-pb/pb_encode.c"
+)
+target_include_directories(nrf5_ext_nanopb PUBLIC
+  "${NRF5_SDK_PATH}/external/nano-pb"
+)
+list(APPEND NRF5_LIBRARY_NRF5_EXT_NANOPB_DEPENDENCIES
+  nrf5_ext_nanopb
+)
