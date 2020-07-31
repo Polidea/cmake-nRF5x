@@ -94,7 +94,7 @@ function(nrf5_get_board_target sdk_version board out_target out_define)
   set(${out_define} ${board_define} PARENT_SCOPE)
 endfunction()
 
-function(nrf5_get_target_flags sdk_version target out_target out_target_flags)
+function(nrf5_get_target_flags sdk_version target out_target out_target_short out_target_flags)
   # Handle aliases
   set(target_alias_nrf51801 nrf51801_xxab)
   set(target_alias_nrf51802 nrf51802_xxaa)
@@ -164,6 +164,7 @@ function(nrf5_get_target_flags sdk_version target out_target out_target_flags)
   set(nrf52840_flags -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DFLOAT_ABI_HARD)
 
   set(${out_target} ${target} PARENT_SCOPE)
+  set(${out_target_short} ${target_value} PARENT_SCOPE)
   set(${out_target_flags} ${${target_value}_flags} "-D${define_value}" PARENT_SCOPE)
 
 endfunction()

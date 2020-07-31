@@ -63,7 +63,7 @@ endif()
 
 # Check supported target based on the provided SDK version.
 if(NRF5_TARGET)
-  nrf5_get_target_flags(${NRF5_SDK_VERSION} ${NRF5_TARGET} local_target local_target_flags)
+  nrf5_get_target_flags(${NRF5_SDK_VERSION} ${NRF5_TARGET} local_target local_target_short local_target_flags)
   set(NRF5_TARGET ${local_target})
   add_compile_options(${local_target_flags})
   add_link_options(${local_target_flags})
@@ -213,9 +213,11 @@ if(${NRF5_SOFTDEVICE_VARIANT} MATCHES "^(blank|mbr)$")
   target_link_libraries(nrf5_soc PUBLIC nrf5_mdk)
   # Additional include dirs. for the 'mbr' variant
   if(${NRF5_SOFTDEVICE_VARIANT} STREQUAL "mbr")
-    target_include_directories(nrf5_soc INTERFACE
-      "${NRF5_SDK_PATH}/components/softdevice/mbr/headers"
-    )
+    if (NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
+      target_include_directories(nrf5_soc INTERFACE "${NRF5_SDK_PATH}/components/softdevice/mbr/headers")
+    else()
+      target_include_directories(nrf5_soc INTERFACE "${NRF5_SDK_PATH}/components/softdevice/mbr/${local_target_short}/headers")
+    endif()
   endif()
 else()
   # SoC SoftDevice variant.
