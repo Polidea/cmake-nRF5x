@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: "3.7"
       - name: Install dependencies
-        run: sudo apt-get -y install curl cmake ninja-build unzip tar git
+        run: sudo apt-get -y install curl cmake ninja-build unzip tar git jq
       - name: Prepare repository
         run: ./ci/scripts/prepare.sh
       - name: Run Python tests
