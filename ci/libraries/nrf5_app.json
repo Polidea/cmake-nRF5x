@@ -95,14 +95,7 @@
   },
   "nrf5_app_timer_v2": {
     "documentation": "Application Timer V2",
-    "sdk_version": {
-      "from": "16.0.0"
-    },
     "variant": "object",
-    "sources": [
-      "components/libraries/timer/app_timer2.c",
-      "components/libraries/timer/drv_rtc.c"
-    ],
     "dependencies": {
       "public": [
         "nrf5_app_timer_fwd",
@@ -114,14 +107,38 @@
     },
     "includes": {
       "public": [
-        "components/libraries/timer"
+        "components/libraries/timer",
+        "components/libraries/timer/experimental"
       ]
     },
     "cflags": {
       "public": [
         "-DAPP_TIMER_V2"
       ]
-    }
+    },
+    "patches": [
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "15.3.0",
+          "to": "15.3.0"
+        },
+        "sources": [
+          "components/libraries/timer/experimental/app_timer2.c",
+          "components/libraries/timer/experimental/drv_rtc.c" 
+        ]
+      },
+      {
+        "operation": "add",
+        "sdk_version": {
+          "from": "16.0.0"
+        },
+        "sources": [
+          "components/libraries/timer/app_timer2.c",
+          "components/libraries/timer/drv_rtc.c" 
+        ]
+      }
+    ]
   },
   "nrf5_app_button": {
     "documentation": "Application Button",

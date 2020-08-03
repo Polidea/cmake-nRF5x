@@ -28,50 +28,44 @@ project(nrf5_app_timer_v2_test LANGUAGES C ASM)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../../cmake")
 include("nrf5")
 
-if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
+add_compile_definitions(
+  APP_TIMER_V2_RTC1_ENABLED
+)
 
-  add_compile_definitions(
-    APP_TIMER_V2_RTC1_ENABLED
-  )
-
-  add_executable(${CMAKE_PROJECT_NAME} "main.c")
-  nrf5_target(${CMAKE_PROJECT_NAME})
-  if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
-    target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
-      nrf5_app_error
-      nrf5_app_scheduler
-      nrf5_app_timer_fwd
-      nrf5_app_timer_v2
-      nrf5_app_util_platform
-      nrf5_atfifo
-      nrf5_atomic
-      nrf5_balloc
-      nrf5_balloc_fwd
-      nrf5_cli
-      nrf5_cli_fwd
-      nrf5_config
-      nrf5_crc16
-      nrf5_delay
-      nrf5_ext_fprintf
-      nrf5_fds
-      nrf5_fstorage
-      nrf5_log
-      nrf5_log_fwd
-      nrf5_mdk
-      nrf5_memobj
-      nrf5_memobj_fwd
-      nrf5_mtx
-      nrf5_nrfx_common
-      nrf5_nrfx_hal
-      nrf5_pwr_mgmt
-      nrf5_queue
-      nrf5_ringbuf
-      nrf5_sdh
-      nrf5_section
-      nrf5_soc
-      nrf5_sortlist
-      nrf5_strerror
-    )
-  endif()
-
-endif()
+add_executable(${CMAKE_PROJECT_NAME} "main.c")
+nrf5_target(${CMAKE_PROJECT_NAME})
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+  nrf5_app_error
+  nrf5_app_scheduler
+  nrf5_app_timer_fwd
+  nrf5_app_timer_v2
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_sortlist
+  nrf5_strerror
+)
