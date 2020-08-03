@@ -4,6 +4,7 @@ project(open_bootloader_debug_usb LANGUAGES C ASM)
 include("nrf5")
 
 add_compile_definitions(
+  DEBUG_NRF
   CONFIG_GPIO_AS_PINRESET
   APP_TIMER_V2_RTC1_ENABLED
   MBR_PRESENT
@@ -30,6 +31,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_ringbuf
   nrf5_queue
   nrf5_pwr_mgmt
+  nrf5_assert
   # Drivers
   nrf5_nrfx_soc
   nrf5_nrfx_clock
