@@ -78,7 +78,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_ext_fprintf
   nrf5_ext_nanopb
   nrf5_ext_segger_rtt
-  micro_ecc
   # Misc
   nrf5_crc32
   nrf5_slip
@@ -95,6 +94,7 @@ if(NRF5_BOARD_DEFINE STREQUAL "BOARD_PCA10040")
   target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     nrf5_crypto_micro_ecc_backend
     nrf5_crypto_nrf_sw_backend
+    micro_ecc
   )
 elseif(NRF5_BOARD_DEFINE STREQUAL "BOARD_PCA10056" AND NRF5_TARGET STREQUAL "nrf52840_xxaa")
   target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE

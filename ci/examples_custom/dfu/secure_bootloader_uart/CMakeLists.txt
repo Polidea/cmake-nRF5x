@@ -28,7 +28,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_balloc
   nrf5_ringbuf
   nrf5_queue
-  nrf5_assert
   nrf5_sha256
   # Drivers
   nrf5_nrfx_prs
@@ -69,7 +68,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_boards
   # External
   nrf5_ext_nanopb
-  micro_ecc
   # Misc
   nrf5_crc32
   nrf5_slip
@@ -86,6 +84,7 @@ if(NRF5_BOARD_DEFINE STREQUAL "BOARD_PCA10040")
   target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     nrf5_crypto_micro_ecc_backend
     nrf5_crypto_nrf_sw_backend
+    micro_ecc
   )
 elseif(NRF5_BOARD_DEFINE STREQUAL "BOARD_PCA10056" AND NRF5_TARGET STREQUAL "nrf52840_xxaa")
   target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
