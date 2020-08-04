@@ -1,0 +1,9 @@
+{
+  "pca10056": {
+    "mbr": {
+      "build_type": "Release",
+      "sdk_config_path": "examples/dfu/secure_bootloader/pca10056_usb_debug/config",
+      "linker_script": "examples/dfu/secure_bootloader/pca10056_usb_debug/armgcc/secure_bootloader_gcc_nrf52.ld"
+    }
+  }
+}
