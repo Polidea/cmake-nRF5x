@@ -94,6 +94,18 @@ function build_custom_example() {
         echo "Linker file $linker_file does not exist"
     fi
 
+    # Verify build type (optional)
+    local build_type=$(echo $config_obj | jq -r ".build_type")
+
+    if [[ $build_type == "null" ]]; then
+        build_type="Debug"
+    else
+        if [[ ! $build_type =~ $CMAKE_BUILD_TYPE_REGEXP ]]; then
+            echo "Invalid build type \"$build_type\""
+            return 1
+        fi
+    fi
+
     # Verify toolchain
     if [[ ! -d "$toolchain_dir" ]]; then
         echo "Toolchain $toolchain_dir not found."
@@ -128,11 +140,11 @@ function build_custom_example() {
 
     # Get build command
     local build_cmd="make -j4"
-    local build_type="Unix Makefiles"
+    local build_sys="Unix Makefiles"
 
     if [[ ! -z $(which ninja) ]]; then
         build_cmd="ninja"
-        build_type="Ninja"
+        build_sys="Ninja"
     fi
     
     # Call cmake with proper params
@@ -141,7 +153,7 @@ function build_custom_example() {
         -S $(adapt_cmake_path $repo_example_dir) \
         -B $(adapt_cmake_path $cmake_build_path) \
         -DNRF5_NRFJPROG="$(adapt_cmake_path $nrfjprog)" \
-        -DCMAKE_BUILD_TYPE=Debug \
+        -DCMAKE_BUILD_TYPE="$build_type" \
         -DCMAKE_TOOLCHAIN_FILE="$(adapt_cmake_path $CMAKE_DIR/arm-none-eabi.cmake)" \
         -DTOOLCHAIN_PREFIX="$(adapt_cmake_path $toolchain_dir)" \
         -DNRF5_SDK_PATH="$(adapt_cmake_path $sdk_dir)" \
@@ -149,7 +161,7 @@ function build_custom_example() {
         -DNRF5_SOFTDEVICE_VARIANT="$sd_variant" \
         -DNRF5_SDKCONFIG_PATH="$(adapt_cmake_path $sdk_config_path)" \
         -DNRF5_LINKER_SCRIPT="$(adapt_cmake_path $linker_file)" \
-        -G "$build_type" \
+        -G "$build_sys" \
         --loglevel="$log_level" || {
             echo "Failed to configure project with CMake"
             return 1
@@ -163,7 +175,7 @@ function build_custom_example() {
 
         # Build the example
         $build_cmd || {
-            echo "Failed to build with $build_type"
+            echo "Failed to build with $build_sys"
             popd > /dev/null
             return 1
         }
