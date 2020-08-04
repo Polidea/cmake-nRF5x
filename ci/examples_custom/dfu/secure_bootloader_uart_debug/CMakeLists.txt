@@ -7,7 +7,6 @@ include_directories("${NRF5_SDK_PATH}/examples/dfu/secure_bootloader")
 add_compile_definitions(
   DEBUG_NRF
   CONFIG_GPIO_AS_PINRESET
-  APP_TIMER_V2_RTC1_ENABLED
   MBR_PRESENT
   NRF_DFU_DEBUG_VERSION
   NRF_DFU_SETTINGS_VERSION=2
