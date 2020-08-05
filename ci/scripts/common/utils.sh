@@ -42,3 +42,13 @@ function invoke_py3() {
 function invoke_pip3() {
     eval $PIP3_EXE $@
 }
+
+function version_greater_equal() {
+    local less=$(printf "$1\n$2" | sort | head -n1)
+
+    if [[ $less == $2 ]]; then
+        return 0
+    else
+        return 1
+    fi
+}

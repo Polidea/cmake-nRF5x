@@ -70,6 +70,15 @@ function build_custom_example() {
         return 1
     fi
 
+    # Verify if this configuration is supported in this SDK version
+    local sdk_min_version=$(echo $config_obj | jq -r ".sdk_min_version")
+    if [[ ! $sdk_min_version == "null" ]]; then
+        if ! version_greater_equal $sdk_version $sdk_min_version ; then
+            echo "'$board/$sd_variant' configuration is not supported in the SDK version $sdk_version"
+            return 1
+        fi
+    fi
+
     # Verify sdk_config.h and linker script files
     local local_sdk_config_path=$(echo $config_obj | jq -r ".sdk_config_path")
     local local_linker_file=$(echo $config_obj | jq -r ".linker_script")
