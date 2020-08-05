@@ -11,6 +11,13 @@ add_compile_definitions(
   SVC_INTERFACE_CALL_AS_NORMAL_FUNCTION
 )
 
+if(NRF5_TARGET STREQUAL "nrf52811_xxaa")
+  add_compile_definitions(
+    DEVELOP_IN_NRF52840
+    NRFX_COREDEP_DELAY_US_LOOP_CYCLES=3
+  )
+endif()
+
 add_executable(${CMAKE_PROJECT_NAME}
   "${NRF5_SDK_PATH}/examples/dfu/secure_bootloader/main.c"
   "dfu_public_key.c"
@@ -72,7 +79,9 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   nrf5_slip
 )
 
-if(NRF5_BOARD_DEFINE STREQUAL "BOARD_PCA10040")
+if(NRF5_BOARD_DEFINE STREQUAL "BOARD_PCA10056" AND NRF5_TARGET STREQUAL "nrf52840_xxaa")
+  target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE nrf5_crypto_cc310_bl_backend)
+else()
   add_compile_definitions(
     ECC_ENABLE_VLI_API=0
     ECC_OPTIMIZATION_LEVEL=3
@@ -85,8 +94,4 @@ if(NRF5_BOARD_DEFINE STREQUAL "BOARD_PCA10040")
     nrf5_crypto_nrf_sw_backend
     micro_ecc
   )
-elseif(NRF5_BOARD_DEFINE STREQUAL "BOARD_PCA10056" AND NRF5_TARGET STREQUAL "nrf52840_xxaa")
-  target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
-    nrf5_crypto_cc310_bl_backend
-  ) 
 endif()

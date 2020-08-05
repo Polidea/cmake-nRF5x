@@ -6,11 +6,26 @@
       "linker_script": "examples/dfu/secure_bootloader/pca10040_uart/armgcc/secure_bootloader_gcc_nrf52.ld"
     }
   },
+  "pca10040e": {
+    "mbr": {
+      "build_type": "Release",
+      "sdk_config_path": "examples/dfu/secure_bootloader/pca10040e_uart/config",
+      "linker_script": "examples/dfu/secure_bootloader/pca10040e_uart/armgcc/secure_bootloader_gcc_nrf52.ld"
+    }
+  },
   "pca10056": {
     "mbr": {
       "build_type": "Release",
       "sdk_config_path": "examples/dfu/secure_bootloader/pca10056_uart/config",
       "linker_script": "examples/dfu/secure_bootloader/pca10056_uart/armgcc/secure_bootloader_gcc_nrf52.ld"
+    }
+  },
+  "pca10056e": {
+    "mbr": {
+      "sdk_min_version": "16.0.0",
+      "build_type": "Release",
+      "sdk_config_path": "examples/dfu/secure_bootloader/pca10056e_uart/config",
+      "linker_script": "examples/dfu/secure_bootloader/pca10056e_uart/armgcc/secure_bootloader_gcc_nrf52.ld"
     }
   }
 }
