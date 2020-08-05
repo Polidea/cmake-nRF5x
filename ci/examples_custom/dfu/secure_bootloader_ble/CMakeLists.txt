@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(secure_bootloader_uart_debug LANGUAGES C ASM)
+project(secure_bootloader_ble LANGUAGES C ASM)
 
 include("nrf5")
 

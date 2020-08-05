@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(open_bootloader_debug_usb LANGUAGES C ASM)
+project(open_bootloader_usb_debug LANGUAGES C ASM)
 
 include("nrf5")
 
