@@ -6,7 +6,6 @@ include("nrf5")
 include_directories("${NRF5_SDK_PATH}/examples/dfu/secure_bootloader")
 add_compile_definitions(
   CONFIG_GPIO_AS_PINRESET
-  MBR_PRESENT
   NRF_DFU_SETTINGS_VERSION=2
   SVC_INTERFACE_CALL_AS_NORMAL_FUNCTION
 )
