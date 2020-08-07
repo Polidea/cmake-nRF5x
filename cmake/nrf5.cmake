@@ -82,14 +82,24 @@ set(NRF5_SOFTDEVICE_VARIANT "" CACHE STRING "SoftDevice variant. Set to 'blank' 
 
 if(NRF5_SOFTDEVICE_VARIANT)
   string(TOLOWER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT)
-  nrf5_get_softdevice_data(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} ${NRF5_SOFTDEVICE_VARIANT} local_sd_hex_file_path local_sd_flags)
-  add_compile_options(${local_sd_flags})
-  add_link_options(${local_sd_flags})
+  if(NRF5_SOFTDEVICE_VARIANT STREQUAL "mbr")
+    nrf5_get_mbr_data(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} local_mbr_hex_file_path local_mbr_flags)
+    add_compile_options(${local_mbr_flags})
+    add_link_options(${local_mbr_flags})
+  elseif(NOT NRF5_SOFTDEVICE_VARIANT STREQUAL "blank")
+    nrf5_get_softdevice_data(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} ${NRF5_SOFTDEVICE_VARIANT} local_sd_hex_file_path local_sd_flags)
+    add_compile_options(${local_sd_flags})
+    add_link_options(${local_sd_flags})
+  endif()
 else()
   message(FATAL_ERROR "You must specify NRF5_SOFTDEVICE_VARIANT, e.g: blank, s130")
 endif()
 
 message(STATUS "Using SoftDevice variant: ${NRF5_SOFTDEVICE_VARIANT}")
+
+if(local_mbr_hex_file_path)
+  message(STATUS "Using MBR HEX file: ${local_mbr_hex_file_path}")
+endif()
 
 if(local_sd_hex_file_path)
   message(STATUS "Using SoftDevice HEX file: ${local_sd_hex_file_path}")
@@ -213,7 +223,7 @@ if(${NRF5_SOFTDEVICE_VARIANT} MATCHES "^(blank|mbr)$")
   target_link_libraries(nrf5_soc PUBLIC nrf5_mdk)
   # Additional include dirs. for the 'mbr' variant
   if(${NRF5_SOFTDEVICE_VARIANT} STREQUAL "mbr")
-    if (NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
+    if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
       target_include_directories(nrf5_soc INTERFACE "${NRF5_SDK_PATH}/components/softdevice/mbr/headers")
     else()
       target_include_directories(nrf5_soc INTERFACE "${NRF5_SDK_PATH}/components/softdevice/mbr/${local_target_short}/headers")
@@ -285,6 +295,19 @@ function(nrf5_target exec_target)
     )
   else()
     add_custom_target(flash_softdevice COMMAND true COMMENT "Using a non-SoftDevice configuration (${NRF5_SOFTDEVICE_VARIANT}). Nothing to flash.")
+  endif()
+  # Target for flashing MBR
+  if(local_mbr_hex_file_path)
+    add_custom_target(flash_mbr
+      COMMAND ${NRF5_NRFJPROG} --program ${local_mbr_hex_file_path} -f nrf52 --sectorerase ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
+      COMMAND ${NRF5_NRFJPROG} --reset -f nrf52 ${nrfjprog_jlink_sn_opt} ${nrfjprog_jlink_sn_arg}
+    )
+  else()
+    if(local_sd_hex_file_path)
+      add_custom_target(flash_mbr COMMAND true COMMENT "Using a SoftDevice configuration (${NRF5_SOFTDEVICE_VARIANT}). Build \'flash_softdevice\' target to flash both MBR and SoftDevice.")
+    else()
+      add_custom_target(flash_mbr COMMAND true COMMENT "Using a non-SoftDevice configuration (${NRF5_SOFTDEVICE_VARIANT}). Nothing to flash.")
+    endif()
   endif()
   # Target for flashing the output executable
   add_custom_target(flash DEPENDS hex 
