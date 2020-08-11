@@ -75,13 +75,14 @@ target_include_directories(nrf5_cli_uart PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/cli/uart"
 )
 target_link_libraries(nrf5_cli_uart PUBLIC
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_cli
   nrf5_drv_uart
 )
 list(APPEND NRF5_LIBRARY_NRF5_CLI_UART_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -114,6 +115,7 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_UART_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 
@@ -125,14 +127,16 @@ target_include_directories(nrf5_cli_rtt PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/cli/rtt"
 )
 target_link_libraries(nrf5_cli_rtt PUBLIC
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_cli
   nrf5_ext_segger_rtt
 )
 list(APPEND NRF5_LIBRARY_NRF5_CLI_RTT_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
   nrf5_atomic
   nrf5_balloc
   nrf5_balloc_fwd
@@ -140,9 +144,13 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_RTT_DEPENDENCIES
   nrf5_cli_fwd
   nrf5_cli_rtt
   nrf5_config
+  nrf5_crc16
   nrf5_delay
   nrf5_ext_fprintf
   nrf5_ext_segger_rtt
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
   nrf5_log_fwd
   nrf5_mdk
   nrf5_memobj
@@ -152,9 +160,11 @@ list(APPEND NRF5_LIBRARY_NRF5_CLI_RTT_DEPENDENCIES
   nrf5_nrfx_hal
   nrf5_pwr_mgmt
   nrf5_queue
+  nrf5_ringbuf
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 

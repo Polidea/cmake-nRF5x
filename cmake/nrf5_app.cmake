@@ -104,6 +104,52 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_UTIL_PLATFORM_DEPENDENCIES
   nrf5_soc
 )
 
+# Application Timer (include directories only)
+add_library(nrf5_app_timer_fwd INTERFACE)
+target_include_directories(nrf5_app_timer_fwd INTERFACE
+  "${NRF5_SDK_PATH}/components/libraries/timer"
+)
+target_link_libraries(nrf5_app_timer_fwd INTERFACE
+  nrf5_app_error
+  nrf5_app_util_platform
+  nrf5_log
+  nrf5_sortlist
+)
+list(APPEND NRF5_LIBRARY_NRF5_APP_TIMER_FWD_DEPENDENCIES
+  nrf5_app_error
+  nrf5_app_scheduler
+  nrf5_app_timer_fwd
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_sortlist
+  nrf5_strerror
+)
+
 # Application Timer
 add_library(nrf5_app_timer OBJECT EXCLUDE_FROM_ALL
   "${NRF5_SDK_PATH}/components/libraries/timer/app_timer.c"
@@ -113,20 +159,108 @@ target_include_directories(nrf5_app_timer PUBLIC
 )
 target_link_libraries(nrf5_app_timer PUBLIC
   nrf5_app_scheduler
-  nrf5_app_util_platform
+  nrf5_app_timer_fwd
   nrf5_delay
   nrf5_nrfx_hal
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_TIMER_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
   nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
   nrf5_config
+  nrf5_crc16
   nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
   nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
   nrf5_soc
+  nrf5_sortlist
+  nrf5_strerror
+)
+
+# Application Timer V2
+add_library(nrf5_app_timer_v2 OBJECT EXCLUDE_FROM_ALL)
+target_include_directories(nrf5_app_timer_v2 PUBLIC
+  "${NRF5_SDK_PATH}/components/libraries/timer"
+  "${NRF5_SDK_PATH}/components/libraries/timer/experimental"
+)
+target_link_libraries(nrf5_app_timer_v2 PUBLIC
+  nrf5_app_scheduler
+  nrf5_app_timer_fwd
+  nrf5_atfifo
+  nrf5_delay
+  nrf5_nrfx_hal
+)
+target_compile_options(nrf5_app_timer_v2 PUBLIC
+  "$<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:-DAPP_TIMER_V2>"
+)
+if(NRF5_SDK_VERSION VERSION_EQUAL 15.3.0)
+  target_sources(nrf5_app_timer_v2 PRIVATE
+    "${NRF5_SDK_PATH}/components/libraries/timer/experimental/app_timer2.c"
+    "${NRF5_SDK_PATH}/components/libraries/timer/experimental/drv_rtc.c"
+  )
+endif()
+if(NRF5_SDK_VERSION VERSION_EQUAL 16.0.0)
+  target_sources(nrf5_app_timer_v2 PRIVATE
+    "${NRF5_SDK_PATH}/components/libraries/timer/app_timer2.c"
+    "${NRF5_SDK_PATH}/components/libraries/timer/drv_rtc.c"
+  )
+endif()
+list(APPEND NRF5_LIBRARY_NRF5_APP_TIMER_V2_DEPENDENCIES
+  nrf5_app_error
+  nrf5_app_scheduler
+  nrf5_app_timer_fwd
+  nrf5_app_timer_v2
+  nrf5_app_util_platform
+  nrf5_atfifo
+  nrf5_atomic
+  nrf5_balloc
+  nrf5_balloc_fwd
+  nrf5_cli
+  nrf5_cli_fwd
+  nrf5_config
+  nrf5_crc16
+  nrf5_delay
+  nrf5_ext_fprintf
+  nrf5_fds
+  nrf5_fstorage
+  nrf5_log
+  nrf5_log_fwd
+  nrf5_mdk
+  nrf5_memobj
+  nrf5_memobj_fwd
+  nrf5_mtx
+  nrf5_nrfx_common
+  nrf5_nrfx_hal
+  nrf5_pwr_mgmt
+  nrf5_queue
+  nrf5_ringbuf
+  nrf5_sdh
+  nrf5_section
+  nrf5_soc
+  nrf5_sortlist
+  nrf5_strerror
 )
 
 # Application Button
@@ -138,13 +272,14 @@ target_include_directories(nrf5_app_button PUBLIC
   "${NRF5_SDK_PATH}/components/libraries/util"
 )
 target_link_libraries(nrf5_app_button PUBLIC
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_nrfx_gpiote
 )
 list(APPEND NRF5_LIBRARY_NRF5_APP_BUTTON_DEPENDENCIES
   nrf5_app_button
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_atfifo
   nrf5_atomic
@@ -173,6 +308,7 @@ list(APPEND NRF5_LIBRARY_NRF5_APP_BUTTON_DEPENDENCIES
   nrf5_sdh
   nrf5_section
   nrf5_soc
+  nrf5_sortlist
   nrf5_strerror
 )
 

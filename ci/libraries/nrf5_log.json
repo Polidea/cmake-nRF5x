@@ -35,7 +35,7 @@
       "public": [
         "nrf5_cli",
         "nrf5_drv_uart",
-        "nrf5_app_timer"
+        "nrf5_app_timer_fwd"
       ]
     },
     "includes": {
@@ -54,7 +54,7 @@
       "public": [
         "nrf5_cli",
         "nrf5_ext_segger_rtt",
-        "nrf5_app_timer"
+        "nrf5_app_timer_fwd"
       ]
     },
     "includes": {
