@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source "${BASH_SOURCE%/*}/common/build_example.sh"
+source "${BASH_SOURCE%/*}/common/build_custom_example.sh"
 
 function get_ns() {
     case $OSTYPE in
@@ -93,6 +94,75 @@ function build_all_configs() {
             local end_ts=$(get_ns)
             local build_time_ms=$(expr \( $end_ts - $start_ts \) / 1000000)
             
+            if [[ -f $build_summary_file ]]; then
+                printf "$BUILD_SUMMARY_ENTRY_FORMAT" "$example" "$board" "$sd_variant" "$sdk_version" "$build_time_ms ms" "$build_status" >> "$build_summary_file"
+            fi
+        done
+    done
+
+    return $result
+}
+
+function build_all_configs_custom() {
+    local example=$1
+    local sdk_version=$2
+    local toolchain=$3
+    local build_dir=$4
+    local log_level=$5
+    local build_summary_file=$6
+    local board_filter=$7
+    local sd_variant_filter=$8
+    local flags=$9
+    local result=0
+
+    local repo_example_dir="$CUSTOM_EXAMPLES_DIR/$example"
+    local configs_file="$repo_example_dir/configs.json"
+
+    # Verify configs.json file is present
+    if [[ ! -f $configs_file ]]; then
+        echo "No configs.json file in the example directory"
+        return 1
+    fi
+
+    local supported_boards=$(cat $configs_file | jq -r 'keys[]')
+
+    # For each supported board
+    for board in $supported_boards; do
+        # Skip board configuration that does not match the filter
+        if [[ -n "$board_filter" ]] && [[ "$board" != "$board_filter" ]]; then
+            continue
+        fi
+
+        local board_obj=$(cat $configs_file | jq ".$board" )
+        local supported_sd_variants=$(echo $board_obj | jq -r 'keys[]')
+
+        # For each supported SoftDevice variant
+        for sd_variant in $supported_sd_variants; do
+            # Skip SD which does not match a pattern
+            if [[ ! $sd_variant =~ $SD_REGEXP ]]; then
+                continue
+            fi
+
+            # Skip SD variant that does not match the filter
+            if [[ -n "$sd_variant_filter" ]] && [[ "$sd_variant" != "$sd_variant_filter" ]]; then
+                continue
+            fi
+
+            local start_ts=$(get_ns)
+
+            local build_status
+            build_custom_example "$example" "$sdk_version" "$board" "$sd_variant" "$toolchain" "$build_dir" "$log_level" "${flags[*]}"
+            if [[ $? -eq 0 ]]; then 
+                build_status="success"
+            else
+                build_status="failure"
+                result=1
+            fi
+
+            local end_ts=$(get_ns)
+            local build_time_ms=$(expr \( $end_ts - $start_ts \) / 1000000)
+            
+            # Add an entry to the build summary file
             if [[ -f $build_summary_file ]]; then
                 printf "$BUILD_SUMMARY_ENTRY_FORMAT" "$example" "$board" "$sd_variant" "$sdk_version" "$build_time_ms ms" "$build_status" >> "$build_summary_file"
             fi
@@ -210,15 +280,26 @@ fi
 
 echo "Building examples for SDK versions: ${sdk_versions[@]}"
 
-# Collect relative paths to the examples.
-example_local_dirs=()
 # Filter example dirs with grep if '--example' option was passed
 [[ -n $example_filter ]] && example_filter="grep $example_filter" || example_filter="cat"
+
+# Collect relative paths to the examples.
+example_local_dirs=()
 pushd "$EXAMPLES_DIR" > /dev/null
     for example in `eval 'find . -name "CMakeLists.txt" | $example_filter'`; do
         example_dir=`dirname $example`
         # Strip the '.' prefix (current directory) from the example directory
         example_local_dirs+=(${example_dir#./})
+    done
+popd > /dev/null
+
+# Collect relative path to the custom examples.
+custom_example_local_dirs=()
+pushd "$CUSTOM_EXAMPLES_DIR" > /dev/null
+    for example in `eval 'find . -name "CMakeLists.txt" | $example_filter'`; do
+        example_dir=`dirname $example`
+        # Strip the '.' prefix (current directory) from the example directory
+        custom_example_local_dirs+=(${example_dir#./})
     done
 popd > /dev/null
 
@@ -251,6 +332,14 @@ for sdk_ver in "${sdk_versions[@]}"; do
 
         # Build all configs in the SDK example directory
         build_all_configs "$example" "$sdk_ver" "gcc" "$SDKS_DIR/$sdk_ver/examples/$example" "$BUILD_DIR" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter" "${flags[*]}" || {
+            build_result=1
+        }
+    done
+
+    # For each SDK, build all configs of the custom examples
+    for example in "${custom_example_local_dirs[@]}"; do
+        # Build all configs defined in the configs.json
+        build_all_configs_custom "$example" "$sdk_ver" "gcc" "$BUILD_DIR" "$log_level" "$build_summary_file" "$board_filter" "$sd_variant_filter" "${flags[*]}" || {
             build_result=1
         }
     done
