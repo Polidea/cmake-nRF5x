@@ -20,6 +20,7 @@ function get_ns() {
 # Ignored list of examples separated with semicolon.
 board_sdk_ignore_config_list="pca10100_16.0.0"
 board_sd_ignore_config_list="pca10040_s312;pca10040_s332;pca10056_s340"
+board_sd_sdk_ignore_config_list="pca10056e_mbr_15.3.0"
 
 function build_all_configs() {
     local example=$1
@@ -77,6 +78,9 @@ function build_all_configs() {
                 continue
             fi
             if [[ $board_sd_ignore_config_list =~ "${board}_${sd_variant}" ]]; then
+                continue
+            fi
+            if [[ $board_sd_sdk_ignore_config_list =~ "${board}_${sd_variant}_${sdk_version}" ]]; then
                 continue
             fi
 
