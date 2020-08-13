@@ -138,6 +138,15 @@ function build_all_configs_custom() {
 
         # For each supported SoftDevice variant
         for sd_variant in $supported_sd_variants; do
+            # Skip configurations unsupported in this SDK version
+            local sdk_min_version=$(echo $board_obj | jq -r ".$sd_variant.sdk_min_version")
+            if [[ ! $sdk_min_version == "null" ]]; then
+                if ! version_greater_equal $sdk_version $sdk_min_version ; then
+                    echo "$example: skipping '$board/$sd_variant' configuration unsupported in the SDK version $sdk_version"
+                    continue
+                fi
+            fi
+
             # Skip SD which does not match a pattern
             if [[ ! $sd_variant =~ $SD_REGEXP ]]; then
                 continue
