@@ -83,7 +83,7 @@ set(NRF5_SOFTDEVICE_VARIANT "" CACHE STRING "SoftDevice variant. Set to 'blank' 
 if(NRF5_SOFTDEVICE_VARIANT)
   string(TOLOWER ${NRF5_SOFTDEVICE_VARIANT} NRF5_SOFTDEVICE_VARIANT)
   if(NRF5_SOFTDEVICE_VARIANT STREQUAL "mbr")
-    nrf5_get_mbr_data(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${NRF5_TARGET} local_mbr_hex_file_path local_mbr_flags)
+    nrf5_get_mbr_data(${NRF5_SDK_PATH} ${NRF5_SDK_VERSION} ${local_target_short} local_mbr_hex_file_path local_mbr_flags)
     add_compile_options(${local_mbr_flags})
     add_link_options(${local_mbr_flags})
   elseif(NOT NRF5_SOFTDEVICE_VARIANT STREQUAL "blank")
