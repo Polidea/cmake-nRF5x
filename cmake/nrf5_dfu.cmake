@@ -46,8 +46,6 @@ target_include_directories(nrf5_dfu_flash PUBLIC
 )
 target_link_libraries(nrf5_dfu_flash PUBLIC
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
 )
 list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
@@ -66,8 +64,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -76,7 +72,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_FLASH_DEPENDENCIES
   nrf5_mtx
   nrf5_nrfx_common
   nrf5_nrfx_hal
-  nrf5_nrfx_nvmc
   nrf5_pwr_mgmt
   nrf5_queue
   nrf5_ringbuf
@@ -116,8 +111,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_SETTINGS_DEPENDENCIES
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -165,8 +158,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_SETTINGS_SVCI_DEPENDENCIES
   nrf5_ext_fprintf
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -292,8 +283,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_VER_VALIDATION_DEPENDENCIES
   nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -350,8 +339,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_UTILS_DEPENDENCIES
   nrf5_ext_nanopb
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -422,8 +409,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_VALIDATION_DEPENDENCIES
   nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -542,8 +527,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_REQ_HANDLER_DEPENDENCIES
   nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -701,8 +684,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_DEPENDENCIES
   nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -785,8 +766,9 @@ target_link_libraries(nrf5_dfu_ble PUBLIC
   nrf5_svc
 )
 list(APPEND NRF5_LIBRARY_NRF5_DFU_BLE_DEPENDENCIES
+  nrf5_app_error
   nrf5_app_scheduler
-  nrf5_app_timer
+  nrf5_app_timer_fwd
   nrf5_app_util_platform
   nrf5_assert
   nrf5_atfifo
@@ -825,8 +807,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_BLE_DEPENDENCIES
   nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -844,6 +824,7 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_BLE_DEPENDENCIES
   nrf5_section
   nrf5_sha256_fwd
   nrf5_soc
+  nrf5_sortlist
   nrf5_stack_info
   nrf5_strerror
   nrf5_svc
@@ -898,8 +879,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_SERIAL_DEPENDENCIES
   nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -977,8 +956,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_SERIAL_UART_DEPENDENCIES
   nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -1070,8 +1047,6 @@ list(APPEND NRF5_LIBRARY_NRF5_DFU_SERIAL_USB_DEPENDENCIES
   nrf5_ext_utf_converter
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -1249,8 +1224,6 @@ list(APPEND NRF5_LIBRARY_NRF5_BOOTLOADER_FW_ACTIVATION_DEPENDENCIES
   nrf5_ext_nanopb
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -1307,8 +1280,6 @@ list(APPEND NRF5_LIBRARY_NRF5_BOOTLOADER_APP_START_DEPENDENCIES
   nrf5_ext_nanopb
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk
@@ -1383,8 +1354,6 @@ list(APPEND NRF5_LIBRARY_NRF5_BOOTLOADER_DEPENDENCIES
   nrf5_ext_optiga_fwd
   nrf5_fds
   nrf5_fstorage
-  nrf5_fstorage_nvmc
-  nrf5_fstorage_sd
   nrf5_log
   nrf5_log_fwd
   nrf5_mdk

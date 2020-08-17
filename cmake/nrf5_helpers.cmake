@@ -94,7 +94,7 @@ function(nrf5_get_board_target sdk_version board out_target out_define)
   set(${out_define} ${board_define} PARENT_SCOPE)
 endfunction()
 
-function(nrf5_get_target_flags sdk_version target out_target out_target_flags)
+function(nrf5_get_target_flags sdk_version target out_target out_target_short out_target_flags)
   # Handle aliases
   set(target_alias_nrf51801 nrf51801_xxab)
   set(target_alias_nrf51802 nrf51802_xxaa)
@@ -164,6 +164,7 @@ function(nrf5_get_target_flags sdk_version target out_target out_target_flags)
   set(nrf52840_flags -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DFLOAT_ABI_HARD)
 
   set(${out_target} ${target} PARENT_SCOPE)
+  set(${out_target_short} ${target_value} PARENT_SCOPE)
   set(${out_target_flags} ${${target_value}_flags} "-D${define_value}" PARENT_SCOPE)
 
 endfunction()
@@ -321,5 +322,22 @@ function(nrf5_get_softdevice_data sdk_path sdk_version target sd_variant out_sd_
   # Set output variables
   set(${out_sd_hex_file_path} "${hex_file_path}" PARENT_SCOPE)
   set(${out_sd_flags} ${sd_flags} PARENT_SCOPE)
+
+endfunction()
+
+function(nrf5_get_mbr_data sdk_path sdk_version target_short out_mbr_hex_file out_mbr_flags)
+  if(NRF5_SDK_VERSION VERSION_GREATER_EQUAL 16.0.0)
+    set(mbr_hex_pattern INTERFACE "${NRF5_SDK_PATH}/components/softdevice/mbr/hex/*.hex")
+  else()
+    set(mbr_hex_pattern INTERFACE "${NRF5_SDK_PATH}/components/softdevice/mbr/${target_short}/hex/*.hex")
+  endif()
+
+  nrf5_find_file_path_with_patterns("${mbr_hex_pattern}" mbr_hex_file)
+  if(NOT mbr_hex_file)
+    message(FATAL_ERROR "Cannot find MBR HEX file for the ${target_short} target inside SDK: ${mbr_hex_pattern}")
+  endif()
+
+  set(${out_mbr_hex_file} ${mbr_hex_file} PARENT_SCOPE)
+  set(${out_mbr_flags} "-DMBR_PRESENT" PARENT_SCOPE)
 
 endfunction()

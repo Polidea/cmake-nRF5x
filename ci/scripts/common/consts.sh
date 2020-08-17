@@ -17,6 +17,7 @@ LIBRARIES_DIR="$CI_DIR/libraries"
 LIBRARIES_TESTS_DIR="$CI_DIR/libraries_tests"
 TEMPLATES_DIR="$CI_DIR/templates"
 EXAMPLES_DIR="$CI_DIR/examples"
+CUSTOM_EXAMPLES_DIR="$CI_DIR/examples_custom"
 TOOLCHAINS_DIR="$CI_DIR/toolchains"
 TOOLS_DIR="$CI_DIR/tools"
 NRFJPROG_DIR="$TOOLS_DIR/nrf/nrfjprog/"
@@ -26,7 +27,9 @@ SDKS_DIR="$CI_DIR/sdks"
 # Regexp
 SD_REGEXP="^(s[1-9][0-9][0-9]|blank|mbr)$"
 VARIANT_REGEXP="(pca[0-9]{5})_(s[0-9]{3})"
+CMAKE_BUILD_TYPE_REGEXP="^(Debug|Release|RelWithDebInfo|MinSizeRel)$"
 CMAKE_LOG_LEVEL_REGEXP="^(TRACE|DEBUG|VERBOSE|STATUS|NOTICE|WARNING|ERROR)$"
+
 
 # Format
 BUILD_SUMMARY_ENTRY_FORMAT="%-48s%-16s%-16s%-16s%-16s%-16s\n"

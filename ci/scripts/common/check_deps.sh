@@ -23,6 +23,7 @@ check_binary chmod
 check_binary curl
 check_binary tar
 check_binary unzip
+check_binary jq
 check_binary cmake
 check_binary $PY3_EXE
 check_binary $PIP3_EXE

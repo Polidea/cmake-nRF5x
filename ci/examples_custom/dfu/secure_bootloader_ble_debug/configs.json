@@ -1,0 +1,34 @@
+{
+  "pca10040": {
+    "s132": {
+      "sdk_min_version": "16.0.0",
+      "build_type": "MinSizeRel",
+      "sdk_config_path": "examples/dfu/secure_bootloader/pca10040_s132_ble_debug/config",
+      "linker_script": "examples/dfu/secure_bootloader/pca10040_s132_ble_debug/armgcc/secure_bootloader_gcc_nrf52.ld"
+    }
+  },
+  "pca10040e": {
+    "s112": {
+      "sdk_min_version": "16.0.0",
+      "build_type": "MinSizeRel",
+      "sdk_config_path": "examples/dfu/secure_bootloader/pca10040e_s112_ble_debug/config",
+      "linker_script": "examples/dfu/secure_bootloader/pca10040e_s112_ble_debug/armgcc/secure_bootloader_gcc_nrf52.ld"
+    }
+  },
+  "pca10056": {
+    "s140": {
+      "sdk_min_version": "16.0.0",
+      "build_type": "MinSizeRel",
+      "sdk_config_path": "examples/dfu/secure_bootloader/pca10056_s140_ble_debug/config",
+      "linker_script": "examples/dfu/secure_bootloader/pca10056_s140_ble_debug/armgcc/secure_bootloader_gcc_nrf52.ld"
+    }
+  },
+  "pca10056e": {
+    "s112": {
+      "sdk_min_version": "16.0.0",
+      "build_type": "MinSizeRel",
+      "sdk_config_path": "examples/dfu/secure_bootloader/pca10056e_s112_ble_debug/config",
+      "linker_script": "examples/dfu/secure_bootloader/pca10056e_s112_ble_debug/armgcc/secure_bootloader_gcc_nrf52.ld"
+    }
+  }
+}
