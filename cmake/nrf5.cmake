@@ -201,6 +201,8 @@ endif()
 
 # Microcontroller Development Kit (MDK)
 nrf5_get_startup_file(${NRF5_SDK_PATH} ${NRF5_TARGET} out_startup_file out_system_file)
+message(STATUS "Using startup file: ${out_startup_file}")
+message(STATUS "Using system file: ${out_system_file}")
 
 add_library(nrf5_mdk OBJECT EXCLUDE_FROM_ALL
   "${out_startup_file}"
