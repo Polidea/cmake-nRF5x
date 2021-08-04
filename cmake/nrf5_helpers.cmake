@@ -225,7 +225,7 @@ function(nrf5_get_startup_file sdk_path target out_startup_file out_system_file)
   set(${out_system_file} "${system_file}" PARENT_SCOPE)
 endfunction()
 
-function(nrf5_get_softdevice_data sdk_path sdk_version target sd_variant out_sd_hex_file_path out_sd_flags)
+function(nrf5_get_softdevice_data sdk_path sdk_version target sd_variant out_sd_hex_file_path out_sd_flags out_sd_id)
   # If we have blank or mbr sd_variant then continue...
   if(sd_variant MATCHES "^(blank|mbr)$")
     return()
@@ -278,27 +278,29 @@ function(nrf5_get_softdevice_data sdk_path sdk_version target sd_variant out_sd_
   set(sd_key_version 0)
   set(sd_key_use_ble 1)
   set(sd_key_use_ant 2)
+  set(sd_key_id 3)
 
-  set(softdevice_15.3.0_s112 6.1.1 YES NO)
-  set(softdevice_15.3.0_s132 6.1.1 YES NO)
-  set(softdevice_15.3.0_s140 6.1.1 YES NO)
-  set(softdevice_15.3.0_s212 6.1.1 NO YES)
-  set(softdevice_15.3.0_s312 6.1.1 YES YES)
-  set(softdevice_15.3.0_s332 6.1.1 YES YES)
-  set(softdevice_15.3.0_s340 6.1.1 YES YES)
+  set(softdevice_15.3.0_s112 6.1.1 YES NO 0xB8)
+  set(softdevice_15.3.0_s132 6.1.1 YES NO 0xB7)
+  set(softdevice_15.3.0_s140 6.1.1 YES NO 0xB6)
+  set(softdevice_15.3.0_s212 6.1.1 NO YES 0xBC)
+  set(softdevice_15.3.0_s312 6.1.1 YES YES 0xBB) #todo this may be wrong!
+  set(softdevice_15.3.0_s332 6.1.1 YES YES 0xBA)
+  set(softdevice_15.3.0_s340 6.1.1 YES YES 0xB9)
 
-  set(softdevice_16.0.0_s112 7.0.1 YES NO)
-  set(softdevice_16.0.0_s113 7.0.1 YES NO)
-  set(softdevice_16.0.0_s132 7.0.1 YES NO)
-  set(softdevice_16.0.0_s140 7.0.1 YES NO)
-  set(softdevice_16.0.0_s212 6.1.1 NO YES)
-  set(softdevice_16.0.0_s312 6.1.1 YES YES)
-  set(softdevice_16.0.0_s332 6.1.1 YES YES)
-  set(softdevice_16.0.0_s340 6.1.1 YES YES)
+  set(softdevice_16.0.0_s112 7.0.1 YES NO 0xCD)
+  set(softdevice_16.0.0_s113 7.0.1 YES NO 0xCC)
+  set(softdevice_16.0.0_s132 7.0.1 YES NO 0xCB)
+  set(softdevice_16.0.0_s140 7.0.1 YES NO 0xCA)
+  set(softdevice_16.0.0_s212 6.1.1 NO YES 0xBC)
+  set(softdevice_16.0.0_s312 6.1.1 YES YES 0xBB) #todo this may be wrong!
+  set(softdevice_16.0.0_s332 6.1.1 YES YES 0xBA)
+  set(softdevice_16.0.0_s340 6.1.1 YES YES 0xB9)
 
   list(GET softdevice_${sdk_version}_${sd_variant} ${sd_key_version} sd_version)
   list(GET softdevice_${sdk_version}_${sd_variant} ${sd_key_use_ble} sd_use_ble)
   list(GET softdevice_${sdk_version}_${sd_variant} ${sd_key_use_ant} sd_use_ant)
+  list(GET softdevice_${sdk_version}_${sd_variant} ${sd_key_id} sd_id)
   string(REGEX REPLACE "\.[0-9]\.[0-9]" "" sd_version_major ${sd_version})
 
   # Check if hex file is present.
@@ -322,6 +324,7 @@ function(nrf5_get_softdevice_data sdk_path sdk_version target sd_variant out_sd_
   # Set output variables
   set(${out_sd_hex_file_path} "${hex_file_path}" PARENT_SCOPE)
   set(${out_sd_flags} ${sd_flags} PARENT_SCOPE)
+  set(${out_sd_id} ${sd_id} PARENT_SCOPE)
 
 endfunction()
 
