@@ -284,7 +284,7 @@ function(nrf5_get_softdevice_data sdk_path sdk_version target sd_variant out_sd_
   set(softdevice_15.3.0_s132 6.1.1 YES NO 0xB7)
   set(softdevice_15.3.0_s140 6.1.1 YES NO 0xB6)
   set(softdevice_15.3.0_s212 6.1.1 NO YES 0xBC)
-  set(softdevice_15.3.0_s312 6.1.1 YES YES 0xBB) #todo this may be wrong!
+  set(softdevice_15.3.0_s312 6.1.1 YES YES 0xBB)
   set(softdevice_15.3.0_s332 6.1.1 YES YES 0xBA)
   set(softdevice_15.3.0_s340 6.1.1 YES YES 0xB9)
 
@@ -293,7 +293,7 @@ function(nrf5_get_softdevice_data sdk_path sdk_version target sd_variant out_sd_
   set(softdevice_16.0.0_s132 7.0.1 YES NO 0xCB)
   set(softdevice_16.0.0_s140 7.0.1 YES NO 0xCA)
   set(softdevice_16.0.0_s212 6.1.1 NO YES 0xBC)
-  set(softdevice_16.0.0_s312 6.1.1 YES YES 0xBB) #todo this may be wrong!
+  set(softdevice_16.0.0_s312 6.1.1 YES YES 0xBB)
   set(softdevice_16.0.0_s332 6.1.1 YES YES 0xBA)
   set(softdevice_16.0.0_s340 6.1.1 YES YES 0xB9)
 
