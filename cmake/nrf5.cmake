@@ -280,6 +280,11 @@ function(nrf5_target exec_target)
     "-L${NRF5_SDK_PATH}/modules/nrfx/mdk"
     "-T${NRF5_LINKER_SCRIPT}"
   )
+  set_property(TARGET ${exec_target}
+          APPEND
+          PROPERTY
+          LINK_DEPENDS ${NRF5_LINKER_SCRIPT}
+  )
   # Print size information after build
   add_custom_command(TARGET ${exec_target} POST_BUILD
     COMMAND ${CMAKE_SIZE_BIN} "${exec_target}"
